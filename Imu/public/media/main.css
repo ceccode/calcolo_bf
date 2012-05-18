@@ -1,0 +1,499 @@
+/* 
+    Document   : main.css
+    Created on : 5-dic-2011, 22.34.54
+    Author     : francesco
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body {
+    font-family: Lucida, verdana;
+    background-color: #fff;
+    color: black;
+    font-size: 14px;
+    margin: auto;
+    width: 1000px ;
+}
+
+#header {
+    height: 100px;
+}
+#name {
+    height: 100px;
+    float: left;
+}
+#logo {
+    height: 100px;
+    float: right;
+}
+
+#content{
+    min-height: 200px;  
+    border: 8px solid #dcdcdc;
+    padding: 10px;
+    overflow:auto;
+/*    background-color: #dcdcdc;*/
+}
+
+#footer {
+    height: 50px;
+}
+
+.login{
+    float: right;
+}
+
+
+/* /////////// tipography //////// */
+.left{
+    float: left;
+}
+
+.pad-lr{
+    padding-left: 10px;
+    padding-right: 10px;    
+}
+
+.right{
+    float: right;
+}
+
+h1 {
+    color: navy;    
+}
+
+#name a{
+    text-decoration: none;
+}
+
+#name h1{
+    color: #333;
+    font-size: 2.3em;
+    margin-bottom: 5px;    
+}
+
+h2 {
+    font-size: 1.2em;
+/*    color: #008000; */
+    color: navy;
+}
+
+a {
+/*    color: #008000; */
+    color: navy;
+}
+
+#creazione p {
+    padding-bottom: 5px;
+}
+
+.no-pad-top {
+    padding-top: 0px;
+}
+.no-mar-top {
+    margin-top: 0px;
+}
+.no-mar-bot {
+    margin-bottom: 0px;
+}
+
+.button{
+    cursor: pointer;
+    background-color: #DCDCDC;
+    border-radius: 5px 5px 5px 5px;
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    border: 1px solid #FFF;
+}
+
+.doc-button{
+    margin: 5px;
+    display: inline-block;    
+}
+
+.button:hover{
+    border: 1px solid #D6b6b6;
+}
+
+/* ////////// Table  /////////// */
+table{
+    border: 1px solid #cccccf;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+tr.odd{
+    background-color: #cccccf;
+}
+
+td{
+    padding: 3px 3px;    
+}
+
+td.odd{
+
+}
+
+.table {
+    
+    border-color: Gray;
+    border-style: groove;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-width: 1px;
+    
+    /*border-collapse: collapse;*/
+    font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+    font-size: 14px;
+    margin: 0px;
+    text-align: left; 
+}
+
+.th {
+    border-bottom: 2px solid #6678B1;
+    color: #003399;
+    font-size: 12px;
+    font-weight: normal;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+.td {   
+    border-bottom: 1px solid #CCCCCC;
+    color: #666699;
+    padding: 5px 5px;    
+}
+
+.tr:hover td {
+    color: #000099;
+}
+.informazioni-generali{
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #CCCCCC;
+}
+
+#risultati-processi{
+    font-size: 12px;
+    width: 500px;
+}
+#risultati-processi-conclusi{
+    font-size: 12px;
+    width: 500px;    
+}
+
+
+/** /// div /// **/
+
+
+#info-persona{
+    border: 1px dotted gray;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    
+}
+
+#risultati-persona{
+    border-bottom: 1px dotted gray;
+    border-left: 1px dotted gray;
+    border-right: 1px dotted gray;    
+    margin-top: 0px;
+    margin-bottom: 10px;
+    width: 442px;
+    font-size: 11px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+#risultati-persona td{    
+    padding-right: 10px;
+    border: none;
+}
+
+#risultati-persona td a{
+}
+
+#risultati-persona tr.riga:hover{
+    background-color: #736AFF;
+    color: white;
+}
+
+#risultati-persona tr.riga:hover a{
+    color: white;
+}
+
+.result{
+    margin-left: 287px;
+/*    padding: 3px;*/
+/*    width: 200px;*/
+    background-color: #F4F4F4;
+    position:absolute;
+/*    z-index:1000;   */
+    
+}
+
+/* /////////// style form ////////// */
+form dt {
+    width: 280px;
+    display: block;
+    float: left;
+    clear: left;
+    padding: 5px;
+}
+
+form.informa dt {
+    width: 348px;
+    display: block;
+    float: left;
+    clear: left;
+    padding: 5px;   
+}
+form dd {
+    margin-left: 0;
+  /*float: left;*/
+    float: none;
+    padding: 5px;    
+}
+form #submitbutton {
+    margin-left: 100px;
+}
+
+form label {
+    width: 150px;
+}
+
+.messaggio{
+    /*padding: 5px;*/
+    color: red;
+}
+
+/* ////// Erorr //////// */
+ul.errors{
+    list-style: none;
+    color: red;
+    margin: 0px;
+    padding: 0px    
+}
+
+/* ///////// Admin Bar ////////// */
+.admin-bar{
+    width: 100%;
+    height: 40px;
+    padding: 20px 0px 0px 5px;
+    background-color: #316ac5;
+    /*background-color: #2B65EC;*/
+    }
+
+.admin-bar ul{
+    margin: 0; 
+    padding: 0;
+/*    float: left;*/
+}
+ 
+.admin-bar ul li{
+    display: inline;
+    margin-right: 5px;    
+}
+ 
+.admin-bar ul li a{
+    text-decoration: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #dcdcdc;
+    color: navy;
+/*    opacity: 0.4;   */
+    padding: 10px;
+    /*
+    float: left;
+    text-decoration: none;
+    color: white;
+    padding: 10.5px 11px;
+    background-color: #316ac5; 
+    */
+    }
+ 
+.admin-bar ul li a:visited{
+    color: navy;
+}
+ 
+.admin-bar ul li a:hover, .menu_cliente ul li .current{
+    text-decoration: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: white;
+    color: navy;
+    opacity: 1;    
+}
+
+
+/* /////// persona, pannello in alto ///////  */
+.persone{
+    width: 99%;
+    
+}
+
+/* ////// persona index par crea processo ///// */
+.par_crea_processo{
+   margin-bottom: 22px;
+   font-weight: bold;
+   margin-top: 25px;
+}
+
+/* /////// notifica ///////  */
+.notifica{
+    width: 99%; 
+    background-color: red;
+    color: white;
+/*    padding: 5px;*/
+    
+}
+
+
+#statistiche{
+/*    width: 430px;*/
+    width: 500px;    
+/*    border: solid #000 1px;*/
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding-top: 0;
+    padding-right: 10px;
+}
+
+/* /////// ricerca ////////  */
+#ricerca{
+    width: 420px;
+/*    width: 480px;*/
+/*    border: solid #000 1px; */
+    margin-bottom: 10px;  
+    padding: 10px;
+}
+
+
+#creazione{
+/*    width: 480px;*/
+/*    width: 494px;*/
+    width: 424px;
+/*    border: solid #000 1px; */
+    margin-bottom: 10px;  
+    padding: 10px;
+    min-height: 65px;    
+}
+
+#gestione{
+    width: 450px;
+/*    border: solid #000 1px; */
+    margin-right: 10px; 
+    margin-bottom: 10px;  
+    padding: 10px;    
+}
+
+
+
+/* ////////// footer /////////// */
+#footer a{
+    color: #333;
+}
+#footer a:hover{
+    color: #F52D0F
+}
+
+/* ///// inizio tabella form 2 //////*/
+.grigio{
+    background-color: #CCCCCC;
+}
+.border_sotto{
+   border-bottom: 1px solid black;
+}
+.border_destra{
+    border-right: 1px solid black;    
+}
+.border_tutto{
+    border: 1px solid black;
+}
+
+#div_form_2{
+    width: 784px;
+    height: 400px;
+    overflow:auto;
+}
+#header_destinazione_uso{
+    width: 200px;
+    height: 45px;
+    padding:0;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+#corpo_destinazione_uso{
+    width: 200px;
+    padding-top:5px;
+    padding-left: 10px;
+}
+#header_quota_massima_ammissibile{
+    width: 120px;
+    height: 45px;
+    padding-left :10px;
+    padding-top: 10px;
+}
+#corpo_quota_massima_ammissibile{
+    width: 120px;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+#header_soglia_dimensione_massima{
+    width: 130px;
+    height: 45px;
+    padding-left :10px;
+    padding-top: 10px;
+}
+#corpo_soglia_dimensione_massima{
+    width: 130px;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+#header_peso_standard{
+    width: 130px;
+    height: 45px;
+    padding-left :10px;
+    padding-top: 10px;
+}
+#corpo_peso_standard{
+    width: 130px;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+#header_quota_progetto{
+    width: 150px;
+    height: 45px;
+    padding-left :10px;
+    padding-top: 10px;
+}
+#corpo_quota_progetto{
+    width: 150px;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+.blocco_tabella2{
+    height: 33px;
+    margin-top: auto;
+    margin-bottom:auto;
+    width:100%;
+}
+#calcolo_imu_lonato_step2 .zend_form{
+    margin-top: 0px;
+}
+#calcolo_imu_lonato_step2 dt{
+    display:none;
+}
+#calcolo_imu_lonato_step2 dd{
+    margin-top: 8px;
+    margin-bottom:8px;
+    padding: 0;
+}
+/* ////// fine tabella form 2 ////// */
+
+
+/* ////////////////////////////////// */
+/* extr content */
+cec {
+    float: right;
+}

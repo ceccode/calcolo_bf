@@ -1,0 +1,90 @@
+<modify-entry
+   name="stima.php"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="35"
+   committed-date="2012-05-18T14:40:24.424132Z"
+   name="stima.php"
+   last-author="intrip"
+   uuid="912ba71c-a393-cc78-e896-85c51aa9213f"/>
+<modify-wcprop
+   name="stima.php"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/!svn/ver/35/trunk/application/models/Elaborazione/stima.php"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stima.php"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="35"/>
+<cp-and-translate
+   dest="stima.php"
+   name=".svn/tmp/text-base/stima.php.svn-base"/>
+<mv
+   dest=".svn/text-base/stima.php.svn-base"
+   name=".svn/tmp/text-base/stima.php.svn-base"/>
+<readonly
+   name=".svn/text-base/stima.php.svn-base"/>
+<modify-entry
+   name="stima.php"
+   checksum="68f0dafb5088653bf33a64a4d624767e"/>
+<modify-entry
+   name="stima.php"
+   text-time="working"/>
+<modify-entry
+   name="stima.php"
+   working-size="working"/>
+<modify-entry
+   name="Stima.php"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="35"
+   committed-date="2012-05-18T14:40:24.424132Z"
+   name="Stima.php"
+   last-author="intrip"
+   uuid="912ba71c-a393-cc78-e896-85c51aa9213f"/>
+<modify-wcprop
+   name="Stima.php"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/!svn/ver/35/trunk/application/models/Elaborazione/Stima.php"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="Stima.php"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="35"/>
+<cp-and-translate
+   dest="Stima.php"
+   name=".svn/tmp/text-base/Stima.php.svn-base"/>
+<mv
+   dest=".svn/text-base/Stima.php.svn-base"
+   name=".svn/tmp/text-base/Stima.php.svn-base"/>
+<readonly
+   name=".svn/text-base/Stima.php.svn-base"/>
+<modify-entry
+   name="Stima.php"
+   checksum="68f0dafb5088653bf33a64a4d624767e"/>
+<modify-entry
+   name="Stima.php"
+   text-time="working"/>
+<modify-entry
+   name="Stima.php"
+   working-size="working"/>
+<modify-entry
+   committed-rev="35"
+   committed-date="2012-05-18T14:40:24.424132Z"
+   name=""
+   last-author="intrip"
+   uuid="912ba71c-a393-cc78-e896-85c51aa9213f"/>
+<modify-wcprop
+   name=""
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/!svn/ver/35/trunk/application/models/Elaborazione"/>

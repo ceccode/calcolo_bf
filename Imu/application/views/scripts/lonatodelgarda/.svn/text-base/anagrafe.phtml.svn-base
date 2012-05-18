@@ -1,0 +1,22 @@
+<table style="float:right; font-size: 15px;">
+        <tr class="odd">
+            <td>Capacità edificatoria calcolata (m3) </td>
+            <td>2000</td>        
+        </tr>
+        <tr>
+            <td>Valore area calcolata (Euro/m3) </td>
+            <td>123</td>        
+        </tr>
+        <tr class="odd">
+            <td>Valore area edificabile (Euro/m3) </td>
+            <td>69.000</td>        
+        </tr>    
+</table>
+<?=$this->form?>
+
+<div style="clear:both"></div>
+
+<a class="button doc-button" href="<?=$this->url(array('controller'=>'Lonatodelgarda',
+                                  'action'=>'index'),
+                                  null, TRUE);?>">Ricalcola</a>
+

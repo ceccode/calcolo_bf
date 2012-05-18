@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/14/trunk/tests/application/controllers
+END
+IndexControllerTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/tests/application/controllers/IndexControllerTest.php
+END
+LonatodelgardaControllerTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/5/trunk/tests/application/controllers/LonatodelgardaControllerTest.php
+END
+AjaxControllerTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/14/trunk/tests/application/controllers/AjaxControllerTest.php
+END

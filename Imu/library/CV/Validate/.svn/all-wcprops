@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/179/trunk/library/CV/Validate
+END
+isValidDate.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/126/trunk/library/CV/Validate/isValidDate.php
+END
+isValidPIVA.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/26/trunk/library/CV/Validate/isValidPIVA.php
+END
+isValidCF.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/179/trunk/library/CV/Validate/isValidCF.php
+END

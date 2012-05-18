@@ -1,0 +1,101 @@
+<!--[if !IE 7]>
+    <style type="text/css">
+            #wrap {display:table;height:100%}
+    </style>
+<![endif]-->
+<?=$this->headMeta();?>
+<?=$this->headTitle();?>
+<!--
+    <link rel="shortcut icon" href="images/favicon.gif" type="image/gif" />
+-->
+<?php
+/*
+ * css
+ */
+$this->headLink()->prependStylesheet($this->baseUrl().'/media/main.css');
+?>
+<?php
+/*
+ * js
+ */
+$this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js');
+?>
+<script type="text/javascript">
+function selSubAmbiti(idMacroAmbito){
+    $.getJSON('http://localhost:10095/public/Ajax/search-subambiti', 
+        { categoria: idMacroAmbito},
+              function(dataNorme){
+                console.log(dataNorme);
+                $("select[id='id_u_sambiti']").empty();
+                var options = '<option value="">-- seleziona --</option>';
+                var arraySubAmbiti = dataNorme;
+
+               $.each(arraySubAmbiti, function(key, value){
+                   console.log(value);
+                   options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
+               });                   
+                $("select[id='id_u_sambiti']").html(options);
+
+              });
+
+}
+
+function inputVolumetria(idSubAmbito){
+    $.getJSON('http://localhost:10095/public/Ajax/search-volumetria', 
+        { categoria: idSubAmbito},
+              function(dataNorme){
+                console.log(dataNorme);                
+                if (dataNorme.descrizione == "V3"){
+                    $("#cepp-label").hide();
+                    $("#cepp-element").hide(); 
+                    
+                }else {
+                    
+                    var label = 'imputare volumetria';
+                    switch (dataNorme.descrizione) {
+                        case "V1": label = 'inputare volumetria preesistente';
+                        break;
+                        case "V2": label = 'imputare volumetria predefinita';
+                        break;
+                        case "V4": label = 'inputare volumetria preesistente';
+                        break;
+                        case "U1": label = 'inputare voumetria slp preesistente';
+                        break;
+                        case "U2": label = 'imputare slp predefinita';
+                        break;
+                        case "U4": label = 'inputare voumetria slp preesistente';
+                        break;
+                    }
+
+                    $("#cepp-label").text(label);
+                    $("#cepp-label").show();
+                    $("#cepp-element").show();
+                }
+
+              });
+
+}
+
+
+function selModalitaIntervento(urbanizzato){
+    $.getJSON('http://localhost:10095/public/Ajax/search-modalitaintervento', 
+        { categoria: urbanizzato},
+              function(dataNorme){
+                console.log(dataNorme);
+                $("select[id='id_u_modinterv']").empty();
+                var options = '<option value="">-- seleziona --</option>';
+                var arrayModalitaintervento = dataNorme;
+
+               $.each(arrayModalitaintervento, function(key, value){
+                   console.log(value);
+                   options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
+               });           
+                $("select[id='id_u_modinterv']").html(options);
+
+              });                      
+}
+
+
+</script>
+<?=$this->headLink();?>    
+<?=$this->headScript();?>

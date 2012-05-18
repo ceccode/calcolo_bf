@@ -1,0 +1,6 @@
+<div id="footer">
+    <p>
+       <span class="jelli">&copy; 2012 | <a href="#">Imu Lonato</a></span>
+       <span class="login"><?=''?></span>
+    </p>
+</div>
