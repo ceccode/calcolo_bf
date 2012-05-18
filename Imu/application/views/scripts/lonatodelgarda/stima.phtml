@@ -1,4 +1,4 @@
-<?
+<?php
 $values = $this->values;
 
 $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");        
@@ -106,6 +106,12 @@ $this->headTitle("Calcolo imu lonato");
     </table>
 </div> 
 <div style="clear:both"></div>
+
+<?php 
+    require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+    $percentuale = array("0.5","0.5","0","0","0","0","0","0"); // 8 valori prendi il secondo e tutti come sottocat 
+    echo "<br/><br/>STIMA::::: " . Stima::stimaSingolaLonato($stmt5, $percentuale) ."<br/><br/>";
+?>
 
 <a class="button doc-button" href="<?=$this->url(array('controller'=>'Lonatodelgarda',
                                   'action'=>'index'),
