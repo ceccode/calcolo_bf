@@ -1,36 +1,36 @@
-<?php 
+<?php
 $session = new Zend_Session_Namespace('step1');
 
 
 $values = $this->values;
 
-$lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");        
+$lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
 $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
 ?>
 <table style="float:right; font-size: 15px;">
-        <tr class="odd">
-            <td>Capacità edificatoria calcolata (m3) </td>
-            <td>2000</td>        
-        </tr>
-        <tr>
-            <td>Valore area calcolata</td>
-            <td><?= $session->stimaUnitaria ?></td>        
-        </tr>
-        <tr class="odd">
-            <td>Valore area edificabile (Euro/m3) </td>
-            <td>69.000</td>        
-        </tr>    
+    <tr class="odd">
+        <td>Capacità edificatoria calcolata (m3) </td>
+        <td>2000</td>        
+    </tr>
+    <tr>
+        <td>Valore area calcolata</td>
+        <td><?= $session->stimaUnitaria ?></td>        
+    </tr>
+    <tr class="odd">
+        <td>Valore area edificabile (Euro/m3) </td>
+        <td>69.000</td>        
+    </tr>    
 </table>
-<?=$this->form?>
+<?= $this->form ?>
 
-<?php 
+<?php
 echo "<pre>";
 print_r($session->step2);
 echo "</pre>";
 ?>
 <div style="clear:both"></div>
 
-<a class="button doc-button" href="<?=$this->url(array('controller'=>'Lonatodelgarda',
-                                  'action'=>'index'),
-                                  null, TRUE);?>">Ricalcola</a>
+<a class="button doc-button" href="<?=
+$this->url(array('controller' => 'Lonatodelgarda',
+    'action' => 'index'), null, TRUE);?>">Ricalcola</a>
 
