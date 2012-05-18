@@ -41,11 +41,11 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
             
             //cepp
             $this->addElement('text', $id, array(
-                //'label'      => $label,
-                'validators' => array(
-                    array('validator' => 'float'
-                        )
-                    )
+                'label'      => $label,
+                //'validators' => array(
+                //    array('validator' => 'float'
+                //        )
+               //     )
             ));
             
         }        

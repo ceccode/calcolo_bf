@@ -1,72 +1,30 @@
 <?php
 $values = $this->values;
 
-$lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");        
+$lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
 $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
 
-$this->headTitle("Calcolo imu lonato"); 
-
+$this->headTitle("Calcolo imu lonato");
 ?>
-<div id="div_form_2" class="border_tutto"> <!-- div con i dati form 2 -->
-    <div class="left"> <!-- colonna1 -->
-        <div id="header_destinazione_uso" class="border_sotto border_destra grigio">Destinazione d'uso ammessa</div>
-        <div id="corpo_destinazione_uso" class="border_destra">
-            <?php foreach( $stmt5 as $chiave => $valore): ?>
-            <div class="blocco_tabella2"><?= $valore['descrizione'] ?></div>
-            <?php endforeach;?>
-        </div>
-    </div>
-    
-    <div class="left"> <!-- colonna2 -->
-        <div id="header_quota_massima_ammissibile" class="border_sotto border_destra grigio">Quota massima ammissibile</div>
-        <div id="corpo_quota_massima_ammissibile" class="border_destra">
-            <?php foreach( $stmt5 as $chiave => $valore): ?>
-            <div class="blocco_tabella2"><?= $valore['quota_massima_ammissibile'] ?></div>
-            <?php endforeach;?>
-        </div>
-    </div>
-    
-    <div class="left"> <!-- colonna3 -->
-        <div id="header_soglia_dimensione_massima" class="border_sotto border_destra grigio">Soglia dimensione massima</div>
-        <div id="corpo_soglia_dimensione_massima" class="border_destra">
-            <?php foreach( $stmt5 as $chiave => $valore): ?>
-            <div class="blocco_tabella2"><?= $valore['soglia_dimensione_massima'] ?></div>
-            <?php endforeach;?>
-        </div>
-    </div>
-    
-    <div class="left"> <!-- colonna4 -->
-        <div id="header_peso_standard" class="border_sotto border_destra grigio">Peso standard della destinazione</div>
-        <div id="corpo_peso_standard" class="border_destra"></div>
-    </div>
-    
-    <div class="left"> <!-- colonna5 -->
-        <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto</div>
-        <div id="corpo_quota_progetto">
-            <?= $this->form; ?>
-        </div>
-    </div>
-</div>
-
-
 <div id="risultati_calcolo_stima">
-    <!-- stima -->
-    <table style="float:left; font-size: 15px;">
-        <tr class="odd">
-            <td>Capacità edificatoria calcolata (m3) </td>
-            <td>2000</td>        
-        </tr>
-        <tr>
-            <td>Valore area calcolata (Euro/m3) </td>
-            <td>123</td>        
-        </tr>
-        <tr class="odd">
-            <td>Valore area edificabile (Euro/m3) </td>
-            <td>69.000</td>        
-        </tr>    
-    </table>
+    
+<!-- stima -->
+<table style="font-size: 12px;" class="left">
+    <tr class="odd">
+        <td>Capacità edificatoria calcolata (m3) </td>
+        <td>2000</td>        
+    </tr>
+    <tr>
+        <td>Valore area calcolata (Euro/m3) </td>
+        <td>123</td>        
+    </tr>
+    <tr class="odd">
+        <td>Valore area edificabile (Euro/m3) </td>
+        <td>69.000</td>        
+    </tr>    
+</table>
     <!-- indici -->
-    <table style="float:right">
+    <table style="float:left; margin-bottom: 10px; margin-left: 170px;">
         <tr class="odd">
             <td>Incidenza viabilità</td>
             <td>0,3</td>        
@@ -105,16 +63,54 @@ $this->headTitle("Calcolo imu lonato");
         </tr>    
     </table>
 </div> 
+<div id="div_form_2" class="border_tutto"> <!-- div con i dati form 2 -->
+    <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
+        <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
+        <div id="corpo_destinazione_uso">
+            <?php foreach ($stmt5 as $chiave => $valore): ?>
+                <div class="blocco_tabella2"><?= $valore['descrizione'] ?></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <div class="left copri_tabella2 border_destra"> <!-- colonna2 -->
+        <div id="header_quota_massima_ammissibile" class="border_sotto  grigio">Quota massima ammissibile</div>
+        <div id="corpo_quota_massima_ammissibile" >
+            <?php foreach ($stmt5 as $chiave => $valore): ?>
+                <div class="blocco_tabella2"><?= $valore['quota_massima_ammissibile'] ?></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <div class="left copri_tabella2 border_destra"> <!-- colonna3 -->
+        <div id="header_soglia_dimensione_massima" class="border_sotto  grigio">Soglia dimensione massima</div>
+        <div id="corpo_soglia_dimensione_massima">
+            <?php foreach ($stmt5 as $chiave => $valore): ?>
+                <div class="blocco_tabella2"><?= $valore['soglia_dimensione_massima'] ?></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <div class="left copri_tabella2 border_destra"> <!-- colonna4 -->
+        <div id="header_peso_standard" class="border_sotto  grigio">Peso standard della destinazione</div>
+        <div id="corpo_peso_standard">
+            <?php foreach ($stmt5 as $chiave => $valore): ?>
+                <div class="blocco_tabella2"><?= $valore['quota_percentuale'] ?></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <div class="left copri_tabella2"> <!-- colonna5 -->
+        <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto</div>
+        <div id="corpo_quota_progetto">
+            <?= $this->form; ?>
+        </div>
+    </div>
+</div>
 <div style="clear:both"></div>
-
-<?php 
-    require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
-    $percentuale = array("0.5","0.5","0","0","0","0","0","0"); // 8 valori prendi il secondo e tutti come sottocat 
-    echo "<br/><br/>STIMA::::: " . Stima::stimaSingolaLonato($stmt5, $percentuale) ."<br/><br/>";
-?>
-
-<a class="button doc-button" href="<?=$this->url(array('controller'=>'Lonatodelgarda',
-                                  'action'=>'index'),
-                                  null, TRUE);?>">Ricalcola</a>
+<a class="button doc-button" href="<?=
+$this->url(array('controller' => 'Lonatodelgarda',
+    'action' => 'index'), null, TRUE);
+?>">Ricalcola</a>
 
 

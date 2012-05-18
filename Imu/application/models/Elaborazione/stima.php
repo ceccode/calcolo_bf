@@ -24,7 +24,7 @@ class Stima {
         $session = new Zend_Session_Namespace('step1');
         $valoriForm1 = $session->step1;
 
-        var_dump($valoriForm1);
+        //var_dump($valoriForm1);
         //var_dump($form2);
 
         foreach ($form2 as $chiaveForm2 => $valoriForm2) { // perogni riga del form2
@@ -41,7 +41,8 @@ class Stima {
                     $stima_unitaria = $riga->stima_riferimento_unitaria_superficie;
                 }
                 else
-                    throw new Exception("Errore in Stima.php: la stima di riferimento unitaria è errata");
+                    throw new Exception("Errore
+                        in Stima.php: la stima di riferimento unitaria è errata");
             }
             if ($form2Input) { // se l'utente ha messo una quota percentuale calcola la parte
                 if ($valoriForm1["area_urbanizzata"] == 1) { // se la zona è urbanizzata
@@ -75,17 +76,17 @@ class Stima {
 
                     // calcolo indice capacità edificatoria
                     if ($tipo_stima[0] == "v")
-                        $indice_capacità_edificatoria = 1; // aggiusta
+                        $indice_capacità_edificatoria = floatval($valoriForm1["capacita_edificatoria"]) / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
                     elseif ($tipo_stima[0] == "u")
-                        $indice_capacità_edificatoria = 1; // aggiusta
+                        $indice_capacità_edificatoria = floatval($valoriForm1["capacita_edificatoria"]) *3  / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
                     else
-                        throw new Exception("Errore in stima: cacolo indice capacità edificatoria");
+                        throw new Exception("Errore in Stima.php: cacolo indice capacità edificatoria");
 
                     // incidenza costo viabilità sull'indice edificatorio
                     $fiv=0;
                     // incidenza standard
                     $fispq=3;
-                    // incidenza viabilità INPUT UTENTE!!!
+                    // incidenza viabilità INPUT UTENTE!!! CHIEDI A DIEGO
                     $incidenza_viabilità=0.2;
                     // costo unitario della viabilità ceduta: espresso in euro/mq
                     // da implementare una tabella start ove leggere questo valore
@@ -110,26 +111,26 @@ class Stima {
                     // fattore incidenza degli standard di qualità
                     $fattore_incidenza_standard_qualità=$standard_pubblico_qualita/$fcspq;
                     // se il tipo di stma è v faccio questo calcolo
-                    $fattore_incidenza_calcolo_cessioni= $fattore_incidenza_standard * $costo_cessione_standard + 
-                                                             $fattore_incidenza_viabilità * $costo_cessione_viabilità +
-                                                             $fattore_incidenza_standard_qualità * $valore_comprensativo_unitario;
+                    $fattore_incidenza_calcolo_cessioni= floatval($fattore_incidenza_standard) * floatval($costo_cessione_standard) + 
+                                                             floatval($fattore_incidenza_viabilità) * floatval($costo_cessione_viabilità) +
+                                                             floatval($fattore_incidenza_standard_qualità) * floatval($valore_comprensativo_unitario);
                     // a seconda del tipo di stima
                     if($tipo_stima[0]=="v"){
                         // ho già i dati
                     }elseif($tipo_stima[0]=="u"){
-                        $fattore_incidenza_calcolo_cessioni=$fattore_incidenza_calcolo_cessioni*$fattore_conversione;
+                        $fattore_incidenza_calcolo_cessioni=floatval($fattore_incidenza_calcolo_cessioni)*floatval($fattore_conversione);
                     }  else 
-                        throw new Exception('Errore nel tipo di stima "v" o "u"');
+                        throw new Exception('Errore in Stima.php: nel tipo di stima "v" o "u"');
                     
                     // calcolo la stima di una riga
-                    $tstima=($stima_unitaria * (1/ (1+ $frate) ^ $orizzonte_temporale) - $fattore_incidenza_calcolo_cessioni) 
-                            * $form2Input[$chiaveForm2];
+                    $tstima=(floatval($stima_unitaria) * (1/ (1+ $frate) ^ $orizzonte_temporale) - $fattore_incidenza_calcolo_cessioni) 
+                            * floatval($form2Input[$chiaveForm2]);
                 }
             }
             $stima+=$tstima;
         }
 
-        return $stima;
+        return round($stima);
     }
 
 }

@@ -127,7 +127,7 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         )); 
 
         //cepp
-        $this->addElement('text', 'cepp', array(
+        $this->addElement('text', 'capacita_edificatoria', array(
             'label'      => 'Imputare volumetria:',
             'validators' => array(
                 array('validator' => 'float'

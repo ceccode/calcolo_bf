@@ -410,65 +410,68 @@ ul.errors{
 .border_tutto{
     border: 1px solid black;
 }
-
+.copri_tabella2{
+    min-height: 400px;
+}
 #div_form_2{
-    width: 784px;
+    width: 744px;
     height: 400px;
     overflow:auto;
+    font-size: 12px;
 }
 #header_destinazione_uso{
-    width: 200px;
+    width: 195px;
     height: 45px;
     padding:0;
-    padding-left: 10px;
+    padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_destinazione_uso{
-    width: 200px;
+    width: 195px;
     padding-top:5px;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 #header_quota_massima_ammissibile{
-    width: 120px;
+    width: 115px;
     height: 45px;
-    padding-left :10px;
+    padding-left :5px;
     padding-top: 10px;
 }
 #corpo_quota_massima_ammissibile{
-    width: 120px;
+    width: 115px;
     padding-top: 5px;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 #header_soglia_dimensione_massima{
-    width: 130px;
+    width: 125px;
     height: 45px;
-    padding-left :10px;
+    padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_soglia_dimensione_massima{
-    width: 130px;
+    width: 125px;
     padding-top: 5px;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 #header_peso_standard{
-    width: 130px;
+    width: 125px;
     height: 45px;
-    padding-left :10px;
+    padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_peso_standard{
-    width: 130px;
+    width: 125px;
     padding-top: 5px;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 #header_quota_progetto{
-    width: 150px;
+    width: 155px;
     height: 45px;
-    padding-left :10px;
+    padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_quota_progetto{
-    width: 150px;
+    width: 145px;
     padding-top: 5px;
     padding-left: 10px;
 }
@@ -483,11 +486,18 @@ ul.errors{
 }
 #calcolo_imu_lonato_step2 dt{
     display:none;
+    padding:0;
+    margin:0;
 }
 #calcolo_imu_lonato_step2 dd{
     margin-top: 8px;
     margin-bottom:8px;
     padding: 0;
+}
+#continua_stampa
+{
+    margin-top:40px;
+    margin-left:0px;
 }
 /* ////// fine tabella form 2 ////// */
 

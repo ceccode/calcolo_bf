@@ -20,7 +20,7 @@ class Application_Model_DbTable_SRifunitariedest extends Application_Model_DbTab
             elseif ($tipo_stima == "u")
                 $testoSelect= "stima_riferimento_unitaria_superficie";
             else 
-                throw new Exception("Errore nel tipo di stima riferimento unitaria: non è ne v ne u");
+                throw new Exception("Errore in ritornaStimaUnitaria: tipo di stima riferimento unitaria: non è ne v ne u");
             
             $select = $this->select()
                            ->from($this->getName(), array($testoSelect))
@@ -34,10 +34,10 @@ class Application_Model_DbTable_SRifunitariedest extends Application_Model_DbTab
             if ($righe)
                 return $righe;
             else
-                throw new Exception("Errore nella query ritornaStimaUnitaria");
+                throw new Exception("Errore in ritornaStimaUnitaria: nella query ritornaStimaUnitaria");
         }
         else
-            throw new Exception("Nome tabella non settato in filtroDestinazioniAmmesse");   
+            throw new Exception("Erroe in ritornaStimaUnitaria: Nome tabella non settato in filtroDestinazioniAmmesse");   
     }
 }
 ?>
