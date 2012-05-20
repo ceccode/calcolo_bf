@@ -34,7 +34,8 @@ class Stima {
             // tipo_stima[0] perchè voglio solo l'iniziale "v" o "u"
             $stima_unitaria_righe = $lonato_s_rifunitariedest->ritornaStimaUnitaria($valoriForm2['id_u_sdestinazioni'], $valoriForm1["id_s_zone"], $tipo_stima[0]);
 
-            foreach ($stima_unitaria_righe as $riga) { // prendo 
+            foreach ($stima_unitaria_righe as $riga) {
+            $tstima=0;
                 if ($tipo_stima[0] == "v") {
                     $stima_unitaria = $riga->stima_riferimento_unitaria_volume;
                 } elseif ($tipo_stima[0] == "u") {
@@ -44,7 +45,7 @@ class Stima {
                     throw new Exception("Errore
                         in Stima.php: la stima di riferimento unitaria è errata");
             }
-            if ($form2Input) { // se l'utente ha messo una quota percentuale calcola la parte
+            if ($form2Input[$chiaveForm2]) { // se l'utente ha messo una quota percentuale calcola la parte
                 if ($valoriForm1["area_urbanizzata"] == 1) { // se la zona è urbanizzata
                     // il calcolo è pari a quello della tabella parzializzata secondo la quota inserita dell'utente
                     // calcolo la stima di una riga
@@ -128,11 +129,14 @@ class Stima {
                 }
             }
             $stima+=$tstima;
+            $ret[0][$chiaveForm2]=$tstima;
+            $ret[1][$chiaveForm2]=$stima_unitaria;
+            $ret[2]=$form2Input;
+
         }
-
-        return round($stima);
+        $ret[3]=round($stima);
+        return $ret;
     }
-
 }
 
 ?>

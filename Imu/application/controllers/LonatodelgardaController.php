@@ -84,20 +84,27 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->view->form = $form;
     }
 
-    protected function _process_lonato_imu_step2($values) {
+    protected function _process_lonato_imu_step2($valori) {
 
-        $var = $values;
         $session = new Zend_Session_Namespace('step1');
-        // dati form vecchio
+        // dati form1
         $form1 = $session->step1;
         $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
         $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($form1['id_m_ambiti']);
+
+        // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
+        $indice=0;
+        foreach ($valori as $chiave => $valore){
+            $percentualeQuote[$indice]=$valore;
+            $indice++;
+        }
+        
         // effettuo il calcolo della stima
         require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
         // metto in sessione le quote
         $session->step2=$var;
         // metto in sessione la stima unitaria
-        $session->stimaUnitaria = Stima::stimaSingolaLonato($stmt5, $var);
+        $session->stimaUnitaria = Stima::stimaSingolaLonato($stmt5, $percentualeQuote);
         return true; // non ho incontrato errori
     }
 

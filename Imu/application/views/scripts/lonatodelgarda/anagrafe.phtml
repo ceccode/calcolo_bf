@@ -14,7 +14,10 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
     </tr>
     <tr>
         <td>Valore area calcolata</td>
-        <td><?= $session->stimaUnitaria ?></td>        
+        <td><?php 
+        echo "<pre>";
+        print_r($session->stimaUnitaria);  
+        echo "</pre>"; ?></td>        
     </tr>
     <tr class="odd">
         <td>Valore area edificabile (Euro/m3) </td>
