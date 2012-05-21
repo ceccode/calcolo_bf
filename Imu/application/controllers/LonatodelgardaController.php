@@ -109,7 +109,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
     }
 
     public function anagrafeAction() {
-        // action body
         $session = new Zend_Session_Namespace('step1');
         $values = $session->step1;
 
@@ -119,14 +118,14 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         $request = $this->getRequest();
         if ($request->isPost()) {
+                        
             if ($form->isValid($request->getPost())) {
-
+               
                 if ($this->_process_anagrafe($form->getValues())) {
                     $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'stampa');
                     $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
                     $this->_helper->redirector->gotoRoute($urlOptions);
                 } else {
-                    //$urlOptions = array('controller' => 'azioni', 'action' => 'anagrafe');
                     $this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
                 }
             }
@@ -136,11 +135,17 @@ class LonatodelgardaController extends Zend_Controller_Action {
     }
 
     protected function _process_anagrafe($values) {
-        // dati variabili
+
         $session2 = new Zend_Session_Namespace('anagrafe');
         $session2->anagrafe = $values;
         $anagrafe = $session2->anagrafe;
         $var = $values;
+        
+        echo "<pre>";
+        print_r($var);
+        echo "</pre>";         
+        
+        return true;
     }
 
     public function stampaAction() {

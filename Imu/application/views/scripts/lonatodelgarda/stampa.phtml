@@ -32,10 +32,41 @@
     /*
      * dati relativi al documento
      */
-
+    $macro_ambito            = 'Nuclei di Antica Formazione (NAF vedansi gli specifici elaborati d\'analisi e normativi)';
+    $sub_ambito              = 'Tutti gli ambiti';
+    $zona                    = 'Barcuzzi';
+    $area_urbanizzata        = 'No';
+    $modalita_intervento     = 'Piano attuativo';
+    $lotto_saturo            = 'Si';
+    $superficie_territoriale = '1000';
+    $capacita_edificatoria   = '500';
+    
+    /*
+     * destinazioni ammesse
+     */
+    $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");        
+    $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse(2);
+    
+    
     /*
      * risultati del calcolo
      */
+    $capacita_edificatoria_calcolata = 2000;
+    $valore_area_calcolata           = 196;
+    $valore_area_edificabile         = 1000;    
+    
+    /*
+     * indici
+     */
+    $incidenza_viabilita        = 0.3;
+    $cepp                       = 0.3;
+    $indice_fondario            = 0.3;
+    $incremento_lotti_saturi    = 45;
+    $indice_fondario_aggiuntivo = 0.7;
+    $volume_predefinito         = 1500;
+    $volume_incremento          = 30;
+    $volume_preesistente        = 30;
+    $indice_territoriale        = 0.5;
     
     
 class MYPDF extends TCPDF {
@@ -50,7 +81,7 @@ class MYPDF extends TCPDF {
             
 $tbl=<<<EOD
 <hr style="background-color: #000;" />    
-<table style="font-size: 20px;" class="left" width="100%" border="0" color="#000" cellspacing="0" cellpadding="2">
+<table style="font-size: 25px;" class="left" width="100%" border="0" color="#000" cellspacing="0" cellpadding="2">
     <tr>
         <td>&copy; 2012 | documento creato con ...</td>
     </tr>
@@ -126,6 +157,9 @@ hr {
     color: #000;
     backgroud-color: #000;
 }
+h1 {
+    font-size: 40px;
+}
 </style>
 EOD;
 
@@ -140,55 +174,138 @@ $tbl .= <<<EOD
 <span class="left">$cf</span>
 <br /><hr /><br />
 EOD;
-
+$pdf->writeHTML($tbl, true, false, false, false, '');
 
 //riassunto dati
-$tbl .= <<<EOD
-<p>Riassunto dei dati inseriti:</p>
-<table class="left" width="100%" border="0" color="#000" cellspacing="0" cellpadding="2">
+$tbl_riassunto = <<<EOD
+<h1>Riassunto dei dati inseriti</h1>
+<table style="font-size: 40px;">
     <tr>
-        <td></td>
-        <td></td>        
+        <td>Macro ambito</td>
+        <td>$macro_ambito </td>        
     </tr>
      <tr>
-        <td></td>
-        <td></td>        
+        <td>Sub ambito</td>
+        <td>$sub_ambito</td>        
     </tr>
     <tr>
-        <td></td>
-        <td></td>        
+        <td>Zona</td>
+        <td>$zona</td>        
     </tr>
     <tr>
-        <td></td>
-        <td></td>        
+        <td>Area urbanizzata</td>
+        <td>$area_urbanizzata</td>        
     </tr>
     <tr>
-        <td></td>
-        <td></td>        
-    </tr>    
+        <td>Modalita intervento</td>
+        <td>$modalita_intervento</td>        
+    </tr>  
+    <tr>
+        <td>Lotto_saturo</td>
+        <td>$lotto_saturo</td>        
+    </tr>  
+    <tr>
+        <td>Superficie territoriale</td>
+        <td>$superficie_territoriale</td>        
+    </tr>  
+    <tr>
+        <td>Capacita edificatoria</td>
+        <td>$capacita_edificatoria</td>        
+    </tr>      
 </table>
 EOD;
+$pdf->writeHTML($tbl_riassunto, true, false, false, false, '');
+
+//destinazioni
+$tbl_destinazioni = '<table style="font-size: 40px;">';
+foreach ($stmt5 as $value) {
+            $label = $value->descrizione;
+            $id    = $value->id_u_destammesse;            
+    
+            $tbl_destinazioni .= '<tr>'; 
+            $tbl_destinazioni .= '<td>'.$value->descrizione.'</td>';
+            $tbl_destinazioni .= '<td>'.'0.4'.'</td>';            
+            $tbl_destinazioni .= '</tr>';
+        }
+$tbl_destinazioni .= '</table>';        
+$pdf->writeHTML($tbl_destinazioni, true, false, false, false, '');
 
 
-//footer
-$tbl .= <<<EOD
-<p>Valori stimati:</p>
-<table style="font-size: 40px;">
+//risultati
+$tbl_risultati = <<<EOD
+<h1>Valori stimati</h1>
+<table style="font-size: 40px; background-color: #99CCFF;">
         <tr class="odd">
-            <td>Capacità edificatoria calcolata (m3) </td>
-            <td>2000</td>        
+            <td>Capacità edificatoria calcolata </td>
+            <td>$capacita_edificatoria_calcolata </td> 
+            <td>(m3)</td>
         </tr>
         <tr>
-            <td>Valore area calcolata (Euro/m3) </td>
-            <td>123</td>        
+            <td>Valore area calcolata </td>
+            <td>$valore_area_calcolata </td> 
+            <td>(Euro/m3)</td>
         </tr>
         <tr class="odd">
-            <td>Valore area edificabile (Euro/m3) </td>
-            <td>69.000</td>        
-        </tr>    
+            <td>Valore area edificabile </td>
+            <td>$valore_area_edificabile </td>
+            <td>(Euro/m3)</td>
+        </tr>
 </table>
 EOD;
-$pdf->writeHTML($tbl, true, false, false, false, '');
+$pdf->writeHTML($tbl_risultati, true, false, false, false, '');
+
+
+$tbl_indici = <<<EOD
+<h1>Indici</h1>
+<table style="font-size: 40px;">
+        <tr class="odd">
+            <td>Incidenza viabilità</td>
+            <td>$incidenza_viabilita</td>
+            <td></td>            
+        </tr>
+        <tr class="">
+            <td>Capacità edific. pred. o prees.</td>
+            <td>$cepp</td> 
+            <td></td>
+        </tr>        
+        <tr class="odd">
+            <td>Indice fondario</td>
+            <td>$indice_fondario</td> 
+            <td>(volume in m3/m2)</td>
+        </tr>
+        <tr>
+            <td>Incremento lotti saturi</td>
+            <td>$incremento_lotti_saturi</td> 
+            <td>(% di volume da indice)</td>
+        </tr>    
+        <tr class="odd">
+            <td>Indice territoriale</td>
+            <td>$indice_territoriale</td>
+            <td>(volume in m3/m2)</td>
+        </tr>
+        <tr>
+            <td>Volume preesistente</td>
+            <td>$volume_preesistente</td> 
+            <td>(volume in m3)</td>
+        </tr>
+        <tr class="odd">
+            <td>Volume incremento</td>
+            <td>$volume_incremento</td> 
+            <td>(volume in m3)</td>
+        </tr>
+        <tr>
+            <td>Volume predefinito</td>
+            <td>$volume_predefinito</td>
+            <td>(volume in m3)</td>
+        </tr>
+        <tr class="odd">
+            <td>Indice fondario aggiuntivo</td>
+            <td>$indice_fondario_aggiuntivo</td>
+            <td>(volume in m3/m2)</td>
+        </tr>    
+    </table>
+EOD;
+$pdf->writeHTML($tbl_indici, true, false, false, '');
 
 
 ob_clean();
