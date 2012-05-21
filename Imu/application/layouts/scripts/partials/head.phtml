@@ -46,8 +46,8 @@ function inputVolumetria(idSubAmbito){
               function(dataNorme){
                 console.log(dataNorme);                
                 if (dataNorme.descrizione == "V3"){
-                    $("#cepp-label").hide();
-                    $("#cepp-element").hide(); 
+                    $("#capacita_edificatoria-label").hide();
+                    $("#capacita_edificatoria-element").hide(); 
                     
                 }else {
                     
@@ -67,9 +67,9 @@ function inputVolumetria(idSubAmbito){
                         break;
                     }
 
-                    $("#cepp-label").text(label);
-                    $("#cepp-label").show();
-                    $("#cepp-element").show();
+                    $("#capacita_edificatoria-label").text(label);
+                    $("#capacita_edificatoria-label").show();
+                    $("#capacita_edificatoria-element").show();
                 }
 
               });
