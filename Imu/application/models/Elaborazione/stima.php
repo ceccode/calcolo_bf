@@ -19,7 +19,6 @@ class Stima {
 
         $stima = 0; // stima unitaria: inizializzata a 0
         $tstima = 0; // stima temporanea usata per i calcoli 
-        
         // prendo i valori del form1 dalla sessione
         $session = new Zend_Session_Namespace('step1');
         $valoriForm1 = $session->step1;
@@ -35,7 +34,7 @@ class Stima {
             $stima_unitaria_righe = $lonato_s_rifunitariedest->ritornaStimaUnitaria($valoriForm2['id_u_sdestinazioni'], $valoriForm1["id_s_zone"], $tipo_stima[0]);
 
             foreach ($stima_unitaria_righe as $riga) {
-            $tstima=0;
+                $tstima = 0;
                 if ($tipo_stima[0] == "v") {
                     $stima_unitaria = $riga->stima_riferimento_unitaria_volume;
                 } elseif ($tipo_stima[0] == "u") {
@@ -56,7 +55,7 @@ class Stima {
                     foreach ($dati_cessione as $dati_cessione_riga) {
                         $id_u_cessione = $dati_cessione_riga->id_u_cessioni;
                         $quota_cessione = $dati_cessione_riga->quantita_cessione;
-                        $ret[4][$chiaveForm2]="id_u_cessione " . $id_u_cessione . " quota cessione: " . $quota_cessione . "<br/>";
+                        // debug $ret[4][$chiaveForm2] = "id_u_cessione " . $id_u_cessione . " quota cessione: " . $quota_cessione . "<br/>";
                     }
 
                     // prelevo i dati per la t_sima
@@ -64,7 +63,7 @@ class Stima {
                     foreach ($dati_u_tstima as $dati_u_tstima_riga) {
                         $fattore_conversione = $dati_u_tstima_riga->fattore_conversione;
                         $fcspq = $dati_u_tstima_riga->fcspq;
-                        $ret[5][$chiaveForm2]="fcspq: " . $fcspq . " fattore conversione: " . $fattore_conversione;
+                        // debug $ret[5][$chiaveForm2] = "fcspq: " . $fcspq . " fattore conversione: " . $fattore_conversione;
                     }
 
                     // prelevo i dati per il macroambito
@@ -72,71 +71,80 @@ class Stima {
                     foreach ($dati_macro_ambito as $dati_macro_ambito_riga) {
                         $standard_pubblico_qualita = $dati_macro_ambito_riga->standard_pubblico_qualita;
                         $valore_comprensativo_unitario = $dati_macro_ambito_riga->valore_comprensativo_unitario;
-                        $ret[6][$chiaveForm2]= "standard pubblico qualita: " . $standard_pubblico_qualita . " vcu: " . $valore_comprensativo_unitario . "<br/>";
+                        // debug $ret[6][$chiaveForm2] = "standard pubblico qualita: " . $standard_pubblico_qualita . " vcu: " . $valore_comprensativo_unitario . "<br/>";
                     }
 
                     // calcolo indice capacità edificatoria
                     if ($tipo_stima[0] == "v")
                         $indice_capacità_edificatoria = floatval($valoriForm1["capacita_edificatoria"]) / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
                     elseif ($tipo_stima[0] == "u")
-                        $indice_capacità_edificatoria = floatval($valoriForm1["capacita_edificatoria"]) *3  / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
+                        $indice_capacità_edificatoria = floatval($valoriForm1["capacita_edificatoria"]) * 3 / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
                     else
                         throw new Exception("Errore in Stima.php: cacolo indice capacità edificatoria");
 
                     // incidenza costo viabilità sull'indice edificatorio
-                    $fiv=0;
+                    $fiv = 0;
                     // incidenza standard
-                    $fispq=3;
+                    $fispq = 3;
                     // incidenza viabilità INPUT UTENTE!!! CHIEDI A DIEGO
-                    $incidenza_viabilità=0.2;
+                    $incidenza_viabilità = 0.2;
                     // costo unitario della viabilità ceduta: espresso in euro/mq
                     // da implementare una tabella start ove leggere questo valore
                     // in base alla scelta dell'anno e del comune
-                    $costo_cessione_viabilità=80;
+                    $costo_cessione_viabilità = 80;
                     // costo cessione degli standard. da implementare una tabella
                     // ove leggere questo valore in base alla scelta dell'anno di imposta
                     // e del comune
-                    $costo_cessione_standard=80;
+                    $costo_cessione_standard = 80;
                     // tasso di auttualizzazione. da implementare una tabella start ove
                     // leggere questo valore in  base alla scelta dell'anno di imposta e del comune
-                    $frate= 0.08;
+                    $frate = 0.08;
                     // orizzonte temporale calcolo attualizzazione. da implementare una tabella
                     // start ove leggere questo valore in base alla scelta dell'anno e del comune
-                    $orizzonte_temporale=3;
+                    $orizzonte_temporale = 3;
                     // anno corrente
-                    $anno_calcolo=2012; // da prendere dalla sessione!!!
+                    $anno_calcolo = 2012; // da prendere dalla sessione!!!
                     // incidenza viabilità sull'indice edificatorio
-                    $fattore_incidenza_viabilità=$incidenza_viabilità/$indice_capacità_edificatoria;
+                    $fattore_incidenza_viabilità = $incidenza_viabilità / $indice_capacità_edificatoria;
+                    // deubg $ret[7][$chiaveForm2] = "fattore incidenza viabilità: " . $fattore_incidenza_viabilità;
                     // fattore incidenza degli standard
-                    $fattore_incidenza_standard=$quota_cessione/$fattore_conversione;
+                    $fattore_incidenza_standard = $quota_cessione / $fattore_conversione;
+                    // debug $ret[8][$chiaveForm2] = "fattore incidenza std: " . $fattore_incidenza_standard;
                     // fattore incidenza degli standard di qualità
-                    $fattore_incidenza_standard_qualità=$standard_pubblico_qualita/$fcspq;
+                    $fattore_incidenza_standard_qualità = $standard_pubblico_qualita / $fcspq;
+                    // debug $ret[9][$chiaveForm2] = "fattore incidenza std qualità: " . $fattore_incidenza_standard_qualità;
                     // se il tipo di stma è v faccio questo calcolo
-                    $fattore_incidenza_calcolo_cessioni= floatval($fattore_incidenza_standard) * floatval($costo_cessione_standard) + 
-                                                             floatval($fattore_incidenza_viabilità) * floatval($costo_cessione_viabilità) +
-                                                             floatval($fattore_incidenza_standard_qualità) * floatval($valore_comprensativo_unitario);
+                    $fattore_incidenza_calcolo_cessioni = floatval($fattore_incidenza_standard) * floatval($costo_cessione_standard) +
+                            floatval($fattore_incidenza_viabilità) * floatval($costo_cessione_viabilità) +
+                            floatval($fattore_incidenza_standard_qualità) * floatval($valore_comprensativo_unitario);
+                    // debug $ret[10][$chiaveForm2] = "fattore incidenza calcolo cessioni: " . $fattore_incidenza_calcolo_cessioni;
                     // a seconda del tipo di stima
-                    if($tipo_stima[0]=="v"){
+                    if ($tipo_stima[0] == "v") {
                         // ho già i dati
-                    }elseif($tipo_stima[0]=="u"){
-                        $fattore_incidenza_calcolo_cessioni=floatval($fattore_incidenza_calcolo_cessioni)*floatval($fattore_conversione);
-                    }  else 
+                    } elseif ($tipo_stima[0] == "u") {
+                        $fattore_incidenza_calcolo_cessioni = floatval($fattore_incidenza_calcolo_cessioni) * floatval($fattore_conversione);
+                    } else
                         throw new Exception('Errore in Stima.php: nel tipo di stima "v" o "u"');
-                    
+
                     // calcolo la stima di una riga
-                    $tstima=(floatval($stima_unitaria) * (1/ (1+ $frate) ^ $orizzonte_temporale) - $fattore_incidenza_calcolo_cessioni) 
+                    $tstima = (floatval($stima_unitaria) * pow((1 / (1 + floatval($frate))),$orizzonte_temporale)- $fattore_incidenza_calcolo_cessioni)
                             * floatval($form2Input[$chiaveForm2]);
+                    
+                    // debug $ret[11][$chiaveForm2] = "parte1: " . floatval($stima_unitaria);
+                    // debug $ret[12][$chiaveForm2] = "parte2: " . pow((1 / (1 + floatval($frate))),$orizzonte_temporale);
+                    // debug $ret[13][$chiaveForm2] = "parte3: " . $fattore_incidenza_calcolo_cessioni;
+                    // debug $ret[14][$chiaveForm2] = "parte4: " . floatval($form2Input[$chiaveForm2]);
                 }
             }
             $stima+=$tstima;
-            $ret[0][$chiaveForm2]=$tstima;
-            $ret[1][$chiaveForm2]=$stima_unitaria;
-            $ret[2]=$form2Input;
-
+            // debug $ret[0][$chiaveForm2] = "tstima: " . $tstima;
+            // debug $ret[1][$chiaveForm2] = "stima unitaria: " . $stima_unitaria;
+            // debug $ret[2][$chiaveForm2] = "valori input quota: " . $form2Input[$chiaveForm2];
         }
-        $ret[3]=round($stima);
-        return $ret;
+        //$ret[3] = round($stima);
+        return round($stima);
     }
+
 }
 
 ?>
