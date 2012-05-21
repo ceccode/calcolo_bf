@@ -56,7 +56,7 @@ class Stima {
                     foreach ($dati_cessione as $dati_cessione_riga) {
                         $id_u_cessione = $dati_cessione_riga->id_u_cessioni;
                         $quota_cessione = $dati_cessione_riga->quantita_cessione;
-                        //echo $id_u_cessione . "_" . $quota_cessione . "<br/>";
+                        $ret[4][$chiaveForm2]="id_u_cessione " . $id_u_cessione . " quota cessione: " . $quota_cessione . "<br/>";
                     }
 
                     // prelevo i dati per la t_sima
@@ -64,7 +64,7 @@ class Stima {
                     foreach ($dati_u_tstima as $dati_u_tstima_riga) {
                         $fattore_conversione = $dati_u_tstima_riga->fattore_conversione;
                         $fcspq = $dati_u_tstima_riga->fcspq;
-                        // echo $fcspq . "_" . $fattore_conversione;
+                        $ret[5][$chiaveForm2]="fcspq: " . $fcspq . " fattore conversione: " . $fattore_conversione;
                     }
 
                     // prelevo i dati per il macroambito
@@ -72,7 +72,7 @@ class Stima {
                     foreach ($dati_macro_ambito as $dati_macro_ambito_riga) {
                         $standard_pubblico_qualita = $dati_macro_ambito_riga->standard_pubblico_qualita;
                         $valore_comprensativo_unitario = $dati_macro_ambito_riga->valore_comprensativo_unitario;
-                        //echo $standard_pubblico_qualita . "_" . $valore_comprensativo_unitario . "<br/>";
+                        $ret[6][$chiaveForm2]= "standard pubblico qualita: " . $standard_pubblico_qualita . " vcu: " . $valore_comprensativo_unitario . "<br/>";
                     }
 
                     // calcolo indice capacità edificatoria
