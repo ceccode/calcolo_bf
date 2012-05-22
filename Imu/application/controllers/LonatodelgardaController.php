@@ -60,6 +60,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
 //        echo "</pre>"; 
 
         $this->view->values = $values;
+        $session->capacita_edificatoria  = Stima::calcolaCapacitaEdificatoriaLonato();        
+        
+        $this->view->capacita_edificatoria = $session->capacita_edificatoria;
 
         $form = new Application_Form_Lonatodelgardastep2(array(
                     'id_u_mambito' => $values['id_m_ambiti'],
@@ -104,8 +107,8 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // metto in sessione le quote
         $session->step2 = $var;
         // metto in sessione la stima unitaria
-        $session->stimaUnitaria = Stima::stimaSingolaLonato($stmt5, $percentualeQuote);
-        $session->capacitaEdificatoria = Stima::calcolaCapacitaEdificatoriaLonato($smt5);
+        $session->stimaUnitaria         = Stima::stimaSingolaLonato($stmt5, $percentualeQuote);
+        $session->capacitaEdificatoria  = Stima::calcolaCapacitaEdificatoriaLonato();
         $session->valoraAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
         return true; // non ho incontrato errori
     }

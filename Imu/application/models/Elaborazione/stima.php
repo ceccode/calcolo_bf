@@ -152,7 +152,7 @@ class Stima {
         return round($stima);
     }
 
-    public static function calcolaCapacitaEdificatoriaLonato($form2) {
+    public static function calcolaCapacitaEdificatoriaLonato() {
 
         // valore di ritorno capacità edificatoria calcolata
         $capacita_edificatoria = null;
