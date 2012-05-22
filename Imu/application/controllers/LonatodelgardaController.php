@@ -42,12 +42,21 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // dati variabili
         $session = new Zend_Session_Namespace('step1');
         $session->step1 = $values;
-
-        //$namespace->step1 = $values;
-//        echo "<pre>";
-//        print_r($values);
-//        echo "</pre>";        
+        
         return true; // non ho incontrato errori
+    }
+    
+    
+    public function validateFormAction(){
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('Layout')->disableLayout();
+        
+        $f = new Application_Form_Lonatodelgarda();
+        $f->isValid($this->_getAllParams());
+        $json = $f->getMessages();
+        header('Content-type: application/json');
+        echo Zend_Json::encode($json);
     }
 
     public function stimaAction() {

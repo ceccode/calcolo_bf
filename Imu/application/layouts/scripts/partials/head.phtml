@@ -51,25 +51,26 @@ function inputVolumetria(idSubAmbito){
                     
                 }else {
                     
-                    var label = 'imputare volumetria';
+                    var label = 'imputare volumetria: *';
                     switch (dataNorme.descrizione) {
-                        case "V1": label = 'inputare volumetria preesistente';
+                        case "V1": label = 'inputare volumetria preesistente *';
                         break;
-                        case "V2": label = 'imputare volumetria predefinita';
+                        case "V2": label = 'imputare volumetria predefinita: *';
                         break;
-                        case "V4": label = 'inputare volumetria preesistente';
+                        case "V4": label = 'inputare volumetria preesistente: *';
                         break;
-                        case "U1": label = 'inputare voumetria slp preesistente';
+                        case "U1": label = 'inputare voumetria slp preesistente: *';
                         break;
-                        case "U2": label = 'imputare slp predefinita';
+                        case "U2": label = 'imputare slp predefinita: *';
                         break;
-                        case "U4": label = 'inputare voumetria slp preesistente';
+                        case "U4": label = 'inputare voumetria slp preesistente: *';
                         break;
                     }
 
                     $("#capacita_edificatoria-label").text(label);
                     $("#capacita_edificatoria-label").show();
                     $("#capacita_edificatoria-element").show();
+                    $("#submit").attr("disabled", "true");
                 }
 
               });
