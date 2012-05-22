@@ -187,12 +187,12 @@ class Stima {
             $volume_incremento = $u_sambiti_riga->volume_incremento;
         }
 
-        if ($tipo_stima == "v1" || $tipo_stima == "v2" || $tipo_stima = "u1" || $tipo_stima = "u2") { // per 1-2
+        if ($tipo_stima == "v1" || $tipo_stima == "v2" || $tipo_stima == "u1" || $tipo_stima == "u2") { // per 1-2
             $capacita_edificatoria = $valoriForm1["capacita_edificatoria"];
         } elseif ($tipo_stima == "v3" || $tipo_stima == "u3") { // se è v3 o u3: if else complessi!!!
-            $pdrOPdp = $lonato_u_mambiti->getPdrOPdp($valoriForm1["id_m_ambiti"]);
-            foreach ($pdrOPdp as $chiavePdrOPdp => $prdOPdp_riga) {
-                $doc = strtolower($pdrOPdp_riga->pdr_o_pdp);
+            $prd_o_ddp = $lonato_u_mambiti->getPdrODdp($valoriForm1["id_m_ambiti"]);
+            foreach ($prd_o_ddp as $chiave_prd_o_ddp => $prd_o_ddp_riga) {
+                $doc = strtolower($prd_o_ddp_riga->pdr_o_ddp);
             }
             if ($doc == "pdr") { // nel caso di pdr
                 if (intval($valoriForm1["lotto_saturo"]) == 1) { // se lotto saturo
@@ -211,7 +211,7 @@ class Stima {
             } elseif ($doc == "ddp") { // nel caso di ddp:
                 $capacita_edificatoria = floatval($indice_territoriale) * floatval($valoriForm1["superficie"]);
             } else
-                throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: tipo doc sbagliato: prd o pdp!");
+                throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: tipo doc sbagliato: prd o pdp!: " . $doc  . " " . $valoriForm1["id_m_ambiti"]);
         } elseif ($tipo_stima == "v4") {
 
             $capacita_edificatoria = $valoriForm1["superficie"] + $volume_incremento;
@@ -225,7 +225,7 @@ class Stima {
         if ($capacita_edificatoria)
             return $capacita_edificatoria;
         else
-            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota");
+            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota: " . $tipo_stima);
     }
 
 }
