@@ -4,7 +4,6 @@ $capacita_edificatoria = $this->capacita_edificatoria;
 
 $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
 $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
-
 $this->headTitle("Calcolo imu lonato");
 ?>
 <div id="risultati_calcolo_stima">
@@ -90,7 +89,7 @@ $this->headTitle("Calcolo imu lonato");
         <div id="header_quota_massima_ammissibile" class="border_sotto  grigio">Quota massima ammissibile</div>
         <div id="corpo_quota_massima_ammissibile" >
             <?php foreach ($stmt5 as $chiave => $valore): ?>
-                <div class="blocco_tabella2"><?= $valore['quota_massima_ammissibile'] ?></div>
+                <div id="quota-<?= $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?= $valore['quota_massima_ammissibile'] ?></div>
             <?php endforeach; ?>
         </div>
     </div>

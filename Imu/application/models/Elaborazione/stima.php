@@ -10,7 +10,7 @@ class Stima {
      * @param type $capacita_edificatoria calcolata in precedenza
      * @return float stima
      */
-    public static function stimaSingolaLonato($form2, $form2Input, $capacita_edificatoria) {
+    public static function calcolaStimaSingolaLonato($form2, $form2Input, $capacita_edificatoria) {
 
         // inizializzo le classi per l'accesso al db
         $lonato_s_rifunitariedest = Factory_dbTable::getClass("lonato", "s_rifunitariedest");
