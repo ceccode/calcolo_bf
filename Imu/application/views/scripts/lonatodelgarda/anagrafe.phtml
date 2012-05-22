@@ -10,7 +10,7 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
 <table style="float:right; font-size: 15px;">
     <tr class="odd">
         <td>Capacità edificatoria calcolata (m3) </td>
-        <td>2000</td>        
+        <td><?= $session->capacitaEdificatoria; ?></td>        
     </tr>
     <tr>
         <td>Valore area calcolata</td>
@@ -18,16 +18,10 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
     </tr>
     <tr class="odd">
         <td>Valore area edificabile (Euro/m3) </td>
-        <td>69.000</td>        
+        <td><?= $session->valoraAreaEdificabile; ?></td>        
     </tr>    
 </table>
 <?= $this->form ?>
-
-<?php
-echo "<pre>";
-print_r($session->step2);
-echo "</pre>";
-?>
 <div style="clear:both"></div>
 
 <a class="button doc-button" href="<?=

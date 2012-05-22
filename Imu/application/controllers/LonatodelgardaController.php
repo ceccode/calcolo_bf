@@ -93,18 +93,20 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($form1['id_m_ambiti']);
 
         // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
-        $indice=0;
-        foreach ($valori as $chiave => $valore){
-            $percentualeQuote[$indice]=$valore;
+        $indice = 0;
+        foreach ($valori as $chiave => $valore) {
+            $percentualeQuote[$indice] = $valore;
             $indice++;
         }
-        
+
         // effettuo il calcolo della stima
         require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
         // metto in sessione le quote
-        $session->step2=$var;
+        $session->step2 = $var;
         // metto in sessione la stima unitaria
         $session->stimaUnitaria = Stima::stimaSingolaLonato($stmt5, $percentualeQuote);
+        $session->capacitaEdificatoria = Stima::calcolaCapacitaEdificatoriaLonato($smt5);
+        $session->valoraAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
         return true; // non ho incontrato errori
     }
 

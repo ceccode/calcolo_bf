@@ -2,6 +2,13 @@
 
 class Stima {
 
+    /**
+     * Metodo per il calcolo della stima per il comune di lonato
+     * 
+     * @param type $form2 dati del form2
+     * @param type $form2Input dati del form2 in input: quote percentuali per zona/area
+     * @return float stima
+     */
     public static function stimaSingolaLonato($form2, $form2Input) {
 
         // inizializzo le classi per l'accesso al db
@@ -127,9 +134,9 @@ class Stima {
                         throw new Exception('Errore in Stima.php: nel tipo di stima "v" o "u"');
 
                     // calcolo la stima di una riga
-                    $tstima = (floatval($stima_unitaria) * pow((1 / (1 + floatval($frate))),$orizzonte_temporale)- $fattore_incidenza_calcolo_cessioni)
+                    $tstima = (floatval($stima_unitaria) * pow((1 / (1 + floatval($frate))), $orizzonte_temporale) - $fattore_incidenza_calcolo_cessioni)
                             * floatval($form2Input[$chiaveForm2]);
-                    
+
                     // debug $ret[11][$chiaveForm2] = "parte1: " . floatval($stima_unitaria);
                     // debug $ret[12][$chiaveForm2] = "parte2: " . pow((1 / (1 + floatval($frate))),$orizzonte_temporale);
                     // debug $ret[13][$chiaveForm2] = "parte3: " . $fattore_incidenza_calcolo_cessioni;
@@ -143,6 +150,82 @@ class Stima {
         }
         //$ret[3] = round($stima);
         return round($stima);
+    }
+
+    public static function calcolaCapacitaEdificatoriaLonato($form2) {
+
+        // valore di ritorno capacità edificatoria calcolata
+        $capacita_edificatoria = null;
+
+        // inizializzo db adapter
+        $lonato_s_rifunitariedest = Factory_dbTable::getClass("lonato", "s_rifunitariedest");
+        $lonato_s_tstima = Factory_dbTable::getClass("lonato", "s_tstima");
+        $lonato_s_zone = Factory_dbTable::getClass("lonato", "s_zone");
+        $lonato_u_cessioni = Factory_dbTable::getClass("lonato", "u_cessioni");
+        $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
+        $lonato_u_mambiti = Factory_dbTable::getClass("lonato", "u_mambiti");
+        $lonato_u_mdestinazioni = Factory_dbTable::getClass("lonato", "u_mdestinazioni");
+        $lonato_u_modinterv = Factory_dbTable::getClass("lonato", "u_modinterv");
+        $lonato_u_sambiti = Factory_dbTable::getClass("lonato", "u_sambiti");
+        $lonato_u_sdestinazioni = Factory_dbTable::getClass("lonato", "u_sdestinazioni");
+
+
+        // prendo i valori del form1 dalla sessione
+        $session = new Zend_Session_Namespace('step1');
+        $valoriForm1 = $session->step1;
+
+        $volumetria = $lonato_u_sambiti->getVolumetria($valoriForm1["id_u_sambiti"]);
+        // se volumetrica "v1/2/3" o utilizzazione "u1/2/3"
+        $tipo_stima = strtolower($volumetria[0]->indice_calcolo_capacita_edificatoria); // prendo il tipo di misura
+        // dati u_sambiti generici utilizzati dopo
+        $u_sambiti = $lonato_u_sambiti->getAll($valoriForm1["id_u_sambiti"], $valoriForm1["id_m_ambiti"]);
+        foreach ($u_sambiti as $chiaveU_sambiti => $u_sambiti_riga) { // prendo l'indice fondiario
+            $indice_fondiario = $u_sambiti_riga->indice_fondiario;
+            $incremento_lotti_saturi_i = $u_sambiti_riga->incremento_lotti_saturi_i;
+            $utilizzazione_fondiaria = $u_sambiti_riga->utilizzazione_fondiaria;
+            $indice_territoriale = $u_sambiti_riga->indice_territoriale;
+            $volume_incremento = $u_sambiti_riga->volume_incremento;
+        }
+
+        if ($tipo_stima == "v1" || $tipo_stima == "v2" || $tipo_stima = "u1" || $tipo_stima = "u2") { // per 1-2
+            $capacita_edificatoria = $valoriForm1["capacita_edificatoria"];
+        } elseif ($tipo_stima == "v3" || $tipo_stima == "u3") { // se è v3 o u3: if else complessi!!!
+            $pdrOPdp = $lonato_u_mambiti->getPdrOPdp($valoriForm1["id_m_ambiti"]);
+            foreach ($pdrOPdp as $chiavePdrOPdp => $prdOPdp_riga) {
+                $doc = strtolower($pdrOPdp_riga->pdr_o_pdp);
+            }
+            if ($doc == "pdr") { // nel caso di pdr
+                if (intval($valoriForm1["lotto_saturo"]) == 1) { // se lotto saturo
+                    if ($tipo_stima == "v3") { // se v3 pdr
+                        $capacita_edificatoria = floatval($indice_fondiario) * $valoriForm1["superficie"]
+                                * (1 + floatval($incremento_lotti_saturi_i));
+                    } else { // u3 pdr
+                        $capacita_edificatoria = floatval($utilizzazione_fondiaria) * $valoriForm1["superficie"]; // manca qualcosa chiedi a DIEGO!!!
+                    }
+                } else { // lotto non saturo
+                    if ($tipo_stima == "v3") // se v3 ddp
+                        $capacita_edificatoria = floatval($indice_fondiario) * floatval($valoriForm1["superficie"]);
+                    else // u3 ddp
+                        $capacita_edificatoria = floatval($utilizzazione_fondiaria) * floatval($valoriForm1["superficie"]);
+                }
+            } elseif ($doc == "ddp") { // nel caso di ddp:
+                $capacita_edificatoria = floatval($indice_territoriale) * floatval($valoriForm1["superficie"]);
+            } else
+                throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: tipo doc sbagliato: prd o pdp!");
+        } elseif ($tipo_stima == "v4") {
+
+            $capacita_edificatoria = $valoriForm1["superficie"] + $volume_incremento;
+        } elseif ($tipo_stima == "u4") {
+            $capacita_edificatoria=floatval($valoriForm1["capacita_edificatoria"])* (float)(1+ $utilizzazione_fondiaria);
+            
+        } else
+            throw new Exception("Errore in calcolaCapcitaEdificatoria: il tipo di stima non è valido!");
+
+
+        if ($capacita_edificatoria)
+            return $capacita_edificatoria;
+        else
+            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota");
     }
 
 }
