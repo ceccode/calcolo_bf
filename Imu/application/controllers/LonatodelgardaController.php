@@ -113,13 +113,20 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $indice++;
         }
 
-        // effettuo il calcolo della stima
+        // effettuo il calcolo della stima e capacità edificatoria
         require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
-        // metto in sessione le quote
+        // metto in sessione le quota
         $session->step2 = $var;
+        // capacita edificatoria
+        $session->capacitaEdificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
         // metto in sessione la stima unitaria
+<<<<<<< HEAD
         $session->stimaUnitaria         = Stima::stimaSingolaLonato($stmt5, $percentualeQuote);
         $session->capacitaEdificatoria  = Stima::calcolaCapacitaEdificatoriaLonato();
+=======
+        $session->stimaUnitaria = Stima::stimaSingolaLonato($stmt5, $percentualeQuote,$session->capacitaEdificatoria );
+        // calcolo valore area edificabile: semplice moltiplicazione
+>>>>>>> stima aggiustata!
         $session->valoraAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
         return true; // non ho incontrato errori
     }
