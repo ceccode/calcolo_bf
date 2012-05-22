@@ -1,5 +1,6 @@
 <?php
-$values = $this->values;
+$values                = $this->values;
+$capacita_edificatoria = $this->capacita_edificatoria;
 
 $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
 $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
@@ -11,16 +12,19 @@ $this->headTitle("Calcolo imu lonato");
 <!-- stima -->
 <table style="font-size: 12px;" class="left">
     <tr class="odd">
-        <td>Capacità edificatoria calcolata (m3) </td>
-        <td>2000</td>        
+        <td>Capacità edificatoria calcolata</td>
+        <td><?=$capacita_edificatoria?></td>
+        <td>(m3)</td>
     </tr>
     <tr>
-        <td>Valore area calcolata (Euro/m3) </td>
-        <td>123</td>        
+        <td>Valore area calcolata</td>
+        <td>123</td> 
+        <td>(Euro/m3)</td>        
     </tr>
     <tr class="odd">
-        <td>Valore area edificabile (Euro/m3) </td>
-        <td>69.000</td>        
+        <td>Valore area edificabile</td>
+        <td>69.000</td> 
+        <td>(Euro/m3)</td>        
     </tr>    
 </table>
     <!-- indici -->

@@ -60,8 +60,10 @@ class LonatodelgardaController extends Zend_Controller_Action {
 //        echo "</pre>"; 
 
         $this->view->values = $values;
-        $session->capacita_edificatoria  = Stima::calcolaCapacitaEdificatoriaLonato();        
         
+        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";                
+        $session->capacita_edificatoria  = Stima::calcolaCapacitaEdificatoriaLonato();        
+
         $this->view->capacita_edificatoria = $session->capacita_edificatoria;
 
         $form = new Application_Form_Lonatodelgardastep2(array(
