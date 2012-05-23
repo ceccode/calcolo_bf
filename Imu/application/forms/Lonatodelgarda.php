@@ -133,7 +133,7 @@ class Application_Form_Lonatodelgarda extends Zend_Form
                 array('validator' => 'float'
                     )
                 )
-        ));     
+        ));    
         
         // pulsante invia
         $this->addElement('submit', 'submit', array(
