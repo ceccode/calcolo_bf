@@ -52,10 +52,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session = new Zend_Session_Namespace('step1');
         $values = $session->step1;
 
-//        echo "<pre>";
-//        print_r($values);
-//        echo "</pre>"; 
-
         $this->view->values = $values;
         
         require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";                
@@ -145,11 +141,7 @@ protected function _process_lonato_imu_step2($valori) {
         $session2 = new Zend_Session_Namespace('anagrafe');
         $session2->anagrafe = $values;
         $anagrafe = $session2->anagrafe;
-        $var = $values;
-        
-        echo "<pre>";
-        print_r($var);
-        echo "</pre>";         
+        $var = $values;        
         
         return true;
     }
