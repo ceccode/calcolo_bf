@@ -446,6 +446,12 @@ cec {
     float: right;
 }
 
+.privacy {
+    width: 150px;
+    font-size: 12px;
+    font-style: italic;
+}
+
 /* ///////// inizio stile form1 ////////// */
 
 #id_m_ambiti{

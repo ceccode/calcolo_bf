@@ -27,6 +27,7 @@ class Application_Form_Lonatodelgarda extends Zend_Form
           $id_u_mambiti = intval($value->id_u_mambiti);
               $macro_ambito->addMultiOptions(array($id_u_mambiti => $descrizione));
         }
+        $macro_ambito->setValue(1);
         $macro_ambito->setRequired(true);
         $this->addElement($macro_ambito);   
         
@@ -50,6 +51,7 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         }
         $sub_ambito->setRequired(true)
                    ->setRegisterInArrayValidator(false);
+        $macro_ambito->setValue(1);
         $this->addElement($sub_ambito);
         
         
@@ -72,6 +74,8 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         }
         $s_zona->setRequired(true)
                ->setRegisterInArrayValidator(false);
+
+        $macro_ambito->setValue('Barcuzzi - Lido');
         $this->addElement($s_zona);
         
         
@@ -116,19 +120,21 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         $this->addElement($lotto_saturo);          
         
         
-        //superficie
-        $this->addElement('text', 'superficie', array(
-            'label'      => 'Superficie territoriale: * (mq)',
-            'required'   => true,
-            'validators' => array(
-                array('validator' => 'float'
-                    )
-                )
-        ));
+        //superficie        
+        $notEmpty = new Zend_Validate_NotEmpty();
+        $notEmpty->setMessage('Campo obbligatorio');        
+        
+        $superficie = $this->createElement('text', 'superficie', array());
+        $superficie->setLabel('Superficie territoriale: * (mq)');
+        $superficie->addValidator('Float',false, array('messages' => 'Solo cifre separate da virgola'));       
+        $superficie->setRequired(true);
+        $superficie->addValidator($notEmpty, true);
+        $this->addElement($superficie);         
 
         //capacita_edificatoria
+        //dipende dal subambito
         $this->addElement('text', 'capacita_edificatoria', array(
-            'label'      => 'Inputare volumetria:',
+            'label'      => 'Inputare volumetria: *',
             'validators' => array(
                 array('validator' => 'float'
                     )

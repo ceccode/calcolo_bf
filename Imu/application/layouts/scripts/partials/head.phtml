@@ -27,11 +27,15 @@ function selSubAmbiti(idMacroAmbito){
               function(dataNorme){
                 console.log(dataNorme);
                 $("select[id='id_u_sambiti']").empty();
-                var options = '<option value="">-- seleziona --</option>';
+                
+                if (dataNorme.length==1){
+                    var options = '';
+                }else{
+                    var options = '<option value="">-- seleziona --</option>';
+                }
                 var arraySubAmbiti = dataNorme;
 
                $.each(arraySubAmbiti, function(key, value){
-                   console.log(value);
                    options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
                });                   
                 $("select[id='id_u_sambiti']").html(options);
@@ -84,7 +88,13 @@ function selModalitaIntervento(urbanizzato){
               function(dataNorme){
                 console.log(dataNorme);
                 $("select[id='id_u_modinterv']").empty();
-                var options = '<option value="">-- seleziona --</option>';
+                
+                if (dataNorme.length==1){
+                    var options = '';
+                }else{
+                    var options = '<option value="">-- seleziona --</option>';
+                }                
+                
                 var arrayModalitaintervento = dataNorme;
 
                $.each(arrayModalitaintervento, function(key, value){
