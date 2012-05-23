@@ -38,24 +38,14 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
 
             $label = $value->descrizione;
             $id    = $value->id_u_destammesse;
+            $quota = $value->quota_massima_ammissibile;   
             
             //cepp
-            $this->addElement('text', $id, array(
-                'label'      => $label,
-                'validators' => array(                
-                    array('validator' => 'float',
-//                        new Zend_Validate_Between(
-//                            array(
-//                                'min' => 0,
-//                                'max' => 10,
-//                                'inclusive' => false
-//                                )
-//                            )
-                   )                       
-                 ),        
-            ));
-                      
-            $this->addValidator('Between', false, array('min' => 1, 'max' => 65, 'messages' => 'This is Required!' ));
+            $cepp = $this->createElement('text', $id, array());
+            $cepp->setLabel($label);
+            $cepp->addValidator('Float',false, array('messages' => 'Solo cifre separate da virgola'));
+            $cepp->addValidator('Between', false, array('min' => 0, 'max' => $quota, 'messages' => "Questo valore non può essere maggiore di $quota" ));
+            $this->addElement($cepp);       
             
         }        
 

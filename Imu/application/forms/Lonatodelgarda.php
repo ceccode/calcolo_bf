@@ -124,11 +124,11 @@ class Application_Form_Lonatodelgarda extends Zend_Form
                 array('validator' => 'float'
                     )
                 )
-        )); 
+        ));
 
         //capacita_edificatoria
         $this->addElement('text', 'capacita_edificatoria', array(
-            'label'      => 'Imputare volumetria:',
+            'label'      => 'Inputare volumetria:',
             'validators' => array(
                 array('validator' => 'float'
                     )
