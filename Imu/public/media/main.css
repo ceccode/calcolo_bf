@@ -28,7 +28,10 @@ body {
 
 #content{
     min-height: 200px;  
-    border: 8px solid #dcdcdc;
+    border-left: 8px solid #4681F7;
+    border-top:8px solid #4681F7;
+    border-bottom:8px solid #2565E5;
+    border-right:8px solid #2565E5;
     padding: 10px;
     overflow:auto;
 /*    background-color: #dcdcdc;*/
@@ -507,3 +510,8 @@ ul.errors{
 cec {
     float: right;
 }
+
+/* ///////// inizio stile form1 ////////// */
+
+
+/* ////////  fine stile form1 /////////// */
