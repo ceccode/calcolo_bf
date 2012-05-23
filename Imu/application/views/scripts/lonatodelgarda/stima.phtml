@@ -127,30 +127,25 @@ $this->headTitle("Calcolo imu lonato");
 <script type="text/javascript">
 $(function()
 {
-    $("#capacita_edificatoria").blur(function(){
-        //alert($(this).parent().prev().find('label').attr('for'));
-        var id = $(this);
-        if(id.val()==''){
-           $("#submit").attr("disabled", "true");
-        }else {
-           $("#submit").removeAttr("disabled");
-        }
-        
-        doValidation(id);
+    $("input").blur(function(){
+        //
+        var formElementId = ($(this).parent().prev().find('label').attr('for'));                
+        doValidation(formElementId);
                
         });
       
-
     function doValidation(id){
-        var url = '/public/Lonatodelgarda/validate-form';
-        var data = {};
-        data[id.attr('name')] = id.val();
 
+        var url = '/public/Ajax/validate-form-step2';
+        var data = {};
+        $('input').each(function(){
+            data[$(this).attr('name')] = $(this).val();
+        });
+        console.log(data);
         $.post(url,data,function(resp){
 
-            var id2 = id.attr('name');
-            $("#"+id2).after(getErrorHtml(resp[id2],id2));
-            //getErrorHtml(resp[id2]),id2
+            $("#"+id).parent().find(".errors").remove();    
+            $("#"+id).parent().append(getErrorHtml(resp[id],id));
             
         },'json');
     }

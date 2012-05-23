@@ -42,11 +42,20 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
             //cepp
             $this->addElement('text', $id, array(
                 'label'      => $label,
-                //'validators' => array(
-                //    array('validator' => 'float'
-                //        )
-               //     )
+                'validators' => array(                
+                    array('validator' => 'float',
+//                        new Zend_Validate_Between(
+//                            array(
+//                                'min' => 0,
+//                                'max' => 10,
+//                                'inclusive' => false
+//                                )
+//                            )
+                   )                       
+                 ),        
             ));
+                      
+            $this->addValidator('Between', false, array('min' => 1, 'max' => 65, 'messages' => 'This is Required!' ));
             
         }        
 

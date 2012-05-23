@@ -85,6 +85,45 @@ class AjaxController extends Zend_Controller_Action
                
         echo json_encode($ret);          
     }    
+    
+    
+
+    /*
+     * -------------------------------------------------------------------------
+     * controlli ajax dei form
+     */
+    
+    
+    public function validateFormStep1Action(){
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('Layout')->disableLayout();
+        
+        $f = new Application_Form_Lonatodelgarda();
+        $f->isValid($this->_getAllParams());
+        $json = $f->getMessages();
+        header('Content-type: application/json');
+        echo Zend_Json::encode($json);
+    } 
+    
+    
+    public function validateFormStep2Action(){
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('Layout')->disableLayout();
+        
+        $session = new Zend_Session_Namespace('step1');
+        $values = $session->step1;
+        
+        $f = new Application_Form_Lonatodelgardastep2(array(
+                    'id_u_mambito' => $values['id_m_ambiti'],
+                ));        
+              
+        $f->isValid($this->_getAllParams());
+        $json = $f->getMessages();
+        header('Content-type: application/json');
+        echo Zend_Json::encode($json);
+    }     
 
 
 }

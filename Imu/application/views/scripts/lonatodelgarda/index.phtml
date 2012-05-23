@@ -10,7 +10,6 @@
 $(function()
 {
     $("#capacita_edificatoria").blur(function(){
-        //alert($(this).parent().prev().find('label').attr('for'));
         var id = $(this);
         if(id.val()==''){
            $("#submit").attr("disabled", "true");
@@ -24,7 +23,7 @@ $(function()
       
 
     function doValidation(id){
-        var url = '/public/Lonatodelgarda/validate-form';
+        var url = '/public/Ajax/validate-form-step1';
         var data = {};
         data[id.attr('name')] = id.val();
 
@@ -33,7 +32,6 @@ $(function()
             var id2 = id.attr('name');
             $("#"+id2).parent().find("ul").remove();            
             $("#"+id2).after(getErrorHtml(resp[id2],id2));
-            //getErrorHtml(resp[id2]),id2
             
         },'json');
     }
