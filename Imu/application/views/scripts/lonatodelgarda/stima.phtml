@@ -9,26 +9,26 @@ $this->headTitle("Calcolo imu lonato");
 <div id="risultati_calcolo_stima">
     
 <!-- stima -->
-<table style="font-size: 12px;" class="left">
-    <tr class="odd">
+<table style="font-size: 15px; margin-top:10px;" class="left">
+    <tr class="header-tabella1">
         <td>Capacità edificatoria calcolata</td>
         <td><?=$capacita_edificatoria?></td>
         <td>(m3)</td>
     </tr>
-    <tr>
+    <tr class="">
         <td>Valore area calcolata</td>
         <td>123</td> 
         <td>(Euro/m3)</td>        
     </tr>
-    <tr class="odd">
+    <tr class="header-tabella1">
         <td>Valore area edificabile</td>
         <td>69.000</td> 
         <td>(Euro/m3)</td>        
     </tr>    
 </table>
     <!-- indici -->
-    <table style="float:left; margin-bottom: 10px; margin-left: 170px;">
-        <tr class="odd">
+    <table style="float:left; margin-left: 60px; margin-top:10px;">
+        <tr class="header-tabella1">
             <td>Incidenza viabilità</td>
             <td>0,3</td> 
             <td></td>
@@ -38,7 +38,7 @@ $this->headTitle("Calcolo imu lonato");
             <td>0,3</td>
             <td></td>
         </tr>        
-        <tr class="odd">
+        <tr class="header-tabella1">
             <td>Indice fondario</td>
             <td>0,3</td> 
             <td>(volume in m3/m2)</td>
@@ -48,7 +48,7 @@ $this->headTitle("Calcolo imu lonato");
             <td>45</td>
             <td>(% di volume da indice)</td>
         </tr>    
-        <tr class="odd">
+        <tr class="header-tabella1">
             <td>Indice territoriale</td>
             <td>0,5</td>
             <td>(volume in m3/m2)</td>
@@ -58,7 +58,7 @@ $this->headTitle("Calcolo imu lonato");
             <td>150</td>
             <td>(volume in m3)</td>
         </tr>
-        <tr class="odd">
+        <tr class="header-tabella1">
             <td>Volume incremento</td>
             <td>30</td>
             <td>(volume in m3)</td>
@@ -68,14 +68,14 @@ $this->headTitle("Calcolo imu lonato");
             <td>50</td>  
             <td>(volume in m3)</td>
         </tr>
-        <tr class="odd">
+        <tr class="header-tabella1">
             <td>Indice fondario aggiuntivo</td>
             <td>0.6</td>
             <td>(volume in m3/m2)</td>
         </tr>    
     </table>
 </div> 
-<div id="div_form_2" class="border_destra border_sotto border_sopra border-sinistra"> <!-- div con i dati form 2 -->
+<div id="div_form_2" class=""> <!-- div con i dati form 2 -->
     <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
         <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
         <div id="corpo_destinazione_uso">
@@ -116,14 +116,14 @@ $this->headTitle("Calcolo imu lonato");
         <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto</div>
         <div id="corpo_quota_progetto">
             <?= $this->form; ?>
+            <a id="button-ricalcola" class="button doc-button min-larghezza" href="<?= $this->url(array('controller' => 'Lonatodelgarda','action' => 'index'), null, TRUE);?>">Ricalcola</a>
+
         </div>
     </div>
 </div>
+    <!-- torna al form1 -->
 <div style="clear:both"></div>
-<a class="button doc-button" href="<?=
-$this->url(array('controller' => 'Lonatodelgarda',
-    'action' => 'index'), null, TRUE);
-?>">Ricalcola</a>
+
 <script type="text/javascript">
 $(function()
 {

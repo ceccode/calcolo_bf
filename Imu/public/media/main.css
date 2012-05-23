@@ -32,7 +32,6 @@ body {
     border-top:8px solid #4681F7;
     border-bottom:8px solid #2565E5;
     border-right:8px solid #2565E5;
-    padding: 10px;
     overflow:auto;
 /*    background-color: #dcdcdc;*/
 }
@@ -120,7 +119,7 @@ a {
 
 /* ////////// Table  /////////// */
 table{
-    border: 1px solid #cccccf;
+    border: 0px solid gray;
     border-collapse: collapse;
     font-size: 11px;
 }
@@ -390,8 +389,6 @@ ul.errors{
     padding: 10px;    
 }
 
-
-
 /* ////////// footer /////////// */
 #footer a{
     color: #333;
@@ -400,27 +397,64 @@ ul.errors{
     color: #F52D0F
 }
 
+/* ////// inizio stile form2 /////////// */
+.min-larghezza{
+    min-width: 150px;
+}
+
+#risultati_calcolo_stima{
+    background-color: #C5DBF9;
+    width: 100%;
+    height: 190px;
+    margin-bottom: 20px;
+}
+
+#tabella2-left{}
+
+#tabella2-right{
+    width:198px;
+    min-height:200px;
+}
+
+.header-tabella1{
+    background-color: #4681F7;
+}
+.corpo-tabella1{
+    background-color: #D1D2D3;
+}
+
+#button-ricalcola{
+    margin-top:-50px;
+    margin-left: 200px;
+}
+
+#continua_stampa{
+    margin-top:-112px;
+    margin-left:200px;
+}
+
+
 /* ///// inizio tabella form 2 //////*/
 .grigio{
-    background-color: #CCCCCC;
+    background-color: #4681F7;
 }
 .border_sotto{
-   border-bottom: 1px solid black;
+   border-bottom: 1px solid #C5DBF9;
 }
 .border_destra{
-    border-right: 1px solid black;    
+    border-right: 1px solid #C5DBF9;    
 }
 .border_sopra{
-    border-top: 1px solid black;
+    border-top: 1px solid #C5DBF9;
 }
 .border-sinistra{
-    border-left: 1px solid black;
+    border-left: 1px solid #C5DBF9;
 }
 .copri_tabella2{
     min-height: 400px;
 }
 #div_form_2{
-    width: 746px;
+    width: 100%;
     height: 400px;
     overflow:auto;
     font-size: 12px;
@@ -477,7 +511,7 @@ ul.errors{
     padding-top: 10px;
 }
 #corpo_quota_progetto{
-    width: 145px;
+    width: 380px;
     padding-top: 5px;
     padding-left: 10px;
 }
@@ -508,6 +542,8 @@ ul.errors{
 /* ////// fine tabella form 2 ////// */
 
 
+/* ///////// fine stile form2 ////// */
+
 /* ////////////////////////////////// */
 /* extr content */
 cec {
@@ -520,4 +556,9 @@ cec {
     width: 600px;
 }
 
+#contenitore-index{
+    padding: 10px;
+}
+
 /* ////////  fine stile form1 /////////// */
+
