@@ -410,14 +410,17 @@ ul.errors{
 .border_destra{
     border-right: 1px solid black;    
 }
-.border_tutto{
-    border: 1px solid black;
+.border_sopra{
+    border-top: 1px solid black;
+}
+.border-sinistra{
+    border-left: 1px solid black;
 }
 .copri_tabella2{
     min-height: 400px;
 }
 #div_form_2{
-    width: 744px;
+    width: 746px;
     height: 400px;
     overflow:auto;
     font-size: 12px;
@@ -513,5 +516,8 @@ cec {
 
 /* ///////// inizio stile form1 ////////// */
 
+#id_m_ambiti{
+    width: 600px;
+}
 
 /* ////////  fine stile form1 /////////// */

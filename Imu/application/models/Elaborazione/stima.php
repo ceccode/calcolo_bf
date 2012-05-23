@@ -224,13 +224,13 @@ class Stima {
             $capacita_edificatoria=floatval($valoriForm1["capacita_edificatoria"])* (float)(1+ $utilizzazione_fondiaria);
             
         } else
-            throw new Exception("Errore in calcolaCapcitaEdificatoria: il tipo di stima non è valido!");
+            throw new Exception("Errore in calcolaCapcitaEdificatoria: il tipo di stima non è valido!" . $tipo_stima);
 
 
         if ($capacita_edificatoria)
             return $capacita_edificatoria;
         else
-            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota: " . $tipo_stima);
+            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota o nulla: " . $tipo_stima . "capacita: ". $capacita_edificatoria);
     }
 
 }
