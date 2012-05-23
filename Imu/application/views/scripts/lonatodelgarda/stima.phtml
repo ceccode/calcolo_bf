@@ -9,7 +9,7 @@ $this->headTitle("Calcolo imu lonato");
 <div id="risultati_calcolo_stima">
     
 <!-- stima -->
-<table style="font-size: 15px; margin-top:10px;" class="left">
+<table id="risultati" class="left">
     <tr class="header-tabella1">
         <td>Capacità edificatoria calcolata</td>
         <td><?=$capacita_edificatoria?></td>
@@ -27,7 +27,7 @@ $this->headTitle("Calcolo imu lonato");
     </tr>    
 </table>
     <!-- indici -->
-    <table style="float:left; margin-left: 60px; margin-top:10px;">
+    <table id="indici" class="right">
         <tr class="header-tabella1">
             <td>Incidenza viabilità</td>
             <td>0,3</td> 
@@ -117,7 +117,6 @@ $this->headTitle("Calcolo imu lonato");
         <div id="corpo_quota_progetto">
             <?= $this->form; ?>
             <a id="button-ricalcola" class="button doc-button min-larghezza" href="<?= $this->url(array('controller' => 'Lonatodelgarda','action' => 'index'), null, TRUE);?>">Ricalcola</a>
-
         </div>
     </div>
 </div>

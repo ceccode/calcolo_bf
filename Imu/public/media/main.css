@@ -166,71 +166,6 @@ td.odd{
 .tr:hover td {
     color: #000099;
 }
-.informazioni-generali{
-    margin-top: 10px;
-    font-size: 16px;
-    border: 1px solid #CCCCCC;
-}
-
-#risultati-processi{
-    font-size: 12px;
-    width: 500px;
-}
-#risultati-processi-conclusi{
-    font-size: 12px;
-    width: 500px;    
-}
-
-
-/** /// div /// **/
-
-
-#info-persona{
-    border: 1px dotted gray;
-    margin-top: 0px;
-    margin-bottom: 10px;
-    width: 100%;
-    
-}
-
-#risultati-persona{
-    border-bottom: 1px dotted gray;
-    border-left: 1px dotted gray;
-    border-right: 1px dotted gray;    
-    margin-top: 0px;
-    margin-bottom: 10px;
-    width: 442px;
-    font-size: 11px;
-    border-collapse: collapse;
-    border-spacing: 0px;
-}
-
-#risultati-persona td{    
-    padding-right: 10px;
-    border: none;
-}
-
-#risultati-persona td a{
-}
-
-#risultati-persona tr.riga:hover{
-    background-color: #736AFF;
-    color: white;
-}
-
-#risultati-persona tr.riga:hover a{
-    color: white;
-}
-
-.result{
-    margin-left: 287px;
-/*    padding: 3px;*/
-/*    width: 200px;*/
-    background-color: #F4F4F4;
-    position:absolute;
-/*    z-index:1000;   */
-    
-}
 
 /* /////////// style form ////////// */
 form dt {
@@ -334,12 +269,7 @@ ul.errors{
     
 }
 
-/* ////// persona index par crea processo ///// */
-.par_crea_processo{
-   margin-bottom: 22px;
-   font-weight: bold;
-   margin-top: 25px;
-}
+
 
 /* /////// notifica ///////  */
 .notifica{
@@ -351,43 +281,6 @@ ul.errors{
 }
 
 
-#statistiche{
-/*    width: 430px;*/
-    width: 500px;    
-/*    border: solid #000 1px;*/
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding-top: 0;
-    padding-right: 10px;
-}
-
-/* /////// ricerca ////////  */
-#ricerca{
-    width: 420px;
-/*    width: 480px;*/
-/*    border: solid #000 1px; */
-    margin-bottom: 10px;  
-    padding: 10px;
-}
-
-
-#creazione{
-/*    width: 480px;*/
-/*    width: 494px;*/
-    width: 424px;
-/*    border: solid #000 1px; */
-    margin-bottom: 10px;  
-    padding: 10px;
-    min-height: 65px;    
-}
-
-#gestione{
-    width: 450px;
-/*    border: solid #000 1px; */
-    margin-right: 10px; 
-    margin-bottom: 10px;  
-    padding: 10px;    
-}
 
 /* ////////// footer /////////// */
 #footer a{
@@ -424,14 +317,21 @@ ul.errors{
 }
 
 #button-ricalcola{
-    margin-top:-50px;
-    margin-left: 200px;
-    z-index:666;
 }
 
 #continua_stampa{
-    margin-top:-112px;
-    margin-left:200px;
+
+}
+
+#risultati{
+    font-size: 15px; 
+    margin-top:10px;
+    margin-left: 10px;
+}
+
+#indici{
+    margin-right:10px;
+    margin-top:10px;
 }
 
 /* ///// inizio tabella form 2 //////*/
@@ -455,7 +355,7 @@ ul.errors{
 }
 #div_form_2{
     width: 100%;
-    height: 400px;
+    min-height: 200px;
     overflow:auto;
     font-size: 12px;
 }
