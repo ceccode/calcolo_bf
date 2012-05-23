@@ -426,6 +426,7 @@ ul.errors{
 #button-ricalcola{
     margin-top:-50px;
     margin-left: 200px;
+    z-index:666;
 }
 
 #continua_stampa{
