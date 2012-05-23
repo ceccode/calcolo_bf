@@ -27,6 +27,7 @@ $(function()
         $.post(url,data,function(resp){
 
             var id2 = id.attr('name');
+            $("#"+id2).parent().find("ul").remove();            
             $("#"+id2).after(getErrorHtml(resp[id2],id2));
             //getErrorHtml(resp[id2]),id2
             
