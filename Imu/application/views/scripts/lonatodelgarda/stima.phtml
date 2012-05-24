@@ -108,7 +108,7 @@ $this->headTitle("Calcolo imu lonato");
         <div id="corpo_peso_standard">
             <?php foreach ($stmt5 as $chiave => $valore): ?>
                 <div class="blocco_tabella2"><?= $valore['quota_percentuale'] ?></div>
-            <?php endforeach; ?>
+           <?php endforeach; ?>
         </div>
     </div>
 
@@ -116,9 +116,11 @@ $this->headTitle("Calcolo imu lonato");
         <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto</div>
         <div id="corpo_quota_progetto">
             <?= $this->form; ?>
-            <a id="button-ricalcola" class="button doc-button min-larghezza" href="<?= $this->url(array('controller' => 'Lonatodelgarda','action' => 'index'), null, TRUE);?>">Ricalcola</a>
         </div>
     </div>
+              <!-- bottone ricalcola -->
+           <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => 'Lonatodelgarda','action' => 'index'), null, TRUE);?>">Ricalcola</a>
+ 
 </div>
     <!-- torna al form1 -->
 <div style="clear:both"></div>

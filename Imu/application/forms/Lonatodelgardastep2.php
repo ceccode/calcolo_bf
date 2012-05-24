@@ -50,7 +50,7 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
         }        
 
         $this->addElement('submit', 'continua_stampa', array(
-            'class' => 'button doc-button cec',
+            'class' => 'button doc-button',
             'required' => false,
             'ignore'   => true,
             'label'    => 'Continua per stampare',

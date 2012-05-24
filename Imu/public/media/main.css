@@ -1,9 +1,8 @@
 /* 
     Document   : main.css
-    Created on : 5-dic-2011, 22.34.54
+    Created on : 08-05-2012
     Author     : francesco
-    Description:
-        Purpose of the stylesheet follows.
+    Description: Purpose of the stylesheet follows.
 */
 body {
     font-family: Lucida, verdana;
@@ -21,10 +20,7 @@ body {
     height: 100px;
     float: left;
 }
-#logo {
-    height: 100px;
-    float: right;
-}
+
 
 #content{
     min-height: 200px;  
@@ -32,8 +28,8 @@ body {
     border-top:8px solid #4681F7;
     border-bottom:8px solid #2565E5;
     border-right:8px solid #2565E5;
+    padding-bottom: 10px;
     overflow:auto;
-/*    background-color: #dcdcdc;*/
 }
 
 #footer {
@@ -262,15 +258,6 @@ ul.errors{
     opacity: 1;    
 }
 
-
-/* /////// persona, pannello in alto ///////  */
-.persone{
-    width: 99%;
-    
-}
-
-
-
 /* /////// notifica ///////  */
 .notifica{
     width: 99%; 
@@ -279,8 +266,6 @@ ul.errors{
 /*    padding: 5px;*/
     
 }
-
-
 
 /* ////////// footer /////////// */
 #footer a{
@@ -316,11 +301,16 @@ ul.errors{
     background-color: #D1D2D3;
 }
 
-#button-ricalcola{
+#button-ricalcola-form2{
+    margin-left: 630px;
+    margin-top: -51px;
+    font-size:11px;
+    min-width: 90px;
+    padding-left: 40px;
 }
 
 #continua_stampa{
-
+    margin-top: 40px;
 }
 
 #risultati{
@@ -351,69 +341,69 @@ ul.errors{
     border-left: 1px solid #C5DBF9;
 }
 .copri_tabella2{
-    min-height: 400px;
+    min-height: 200px;
 }
 #div_form_2{
-    width: 100%;
-    min-height: 200px;
+    width: 970px;
     overflow:auto;
     font-size: 12px;
+    margin-left:10px;
 }
 #header_destinazione_uso{
-    width: 195px;
+    width: 190px;
     height: 45px;
     padding:0;
     padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_destinazione_uso{
-    width: 195px;
+    width: 190px;
     padding-top:5px;
     padding-left: 5px;
 }
 #header_quota_massima_ammissibile{
-    width: 115px;
+    width: 190px;
     height: 45px;
     padding-left :5px;
     padding-top: 10px;
 }
 #corpo_quota_massima_ammissibile{
-    width: 115px;
+    width: 190px;
     padding-top: 5px;
     padding-left: 5px;
 }
 #header_soglia_dimensione_massima{
-    width: 125px;
+    width: 190px;
     height: 45px;
     padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_soglia_dimensione_massima{
-    width: 125px;
+    width: 190px;
     padding-top: 5px;
     padding-left: 5px;
 }
 #header_peso_standard{
-    width: 125px;
+    width: 190px;
     height: 45px;
     padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_peso_standard{
-    width: 125px;
+    width: 190px;
     padding-top: 5px;
     padding-left: 5px;
 }
 #header_quota_progetto{
-    width: 155px;
+    width: 176px;
     height: 45px;
     padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_quota_progetto{
-    width: 380px;
+    width: 150px;
     padding-top: 5px;
-    padding-left: 10px;
+    padding-left: 20px;
 }
 .blocco_tabella2{
     height: 33px;
@@ -437,14 +427,9 @@ ul.errors{
 
 /* ////// fine tabella form 2 ////// */
 
-
 /* ///////// fine stile form2 ////// */
 
-/* ////////////////////////////////// */
-/* extr content */
-cec {
-    float: right;
-}
+
 
 .privacy {
     width: 150px;
@@ -464,3 +449,20 @@ cec {
 
 /* ////////  fine stile form1 /////////// */
 
+/* /////// inizio stile anagrafe(step3) /////// */
+
+#button-ricalcola-anagrafe{
+    margin-left: 104px;
+    margin-top: -58px;
+    font-size:11px;
+    min-width: 90px;
+    padding-left: 40px;
+}
+
+#stampadoc{
+    margin-top:24px;
+    margin-right:10px;
+    margin-left: -6px;
+}
+
+/* /////// fine stile anagrafe(step3) /////// */
