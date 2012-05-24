@@ -3,17 +3,17 @@
 class LonatodelgardaController extends Zend_Controller_Action {
 
     public function init() {
-        $lonato_s_rifunitariedest = Factory_dbTable::getClass("lonato", "s_rifunitariedest");
-        $lonato_s_tstima          = Factory_dbTable::getClass("lonato", "s_tstima");
-        $lonato_s_zone            = Factory_dbTable::getClass("lonato", "s_zone");
-        $lonato_u_cessioni        = Factory_dbTable::getClass("lonato", "u_cessioni");
-        $lonato_u_destammesse     = Factory_dbTable::getClass("lonato", "u_destammesse");
-        $lonato_u_mambiti         = Factory_dbTable::getClass("lonato", "u_mambiti");
-        $lonato_u_mdestinazioni   = Factory_dbTable::getClass("lonato", "u_mdestinazioni");
-        $lonato_u_modinterv       = Factory_dbTable::getClass("lonato", "u_modinterv");
-        $lonato_u_sambiti         = Factory_dbTable::getClass("lonato", "u_sambiti");
-        $lonato_u_sdestinazioni   = Factory_dbTable::getClass("lonato", "u_sdestinazioni");
-        $lonato_log               = Factory_dbTable::getClass("lonato", "log");        
+        $lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
+        $lonato_s_tstima = Factory_dbTable::getClass("017092", "s_tstima");
+        $lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
+        $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
+        $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
+        $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
+        $lonato_u_mdestinazioni = Factory_dbTable::getClass("017092", "u_mdestinazioni");
+        $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
+        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
+        $lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
+        $lonato_log = Factory_dbTable::getClass("017092", "log");
     }
 
     public function indexAction() {
@@ -43,10 +43,98 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // dati variabili
         $session = new Zend_Session_Namespace('step1');
         $session->step1 = $values;
+        $session->anno_calcolo = 2012; // per ora imposto a mano l'anno del calcolo
+        // calcolo tutti gli indici da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
+        // prendo i dati da mostrare
+        $lonato_u_sambiti=Factory_dbTable::getClass("017092", "u_sambiti");
+        $db_row_sambiti = $lonato_u_sambiti->getAll($values["id_u_sambiti"]);
+        // creo l'output formattato html4
         
+        foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
+            $stampa = "";
+            $tipo_stima = $valore_sambiti_riga->indice_calcolo_capacita_edificatoria;
+            if (strtolower($tipo_stima[0]) == "v") {
+                // inizio la tabella
+                $stampa.='<table id="indici" class="right">';
+                // indice fondiario
+                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.="<td>Indice fondiario</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->indice_fondiario . "</td>";
+                $stampa.="<td>(volume in m3/m2)</td></tr>";
+                // incremento lotti saturi
+                $stampa.='<tr><td>';
+                $stampa.="<td>Incremento lotti saturi</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->incremento_lotti_saturi_i . "</td>";
+                $stampa.="<td>(% di volume da indice)</td></tr>";
+                // indice territoriale
+                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.="<td>Indice territoriale</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->indice_territoriale . "</td>";
+                $stampa.="<td>(volume in m3/m2)</td></tr>";
+                // volumetria preesistente               
+                $stampa.='<tr><td>';
+                $stampa.="<td>Volume preesistente</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->volume_preesistente . "</td>";
+                $stampa.="<td>(volume in m3)</td></tr>";
+                // volume incremento   
+                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.="<td>Volume incremento</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->volume_incremento . "</td>";
+                $stampa.="<td>(volume in m3)</td></tr>";
+                // volume predefinito
+                $stampa.='<tr><td>';
+                $stampa.="<td>Volume predefinito</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->volume_predefinito_d . "</td>";
+                $stampa.="<td>(volume in m3)</td></tr>";
+                // indice fondiario aggiuntivo
+                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.="<td>Indice fondiario aggiuntivo</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->indice_fondiario_aggiuntivo . "</td>";
+                $stampa.="<td>(volume in m3/m2)</td></tr>";
+                // chiudo la tabella
+                $stampa.='</table>';
+            } elseif (strtolower($tipo_stima[0]) == "u") {
+                // inizio la tabella
+                $stampa.='<table id="indici" class="right">';
+                // indice utilizzazione fondiaria
+                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.="<td>Indice utilizzazione fondiaria</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_fondiaria . "</td>";
+                $stampa.="<td>(slp in m2slp/m2)</td></tr>";
+                // incremento lotti saturi
+                $stampa.='<tr><td>';
+                $stampa.="<td>Incremento lotti saturi</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->incremento_lotti_saturi_u . "</td>";
+                $stampa.="<td>(% slp da indice)</td></tr>";
+                // utilizzazione  territoriale
+                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.="<td>Indice utilizzazione territoriale</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_territoriale . "</td>";
+                $stampa.="<td>(slp in m2slp/m2)</td></tr>";
+                // utilizzazione  preesistente               
+                $stampa.='<tr><td>';
+                $stampa.="<td>Utilizzazione preesistente</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_preesistente . "</td>";
+                $stampa.="<td>(slp in m2slp)</td></tr>";
+                // utilizzazione incremento   
+                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.="<td>Utilizzazione  incremento</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_incremento . "</td>";
+                $stampa.="<td>(slp in m2slp)</td></tr>";
+                // utilizzazione predefinita
+                $stampa.='<tr><td>';
+                $stampa.="<td>Utilizzazione predefinita</td>";
+                $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_predefinita_d . "</td>";
+                $stampa.="<td>(slp in m2slp)</td></tr>";
+                // chiudo la tabella     
+                $stampa.='</table>';
+            } else {
+                throw new Exception("Errore in process_lonato_imu: tipo stima non valida: " . $tipo_stima);
+            }
+        }
+        $session->indici_stampa=$stampa;  
         return true; // non ho incontrato errori
     }
-    
 
     public function stimaAction() {
         // action body
@@ -54,9 +142,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $values = $session->step1;
 
         $this->view->values = $values;
-        
-        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";                
-        $session->capacita_edificatoria  = Stima::calcolaCapacitaEdificatoriaLonato();        
+
+        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        $session->capacita_edificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
 
         $this->view->capacita_edificatoria = $session->capacita_edificatoria;
 
@@ -83,12 +171,12 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->view->form = $form;
     }
 
-protected function _process_lonato_imu_step2($valori) {
+    protected function _process_lonato_imu_step2($valori) {
 
         $session = new Zend_Session_Namespace('step1');
         // dati form1
         $form1 = $session->step1;
-        $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
+        $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
         $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($form1['id_m_ambiti']);
 
         // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
@@ -105,7 +193,7 @@ protected function _process_lonato_imu_step2($valori) {
         // capacita edificatoria
         $session->capacitaEdificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
         // metto in sessione la stima unitaria
-        $session->stimaUnitaria = Stima::calcolaStimaSingolaLonato($stmt5, $percentualeQuote,$session->capacitaEdificatoria );
+        $session->stimaUnitaria = Stima::calcolaStimaSingolaLonato($stmt5, $percentualeQuote, $session->capacitaEdificatoria);
         // calcolo valore area edificabile: semplice moltiplicazione
         $session->valoraAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
         return true; // non ho incontrato errori
@@ -121,9 +209,9 @@ protected function _process_lonato_imu_step2($valori) {
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-                        
+
             if ($form->isValid($request->getPost())) {
-               
+
                 if ($this->_process_anagrafe($form->getValues())) {
                     $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'stampa');
                     $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
@@ -142,9 +230,9 @@ protected function _process_lonato_imu_step2($valori) {
         $session2 = new Zend_Session_Namespace('anagrafe');
         $session2->anagrafe = $values;
         $anagrafe = $session2->anagrafe;
-        $var = $values;        
-        
-        $lonato_log = Factory_dbTable::getClass("lonato", "log");
+        $var = $values;
+
+        $lonato_log = Factory_dbTable::getClass("017092", "log");
         $ret = $lonato_log->inserisciLog($values['nome'], $values['cognome'], $values['cf']);
         return $ret;
     }

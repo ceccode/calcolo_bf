@@ -1,79 +1,46 @@
 <?php
-$values                = $this->values;
+$values = $this->values;
 $capacita_edificatoria = $this->capacita_edificatoria;
 
-$lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
-$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
 $this->headTitle("Calcolo imu lonato");
+
+$lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
+$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
+
+// controllo se stmt5 ha almeno un valore, altrimenti errore
+$vuoto=1;
+foreach ($stmt5 as $chiave => $valore){
+    if($valore['descrizione']){
+        $vuoto=0;
+    }
+}
+// lancio exception
+if ($vuoto==0):
+$session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
 ?>
+
 <div id="risultati_calcolo_stima">
-    
-<!-- stima -->
-<table id="risultati" class="left">
-    <tr class="header-tabella1">
-        <td>Capacità edificatoria calcolata</td>
-        <td><?=$capacita_edificatoria?></td>
-        <td>(m3)</td>
-    </tr>
-    <tr class="">
-        <td>Valore area calcolata</td>
-        <td>123</td> 
-        <td>(Euro/m3)</td>        
-    </tr>
-    <tr class="header-tabella1">
-        <td>Valore area edificabile</td>
-        <td>69.000</td> 
-        <td>(Euro/m3)</td>        
-    </tr>    
-</table>
-    <!-- indici -->
-    <table id="indici" class="right">
+
+    <!-- stima -->
+    <table id="risultati" class="left">
         <tr class="header-tabella1">
-            <td>Incidenza viabilità</td>
-            <td>0,3</td> 
-            <td></td>
+            <td>Capacità edificatoria calcolata</td>
+            <td><?= $capacita_edificatoria ?></td>
+            <td>(m3)</td>
         </tr>
         <tr class="">
-            <td>Capacità edific. pred. o prees.</td>
-            <td>0,3</td>
-            <td></td>
-        </tr>        
-        <tr class="header-tabella1">
-            <td>Indice fondario</td>
-            <td>0,3</td> 
-            <td>(volume in m3/m2)</td>
-        </tr>
-        <tr>
-            <td>Incremento lotti saturi</td>
-            <td>45</td>
-            <td>(% di volume da indice)</td>
-        </tr>    
-        <tr class="header-tabella1">
-            <td>Indice territoriale</td>
-            <td>0,5</td>
-            <td>(volume in m3/m2)</td>
-        </tr>
-        <tr>
-            <td>Volume preesistente</td>
-            <td>150</td>
-            <td>(volume in m3)</td>
+            <td>Valore area calcolata</td>
+            <td>0</td> 
+            <td>(Euro/m3)</td>        
         </tr>
         <tr class="header-tabella1">
-            <td>Volume incremento</td>
-            <td>30</td>
-            <td>(volume in m3)</td>
-        </tr>
-        <tr>
-            <td>Volume predefinito</td>
-            <td>50</td>  
-            <td>(volume in m3)</td>
-        </tr>
-        <tr class="header-tabella1">
-            <td>Indice fondario aggiuntivo</td>
-            <td>0.6</td>
-            <td>(volume in m3/m2)</td>
+            <td>Valore area edificabile</td>
+            <td>0</td> 
+            <td>(Euro/m3)</td>        
         </tr>    
     </table>
+    <!-- indici tabella -->
+    <?= $session->indici_stampa; ?>
 </div> 
 <div id="div_form_2" class=""> <!-- div con i dati form 2 -->
     <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
@@ -108,7 +75,7 @@ $this->headTitle("Calcolo imu lonato");
         <div id="corpo_peso_standard">
             <?php foreach ($stmt5 as $chiave => $valore): ?>
                 <div class="blocco_tabella2"><?= $valore['quota_percentuale'] ?></div>
-           <?php endforeach; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -118,50 +85,55 @@ $this->headTitle("Calcolo imu lonato");
             <?= $this->form; ?>
         </div>
     </div>
-              <!-- bottone ricalcola -->
-           <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => 'Lonatodelgarda','action' => 'index'), null, TRUE);?>">Ricalcola</a>
- 
+    <!-- bottone ricalcola -->
+    <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => 'Lonatodelgarda', 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
+
 </div>
-    <!-- torna al form1 -->
+<!-- torna al form1 -->
 <div style="clear:both"></div>
 
 <script type="text/javascript">
-$(function()
-{
-    $("input").blur(function(){
-        //
-        var formElementId = ($(this).parent().prev().find('label').attr('for'));                
-        doValidation(formElementId);
+    $(function()
+    {
+        $("input").blur(function(){
+            //
+            var formElementId = ($(this).parent().prev().find('label').attr('for'));                
+            doValidation(formElementId);
                
         });
       
-    function doValidation(id){
+        function doValidation(id){
 
-        var url = '/public/Ajax/validate-form-step2';
-        var data = {};
-        $('input').each(function(){
-            data[$(this).attr('name')] = $(this).val();
-        });
-        console.log(data);
-        $.post(url,data,function(resp){
+            var url = '/public/Ajax/validate-form-step2';
+            var data = {};
+            $('input').each(function(){
+                data[$(this).attr('name')] = $(this).val();
+            });
+            console.log(data);
+            $.post(url,data,function(resp){
 
-            $("#"+id).parent().find(".errors").remove();    
-            $("#"+id).parent().append(getErrorHtml(resp[id],id));
+                $("#"+id).parent().find(".errors").remove();    
+                $("#"+id).parent().append(getErrorHtml(resp[id],id));
             
-        },'json');
-    }
-
-    function getErrorHtml(formsError, id){
-        var o = '<ul id="errors-'+id+'" class="errors">';
-        for(errorKeys in formsError)
-        {
-            o += '<li>'+formsError[errorKeys]+'</li>';
+            },'json');
         }
-        o += '</ul>';
-        return o;
-    }
+
+        function getErrorHtml(formsError, id){
+            var o = '<ul id="errors-'+id+'" class="errors">';
+            for(errorKeys in formsError)
+            {
+                o += '<li>'+formsError[errorKeys]+'</li>';
+            }
+            o += '</ul>';
+            return o;
+        }
     
     
-});
+    });
 </script>
+<?php else: ?>
+<h2 style="text-align: center;">Attenzione: non si hanno sufficenti dati per effettuare il calcolo in questo sumambito.</h2>
+<?php endif; ?>
+
+
 

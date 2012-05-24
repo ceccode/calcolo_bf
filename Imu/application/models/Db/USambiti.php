@@ -46,7 +46,7 @@ class Application_Model_DbTable_USambiti extends Application_Model_DbTable_Tabel
             throw new Exception("Nome tabella non settato in filtroDestinazioniAmmesse");
     }  
     
-    public function getAll($id_u_sambiti, $id_u_mambiti){
+    public function getAll($id_u_sambiti){
 
         $righe = null;
   
@@ -55,7 +55,7 @@ class Application_Model_DbTable_USambiti extends Application_Model_DbTable_Tabel
             $select = $this->select()
                            ->where('id_u_sambiti = ?', $id_u_sambiti)
                            ->where('record_attivo = 1')
-                           ->where('id_u_mambiti = ?', $id_u_mambiti)
+                          // ->where('id_u_mambiti = ?', $id_u_mambiti)
                            ->order('id_u_mambiti');            
             
             $righe = $this->fetchAll($select);            

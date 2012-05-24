@@ -31,7 +31,7 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
 //      
         
         //destinazioni ammesse                       
-        $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");        
+        $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");        
         $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($this->_id_u_mambito);
         
         foreach ($stmt5 as $value) {

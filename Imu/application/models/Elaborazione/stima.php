@@ -13,16 +13,16 @@ class Stima {
     public static function calcolaStimaSingolaLonato($form2, $form2Input, $capacita_edificatoria) {
 
         // inizializzo le classi per l'accesso al db
-        $lonato_s_rifunitariedest = Factory_dbTable::getClass("lonato", "s_rifunitariedest");
-        $lonato_s_tstima = Factory_dbTable::getClass("lonato", "s_tstima");
-        $lonato_s_zone = Factory_dbTable::getClass("lonato", "s_zone");
-        $lonato_u_cessioni = Factory_dbTable::getClass("lonato", "u_cessioni");
-        $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
-        $lonato_u_mambiti = Factory_dbTable::getClass("lonato", "u_mambiti");
-        $lonato_u_mdestinazioni = Factory_dbTable::getClass("lonato", "u_mdestinazioni");
-        $lonato_u_modinterv = Factory_dbTable::getClass("lonato", "u_modinterv");
-        $lonato_u_sambiti = Factory_dbTable::getClass("lonato", "u_sambiti");
-        $lonato_u_sdestinazioni = Factory_dbTable::getClass("lonato", "u_sdestinazioni");
+        $lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
+        $lonato_s_tstima = Factory_dbTable::getClass("017092", "s_tstima");
+        $lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
+        $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
+        $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
+        $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
+        $lonato_u_mdestinazioni = Factory_dbTable::getClass("017092", "u_mdestinazioni");
+        $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
+        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
+        $lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
 
 
         $stima = 0; // stima unitaria: inizializzata a 0
@@ -163,16 +163,16 @@ class Stima {
         $capacita_edificatoria = null;
 
         // inizializzo db adapter
-        $lonato_s_rifunitariedest = Factory_dbTable::getClass("lonato", "s_rifunitariedest");
-        $lonato_s_tstima = Factory_dbTable::getClass("lonato", "s_tstima");
-        $lonato_s_zone = Factory_dbTable::getClass("lonato", "s_zone");
-        $lonato_u_cessioni = Factory_dbTable::getClass("lonato", "u_cessioni");
-        $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
-        $lonato_u_mambiti = Factory_dbTable::getClass("lonato", "u_mambiti");
-        $lonato_u_mdestinazioni = Factory_dbTable::getClass("lonato", "u_mdestinazioni");
-        $lonato_u_modinterv = Factory_dbTable::getClass("lonato", "u_modinterv");
-        $lonato_u_sambiti = Factory_dbTable::getClass("lonato", "u_sambiti");
-        $lonato_u_sdestinazioni = Factory_dbTable::getClass("lonato", "u_sdestinazioni");
+        $lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
+        $lonato_s_tstima = Factory_dbTable::getClass("017092", "s_tstima");
+        $lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
+        $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
+        $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
+        $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
+        $lonato_u_mdestinazioni = Factory_dbTable::getClass("017092", "u_mdestinazioni");
+        $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
+        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
+        $lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
 
 
         // prendo i valori del form1 dalla sessione
@@ -183,7 +183,8 @@ class Stima {
         // se volumetrica "v1/2/3" o utilizzazione "u1/2/3"
         $tipo_stima = strtolower($volumetria[0]->indice_calcolo_capacita_edificatoria); // prendo il tipo di misura
         // dati u_sambiti generici utilizzati dopo
-        $u_sambiti = $lonato_u_sambiti->getAll($valoriForm1["id_u_sambiti"], $valoriForm1["id_m_ambiti"]);
+        // ATTENZIONE forse id_m_ambiti nn è necessario
+        $u_sambiti = $lonato_u_sambiti->getAll($valoriForm1["id_u_sambiti"]);
         foreach ($u_sambiti as $chiaveU_sambiti => $u_sambiti_riga) { // prendo l'indice fondiario
             $indice_fondiario = $u_sambiti_riga->indice_fondiario;
             $incremento_lotti_saturi_i = $u_sambiti_riga->incremento_lotti_saturi_i;
@@ -230,7 +231,7 @@ class Stima {
         if ($capacita_edificatoria)
             return $capacita_edificatoria;
         else
-            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota o nulla: " . $tipo_stima . "capacita: ". $capacita_edificatoria);
+            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota o nulla. Tipo stima: " . $tipo_stima . " Capacita: ". $capacita_edificatoria);
     }
 
 }

@@ -19,7 +19,7 @@ class AjaxController extends Zend_Controller_Action
         $this->_helper->_layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);                
         
-        $lonato_u_sambiti = Factory_dbTable::getClass("lonato", "u_sambiti");
+        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         
         $q  = stripcslashes($this->_request->getParam('categoria')); 
         if(!empty($q)) {
@@ -45,7 +45,7 @@ class AjaxController extends Zend_Controller_Action
         $this->_helper->_layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);                
         
-        $lonato_u_modinterv = Factory_dbTable::getClass("lonato", "u_modinterv");
+        $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
        
         $q  = stripcslashes($this->_request->getParam('categoria')); 
         if(isset($q)) {
@@ -69,7 +69,7 @@ class AjaxController extends Zend_Controller_Action
         $this->_helper->_layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);                
         
-        $lonato_u_sambiti = Factory_dbTable::getClass("lonato", "u_sambiti");
+        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
        
         $q  = stripcslashes($this->_request->getParam('categoria')); 
         if(isset($q)) {

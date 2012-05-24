@@ -14,9 +14,9 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         $macro_ambito = $this->createElement('select', 'id_m_ambiti',array('onChange' => 'selSubAmbiti(this.value)'));
         $macro_ambito->setLabel('Macro ambito: *');        
                               
-        $lonato_u_mambiti = Factory_dbTable::getClass("lonato", "u_mambiti");
+        $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
         $select = $lonato_u_mambiti->select()
-                                   ->from('lonato_u_mambiti', array('id_u_mambiti', 'descrizione'))
+                                   ->from($lonato_u_mambiti->getName(), array('id_u_mambiti', 'descrizione'))
                                    ->where('record_attivo = 1')
                                    ->order("id_u_mambiti");
 
@@ -36,9 +36,9 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         $sub_ambito = $this->createElement('select', 'id_u_sambiti',array('onChange' => 'inputVolumetria(this.value)'));
         $sub_ambito->setLabel('Sub ambito: *');
                               
-        $lonato_u_sambiti = Factory_dbTable::getClass("lonato", "u_sambiti");
+        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $select2 = $lonato_u_sambiti->select()
-                                   ->from('lonato_u_sambiti', array('id_u_sambiti', 'descrizione'))
+                                   ->from($lonato_u_sambiti->getName(), array('id_u_sambiti', 'descrizione'))
                                    ->where('record_attivo = 1 AND id_u_mambiti=1')
                                    ->order("id_u_sambiti");
 
@@ -59,9 +59,9 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         $s_zona = $this->createElement('select', 'id_s_zone',array());
         $s_zona->setLabel('Zona: *');
                               
-        $lonato_s_zone = Factory_dbTable::getClass("lonato", "s_zone");
+        $lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
         $select3 = $lonato_s_zone->select()
-                                   ->from('lonato_s_zone', array('id_s_zone', 'descrizione_tipo_stima'))
+                                   ->from($lonato_s_zone->getName(), array('id_s_zone', 'descrizione_tipo_stima'))
                                    ->where('record_attivo = 1')
                                    ->order("id_s_zone");
 
@@ -92,9 +92,9 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         $intervento = $this->createElement('select', 'id_u_modinterv');
         $intervento->setLabel('Modalità intervento: *');
                               
-        $lonato_u_modinterv = Factory_dbTable::getClass("lonato", "u_modinterv");
+        $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
         $select4 = $lonato_u_modinterv->select()
-                                      ->from('lonato_u_modinterv', array('id_u_modinterv', 'descrizione_estesa'))
+                                      ->from($lonato_u_modinterv->getName(), array('id_u_modinterv', 'descrizione_estesa'))
                                       ->where('record_attivo = 1 AND area_urbanizzata=0')
                                       ->order("id_u_modinterv");
 
