@@ -21,6 +21,10 @@
         <controllerFile controllerName="Ajax">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="About">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="privacy"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Lonatodelgarda"/>
@@ -52,6 +56,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Lonatodelgarda">
             <viewScriptFile forActionName="anagrafe"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="About">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="About">
+            <viewScriptFile forActionName="privacy"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -89,6 +99,7 @@
         <testApplicationControllerDirectory>
           <testApplicationControllerFile filesystemName="LonatodelgardaControllerTest.php"/>
           <testApplicationControllerFile filesystemName="AjaxControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="AboutControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

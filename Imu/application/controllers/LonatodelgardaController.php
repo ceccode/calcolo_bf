@@ -4,15 +4,16 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
     public function init() {
         $lonato_s_rifunitariedest = Factory_dbTable::getClass("lonato", "s_rifunitariedest");
-        $lonato_s_tstima = Factory_dbTable::getClass("lonato", "s_tstima");
-        $lonato_s_zone = Factory_dbTable::getClass("lonato", "s_zone");
-        $lonato_u_cessioni = Factory_dbTable::getClass("lonato", "u_cessioni");
-        $lonato_u_destammesse = Factory_dbTable::getClass("lonato", "u_destammesse");
-        $lonato_u_mambiti = Factory_dbTable::getClass("lonato", "u_mambiti");
-        $lonato_u_mdestinazioni = Factory_dbTable::getClass("lonato", "u_mdestinazioni");
-        $lonato_u_modinterv = Factory_dbTable::getClass("lonato", "u_modinterv");
-        $lonato_u_sambiti = Factory_dbTable::getClass("lonato", "u_sambiti");
-        $lonato_u_sdestinazioni = Factory_dbTable::getClass("lonato", "u_sdestinazioni");
+        $lonato_s_tstima          = Factory_dbTable::getClass("lonato", "s_tstima");
+        $lonato_s_zone            = Factory_dbTable::getClass("lonato", "s_zone");
+        $lonato_u_cessioni        = Factory_dbTable::getClass("lonato", "u_cessioni");
+        $lonato_u_destammesse     = Factory_dbTable::getClass("lonato", "u_destammesse");
+        $lonato_u_mambiti         = Factory_dbTable::getClass("lonato", "u_mambiti");
+        $lonato_u_mdestinazioni   = Factory_dbTable::getClass("lonato", "u_mdestinazioni");
+        $lonato_u_modinterv       = Factory_dbTable::getClass("lonato", "u_modinterv");
+        $lonato_u_sambiti         = Factory_dbTable::getClass("lonato", "u_sambiti");
+        $lonato_u_sdestinazioni   = Factory_dbTable::getClass("lonato", "u_sdestinazioni");
+        $lonato_log               = Factory_dbTable::getClass("lonato", "log");        
     }
 
     public function indexAction() {
@@ -143,7 +144,9 @@ protected function _process_lonato_imu_step2($valori) {
         $anagrafe = $session2->anagrafe;
         $var = $values;        
         
-        return true;
+        $lonato_log = Factory_dbTable::getClass("lonato", "log");
+        $ret = $lonato_log->inserisciLog($values['nome'], $values['cognome'], $values['cf']);
+        return $ret;
     }
 
     public function stampaAction() {
