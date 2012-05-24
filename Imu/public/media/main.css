@@ -71,12 +71,12 @@ h1 {
 
 h2 {
     font-size: 1.2em;
-/*    color: #008000; */
+    /*    color: #008000; */
     color: navy;
 }
 
 a {
-/*    color: #008000; */
+    /*    color: #008000; */
     color: navy;
 }
 
@@ -132,12 +132,12 @@ td.odd{
 }
 
 .table {
-    
+
     border-color: Gray;
     border-style: groove;
     background: none repeat scroll 0 0 #FFFFFF;
     border-width: 1px;
-    
+
     /*border-collapse: collapse;*/
     font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
     font-size: 14px;
@@ -181,7 +181,7 @@ form.informa dt {
 }
 form dd {
     margin-left: 0;
-  /*float: left;*/
+    /*float: left;*/
     float: none;
     padding: 5px;    
 }
@@ -213,19 +213,19 @@ ul.errors{
     padding: 20px 0px 0px 5px;
     background-color: #316ac5;
     /*background-color: #2B65EC;*/
-    }
+}
 
 .admin-bar ul{
     margin: 0; 
     padding: 0;
-/*    float: left;*/
+    /*    float: left;*/
 }
- 
+
 .admin-bar ul li{
     display: inline;
     margin-right: 5px;    
 }
- 
+
 .admin-bar ul li a{
     text-decoration: none;
     -moz-border-radius: 5px;
@@ -233,7 +233,7 @@ ul.errors{
     border-radius: 5px;
     background-color: #dcdcdc;
     color: navy;
-/*    opacity: 0.4;   */
+    /*    opacity: 0.4;   */
     padding: 10px;
     /*
     float: left;
@@ -242,12 +242,12 @@ ul.errors{
     padding: 10.5px 11px;
     background-color: #316ac5; 
     */
-    }
- 
+}
+
 .admin-bar ul li a:visited{
     color: navy;
 }
- 
+
 .admin-bar ul li a:hover, .menu_cliente ul li .current{
     text-decoration: none;
     -moz-border-radius: 5px;
@@ -263,8 +263,8 @@ ul.errors{
     width: 99%; 
     background-color: red;
     color: white;
-/*    padding: 5px;*/
-    
+    /*    padding: 5px;*/
+
 }
 
 /* ////////// footer /////////// */
@@ -302,7 +302,7 @@ ul.errors{
 }
 
 #button-ricalcola-form2{
-    margin-left: 630px;
+    margin-left: 613px;
     margin-top: -51px;
     font-size:11px;
     min-width: 90px;
@@ -311,16 +311,17 @@ ul.errors{
 
 #continua_stampa{
     margin-top: 40px;
+    margin-left: 290px;
 }
 
 #risultati{
     font-size: 15px; 
-    margin-top:10px;
+    margin-top:-40px;
     margin-left: 10px;
 }
 
 #indici{
-    margin-right:10px;
+    margin-left:10px;
     margin-top:10px;
 }
 
@@ -329,7 +330,7 @@ ul.errors{
     background-color: #4681F7;
 }
 .border_sotto{
-   border-bottom: 1px solid #C5DBF9;
+    border-bottom: 1px solid #C5DBF9;
 }
 .border_destra{
     border-right: 1px solid #C5DBF9;    
@@ -350,52 +351,52 @@ ul.errors{
     margin-left:10px;
 }
 #header_destinazione_uso{
-    width: 190px;
+    width: 150px;
     height: 45px;
     padding:0;
     padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_destinazione_uso{
-    width: 190px;
+    width: 150px;
     padding-top:5px;
     padding-left: 5px;
 }
 #header_quota_massima_ammissibile{
-    width: 190px;
+    width: 100px;
     height: 45px;
     padding-left :5px;
     padding-top: 10px;
 }
 #corpo_quota_massima_ammissibile{
-    width: 190px;
+    width: 100px;
     padding-top: 5px;
     padding-left: 5px;
 }
 #header_soglia_dimensione_massima{
-    width: 190px;
+    width: 110px;
     height: 45px;
     padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_soglia_dimensione_massima{
-    width: 190px;
+    width: 110px;
     padding-top: 5px;
     padding-left: 5px;
 }
 #header_peso_standard{
-    width: 190px;
+    width: 115px;
     height: 45px;
     padding-left: 5px;
     padding-top: 10px;
 }
 #corpo_peso_standard{
-    width: 190px;
+    width: 115px;
     padding-top: 5px;
     padding-left: 5px;
 }
 #header_quota_progetto{
-    width: 176px;
+    width: 150px;
     height: 45px;
     padding-left: 5px;
     padding-top: 10px;
@@ -403,8 +404,42 @@ ul.errors{
 #corpo_quota_progetto{
     width: 150px;
     padding-top: 5px;
-    padding-left: 20px;
+    padding-left: 5px;
 }
+#header-um-cessione{
+    width:95px;
+    height: 45px;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+#corpo-um-cessione{
+    width:95px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+#header-cessione{
+    width:90px;
+    height: 45px;
+    padding-top: 10px;
+    padding-left:15px;
+}
+#corpo-cessione{
+    width:90px;
+    padding-left: 15px;
+    padding-top: 5px;
+}
+#header-quota-monetaria{
+    width:90px;
+    height: 45px;   
+    padding-top: 10px;
+    padding-left: 15px;
+}
+#corpo-quota-monetaria{
+    width:90px;
+    padding-left: 15px;
+    padding-top: 5px;
+}   
+
 .blocco_tabella2{
     height: 33px;
     margin-top: auto;

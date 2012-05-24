@@ -89,31 +89,28 @@ class Stima {
                     else
                         throw new Exception("Errore in Stima.php: cacolo indice capacità edificatoria");
 
-                    // incidenza costo viabilità sull'indice edificatorio MAGIC NUMBER CHIEDI DIEGO!!!
-                    $fiv = 0;
-                    // fattore incidenza standard MAGIC NUMBER CHIEDI DIEGO!!!
-                    $fistd = 0;
-                    // incidenza standard qualità espresso in m2 di slq dovendo ricondurre il volume
-                    // sempre a 3 MAGIC NUMBER CHIEDI DIEGO!!!
-                    $fispq = 3;
                     // incidenza viabilità 
-                    $incidenza_viabilità = 0.1; // MAGIC NUMBER CHIEDI DIEGO
+                    // DIEGO: per l'utente assume il valore statico 0.1; per l'operatore deve stare in una tabella di settaggi ed è legata a date di validit�;
+                    $incidenza_viabilità = 0.1; 
                     // costo unitario della viabilità ceduta: espresso in euro/mq
                     // da implementare una tabella start ove leggere questo valore
                     // in base alla scelta dell'anno e del comune
-                    $costo_cessione_viabilità = 80; // MAGIC NUMBER CHIEDI DIEGO
+                    $costo_cessione_viabilità = 80; //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
                     // costo cessione degli standard. da implementare una tabella
                     // ove leggere questo valore in base alla scelta dell'anno di imposta
                     // e del comune
-                    $costo_cessione_standard = 80; // MAGIC NUMBER CHIEDI DIEGO
+                    //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
+                    $costo_cessione_standard = 80; 
                     // tasso di auttualizzazione. da implementare una tabella start ove4
                     // leggere questo valore in  base alla scelta dell'anno di imposta e del comune
+                    //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
                     $frate = 0.08; // MAGIC NUMBER CHIEDI DIEGO!!!
                     // orizzonte temporale calcolo attualizzazione. da implementare una tabella
                     // start ove leggere questo valore in base alla scelta dell'anno e del comune
-                    $orizzonte_temporale = 3; // MAGIC NUMBER CHIEDI DIEGO!!!
+                    //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
+                    $orizzonte_temporale = 3; 
                     // anno corrente
-                    $anno_calcolo = 2012; // DA PARAMETRIZZARE!!! 
+                    $anno_calcolo = 2012; // DIEGO: DA PARAMETRIZZARE!!! 
                     // incidenza viabilità sull'indice edificatorio
                     $fattore_incidenza_viabilità = $incidenza_viabilità / $indice_capacità_edificatoria;
                     //$ret[7][$chiaveForm2] = "fattore incidenza viabilità: " . $fattore_incidenza_viabilità  ."incidenza viabilita: " . $incidenza_viabilità . " indice cap edific: ".                     $fattore_incidenza_viabilità = $incidenza_viabilità / $indice_capacità_edificatoria;

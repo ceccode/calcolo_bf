@@ -1,26 +1,118 @@
 <?php
+// prelevo i dati 
 $values = $this->values;
 $capacita_edificatoria = $this->capacita_edificatoria;
-
-$this->headTitle("Calcolo imu lonato");
-
+$session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
+$step1 = $session->step1;
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
+$lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
 $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
 
-// controllo se stmt5 ha almeno un valore, altrimenti errore
-$vuoto=1;
+// prelevo i valori di stmt5 e li metto in dati_cessione
 foreach ($stmt5 as $chiave => $valore){
-    if($valore['descrizione']){
-        $vuoto=0;
+    $tabella_dati_cessione = $lonato_u_cessioni->getAll($step1["id_m_ambiti"], $valore["id_u_sdestinazioni"],$step1["id_u_modinterv"]); 
+    foreach($tabella_dati_cessione as $chiave2 => $valore2){
+    // debug echo $step1["id_m_ambiti"]. " ". $valore["id_u_sdestinazioni"] . "quota monetizzabile: ". $valore2->quota_monetizzabile . "chiave: " . $chiave2 . "<br/>";
+        $dati_cessione[$chiave]=array("quota_monetizzabile" => $valore2->quota_monetizzabile,
+                                      "quantita_cessione" =>$valore2->quantita_cessione,
+                                      "unita_misura_cessione" => $valore2->unita_misura_cessione);
+    }
+}
+
+// header con titolo
+$this->headTitle("Calcolo imu lonato");
+
+// controllo se stmt5 ha almeno un valore, altrimenti errore
+$vuoto = 1;
+foreach ($stmt5 as $chiave => $valore) {
+    if ($valore['descrizione']) {
+        $vuoto = 0;
     }
 }
 // lancio exception
-if ($vuoto==0):
-$session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
+if ($vuoto == 0):
 ?>
 
-<div id="risultati_calcolo_stima">
+    <div id="risultati_calcolo_stima">
+        <!-- indici tabella -->
+        <?= $session->indici_stampa; ?>
+    </div> 
+    <div id="div_form_2" class=""> <!-- div con i dati form 2 -->
+        <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
+            <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
+            <div id="corpo_destinazione_uso">
+                <?php foreach ($stmt5 as $chiave => $valore): ?>
+                    <div class="blocco_tabella2"><?= $valore['descrizione'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
 
+        <div class="left copri_tabella2 border_destra"> <!-- colonna2 -->
+            <div id="header_quota_massima_ammissibile" class="border_sotto  grigio">Quota massima ammissibile</div>
+            <div id="corpo_quota_massima_ammissibile" >
+                <?php foreach ($stmt5 as $chiave => $valore): ?>
+                    <div id="quota-<?= $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?= $valore['quota_massima_ammissibile'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="left copri_tabella2 border_destra"> <!-- colonna3 -->
+            <div id="header_soglia_dimensione_massima" class="border_sotto  grigio">Soglia dimensione massima</div>
+            <div id="corpo_soglia_dimensione_massima">
+                <?php foreach ($stmt5 as $chiave => $valore): ?>
+                    <div class="blocco_tabella2"><?= $valore['soglia_dimensione_massima'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="left copri_tabella2 border_destra"> <!-- colonna4 -->
+            <div id="header_peso_standard" class="border_sotto  grigio">Peso standard della destinazione</div>
+            <div id="corpo_peso_standard">
+                <?php foreach ($stmt5 as $chiave => $valore): ?>
+                    <div class="blocco_tabella2"><?= $valore['quota_percentuale'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="left copri_tabella2"> <!-- colonna5 -->
+            <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto</div>
+            <div id="corpo_quota_progetto">
+                <?= $this->form; ?>
+            </div>
+        </div>
+
+        <div class="left copri_tabella2 border_sinistra border_destra"> <!-- colonna6 -->
+            <div id="header-um-cessione" class="border_sotto grigio">U.m. Cessione</div>
+            <div id="corpo-um-cessione">
+                <?php foreach ($dati_cessione as $chiave => $valore): ?>
+                    <div class="blocco_tabella2"><?= $valore['unita_misura_cessione'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="left copri_tabella2 border_destra"> <!-- colonna7 -->
+            <div id="header-cessione" class="border_sotto grigio">Quantità cessione</div>
+            <div id="corpo-cessione">
+                <?php foreach ($dati_cessione as $chiave => $valore): ?>
+                    <div class="blocco_tabella2"><?= $valore['quantita_cessione'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="left copri_tabella2"> <!-- colonna8 -->
+            <div id="header-quota-monetaria" class="border_sotto grigio">Quota monetaria</div>
+            <div id="corpo-quota-monetaria">
+                <?php foreach ($dati_cessione as $chiave => $valore): ?>
+                    <div class="blocco_tabella2"><?= $valore['quota_monetizzabile'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <!-- bottone ricalcola -->
+        <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => 'Lonatodelgarda', 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
+
+    </div>
+    <!-- torna al form1 -->
+    <div style="clear:both"></div>
     <!-- stima -->
     <table id="risultati" class="left">
         <tr class="header-tabella1">
@@ -39,100 +131,49 @@ $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
             <td>(Euro/m3)</td>        
         </tr>    
     </table>
-    <!-- indici tabella -->
-    <?= $session->indici_stampa; ?>
-</div> 
-<div id="div_form_2" class=""> <!-- div con i dati form 2 -->
-    <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
-        <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
-        <div id="corpo_destinazione_uso">
-            <?php foreach ($stmt5 as $chiave => $valore): ?>
-                <div class="blocco_tabella2"><?= $valore['descrizione'] ?></div>
-            <?php endforeach; ?>
-        </div>
-    </div>
 
-    <div class="left copri_tabella2 border_destra"> <!-- colonna2 -->
-        <div id="header_quota_massima_ammissibile" class="border_sotto  grigio">Quota massima ammissibile</div>
-        <div id="corpo_quota_massima_ammissibile" >
-            <?php foreach ($stmt5 as $chiave => $valore): ?>
-                <div id="quota-<?= $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?= $valore['quota_massima_ammissibile'] ?></div>
-            <?php endforeach; ?>
-        </div>
-    </div>
 
-    <div class="left copri_tabella2 border_destra"> <!-- colonna3 -->
-        <div id="header_soglia_dimensione_massima" class="border_sotto  grigio">Soglia dimensione massima</div>
-        <div id="corpo_soglia_dimensione_massima">
-            <?php foreach ($stmt5 as $chiave => $valore): ?>
-                <div class="blocco_tabella2"><?= $valore['soglia_dimensione_massima'] ?></div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-
-    <div class="left copri_tabella2 border_destra"> <!-- colonna4 -->
-        <div id="header_peso_standard" class="border_sotto  grigio">Peso standard della destinazione</div>
-        <div id="corpo_peso_standard">
-            <?php foreach ($stmt5 as $chiave => $valore): ?>
-                <div class="blocco_tabella2"><?= $valore['quota_percentuale'] ?></div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-
-    <div class="left copri_tabella2"> <!-- colonna5 -->
-        <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto</div>
-        <div id="corpo_quota_progetto">
-            <?= $this->form; ?>
-        </div>
-    </div>
-    <!-- bottone ricalcola -->
-    <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => 'Lonatodelgarda', 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
-
-</div>
-<!-- torna al form1 -->
-<div style="clear:both"></div>
-
-<script type="text/javascript">
-    $(function()
-    {
-        $("input").blur(function(){
-            //
-            var formElementId = ($(this).parent().prev().find('label').attr('for'));                
-            doValidation(formElementId);
-               
-        });
-      
-        function doValidation(id){
-
-            var url = '/public/Ajax/validate-form-step2';
-            var data = {};
-            $('input').each(function(){
-                data[$(this).attr('name')] = $(this).val();
+    <script type="text/javascript">
+        $(function()
+        {
+            $("input").blur(function(){
+                //
+                var formElementId = ($(this).parent().prev().find('label').attr('for'));                
+                doValidation(formElementId);
+                       
             });
-            console.log(data);
-            $.post(url,data,function(resp){
+              
+            function doValidation(id){
 
-                $("#"+id).parent().find(".errors").remove();    
-                $("#"+id).parent().append(getErrorHtml(resp[id],id));
-            
-            },'json');
-        }
+                var url = '/public/Ajax/validate-form-step2';
+                var data = {};
+                $('input').each(function(){
+                    data[$(this).attr('name')] = $(this).val();
+                });
+                console.log(data);
+                $.post(url,data,function(resp){
 
-        function getErrorHtml(formsError, id){
-            var o = '<ul id="errors-'+id+'" class="errors">';
-            for(errorKeys in formsError)
-            {
-                o += '<li>'+formsError[errorKeys]+'</li>';
+                    $("#"+id).parent().find(".errors").remove();    
+                    $("#"+id).parent().append(getErrorHtml(resp[id],id));
+                    
+                },'json');
             }
-            o += '</ul>';
-            return o;
-        }
-    
-    
-    });
-</script>
+
+            function getErrorHtml(formsError, id){
+                var o = '<ul id="errors-'+id+'" class="errors">';
+                for(errorKeys in formsError)
+                {
+                    o += '<li>'+formsError[errorKeys]+'</li>';
+                }
+                o += '</ul>';
+                return o;
+            }
+            
+            
+        });
+    </script>
 <?php else: ?>
-<h2 style="text-align: center;">Attenzione: non si hanno sufficenti dati per effettuare il calcolo in questo sumambito.</h2>
+    <h2 style="text-align: center;">Attenzione: non si hanno sufficenti dati per effettuare il calcolo in questo sumambito.</h2>
 <?php endif; ?>
 
 

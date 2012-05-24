@@ -55,7 +55,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $tipo_stima = $valore_sambiti_riga->indice_calcolo_capacita_edificatoria;
             if (strtolower($tipo_stima[0]) == "v") {
                 // inizio la tabella
-                $stampa.='<table id="indici" class="right">';
+                $stampa.='<table id="indici" class="left">';
                 // indice fondiario
                 $stampa.='<tr class="header-tabella1"><td>';
                 $stampa.="<td>Indice fondiario</td>";
@@ -95,7 +95,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
                 $stampa.='</table>';
             } elseif (strtolower($tipo_stima[0]) == "u") {
                 // inizio la tabella
-                $stampa.='<table id="indici" class="right">';
+                $stampa.='<table id="indici" class="left">';
                 // indice utilizzazione fondiaria
                 $stampa.='<tr class="header-tabella1"><td>';
                 $stampa.="<td>Indice utilizzazione fondiaria</td>";

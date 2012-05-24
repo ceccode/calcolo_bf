@@ -27,7 +27,7 @@ class Application_Model_DbTable_Log extends Application_Model_DbTable_TabellaCom
             
             return $insert;
         }else
-            throw new Exception("Erroe nella registrazione del log.");   
+            throw new Exception("Errore in inserisciLog: nome tabella non trovato!");   
     }
 }
 ?>
