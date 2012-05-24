@@ -25,19 +25,23 @@ function selSubAmbiti(idMacroAmbito){
     $.getJSON('http://localhost:10095/public/Ajax/search-subambiti', 
         { categoria: idMacroAmbito},
               function(dataNorme){
-                console.log(dataNorme);
+                //console.log(dataNorme);
                 $("select[id='id_u_sambiti']").empty();
                 
-                if (dataNorme.length==1){
+                var arraySubAmbiti = dataNorme;
+                
+                if (arraySubAmbiti.length==1){
                     var options = '';
+                    $.each(arraySubAmbiti, function(key, value){
+                        options += '<option selected value="' + value.id + '">' + value.descrizione + '</option>';    
+                        inputVolumetria(value.id);
+                    });                     
                 }else{
                     var options = '<option value="">-- seleziona --</option>';
+                    $.each(arraySubAmbiti, function(key, value){
+                        options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
+                    });                                       
                 }
-                var arraySubAmbiti = dataNorme;
-
-               $.each(arraySubAmbiti, function(key, value){
-                   options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
-               });                   
                 $("select[id='id_u_sambiti']").html(options);
 
               });
@@ -52,7 +56,8 @@ function inputVolumetria(idSubAmbito){
                 if (dataNorme.descrizione == "V3"){
                     $("#capacita_edificatoria-label").hide();
                     $("#capacita_edificatoria-element").hide(); 
-                    
+                    $("#submit").removeAttr("disabled", "false");
+                     
                 }else {
                     
                     var label = 'imputare volumetria: *';
@@ -86,7 +91,7 @@ function selModalitaIntervento(urbanizzato){
     $.getJSON('http://localhost:10095/public/Ajax/search-modalitaintervento', 
         { categoria: urbanizzato},
               function(dataNorme){
-                console.log(dataNorme);
+                //console.log(dataNorme);
                 $("select[id='id_u_modinterv']").empty();
                 
                 if (dataNorme.length==1){
@@ -98,7 +103,7 @@ function selModalitaIntervento(urbanizzato){
                 var arrayModalitaintervento = dataNorme;
 
                $.each(arrayModalitaintervento, function(key, value){
-                   console.log(value);
+                   //console.log(value);
                    options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
                });           
                 $("select[id='id_u_modinterv']").html(options);

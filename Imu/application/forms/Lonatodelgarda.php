@@ -133,13 +133,10 @@ class Application_Form_Lonatodelgarda extends Zend_Form
 
         //capacita_edificatoria
         //dipende dal subambito
-        $this->addElement('text', 'capacita_edificatoria', array(
-            'label'      => 'Inputare volumetria: *',
-            'validators' => array(
-                array('validator' => 'float'
-                    )
-                )
-        ));    
+        $cepp = $this->createElement('text', 'capacita_edificatoria', array());
+        $cepp->setLabel('Inputare volumetria: *');
+        $cepp->addValidator('Float',false, array('messages' => 'Solo cifre separate da virgola'));       
+        $this->addElement($cepp);    
         
         // pulsante invia
         $this->addElement('submit', 'submit', array(

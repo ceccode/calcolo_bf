@@ -9,17 +9,51 @@
 <script type="text/javascript">
 $(function()
 {
-    $("#capacita_edificatoria").blur(function(){
-        var id = $(this);
-        if(id.val()==''){
-           $("#submit").attr("disabled", "true");
-        }else {
-           $("#submit").removeAttr("disabled");
-        }
+    
+    if( $("#capacita_edificatoria").is(':visible') ) {
         
-        doValidation(id);
-               
-        });
+        $("#submit").attr("disabled", "true");
+        
+        $("#capacita_edificatoria").blur(function(){
+                var id = $(this);
+                if(id.val()==''){
+                   $("#submit").attr("disabled", "true");
+                }else {
+                   $("#submit").removeAttr("disabled");
+                }
+
+                doValidation(id);
+
+                });        
+        // se #test è visibile fai qualcosa
+    }
+    else {
+        // se non è visibile fai qualcos'altro
+    }  
+    
+    
+//    $("#capacita_edificatoria").blur(function(){
+//        var id = $(this);
+//        if(id.val()==''){
+//           $("#submit").attr("disabled", "true");
+//        }else {
+//           $("#submit").removeAttr("disabled");
+//        }
+//        
+//        doValidation(id);
+//               
+//        });
+        
+        
+//    $("#submit").click(function(){
+//        var id = $("#capacita_edificatoria");
+//        if(id.val()==''){
+//            $("#"+id).parent().find("ul").remove();  
+//            $("#"+id).after(getErrorHtml(resp[id],id)); 
+//        }else {
+//            ;
+//        }        
+//    }); 
       
 
     function doValidation(id){
