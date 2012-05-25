@@ -3,6 +3,23 @@
 class Stima {
 
     /**
+     * verifica che la somma delle quote sia <1 
+     * se valido ritorna 0 altrimenti ritorna 1
+     * 
+     * @param type $quote quote percentuali in input
+     */
+    public static function verificaStima($quote){
+        $sum=0;
+        foreach($quote as $key => $value){
+            $sum+=$value;
+        }
+        if($sum>1)
+            return 1;
+        else
+            return 0;
+    }
+    
+    /**
      * Metodo per il calcolo della stima per il comune di lonato
      * IMPORTANTE!!! si presuppone che sia stat chiamato prima
      * calcolaCapacitàEdificatoraLonato e ci siano i valori del form
@@ -24,7 +41,9 @@ class Stima {
         $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
-
+        
+        if (Stima::verificaStima($form2Input))
+            throw new Exception ("Errore in calcolaStimaSingolaLonato: la somma delle quote è maggiore di 1");
 
         $stima = 0; // stima unitaria: inizializzata a 0
         $tstima = 0; // stima temporanea usata per i calcoli 
