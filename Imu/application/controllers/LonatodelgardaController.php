@@ -44,18 +44,17 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session = new Zend_Session_Namespace('step1');
         $session->step1 = $values;
         $session->anno_calcolo = 2012; // per ora imposto a mano l'anno del calcolo
-        // calcolo tutti gli indici da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
+        // ottengo gli indici subambiti da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
         // prendo i dati da mostrare
-        $lonato_u_sambiti=Factory_dbTable::getClass("017092", "u_sambiti");
+        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $db_row_sambiti = $lonato_u_sambiti->getAll($values["id_u_sambiti"]);
         // creo l'output formattato html4
-        
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
             $stampa = "";
             $tipo_stima = $valore_sambiti_riga->indice_calcolo_capacita_edificatoria;
             if (strtolower($tipo_stima[0]) == "v") {
                 // inizio la tabella
-                $stampa.='<table id="indici" class="left">';
+                $stampa.='<table id="indici-sambiti" class="left">';
                 // indice fondiario
                 $stampa.='<tr class="header-tabella1"><td>';
                 $stampa.="<td>Indice fondiario</td>";
@@ -95,7 +94,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
                 $stampa.='</table>';
             } elseif (strtolower($tipo_stima[0]) == "u") {
                 // inizio la tabella
-                $stampa.='<table id="indici" class="left">';
+                $stampa.='<table id="indici-sambiti" class="left">';
                 // indice utilizzazione fondiaria
                 $stampa.='<tr class="header-tabella1"><td>';
                 $stampa.="<td>Indice utilizzazione fondiaria</td>";
@@ -132,7 +131,39 @@ class LonatodelgardaController extends Zend_Controller_Action {
                 throw new Exception("Errore in process_lonato_imu: tipo stima non valida: " . $tipo_stima);
             }
         }
-        $session->indici_stampa=$stampa;  
+        // salvo in sessione
+        $session->indici_sambiti_stampa = $stampa;
+
+        // ottengo gli indici di mambito
+        $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
+        // ottengo la dbtable
+        $db_row_mambiti = $lonato_u_mambiti->getAll($values["id_m_ambiti"]);
+        $stampa = "";
+        foreach ($db_row_mambiti as $chiave_mambiti => $valore_mambiti_riga) {
+            // inizio la tabella
+            $stampa.='<table id="indici-mambiti" class="left">';
+            // contributo compensativo aggiuntivo
+            $stampa.='<tr class="header-tabella1"><td>';
+            $stampa.="<td>Contributo compensativo aggiuntivo</td>";
+            $stampa.="<td>" . $valore_mambiti_riga->contributo_compensativo_aggiuntivo . "</td>";
+            //$stampa.="<td>(volume in m3/m2)</td></tr>";
+            // valore compensativo unitario
+            $stampa.='<tr><td>';
+            $stampa.="<td>Valore compensativo unitario</td>";
+            $stampa.="<td>" . $valore_mambiti_riga->valore_comprensativo_unitario . "</td>";
+            //$stampa.="<td>(volume in m3/m2)</td></tr>";
+            // standard pubblico qualità
+            $stampa.='<tr class="header-tabella1"><td>';
+            $stampa.="<td>Standard pubblico qualità</td>";
+            $stampa.="<td>" . $valore_mambiti_riga->standard_pubblico_qualita . "</td>";
+            //$stampa.="<td>(% di volume da indice)</td></tr>";
+            // chiudo la tabella     
+            $stampa.='</table>';
+        }
+        // salvo in sessione
+        $session->indici_mambiti_stampa = $stampa;
+        
+        
         return true; // non ho incontrato errori
     }
 

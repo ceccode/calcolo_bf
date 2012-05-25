@@ -320,8 +320,13 @@ ul.errors{
     margin-left: 10px;
 }
 
-#indici{
+#indici-sambiti{
     margin-left:10px;
+    margin-top:10px;
+}
+
+#indici-mambiti{
+    margin-left:20px;
     margin-top:10px;
 }
 
