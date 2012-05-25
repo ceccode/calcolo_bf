@@ -122,6 +122,9 @@
      * indici subambiti
      */
     // ATTENZIONE: ti ho passato la tabella: $this->indici_sambiti_dati
+    $tab_indici = $this->indici_sambiti_dati;
+    
+    
     $incidenza_viabilita        = 0.3;
     $cepp                       = 0.3;
     $indice_fondario            = 0.3;
@@ -387,8 +390,8 @@ $tbl_indici = <<<EOD
         </tr>    
     </table>
 EOD;
-$pdf->writeHTML($tbl_indici, true, false, false, '');
-
+//$pdf->writeHTML($tbl_indici, true, false, false, '');
+$pdf->writeHTML($tab_indici, true, false, false, '');
 
 //risultati
 $tbl_risultati = <<<EOD
