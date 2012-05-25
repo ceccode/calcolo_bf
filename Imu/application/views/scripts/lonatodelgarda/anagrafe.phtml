@@ -9,35 +9,39 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
 ?>
 
 <div id="risultati_calcolo_stima">
+    <!-- riassunto step1 -->
+    <?= $session->riassunto_step1; ?> 
+    <!-- indici mambiti tabella -->   
+    <?= $session->indici_mambiti_stampa; ?>
+    <!-- indici sambiti tabella -->
+    <?= $session->indici_sambiti_stampa; ?>
 
-    <!-- stima -->
-    <table id="risultati-anagrafe" class="left">
-        <tr class="header-tabella1">
-            <td>Capacità edificatoria calcolata</td>
-            <td><?= $session->capacitaEdificatoria; ?></td>
-            <td>(m3)</td>
-        </tr>
-        <tr class="">
-            <td>Valore area calcolata</td>
-            <td><?= $session->stimaUnitaria ?></td> 
-            <td>(Euro/m3)</td>        
-        </tr>
-        <tr class="header-tabella1">
-            <td>Valore area edificabile</td>
-            <td><?= $session->valoraAreaEdificabile; ?></td> 
-            <td>(Euro/m3)</td>        
-        </tr>    
-    </table>
-    <!-- indici tabella -->
-    <?= $session->indici_stampa; ?>
 </div> 
-<div>
+<div id="form-anagrafe">
     <?= $this->form ?>
     <a id="button-ricalcola-anagrafe" class="button doc-button" href="<?=
     $this->url(array('controller' => 'Lonatodelgarda',
         'action' => 'index'), null, TRUE);
     ?>">Ricalcola</a>
 </div>
+<!-- stima -->
+<table id="risultati-anagrafe">
+    <tr class="header-tabella1">
+        <td>Capacità edificatoria calcolata</td>
+        <td><?= $session->capacitaEdificatoria; ?></td>
+        <td>(m3)</td>
+    </tr>
+    <tr class="">
+        <td>Valore area calcolata</td>
+        <td><?= $session->stimaUnitaria ?></td> 
+        <td>(Euro/m3)</td>        
+    </tr>
+    <tr class="header-tabella1">
+        <td>Valore area edificabile</td>
+        <td><?= $session->valoraAreaEdificabile; ?></td> 
+        <td>(Euro/m3)</td>        
+    </tr>    
+</table>
 <div style="clear:both"></div>
 
 

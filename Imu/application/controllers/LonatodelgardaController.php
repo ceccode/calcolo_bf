@@ -61,6 +61,8 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // FARE UN HELPER??????????
         $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"]);
         // creo l'output formattato html4
+        
+        // sub ambiti
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
             $stampa = "";
             // inizio la tabella

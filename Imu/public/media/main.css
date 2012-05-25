@@ -320,12 +320,6 @@ ul.errors{
     margin-left: 10px;
 }
 
-#risultati-anagrafe{
-    font-size: 15px; 
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
 #indici-sambiti{
     margin-right:20px;
     margin-top:10px;
@@ -515,6 +509,19 @@ ul.errors{
     margin-right:10px;
     margin-left: -6px;
     font-size: 11px;
+}
+
+
+#form-anagrafe{
+    width:450px;
+    float:left;
+}
+
+#risultati-anagrafe{
+    font-size: 15px;
+    float:right;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 /* /////// fine stile anagrafe(step3) /////// */
