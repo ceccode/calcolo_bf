@@ -134,7 +134,7 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         //capacita_edificatoria
         //dipende dal subambito
         $cepp = $this->createElement('text', 'capacita_edificatoria', array());
-        $cepp->setLabel('Inputare volumetria: *');
+        $cepp->setLabel('Inputare volumetria: * (m3)');
         $cepp->addValidator('Float',false, array('messages' => 'Solo cifre separate da virgola'));       
         $this->addElement($cepp);    
         
