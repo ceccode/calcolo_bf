@@ -64,7 +64,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
             $stampa = "";
             // inizio la tabella
-            $stampa.='<table id="indici-sambiti" class="left">';
+            $stampa.='<table id="indici-sambiti" class="right">';
             // intestazione
             $stampa.='<tr>';
             $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Indici sub ambiti:</td></tr>";
@@ -176,6 +176,29 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->indici_mambiti_stampa = $stampa;
 
         // ottengo i dati riassuntivi form precedente
+        // query al db per ottenere i dati dai mostrare
+        // nome macro ambito
+        $nome_macro_ambito_rowset = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"]);
+        foreach ($nome_macro_ambito_rowset as $chiave => $valore) {
+            $nome_macro_ambito = $valore->descrizione;
+        }
+        // nome sub ambito
+        $nome_sub_ambito_rowset = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"]);
+        foreach ($nome_sub_ambito_rowset as $chiave => $valore) {
+            $nome_sub_ambito = $valore->descrizione;
+        }
+        // nome zona
+        $nome_zona_rowset = $this->lonato_s_zone->getAll($values["id_s_zone"]);
+        foreach ($nome_zona_rowset as $chiave => $valore) {
+            $nome_zona = $valore->descrizione_tipo_stima;
+        }
+        // modalità di intervento
+        $modalita_intervento_rowset = $this->lonato_u_modinterv->getAll($values["id_u_modinterv"]);
+        foreach ($modalita_intervento_rowset as $chiave => $valore) {
+            $modalita_intervento = $valore->descrizione_estesa;
+        }
+        
+        // preparo la stampa della tabella
         $stampa = "";
         // inizio la tabella
         $stampa.='<table id="indici-form1" class="left">';
@@ -185,35 +208,46 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // macro ambito
         $stampa.='<tr class="header-tabella1"><td>';
         $stampa.="<td>Macro ambito</td>";
-        $stampa.="<td>" . $values["id_m_ambiti"] . "</td>";
+        $stampa.="<td>" . $nome_macro_ambito . "</td>";
         // sub ambito
         $stampa.='<tr><td>';
         $stampa.="<td>Sub ambito</td>";
-        $stampa.="<td>" . $values["id_u_sambiti"] . "</td>";
-        // urbanizzata
+        $stampa.="<td>" . $nome_sub_ambito . "</td>";
+        // zona
         $stampa.='<tr class="header-tabella1"><td>';
+        $stampa.="<td>Nome zona</td>";
+        $stampa.="<td>" . $nome_zona . "</td>";
+        // valore urbanizzata
+        $stampa.='<tr><td>';
         $stampa.="<td>Area urbanizzata</td>";
-        $stampa.="<td>" . $values["area_urbanizzata"] . "</td>";
-        // valore compensativo unitario
-        $stampa.='<tr><td>';
-        $stampa.="<td>Sub ambito</td>";
-        $stampa.="<td>" . $values["id_u_sambiti"] . "</td>";
-        $stampa.='<tr class="header-tabella1"><td>';
-        $stampa.="<td>Macro ambito</td>";
-        $stampa.="<td>" . $values["id_m_ambiti"] . "</td>";
+        $stampa.="<td>";
+        $stampa.=($values["area_urbanizzata"] == 1) ? "Si" : "No";
+        $stampa.="</td>";
+        if ($values["area_urbanizzata"] == 1) {
+            // lotto saturo: solo se urbanizzata
+            $stampa.='<tr class="header-tabella1"><td></td>';
+            $stampa.="<td>Lotto saturo</td>";
+            $stampa.="<td>";
+            $stampa.= ($values["lotto_saturo"] == 1) ? "Si" : "No";
+            $stampa.="</td>";
+        }
         // modalità di intervento
-        $stampa.='<tr><td>';
+        $stampa.='<tr ';
+        $stampa.=($values["area_urbanizzata"] == 1)?"":"class='header-tabella1'";
+        $stampa.='><td></td>';
         $stampa.="<td>Modalità di intervento</td>";
-        $stampa.="<td>" . $values["id_u_modinterv"] . "</td>";
-        // lotto saturo? (se urbanizzata!!!! ) 
-        $stampa.='<tr class="header-tabella1"><td>';
-        $stampa.="<td>Lotto saturo</td>";
-        $stampa.="<td>" . $values["lotto_saturo"] . "</td>";
+        $stampa.="<td>" . $modalita_intervento . "</td>";
+
         // superficie
-        $stampa.='<tr><td>';
-        $stampa.="<td>Superficie edificatori</td>";
+        $stampa.='<tr ';
+        $stampa.=($values["area_urbanizzata"] == 1)?"class='header-tabella1'":"";
+        $stampa.='><td></td>';
+        $stampa.="<td>Superficie edificatoria</td>";
         $stampa.="<td>" . $values["superficie"] . "</td>";
-        $stampa.='<tr class="header-tabella1"><td>';
+        // volumetria
+        $stampa.='<tr ';
+        $stampa.=($values["area_urbanizzata"] == 1)?"":"class='header-tabella1'";
+        $stampa.='><td></td>';
         $stampa.="<td>Volumetria</td>";
         $stampa.="<td>" . $values["capacita_edificatoria"] . "</td>";
         // chiudo la tabella     
@@ -264,9 +298,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
     protected function _process_lonato_imu_step2($valori) {
 
         $session = new Zend_Session_Namespace('step1');
-        // dati form1
-        $form1 = $session->step1;
-        $stmt5 = $this->lonato_u_destammesse->filtroDestinazioniAmmesse($form1['id_m_ambiti']);
 
         // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
         $indice = 0;
@@ -277,12 +308,10 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         // effettuo il calcolo della stima e capacit√† edificatoria
         require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
-        // metto in sessione le quota
-        $session->step2 = $var;
         // capacita edificatoria
         $session->capacitaEdificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
         // metto in sessione la stima unitaria
-        $session->stimaUnitaria = Stima::calcolaStimaSingolaLonato($stmt5, $percentualeQuote, $session->capacitaEdificatoria);
+        $session->stimaUnitaria = Stima::calcolaStimaSingolaLonato($percentualeQuote);
         // calcolo valore area edificabile: semplice moltiplicazione
         $session->valoraAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
         return true; // non ho incontrato errori

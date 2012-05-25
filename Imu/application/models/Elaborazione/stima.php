@@ -4,13 +4,14 @@ class Stima {
 
     /**
      * Metodo per il calcolo della stima per il comune di lonato
+     * IMPORTANTE!!! si presuppone che sia stat chiamato prima
+     * calcolaCapacitàEdificatoraLonato e ci siano i valori del form
+     * in sessione!!!
      * 
-     * @param type $form2 dati del form2
      * @param type $form2Input dati del form2 in input: quote percentuali per zona/area
-     * @param type $capacita_edificatoria calcolata in precedenza
      * @return float stima
      */
-    public static function calcolaStimaSingolaLonato($form2, $form2Input, $capacita_edificatoria) {
+    public static function calcolaStimaSingolaLonato($form2Input) {
 
         // inizializzo le classi per l'accesso al db
         $lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
@@ -30,7 +31,14 @@ class Stima {
         // prendo i valori del form1 dalla sessione
         $session = new Zend_Session_Namespace('step1');
         $valoriForm1 = $session->step1;
+        // capacità edificatoria
+        $capacita_edificatoria=$session->capacitaEdificatoria;
+        //form2
+        $form2 = $lonato_u_destammesse->filtroDestinazioniAmmesse($valoriForm1['id_m_ambiti']);
 
+        if(!$capacita_edificatoria)
+            throw new Exception("Errore in calcolaStimaSingolaLonato: La capacità edificatoria è nulla");
+        
         //var_dump($valoriForm1);
         //var_dump($form2);
 

@@ -79,14 +79,15 @@ if ($vuoto == 0):
     ?>
 
     <div id="risultati_calcolo_stima">
-        <!-- indici sambiti tabella -->
-        <?= $session->indici_sambiti_stampa; ?>
+        <!-- riassunto step1 -->
+        <?= $session->riassunto_step1; ?> 
         <!-- indici mambiti tabella -->   
         <?= $session->indici_mambiti_stampa; ?>
-        <!-- riassunto step1 -->
-        <?= $session->riassunto_step1; ?>        
+       <!-- indici sambiti tabella -->
+        <?= $session->indici_sambiti_stampa; ?>
+       
     </div> 
-    <div id="div_form_2" class=""> <!-- div con i dati form 2 -->
+    <div id="div_form_2"> <!-- div con i dati form 2 -->
         <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
             <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
             <div id="corpo_destinazione_uso">

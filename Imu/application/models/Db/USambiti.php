@@ -63,7 +63,7 @@ class Application_Model_DbTable_USambiti extends Application_Model_DbTable_Tabel
             if ($righe)
                 return $righe;
             else
-                throw new Exception("Errore nella query getAll");
+                throw new Exception("Errore nella query getAll di uSambiti");
         }
         else
             throw new Exception("Nome tabella non settato in filtroDestinazioniAmmesse");

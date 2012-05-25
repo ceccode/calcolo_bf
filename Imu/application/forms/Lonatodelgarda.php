@@ -31,7 +31,6 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         $macro_ambito->setRequired(true);
         $this->addElement($macro_ambito);   
         
-        
         //sub ambiti
         $sub_ambito = $this->createElement('select', 'id_u_sambiti',array('onChange' => 'inputVolumetria(this.value)'));
         $sub_ambito->setLabel('Sub ambito: *');
