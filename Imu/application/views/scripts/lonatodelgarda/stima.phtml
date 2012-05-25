@@ -3,7 +3,7 @@
 $values = $this->values;
 $capacita_edificatoria = $this->capacita_edificatoria;
 
-$valore_area_calcolata   = '';
+$valore_area_calcolata = '';
 $valore_area_edificabile = '';
 
 $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
@@ -13,39 +13,38 @@ $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
 $result = $lonato_u_sambiti->getVolumetria(intval($step1['id_u_sambiti']));
 $etichetta = $result[0]->indice_calcolo_capacita_edificatoria;
 
-if (strtolower($etichetta) == "v3"){
-    
+if (strtolower($etichetta) == "v3") {
+
     $u_capacita_edificatoria = 'm3';
     $u_valore_area_calcolata = 'Euro/m3';
+} else {
 
-}else {
+    switch (strtolower($etichetta)) {
 
-    switch (strtolower($etichetta)) {        
-            
-        case "v1": 
+        case "v1":
             $u_capacita_edificatoria = 'm3';
             $u_valore_area_calcolata = 'Euro/m3';
-        break;
-        case "v2": 
+            break;
+        case "v2":
             $u_capacita_edificatoria = 'm3';
             $u_valore_area_calcolata = 'Euro/m3';
-        break;
-        case "v4": 
+            break;
+        case "v4":
             $u_capacita_edificatoria = 'm3';
             $u_valore_area_calcolata = 'Euro/m3';
-        break;
-        case "u1": 
+            break;
+        case "u1":
             $u_capacita_edificatoria = 'm2spl';
             $u_valore_area_calcolata = 'Euro/m2spl';
-        break;
-        case "u2": 
+            break;
+        case "u2":
             $u_capacita_edificatoria = 'm2spl';
             $u_valore_area_calcolata = 'Euro/m2spl';
-        break;
-        case "u4": 
+            break;
+        case "u4":
             $u_capacita_edificatoria = 'm2spl';
             $u_valore_area_calcolata = 'Euro/m2spl';
-        break;
+            break;
     }
 }
 
@@ -83,9 +82,9 @@ if ($vuoto == 0):
         <?= $session->riassunto_step1; ?> 
         <!-- indici mambiti tabella -->   
         <?= $session->indici_mambiti_stampa; ?>
-       <!-- indici sambiti tabella -->
+        <!-- indici sambiti tabella -->
         <?= $session->indici_sambiti_stampa; ?>
-       
+
     </div> 
     <div id="div_form_2"> <!-- div con i dati form 2 -->
         <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
@@ -130,25 +129,30 @@ if ($vuoto == 0):
                 <?= $this->form; ?>
             </div>
         </div>
-
-        <div class="left copri_tabella2 border_sinistra border_destra"> <!-- colonna6 -->
-            <div id="header-um-cessione" class="border_sotto grigio">U.m. Cessione</div>
-            <div id="corpo-um-cessione">
-                <?php foreach ($dati_cessione as $chiave => $valore): ?>
-                    <div class="blocco_tabella2"><?= $valore['unita_misura_cessione'] ?></div>
-                <?php endforeach; ?>
+        <!-- se urbanizzata non ho cessioni -->
+        <?php if (!$values["area_urbanizzata"]): ?>
+            <div class="left copri_tabella2 border-sinistra border_destra"> <!-- colonna6 -->
+                <div id="header-um-cessione" class="border_sotto grigio">U.m. Cessione</div>
+                <div id="corpo-um-cessione">
+                    <?php foreach ($dati_cessione as $chiave => $valore): ?>
+                        <div class="blocco_tabella2"><?= $valore['unita_misura_cessione'] ?></div>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
-
-        <div class="left copri_tabella2 border_destra"> <!-- colonna7 -->
-            <div id="header-cessione" class="border_sotto grigio">Quantità cessione</div>
-            <div id="corpo-cessione">
-                <?php foreach ($dati_cessione as $chiave => $valore): ?>
-                    <div class="blocco_tabella2"><?= $valore['quantita_cessione'] ?></div>
-                <?php endforeach; ?>
+        <?php endif; ?>
+        <!-- se urbanizzata non ho cessioni -->
+        <?php if (!$values["area_urbanizzata"]): ?>
+            <div class="left copri_tabella2 border_destra"> <!-- colonna7 -->
+                <div id="header-cessione" class="border_sotto grigio">Quantità cessione</div>
+                <div id="corpo-cessione">
+                    <?php foreach ($dati_cessione as $chiave => $valore): ?>
+                        <div class="blocco_tabella2"><?= $valore['quantita_cessione'] ?></div>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
-
+        <?php endif; ?>
+        <!-- se urbanizzata non ho cessioni -->
+        <?php if (!$values["area_urbanizzata"]): ?>
         <div class="left copri_tabella2"> <!-- colonna8 -->
             <div id="header-quota-monetaria" class="border_sotto grigio">Quota monetaria</div>
             <div id="corpo-quota-monetaria">
@@ -157,6 +161,8 @@ if ($vuoto == 0):
                 <?php endforeach; ?>
             </div>
         </div>
+        <?php endif; ?>
+        
         <!-- bottone ricalcola -->
         <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => 'Lonatodelgarda', 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
 
@@ -167,17 +173,17 @@ if ($vuoto == 0):
     <table id="risultati" class="left">
         <tr class="header-tabella1">
             <td>Capacità edificatoria calcolata</td>
-            <td><span id="v_capacita_edificatoria"><?=$capacita_edificatoria?></span></td>
-            <td><?=$u_capacita_edificatoria?></td>
+            <td><span id="v_capacita_edificatoria"><?= $capacita_edificatoria ?></span></td>
+            <td><?= $u_capacita_edificatoria ?></td>
         </tr>
         <tr class="">
             <td>Valore area calcolata</td>
-            <td><span id="v_valore_area_calcolata"><?=$valore_area_calcolata?></span></td> 
-            <td><?=$u_valore_area_calcolata?></td>        
+            <td><span id="v_valore_area_calcolata"><?= $valore_area_calcolata ?></span></td> 
+            <td><?= $u_valore_area_calcolata ?></td>        
         </tr>
         <tr class="header-tabella1">
             <td>Valore area edificabile</td>
-            <td><span id="v_valore_area_edificabile"><?=$valore_area_edificabile?></span></td> 
+            <td><span id="v_valore_area_edificabile"><?= $valore_area_edificabile ?></span></td> 
             <td>Euro</td>        
         </tr>    
     </table>
@@ -190,9 +196,9 @@ if ($vuoto == 0):
                 //
                 var formElementId = ($(this).parent().prev().find('label').attr('for'));                
                 doValidation(formElementId);
-                           
+                                       
             });
-                  
+                              
             function doValidation(id){
 
                 var url = '/public/Ajax/validate-form-step2';
@@ -207,25 +213,25 @@ if ($vuoto == 0):
 
                     $("#"+id).parent().find(".errors").remove();    
                     $("#"+id).parent().append(getErrorHtml(resp[id],id));                     
-                     
+                                 
                 },'json');
 
                 console.log(data);
-                
-//                var removeItem = data.lenght;
-//                data.splice($.inArray(removeItem,data) ,1 );
-//
-//                console.log(data);
-                
+                            
+                //                var removeItem = data.lenght;
+                //                data.splice($.inArray(removeItem,data) ,1 );
+                //
+                //                console.log(data);
+                            
                 $.post(url2,data,function(resp){
 
                     console.log(resp);
                     $('#v_valore_area_calcolata').html(resp.valore_area_calcolata);
                     $('#v_valore_area_edificabile').html(resp.valore_area_edificabile);                    
-                     
+                                 
                 },'json');
-                                   
-                
+                                               
+                            
             }
 
             function getErrorHtml(formsError, id){
@@ -237,8 +243,8 @@ if ($vuoto == 0):
                 o += '</ul>';
                 return o;
             }
-                
-                
+                            
+                            
         });
     </script>
 <?php else: ?>

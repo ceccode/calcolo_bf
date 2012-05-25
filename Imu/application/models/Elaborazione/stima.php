@@ -3,22 +3,45 @@
 class Stima {
 
     /**
+     * Questo metodo corregge i float con virgola in input 
+     * e li rende utilizzabili per effettuare calcoli in php
+     * 
+     * @param type $numeri 
+     */
+    public static function correggiFloat($numeri) {
+        $corretto = array();
+        if (is_array($numeri)) { // se array faccio un foreach
+            foreach ($numeri as $chiave => $valore) {
+                $valore = str_replace(",", ".", $valore);
+                $corretto[$chiave] = floatval($valore);
+            }
+        }else{ // altrimenti aggiusto solo un valore
+            $corretto=str_replace(",", ".", $numeri);
+            $corretto=floatval($corretto);
+        }
+
+        return $corretto;
+    }
+
+    /**
+     * corregge i valore float con le virgole in quote e 
      * verifica che la somma delle quote sia <1 
-     * se valido ritorna 0 altrimenti ritorna 1
+     * in caso negativo lancia un exception
      * 
      * @param type $quote quote percentuali in input
      */
-    public static function verificaStima($quote){
-        $sum=0;
-        foreach($quote as $key => $value){
-            $sum+=$value;
+    public static function verificaCorreggiStima($quote) {
+        $quote = Stima::correggiFloat($quote);
+        $somma = 0;
+        foreach ($quote as $key => $value) {
+            $somma+=$quote[$key];
         }
-        if($sum>1)
-            return 1;
-        else
-            return 0;
+        if ($somma > 1)
+            throw new Exception("Errore in verificaCorreggiStima: la somma delle quote è maggiore di 1. Somma: " . $sum);
+
+        return $quote;
     }
-    
+
     /**
      * Metodo per il calcolo della stima per il comune di lonato
      * IMPORTANTE!!! si presuppone che sia stat chiamato prima
@@ -28,7 +51,7 @@ class Stima {
      * @param type $form2Input dati del form2 in input: quote percentuali per zona/area
      * @return float stima
      */
-    public static function calcolaStimaSingolaLonato($form2Input) {
+    public static function calcolaStimaSingolaLonato($quote_input) {
 
         // inizializzo le classi per l'accesso al db
         $lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
@@ -41,23 +64,21 @@ class Stima {
         $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
-        
-        if (Stima::verificaStima($form2Input))
-            throw new Exception ("Errore in calcolaStimaSingolaLonato: la somma delle quote è maggiore di 1");
-
+        // quote in input corrette
+        $quote = Stima::verificaCorreggiStima($quote_input);
         $stima = 0; // stima unitaria: inizializzata a 0
         $tstima = 0; // stima temporanea usata per i calcoli 
         // prendo i valori del form1 dalla sessione
         $session = new Zend_Session_Namespace('step1');
         $valoriForm1 = $session->step1;
         // capacità edificatoria
-        $capacita_edificatoria=$session->capacitaEdificatoria;
+        $capacita_edificatoria = $session->capacitaEdificatoria;
         //form2
         $form2 = $lonato_u_destammesse->filtroDestinazioniAmmesse($valoriForm1['id_m_ambiti']);
 
-        if(!$capacita_edificatoria)
+        if (!$capacita_edificatoria)
             throw new Exception("Errore in calcolaStimaSingolaLonato: La capacità edificatoria è nulla");
-        
+
         //var_dump($valoriForm1);
         //var_dump($form2);
 
@@ -79,11 +100,11 @@ class Stima {
                     throw new Exception("Errore
                         in Stima.php: la stima di riferimento unitaria è errata");
             }
-            if ($form2Input[$chiaveForm2]) { // se l'utente ha messo una quota percentuale calcola la parte
+            if ($quote[$chiaveForm2] > 0) { // se l'utente ha messo una quota percentuale calcola la parte
                 if ($valoriForm1["area_urbanizzata"] == 1) { // se la zona è urbanizzata
                     // il calcolo è pari a quello della tabella parzializzata secondo la quota inserita dell'utente
                     // calcolo la stima di una riga
-                    $tstima = floatval($stima_unitaria) * floatval($form2Input[$chiaveForm2]);
+                    $tstima = $stima_unitaria * $quote[$chiaveForm2];
                 } else { // effettuo il calcolo più complicato se la zona non è urbanizzata
                     // prelievo i dati per la cessione
                     $dati_cessione = $lonato_u_cessioni->getQuantitaCessione($valoriForm1["id_m_ambiti"], $valoriForm1["id_u_modinterv"], $valoriForm2["id_u_sdestinazioni"]);
@@ -110,15 +131,15 @@ class Stima {
 
                     // calcolo indice capacità edificatoria
                     if ($tipo_stima[0] == "v")
-                        $indice_capacità_edificatoria = $capacita_edificatoria / floatval($valoriForm1["superficie"]); //floatval($valoriForm1["capacita_edificatoria"]) / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
+                        $indice_capacità_edificatoria = $capacita_edificatoria / Stima::correggiFloat($valoriForm1["superficie"]); //floatval($valoriForm1["capacita_edificatoria"]) / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
                     elseif ($tipo_stima[0] == "u")
-                        $indice_capacità_edificatoria = $capacita_edificatoria * 3 / floatval($valoriForm1["superficie"]); //floatval($valoriForm1["capacita_edificatoria"]) * 3 / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
+                        $indice_capacità_edificatoria = $capacita_edificatoria * 3 / Stima::correggiFloat($valoriForm1["superficie"]); //floatval($valoriForm1["capacita_edificatoria"]) * 3 / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
                     else
                         throw new Exception("Errore in Stima.php: cacolo indice capacità edificatoria");
 
                     // incidenza viabilità 
                     // DIEGO: per l'utente assume il valore statico 0.1; per l'operatore deve stare in una tabella di settaggi ed è legata a date di validit�;
-                    $incidenza_viabilità = 0.1; 
+                    $incidenza_viabilità = 0.1;
                     // costo unitario della viabilità ceduta: espresso in euro/mq
                     // da implementare una tabella start ove leggere questo valore
                     // in base alla scelta dell'anno e del comune
@@ -127,7 +148,7 @@ class Stima {
                     // ove leggere questo valore in base alla scelta dell'anno di imposta
                     // e del comune
                     //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    $costo_cessione_standard = 80; 
+                    $costo_cessione_standard = 80;
                     // tasso di auttualizzazione. da implementare una tabella start ove4
                     // leggere questo valore in  base alla scelta dell'anno di imposta e del comune
                     //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
@@ -135,36 +156,35 @@ class Stima {
                     // orizzonte temporale calcolo attualizzazione. da implementare una tabella
                     // start ove leggere questo valore in base alla scelta dell'anno e del comune
                     //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    $orizzonte_temporale = 3; 
+                    $orizzonte_temporale = 3;
                     // anno corrente
-                    $anno_calcolo = 2012; // DIEGO: DA PARAMETRIZZARE!!! 
+                    $anno_calcolo = $session->anno_calcolo; // DIEGO: DA PARAMETRIZZARE!!! 
                     // incidenza viabilità sull'indice edificatorio
-                    $fattore_incidenza_viabilità = $incidenza_viabilità / $indice_capacità_edificatoria;
+                    $fattore_incidenza_viabilità = (float)($incidenza_viabilità / $indice_capacità_edificatoria);
                     //$ret[7][$chiaveForm2] = "fattore incidenza viabilità: " . $fattore_incidenza_viabilità  ."incidenza viabilita: " . $incidenza_viabilità . " indice cap edific: ".                     $fattore_incidenza_viabilità = $incidenza_viabilità / $indice_capacità_edificatoria;
-
                     // fattore incidenza degli standard
-                    $fattore_incidenza_standard = $quota_cessione / $fattore_conversione;
+                    $fattore_incidenza_standard = (float)($quota_cessione / $fattore_conversione);
                     //$ret[8][$chiaveForm2] = "fattore incidenza std: " . $fattore_incidenza_standard;
                     // fattore incidenza degli standard di qualità
                     // ------------
-                    $fattore_incidenza_standard_qualità = $standard_pubblico_qualita / $fcspq;
+                    $fattore_incidenza_standard_qualità = (float)($standard_pubblico_qualita / $fcspq);
                     //$ret[9][$chiaveForm2] = "fattore incidenza std qualità: " . $fattore_incidenza_standard_qualità;
                     // se il tipo di stma è v faccio questo calcolo
-                    $fattore_incidenza_calcolo_cessioni = floatval($fattore_incidenza_standard) * floatval($costo_cessione_standard) +
-                            floatval($fattore_incidenza_viabilità) * floatval($costo_cessione_viabilità) +
-                            floatval($fattore_incidenza_standard_qualità) * floatval($valore_comprensativo_unitario);
+                    $fattore_incidenza_calcolo_cessioni = ($fattore_incidenza_standard * $costo_cessione_standard) +
+                                                          ($fattore_incidenza_viabilità * $costo_cessione_viabilità) +
+                                                          ($fattore_incidenza_standard_qualità * $valore_comprensativo_unitario);
                     //$ret[10][$chiaveForm2] = "fattore incidenza calcolo cessioni: " . $fattore_incidenza_calcolo_cessioni;
                     // a seconda del tipo di stima
                     if ($tipo_stima[0] == "v") {
                         // ho già i dati
                     } elseif ($tipo_stima[0] == "u") {
-                        $fattore_incidenza_calcolo_cessioni = floatval($fattore_incidenza_calcolo_cessioni) * floatval($fattore_conversione);
+                        $fattore_incidenza_calcolo_cessioni = $fattore_incidenza_calcolo_cessioni * $fattore_conversione;
                     } else
                         throw new Exception('Errore in Stima.php: nel tipo di stima "v" o "u"');
-                    
+
                     // calcolo la stima di una riga
-                    $tstima = (floatval($stima_unitaria) * (1 / pow((1 + floatval($frate)), $orizzonte_temporale)) - $fattore_incidenza_calcolo_cessioni)
-                            * floatval($form2Input[$chiaveForm2]);
+                    $tstima = ($stima_unitaria * (1 / pow((1 + $frate), $orizzonte_temporale)) - $fattore_incidenza_calcolo_cessioni)
+                            * Stima::correggiFloat($form2Input[$chiaveForm2]);
 
                     //$ret[11][$chiaveForm2] = "parte1: " . floatval($stima_unitaria);
                     //$ret[12][$chiaveForm2] = "parte2: " . pow((1 / (1 + floatval($frate))),$orizzonte_temporale);
@@ -241,13 +261,12 @@ class Stima {
             } elseif ($doc == "ddp") { // nel caso di ddp:
                 $capacita_edificatoria = floatval($indice_territoriale) * floatval($valoriForm1["superficie"]);
             } else
-                throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: tipo doc sbagliato: prd o pdp!: " . $doc  . " " . $valoriForm1["id_m_ambiti"]);
+                throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: tipo doc sbagliato: prd o pdp!: " . $doc . " " . $valoriForm1["id_m_ambiti"]);
         } elseif ($tipo_stima == "v4") {
 
             $capacita_edificatoria = $valoriForm1["superficie"] + $volume_incremento;
         } elseif ($tipo_stima == "u4") {
-            $capacita_edificatoria=floatval($valoriForm1["capacita_edificatoria"])* (float)(1+ $utilizzazione_fondiaria);
-            
+            $capacita_edificatoria = floatval($valoriForm1["capacita_edificatoria"]) * (float) (1 + $utilizzazione_fondiaria);
         } else
             throw new Exception("Errore in calcolaCapcitaEdificatoria: il tipo di stima non è valido!" . $tipo_stima);
 
@@ -255,7 +274,7 @@ class Stima {
         if ($capacita_edificatoria)
             return $capacita_edificatoria;
         else
-            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota o nulla. Tipo stima: " . $tipo_stima . " Capacita: ". $capacita_edificatoria);
+            throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota o nulla. Tipo stima: " . $tipo_stima . " Capacita: " . $capacita_edificatoria);
     }
 
 }
