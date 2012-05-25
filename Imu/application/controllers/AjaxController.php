@@ -140,26 +140,58 @@ class AjaxController extends Zend_Controller_Action
                     'id_u_mambito' => $values['id_m_ambiti'],
                 ));        
               
-        $f->isValid($this->_getAllParams());
+//        $f->isValid($this->_getAllParams());
         
+        $input_utente = $this->_getAllParams();
+        
+//        $f = '{"1":"1","2":"","3":"","4":"","5":"","6":"","7":"","8":"","continua_stampa":"Continua per stampare"}';
+        
+//        echo "<pre>";
+//        print_r($f);
+//        echo "</pre>";  
         //array numerico che parte da 0
-        $input_utente = json_decode($f);
+ //       $input_utente = (array) json_decode($f);
+        
+//        echo "<pre>";
+//        print_r($input_utente);
+//        echo "</pre>";   
+                
+        unset($input_utente['continua_stampa']);
+        unset($input_utente['controller']);
+        unset($input_utente['action']);
+        unset($input_utente['module']);       
+                
+//        echo "<pre>";
+//        print_r($input_utente);
+//        echo "</pre>";      
+        
+        $indice = 0;
+        $new_input_utente = array();
+        foreach ($input_utente as $key => $value) {
+            $new_input_utente[$indice] = $value;
+            $indice++;
+        }
+         
+//        echo "<pre>";
+//        print_r($new_input_utente);
+//        echo "</pre>";        
+        
         // effettuo il calcolo della stima e capacit√† edificatoria
         require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
         // capacita edificatoria
         // metto in sessione la stima unitaria
-        $valore_stimato = Stima::calcolaStimaSingolaLonato($input_utente);   
+        $valore_stimato = Stima::calcolaStimaSingolaLonato($new_input_utente);   
         $valore_stimato2 = $valore_stimato * $session->capacitaEdificatoria;    
         
         $ret = array('valore_area_calcolata' => $valore_stimato, 'valore_area_edificabile' => $valore_stimato2);
-        $json = $ret;
-        //$json = $f->getMessages();
+        
+//        print_r($ret);
+        
+        $json = $ret;      
         header('Content-type: application/json');
         echo Zend_Json::encode($json);
     }    
-    
-    
-
+        
 
 }
 

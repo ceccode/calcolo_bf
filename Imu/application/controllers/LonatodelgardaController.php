@@ -294,6 +294,10 @@ class LonatodelgardaController extends Zend_Controller_Action {
                 if ($this->_process_lonato_imu_step2($form->getValues())) {
                     $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'anagrafe');
                     $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
+//                    
+//                    echo "<pre>";
+//                    print_r($this->_getAllParams());
+//                    echo "</pre>";                    
                     $this->_helper->redirector->gotoRoute($urlOptions);
                 } else {
                     $urlOptions = array('controller' => 'azioni', 'action' => 'verbale-di-contestazione');

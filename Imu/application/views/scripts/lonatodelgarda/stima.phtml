@@ -209,10 +209,17 @@ if ($vuoto == 0):
                     $("#"+id).parent().append(getErrorHtml(resp[id],id));                     
                      
                 },'json');
+
+                console.log(data);
+                
+//                var removeItem = data.lenght;
+//                data.splice($.inArray(removeItem,data) ,1 );
+//
+//                console.log(data);
                 
                 $.post(url2,data,function(resp){
 
-                    //console.log(resp);
+                    console.log(resp);
                     $('#v_valore_area_calcolata').html(resp.valore_area_calcolata);
                     $('#v_valore_area_edificabile').html(resp.valore_area_edificabile);                    
                      
