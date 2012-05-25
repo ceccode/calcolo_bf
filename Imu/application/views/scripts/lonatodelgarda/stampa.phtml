@@ -5,7 +5,9 @@
     $step1   = $this->values;
     $riassunto_form_1 = $this->riassunto_step1_txt;
     $anagrafe = $this->anagrafe;
-
+    $indici_macro_ambiti=$this->indici_mambiti_stampa;
+    $quote=$this->quote;
+    
     require_once APPLICATION_PATH . '/../library/tcpdf/config/lang/ita.php';
     require_once APPLICATION_PATH . '/../library/tcpdf/tcpdf.php';     
     require_once APPLICATION_PATH . '/models/Utility.php'; 
@@ -112,13 +114,14 @@
     /*
      * inidici macro ambiti 
      */
-    $contributo_compensativo_aggiuntivo = '';
-    $valore_comprensativo_unitario      = '';
-    $standard_pubblico_qualita          = '';
+    $contributo_compensativo_aggiuntivo = $indici_macro_ambiti["contributo_compensativo_aggiuntivo"];
+    $valore_comprensativo_unitario      = $indici_macro_ambiti["valore_comprensativo_unitario"];
+    $standard_pubblico_qualita          = $indici_macro_ambiti["standard_pubblico_qualita"];
     
     /*
      * indici subambiti
      */
+    // ATTENZIONE: ti ho passato la tabella: $this->indici_sambiti_dati
     $incidenza_viabilita        = 0.3;
     $cepp                       = 0.3;
     $indice_fondario            = 0.3;
@@ -293,7 +296,7 @@ $pdf->writeHTML($tbl_riassunto, true, false, false, false, '');
 $tbl_destinazioni = '<table style="font-size: 40px;">';
 $tbl_destinazioni .= '<tr><td>Destinazioni ammesse</td><td>Quota di progetto massima</td><td>Soglia dimensionale massima</td><td>Peso standard della destinazione</td><td>Quota di progetto inserita</td></tr>';
 
-foreach ($stmt5 as $value) {
+foreach ($stmt5 as $key => $value) {
             $label = $value->descrizione;
             $id    = $value->id_u_destammesse;            
     
@@ -302,7 +305,7 @@ foreach ($stmt5 as $value) {
             $tbl_destinazioni .= '<td>'.$value->quota_massima_ammissibile.'</td>';
             $tbl_destinazioni .= '<td>'.$value->soglia_dimensione_massima.'</td>';
             $tbl_destinazioni .= '<td>'.$value->quota_percentuale.'</td>';
-            $tbl_destinazioni .= '<td>'.'0.4'.'</td>';            
+            $tbl_destinazioni .= '<td>'.$quote[$key].'</td>';            
             $tbl_destinazioni .= '</tr>';
         }
 $tbl_destinazioni .= '</table>';        

@@ -41,7 +41,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
                     //$this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
                     $this->_helper->redirector->gotoRoute($urlOptions);
                 } else {
-                    //$urlOptions = array('controller' => 'azioni', 'action' => 'verbale-di-contestazione');
                     //$this->_helper->redirector->gotoRoute($urlOptions,'azioni');
                     //$this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
                 }
@@ -61,7 +60,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // FARE UN HELPER??????????
         $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"]);
         // creo l'output formattato html4
-        
         // sub ambiti
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
             $stampa = "";
@@ -148,6 +146,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
         }
         // salvo in sessione
         $session->indici_sambiti_stampa = $stampa;
+        // salvo in sessione per stampa
+        $session->indici_sambiti_dati = $stampa;
+
 
         // ottengo gli indici di mambito
         // ottengo la dbtable
@@ -162,20 +163,27 @@ class LonatodelgardaController extends Zend_Controller_Action {
             // valore compensativo aggiuntivo
             $stampa.='<tr class="header-tabella1"><td>';
             $stampa.="<td>Valore compensativo unitario</td>";
+            $valore_comprensativo_unitario = $valore_mambiti_riga->valore_comprensativo_unitario;
             $stampa.="<td>" . $valore_mambiti_riga->valore_comprensativo_unitario . "</td>";
             // contributo compensativo aggiuntivo
             $stampa.='<tr><td>';
             $stampa.="<td>Contributo compensativo aggiuntivo</td>";
+            $contributo_compensativo_aggiuntivo = $valore_mambiti_riga->contributo_compensativo_aggiuntivo;
             $stampa.="<td>" . $valore_mambiti_riga->contributo_compensativo_aggiuntivo . "</td>";
             // standard pubblico qualità
             $stampa.='<tr class="header-tabella1"><td>';
             $stampa.="<td>Standard pubblico qualità</td>";
+            $standard_pubblico_qualita = $valore_mambiti_riga->standard_pubblico_qualita;
             $stampa.="<td>" . $valore_mambiti_riga->standard_pubblico_qualita . "</td>";
             // chiudo la tabella     
             $stampa.='</table>';
         }
         // salvo in sessione
         $session->indici_mambiti_stampa = $stampa;
+        // salvo in sessione per stampa
+        $session->indici_mambiti_stampa_txt = array("valore_comprensativo_unitario" => $valore_comprensativo_unitario,
+            "contributo_compensativo_aggiuntivo" => $contributo_compensativo_aggiuntivo,
+            "standard_pubblico_qualita" => $standard_pubblico_qualita);
 
         // ottengo i dati riassuntivi form precedente
         // query al db per ottenere i dati dai mostrare
@@ -199,7 +207,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         foreach ($modalita_intervento_rowset as $chiave => $valore) {
             $modalita_intervento = $valore->descrizione_estesa;
         }
-        
+
         // preparo la stampa della tabella
         $stampa = "";
         // inizio la tabella
@@ -223,10 +231,10 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stampa.='<tr><td>';
         $stampa.="<td>Area urbanizzata</td>";
         $stampa.="<td>";
-        $area_urbanizzata=($values["area_urbanizzata"] == 1) ? "Si" : "No";
+        $area_urbanizzata = ($values["area_urbanizzata"] == 1) ? "Si" : "No";
         $stampa.=$area_urbanizzata;
         $stampa.="</td>";
-        $lotto_saturo= ($values["lotto_saturo"] == 1) ? "Si" : "No";
+        $lotto_saturo = ($values["lotto_saturo"] == 1) ? "Si" : "No";
         if ($values["area_urbanizzata"] == 1) {
             // lotto saturo: solo se urbanizzata
             $stampa.='<tr class="header-tabella1"><td></td>';
@@ -237,33 +245,34 @@ class LonatodelgardaController extends Zend_Controller_Action {
         }
         // modalità di intervento
         $stampa.='<tr ';
-        $stampa.=($values["area_urbanizzata"] == 1)?"":"class='header-tabella1'";
+        $stampa.=($values["area_urbanizzata"] == 1) ? "" : "class='header-tabella1'";
         $stampa.='><td></td>';
         $stampa.="<td>Modalità di intervento</td>";
         $stampa.="<td>" . $modalita_intervento . "</td>";
 
         // superficie
         $stampa.='<tr ';
-        $stampa.=($values["area_urbanizzata"] == 1)?"class='header-tabella1'":"";
+        $stampa.=($values["area_urbanizzata"] == 1) ? "class='header-tabella1'" : "";
         $stampa.='><td></td>';
         $stampa.="<td>Superficie edificatoria</td>";
         $stampa.="<td>" . $values["superficie"] . "</td>";
         // volumetria
         $stampa.='<tr ';
-        $stampa.=($values["area_urbanizzata"] == 1)?"":"class='header-tabella1'";
+        $stampa.=($values["area_urbanizzata"] == 1) ? "" : "class='header-tabella1'";
         $stampa.='><td></td>';
         $stampa.="<td>Volumetria</td>";
         $stampa.="<td>" . $values["capacita_edificatoria"] . "</td>";
         // chiudo la tabella     
         $stampa.='</table>';
-        $session->riassunto_step1_txt=array("nome_macro_ambito" =>$nome_macro_ambito,
-                                               "nome_sub_ambito" => $nome_sub_ambito,
-                                                "nome_zona" => $nome_zona,
-                                                "area_urbanizzata" => $area_urbanizzata,
-                                                "lotto_saturo" => $lotto_saturo,
-                                                "modalita_intervento" => $modalita_intervento,
-                                                "superficie" =>$values["superficie"],
-                                                "volumetria" => $values["capacita_edificatoria"]);
+        // salvo in sessione per stampa
+        $session->riassunto_step1_txt = array("nome_macro_ambito" => $nome_macro_ambito,
+            "nome_sub_ambito" => $nome_sub_ambito,
+            "nome_zona" => $nome_zona,
+            "area_urbanizzata" => $area_urbanizzata,
+            "lotto_saturo" => $lotto_saturo,
+            "modalita_intervento" => $modalita_intervento,
+            "superficie" => $values["superficie"],
+            "volumetria" => $values["capacita_edificatoria"]);
         // salvo in sessione
         $session->riassunto_step1 = $stampa;
 
@@ -317,10 +326,14 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
         $indice = 0;
         foreach ($valori as $chiave => $valore) {
-            $percentualeQuote[$indice] = $valore;
+            if ($valore)
+                $percentualeQuote[$indice] = $valore;
+            else
+                $percentualeQuote[$indice] = 0;
+            
             $indice++;
         }
-
+        $session->quote = $percentualeQuote;
         // effettuo il calcolo della stima e capacit√† edificatoria
         require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
         // capacita edificatoria
@@ -381,10 +394,13 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         $this->view->values = $values;
         $this->view->anagrafe = $anagrafe;
-        $this->view->riassunto_step1_txt=$session->riassunto_step1_txt;
-        $this->view->capacitaEdificatoria=$session->capacitaEdificatoria;
-        $this->view->stimaUnitaria=$session->stimaUnitaria;
-        $this->view->valoreAreaEdificabile=$session->valoreAreaEdificabile;
+        $this->view->riassunto_step1_txt = $session->riassunto_step1_txt;
+        $this->view->capacitaEdificatoria = $session->capacitaEdificatoria;
+        $this->view->stimaUnitaria = $session->stimaUnitaria;
+        $this->view->valoreAreaEdificabile = $session->valoreAreaEdificabile;
+        $this->view->indici_sambiti_dati = $session->indici_sambiti_dati;
+        $this->view->indici_mambiti_stampa = $session->indici_mambiti_stampa_txt;
+        $this->view->quote = $session->quote;
     }
 
 }
