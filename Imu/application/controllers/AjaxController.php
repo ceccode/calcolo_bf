@@ -120,6 +120,10 @@ class AjaxController extends Zend_Controller_Action
                 ));        
               
         $f->isValid($this->_getAllParams());
+        
+        //array numerico che parte da 0
+        //$json = $f;
+        
         $json = $f->getMessages();
         header('Content-type: application/json');
         echo Zend_Json::encode($json);

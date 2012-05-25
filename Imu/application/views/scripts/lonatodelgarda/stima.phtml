@@ -3,7 +3,8 @@
 $values = $this->values;
 $capacita_edificatoria = $this->capacita_edificatoria;
 
-$valore_area_calcolata = '';
+$valore_area_calcolata   = '';
+$valore_area_edificabile = '';
 
 $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
 $step1 = $session->step1;
@@ -165,17 +166,17 @@ if ($vuoto == 0):
     <table id="risultati" class="left">
         <tr class="header-tabella1">
             <td>Capacità edificatoria calcolata</td>
-            <td><?=$capacita_edificatoria ?></td>
-            <td><span id="u_capacita_edificatoria"><?=$u_capacita_edificatoria?></span></td>
+            <td><span id="v_capacita_edificatoria"><?=$capacita_edificatoria?></span></td>
+            <td><?=$u_capacita_edificatoria?></td>
         </tr>
         <tr class="">
             <td>Valore area calcolata</td>
-            <td><?=$valore_area_calcolata?></td> 
-            <td><span id="u_valore_area_calcolata"><?=$u_valore_area_calcolata?></span></td>        
+            <td><span id="v_valore_area_calcolata"><?=$valore_area_calcolata?></span></td> 
+            <td><?=$u_valore_area_calcolata?></td>        
         </tr>
         <tr class="header-tabella1">
             <td>Valore area edificabile</td>
-            <td>0</td> 
+            <td><?=$valore_area_edificabile?></td> 
             <td>Euro</td>        
         </tr>    
     </table>
@@ -197,6 +198,7 @@ if ($vuoto == 0):
                 var data = {};
                 $('input').each(function(){
                     data[$(this).attr('name')] = $(this).val();
+                    //alert($(this).val());
                 });
                 console.log(data);
                 $.post(url,data,function(resp){
