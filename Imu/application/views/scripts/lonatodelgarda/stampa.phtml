@@ -30,7 +30,12 @@
     $cf      = $anagrafe['cf'];
     
     /*
+     * -------------------------------------------------------------------------
      * dati relativi al documento
+     */
+    
+    /*
+     * dati riassuntivi - step1
      */
     $macro_ambito            = 'Nuclei di Antica Formazione (NAF vedansi gli specifici elaborati d\'analisi e normativi)';
     $sub_ambito              = 'Tutti gli ambiti';
@@ -45,7 +50,7 @@
      * destinazioni ammesse
      */
     $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");        
-    $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse(2);
+    $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($step1['id_u_sambiti']);
     
     
     /*
@@ -292,6 +297,7 @@ foreach ($stmt5 as $value) {
             $id    = $value->id_u_destammesse;            
     
             $tbl_destinazioni .= '<tr>';             
+            $tbl_destinazioni .= '<td>'.$value->descrizione.'</td>';            
             $tbl_destinazioni .= '<td>'.$value->quota_massima_ammissibile.'</td>';
             $tbl_destinazioni .= '<td>'.$value->soglia_dimensione_massima.'</td>';
             $tbl_destinazioni .= '<td>'.$value->quota_percentuale.'</td>';
