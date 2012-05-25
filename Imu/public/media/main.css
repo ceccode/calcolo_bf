@@ -320,6 +320,12 @@ ul.errors{
     margin-left: 10px;
 }
 
+#risultati-anagrafe{
+    font-size: 15px; 
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
 #indici-sambiti{
     margin-left:10px;
     margin-top:10px;
@@ -369,7 +375,7 @@ ul.errors{
 }
 #corpo_destinazione_uso{
     width: 150px;
-    padding-top:5px;
+    padding-top:10px;
     padding-left: 5px;
 }
 #header_quota_massima_ammissibile{
@@ -380,7 +386,7 @@ ul.errors{
 }
 #corpo_quota_massima_ammissibile{
     width: 100px;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-left: 5px;
 }
 #header_soglia_dimensione_massima{
@@ -391,7 +397,7 @@ ul.errors{
 }
 #corpo_soglia_dimensione_massima{
     width: 110px;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-left: 5px;
 }
 #header_peso_standard{
@@ -402,7 +408,7 @@ ul.errors{
 }
 #corpo_peso_standard{
     width: 115px;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-left: 5px;
 }
 #header_quota_progetto{
@@ -413,7 +419,6 @@ ul.errors{
 }
 #corpo_quota_progetto{
     width: 150px;
-    padding-top: 5px;
     padding-left: 5px;
 }
 #header-um-cessione{
@@ -425,7 +430,7 @@ ul.errors{
 #corpo-um-cessione{
     width:95px;
     padding-left: 5px;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 #header-cessione{
     width:90px;
@@ -436,7 +441,7 @@ ul.errors{
 #corpo-cessione{
     width:90px;
     padding-left: 15px;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 #header-quota-monetaria{
     width:90px;
@@ -447,7 +452,7 @@ ul.errors{
 #corpo-quota-monetaria{
     width:90px;
     padding-left: 15px;
-    padding-top: 5px;
+    padding-top: 10px;
 }   
 
 .blocco_tabella2{

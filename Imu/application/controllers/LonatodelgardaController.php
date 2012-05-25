@@ -2,18 +2,30 @@
 
 class LonatodelgardaController extends Zend_Controller_Action {
 
+    private $lonato_s_rifunitariedest;
+    private $lonato_s_tstima;
+    private $lonato_s_zone;
+    private $lonato_u_cessioni;
+    private $lonato_u_destammesse;
+    private $lonato_u_mambiti;
+    private $lonato_u_mdestinazioni;
+    private $lonato_u_modinterv;
+    private $lonato_u_sambiti;
+    private $lonato_u_sdestinazioni;
+    private $lonato_log;
+
     public function init() {
-        $lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
-        $lonato_s_tstima = Factory_dbTable::getClass("017092", "s_tstima");
-        $lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
-        $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
-        $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
-        $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
-        $lonato_u_mdestinazioni = Factory_dbTable::getClass("017092", "u_mdestinazioni");
-        $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
-        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
-        $lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
-        $lonato_log = Factory_dbTable::getClass("017092", "log");
+        $this->lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
+        $this->lonato_s_tstima = Factory_dbTable::getClass("017092", "s_tstima");
+        $this->lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
+        $this->lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
+        $this->lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
+        $this->lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
+        $this->lonato_u_mdestinazioni = Factory_dbTable::getClass("017092", "u_mdestinazioni");
+        $this->lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
+        $this->lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
+        $this->lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
+        $this->lonato_log = Factory_dbTable::getClass("017092", "log");
     }
 
     public function indexAction() {
@@ -46,8 +58,8 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->anno_calcolo = 2012; // per ora imposto a mano l'anno del calcolo
         // ottengo gli indici subambiti da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
         // prendo i dati da mostrare
-        $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
-        $db_row_sambiti = $lonato_u_sambiti->getAll($values["id_u_sambiti"]);
+        // FARE UN HELPER??????????
+        $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"]);
         // creo l'output formattato html4
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
             $stampa = "";
@@ -136,9 +148,8 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->indici_sambiti_stampa = $stampa;
 
         // ottengo gli indici di mambito
-        $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
         // ottengo la dbtable
-        $db_row_mambiti = $lonato_u_mambiti->getAll($values["id_m_ambiti"]);
+        $db_row_mambiti = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"]);
         $stampa = "";
         foreach ($db_row_mambiti as $chiave_mambiti => $valore_mambiti_riga) {
             // inizio la tabella
@@ -255,8 +266,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session = new Zend_Session_Namespace('step1');
         // dati form1
         $form1 = $session->step1;
-        $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
-        $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($form1['id_m_ambiti']);
+        $stmt5 = $this->lonato_u_destammesse->filtroDestinazioniAmmesse($form1['id_m_ambiti']);
 
         // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
         $indice = 0;
@@ -311,8 +321,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $anagrafe = $session2->anagrafe;
         $var = $values;
 
-        $lonato_log = Factory_dbTable::getClass("017092", "log");
-        $ret = $lonato_log->inserisciLog($values['nome'], $values['cognome'], $values['cf']);
+        $ret = $this->lonato_log->inserisciLog($values['nome'], $values['cognome'], $values['cf']);
         return $ret;
     }
 
