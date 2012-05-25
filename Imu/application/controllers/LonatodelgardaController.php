@@ -26,12 +26,12 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
                 if ($this->_process_lonato_imu($form->getValues())) {
                     $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'stima');
-                    $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
+                    //$this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
                     $this->_helper->redirector->gotoRoute($urlOptions);
                 } else {
                     //$urlOptions = array('controller' => 'azioni', 'action' => 'verbale-di-contestazione');
                     //$this->_helper->redirector->gotoRoute($urlOptions,'azioni');
-                    $this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
+                    //$this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
                 }
             }
         }
@@ -51,10 +51,13 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // creo l'output formattato html4
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
             $stampa = "";
+            // inizio la tabella
+            $stampa.='<table id="indici-sambiti" class="left">';
+            // intestazione
+            $stampa.='<tr>';
+            $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Indici sub ambiti:</td></tr>";
             $tipo_stima = $valore_sambiti_riga->indice_calcolo_capacita_edificatoria;
             if (strtolower($tipo_stima[0]) == "v") {
-                // inizio la tabella
-                $stampa.='<table id="indici-sambiti" class="left">';
                 // indice fondiario
                 $stampa.='<tr class="header-tabella1"><td>';
                 $stampa.="<td>Indice fondiario</td>";
@@ -93,35 +96,33 @@ class LonatodelgardaController extends Zend_Controller_Action {
                 // chiudo la tabella
                 $stampa.='</table>';
             } elseif (strtolower($tipo_stima[0]) == "u") {
-                // inizio la tabella
-                $stampa.='<table id="indici-sambiti" class="left">';
                 // indice utilizzazione fondiaria
-                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.='<tr><td>';
                 $stampa.="<td>Indice utilizzazione fondiaria</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_fondiaria . "</td>";
                 $stampa.="<td>(slp in m2slp/m2)</td></tr>";
                 // incremento lotti saturi
-                $stampa.='<tr><td>';
+                $stampa.='<tr class="header-tabella1"><td>';
                 $stampa.="<td>Incremento lotti saturi</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->incremento_lotti_saturi_u . "</td>";
                 $stampa.="<td>(% slp da indice)</td></tr>";
                 // utilizzazione  territoriale
-                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.='<tr><td>';
                 $stampa.="<td>Indice utilizzazione territoriale</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_territoriale . "</td>";
                 $stampa.="<td>(slp in m2slp/m2)</td></tr>";
                 // utilizzazione  preesistente               
-                $stampa.='<tr><td>';
+                $stampa.='<tr  class="header-tabella1"><td>';
                 $stampa.="<td>Utilizzazione preesistente</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_preesistente . "</td>";
                 $stampa.="<td>(slp in m2slp)</td></tr>";
                 // utilizzazione incremento   
-                $stampa.='<tr class="header-tabella1"><td>';
+                $stampa.='<tr><td>';
                 $stampa.="<td>Utilizzazione  incremento</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_incremento . "</td>";
                 $stampa.="<td>(slp in m2slp)</td></tr>";
                 // utilizzazione predefinita
-                $stampa.='<tr><td>';
+                $stampa.='<tr class="header-tabella1"><td>';
                 $stampa.="<td>Utilizzazione predefinita</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_predefinita_d . "</td>";
                 $stampa.="<td>(slp in m2slp)</td></tr>";
@@ -142,28 +143,75 @@ class LonatodelgardaController extends Zend_Controller_Action {
         foreach ($db_row_mambiti as $chiave_mambiti => $valore_mambiti_riga) {
             // inizio la tabella
             $stampa.='<table id="indici-mambiti" class="left">';
-            // contributo compensativo aggiuntivo
+            // intestazione
+            $stampa.='<tr>';
+            $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Indici macro ambiti:</td></tr>";
+            // valore compensativo aggiuntivo
             $stampa.='<tr class="header-tabella1"><td>';
-            $stampa.="<td>Contributo compensativo aggiuntivo</td>";
-            $stampa.="<td>" . $valore_mambiti_riga->contributo_compensativo_aggiuntivo . "</td>";
-            //$stampa.="<td>(volume in m3/m2)</td></tr>";
-            // valore compensativo unitario
-            $stampa.='<tr><td>';
             $stampa.="<td>Valore compensativo unitario</td>";
             $stampa.="<td>" . $valore_mambiti_riga->valore_comprensativo_unitario . "</td>";
-            //$stampa.="<td>(volume in m3/m2)</td></tr>";
+            // contributo compensativo aggiuntivo
+            $stampa.='<tr><td>';
+            $stampa.="<td>Contributo compensativo aggiuntivo</td>";
+            $stampa.="<td>" . $valore_mambiti_riga->contributo_compensativo_aggiuntivo . "</td>";
             // standard pubblico qualità
             $stampa.='<tr class="header-tabella1"><td>';
             $stampa.="<td>Standard pubblico qualità</td>";
             $stampa.="<td>" . $valore_mambiti_riga->standard_pubblico_qualita . "</td>";
-            //$stampa.="<td>(% di volume da indice)</td></tr>";
             // chiudo la tabella     
             $stampa.='</table>';
         }
         // salvo in sessione
         $session->indici_mambiti_stampa = $stampa;
-        
-        
+
+        // ottengo i dati riassuntivi form precedente
+        $stampa = "";
+        // inizio la tabella
+        $stampa.='<table id="indici-form1" class="left">';
+        // intestazione
+        $stampa.='<tr>';
+        $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Dati scelti in precedenza:</td></tr>";
+        // macro ambito
+        $stampa.='<tr class="header-tabella1"><td>';
+        $stampa.="<td>Macro ambito</td>";
+        $stampa.="<td>" . $values["id_m_ambiti"] . "</td>";
+        // sub ambito
+        $stampa.='<tr><td>';
+        $stampa.="<td>Sub ambito</td>";
+        $stampa.="<td>" . $values["id_u_sambiti"] . "</td>";
+        // urbanizzata
+        $stampa.='<tr class="header-tabella1"><td>';
+        $stampa.="<td>Area urbanizzata</td>";
+        $stampa.="<td>" . $values["area_urbanizzata"] . "</td>";
+        // valore compensativo unitario
+        $stampa.='<tr><td>';
+        $stampa.="<td>Sub ambito</td>";
+        $stampa.="<td>" . $values["id_u_sambiti"] . "</td>";
+        $stampa.='<tr class="header-tabella1"><td>';
+        $stampa.="<td>Macro ambito</td>";
+        $stampa.="<td>" . $values["id_m_ambiti"] . "</td>";
+        // modalità di intervento
+        $stampa.='<tr><td>';
+        $stampa.="<td>Modalità di intervento</td>";
+        $stampa.="<td>" . $values["id_u_modinterv"] . "</td>";
+        // lotto saturo? (se urbanizzata!!!! ) 
+        $stampa.='<tr class="header-tabella1"><td>';
+        $stampa.="<td>Lotto saturo</td>";
+        $stampa.="<td>" . $values["lotto_saturo"] . "</td>";
+        // superficie
+        $stampa.='<tr><td>';
+        $stampa.="<td>Superficie edificatori</td>";
+        $stampa.="<td>" . $values["superficie"] . "</td>";
+        $stampa.='<tr class="header-tabella1"><td>';
+        $stampa.="<td>Volumetria</td>";
+        $stampa.="<td>" . $values["capacita_edificatoria"] . "</td>";
+        // chiudo la tabella     
+        $stampa.='</table>';
+
+        // salvo in sessione
+        $session->riassunto_step1 = $stampa;
+
+
         return true; // non ho incontrato errori
     }
 

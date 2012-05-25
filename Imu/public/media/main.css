@@ -283,7 +283,7 @@ ul.errors{
 #risultati_calcolo_stima{
     background-color: #C5DBF9;
     width: 100%;
-    height: 190px;
+    height: 210px;
     margin-bottom: 20px;
 }
 
@@ -326,6 +326,11 @@ ul.errors{
 }
 
 #indici-mambiti{
+    margin-left:20px;
+    margin-top:10px;
+}
+
+#indici-form1{
     margin-left:20px;
     margin-top:10px;
 }
