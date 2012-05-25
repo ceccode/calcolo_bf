@@ -3,6 +3,7 @@
     $title = "Documento: Verbale di contestazione";
 
     $step1   = $this->values;
+    $riassunto_form_1 = $this->riassunto_step1_txt;
     $anagrafe = $this->anagrafe;
 
     require_once APPLICATION_PATH . '/../library/tcpdf/config/lang/ita.php';
@@ -37,14 +38,14 @@
     /*
      * dati riassuntivi - step1
      */
-    $macro_ambito            = 'Nuclei di Antica Formazione (NAF vedansi gli specifici elaborati d\'analisi e normativi)';
-    $sub_ambito              = 'Tutti gli ambiti';
-    $zona                    = 'Barcuzzi';
-    $area_urbanizzata        = 'No';
-    $modalita_intervento     = 'Piano attuativo';
-    $lotto_saturo            = 'Si';
-    $superficie_territoriale = '1000';
-    $capacita_edificatoria   = '500';
+    $macro_ambito            = $riassunto_form_1["nome_macro_ambito"];
+    $sub_ambito              = $riassunto_form_1["nome_sub_ambito"];
+    $zona                    = $riassunto_form_1["nome_zona"];
+    $area_urbanizzata        = $riassunto_form_1["area_urbanizzata"];
+    $modalita_intervento     = $riassunto_form_1["modalita_intervento"];
+    $lotto_saturo            = $riassunto_form_1["lotto_saturo"];
+    $superficie_territoriale = $riassunto_form_1["superficie"];
+    $capacita_edificatoria   = $riassunto_form_1["volumetria"];
     
     /*
      * destinazioni ammesse
@@ -56,9 +57,9 @@
     /*
      * risultati del calcolo
      */
-    $capacita_edificatoria_calcolata = 2000;
-    $valore_area_calcolata           = 196;
-    $valore_area_edificabile         = 1000;    
+    $capacita_edificatoria_calcolata = $this->capacitaEdificatoria;;
+    $valore_area_calcolata           = $this->stimaUnitaria;
+    $valore_area_edificabile         = $this->valoreAreaEdificabile;    
     
     /*
      * unità di misura

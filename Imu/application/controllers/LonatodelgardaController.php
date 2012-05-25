@@ -223,14 +223,16 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stampa.='<tr><td>';
         $stampa.="<td>Area urbanizzata</td>";
         $stampa.="<td>";
-        $stampa.=($values["area_urbanizzata"] == 1) ? "Si" : "No";
+        $area_urbanizzata=($values["area_urbanizzata"] == 1) ? "Si" : "No";
+        $stampa.=$area_urbanizzata;
         $stampa.="</td>";
+        $lotto_saturo= ($values["lotto_saturo"] == 1) ? "Si" : "No";
         if ($values["area_urbanizzata"] == 1) {
             // lotto saturo: solo se urbanizzata
             $stampa.='<tr class="header-tabella1"><td></td>';
             $stampa.="<td>Lotto saturo</td>";
             $stampa.="<td>";
-            $stampa.= ($values["lotto_saturo"] == 1) ? "Si" : "No";
+            $stampa.=$lotto_saturo;
             $stampa.="</td>";
         }
         // modalità di intervento
@@ -254,7 +256,14 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stampa.="<td>" . $values["capacita_edificatoria"] . "</td>";
         // chiudo la tabella     
         $stampa.='</table>';
-
+        $session->riassunto_step1_txt=array("nome_macro_ambito" =>$nome_macro_ambito,
+                                               "nome_sub_ambito" => $nome_sub_ambito,
+                                                "nome_zona" => $nome_zona,
+                                                "area_urbanizzata" => $area_urbanizzata,
+                                                "lotto_saturo" => $lotto_saturo,
+                                                "modalita_intervento" => $modalita_intervento,
+                                                "superficie" =>$values["superficie"],
+                                                "volumetria" => $values["capacita_edificatoria"]);
         // salvo in sessione
         $session->riassunto_step1 = $stampa;
 
@@ -315,7 +324,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // metto in sessione la stima unitaria
         $session->stimaUnitaria = Stima::calcolaStimaSingolaLonato($percentualeQuote);
         // calcolo valore area edificabile: semplice moltiplicazione
-        $session->valoraAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
+        $session->valoreAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
         return true; // non ho incontrato errori
     }
 
@@ -368,6 +377,10 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         $this->view->values = $values;
         $this->view->anagrafe = $anagrafe;
+        $this->view->riassunto_step1_txt=$session->riassunto_step1_txt;
+        $this->view->capacitaEdificatoria=$session->capacitaEdificatoria;
+        $this->view->stimaUnitaria=$session->stimaUnitaria;
+        $this->view->valoreAreaEdificabile=$session->valoreAreaEdificabile;
     }
 
 }
