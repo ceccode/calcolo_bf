@@ -120,14 +120,45 @@ class AjaxController extends Zend_Controller_Action
                 ));        
               
         $f->isValid($this->_getAllParams());
-        
-        //array numerico che parte da 0
-        //$json = $f;
-        
         $json = $f->getMessages();
+        
         header('Content-type: application/json');
         echo Zend_Json::encode($json);
-    }     
+    }
+    
+    
+    
+    public function calcolaValoreStimatoAction(){
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('Layout')->disableLayout();
+        
+        $session = new Zend_Session_Namespace('step1');
+        $values = $session->step1;
+        
+        $f = new Application_Form_Lonatodelgardastep2(array(
+                    'id_u_mambito' => $values['id_m_ambiti'],
+                ));        
+              
+        $f->isValid($this->_getAllParams());
+        
+        //array numerico che parte da 0
+        $input_utente = json_decode($f);
+        // effettuo il calcolo della stima e capacit√† edificatoria
+        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        // capacita edificatoria
+        // metto in sessione la stima unitaria
+        $valore_stimato = Stima::calcolaStimaSingolaLonato($input_utente);   
+        $valore_stimato2 = $valore_stimato * $session->capacitaEdificatoria;    
+        
+        $ret = array('valore_area_calcolata' => $valore_stimato, 'valore_area_edificabile' => $valore_stimato2);
+        $json = $ret;
+        //$json = $f->getMessages();
+        header('Content-type: application/json');
+        echo Zend_Json::encode($json);
+    }    
+    
+    
 
 
 }

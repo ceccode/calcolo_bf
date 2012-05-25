@@ -70,36 +70,36 @@
     $result = $lonato_u_sambiti->getVolumetria(intval($step1['id_u_sambiti']));
     $etichetta = $result[0]->indice_calcolo_capacita_edificatoria;
 
-    if ($etichetta == "V3"){
+    if (strtolower($etichetta) == "v3"){
 
         $u_capacita_edificatoria_calcolata = 'm3';
         $u_valore_area_calcolata = 'Euro/m3';
 
     }else {
 
-        switch ($etichetta) {        
+        switch (strtolower($etichetta)) {        
 
-            case "V1": 
+            case "v1": 
                 $u_capacita_edificatoria_calcolata = 'm3';
                 $u_valore_area_calcolata = 'Euro/m3';
             break;
-            case "V2": 
+            case "v2": 
                 $u_capacita_edificatoria_calcolata = 'm3';
                 $u_valore_area_calcolata = 'Euro/m3';
             break;
-            case "V4": 
+            case "v4": 
                 $u_capacita_edificatoria_calcolata = 'm3';
                 $u_valore_area_calcolata = 'Euro/m3';
             break;
-            case "U1": 
+            case "u1": 
                 $u_capacita_edificatoria_calcolata = 'm2spl';
                 $u_valore_area_calcolata = 'Euro/m2spl';
             break;
-            case "U2": 
+            case "u2": 
                 $u_capacita_edificatoria_calcolata = 'm2spl';
                 $u_valore_area_calcolata = 'Euro/m2spl';
             break;
-            case "U4": 
+            case "u4": 
                 $u_capacita_edificatoria_calcolata = 'm2spl';
                 $u_valore_area_calcolata = 'Euro/m2spl';
             break;
