@@ -37,13 +37,26 @@ class Stima {
             $somma+=$quote[$key];
         }
         if ($somma > 1)
-            throw new Exception("Errore in verificaCorreggiStima: la somma delle quote è maggiore di 1. Somma: " . $somma);
-        elseif ($somma != 1)
-            throw new Exception("Errore in verificaCorreggiStima: la somma delle quote è diversa da 1. Somma: " . $somma);
-
+            throw new Exception("Errore: La somma delle stime è maggiore di 1.");
+               
         return $quote;
     }
-
+    
+    /**
+     * Medodo per controllare se la somma è corretta(usato in ajax form)
+     */
+    public static function verificaQuote($quote){
+        $somma=0;
+        foreach ($quote as $key => $value){
+            $somma+=$quote[$key];
+        }
+        
+        if($somma >1 )
+            return false;
+        else
+            return true;
+    }
+    
     /**
      * Metodo per il calcolo della stima per il comune di lonato
      * IMPORTANTE!!! si presuppone che sia stat chiamato prima
