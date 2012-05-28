@@ -331,29 +331,29 @@ $pdf->writeHTML($tbl_risultati, true, false, false, false, '');
 
 //indici sub ambiti
 // prendo i primi 6 indici
-$testo1 = htmlentities($indici_sub_ambiti["testo1"]);
-$dato1 = htmlentities($indici_sub_ambiti["dato1"]);
-$um1 = htmlentities($indici_sub_ambiti["um1"]);
-$testo2 = htmlentities($indici_sub_ambiti["testo2"]);
-$dato2 = htmlentities($indici_sub_ambiti["dato2"]);
-$um2 = htmlentities($indici_sub_ambiti["um2"]);
-$testo3 = htmlentities($indici_sub_ambiti["testo3"]);
-$dato3 = htmlentities($indici_sub_ambiti["dato3"]);
-$um3 = htmlentities($indici_sub_ambiti["um3"]);
-$testo4 = htmlentities($indici_sub_ambiti["testo4"]);
-$dato4 = htmlentities($indici_sub_ambiti["dato4"]);
-$um4 = htmlentities($indici_sub_ambiti["um4"]);
-$testo5 = htmlentities($indici_sub_ambiti["testo5"]);
-$dato5 = htmlentities($indici_sub_ambiti["dato5"]);
-$um5 = htmlentities($indici_sub_ambiti["um5"]);
-$testo6 = htmlentities($indici_sub_ambiti["testo6"]);
-$dato6 = htmlentities($indici_sub_ambiti["dato6"]);
-$um6 = htmlentities($indici_sub_ambiti["um6"]);
+$testo1 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo1"]));
+$dato1  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato1"]));
+$um1    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um1"]));
+$testo2 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo2"]));
+$dato2  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato2"]));
+$um2    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um2"]));
+$testo3 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo3"]));
+$dato3  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato3"]));
+$um3    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um3"]));
+$testo4 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo4"]));
+$dato4  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato4"]));
+$um4    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um4"]));
+$testo5 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo5"]));
+$dato5  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato5"]));
+$um5    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um5"]));
+$testo6 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo6"]));
+$dato6  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato6"]));
+$um6    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um6"]));
 if(count($indici_sub_ambiti) == 21) {
     // se ho lunghezza 7 prendo anche il settimo
-    $testo7 = htmlentities($indici_sub_ambiti["testo7"]);
-    $dato7 = htmlentities($indici_sub_ambiti["dato7"]);
-    $um7 = htmlentities($indici_sub_ambiti["um7"]);
+    $testo7 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo7"]));
+    $dato7  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato7"]));
+    $um7    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um7"]));
     
 // memorizzo la stringa da stampare in html4    
 $tbl_indici = <<<EOD

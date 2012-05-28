@@ -92,7 +92,69 @@ class AjaxController extends Zend_Controller_Action
      * -------------------------------------------------------------------------
      * controlli ajax dei form
      */
+
     
+    public function verificaQuoteAction() {
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('Layout')->disableLayout();
+        
+        $session = new Zend_Session_Namespace('step1');
+        $values = $session->step1;
+        
+        $f = new Application_Form_Lonatodelgardastep2(array(
+                    'id_u_mambito' => $values['id_m_ambiti'],
+                ));        
+              
+        $input_utente = $this->_getAllParams();
+        
+//        $f = '{"1":"1","2":"","3":"","4":"","5":"","6":"","7":"","8":"","continua_stampa":"Continua per stampare"}';
+        
+//        echo "<pre>";
+//        print_r($f);
+//        echo "</pre>";  
+        //array numerico che parte da 0
+ //       $input_utente = (array) json_decode($f);
+        
+//        echo "<pre>";
+//        print_r($input_utente);
+//        echo "</pre>";   
+                
+        unset($input_utente['continua_stampa']);
+        unset($input_utente['controller']);
+        unset($input_utente['action']);
+        unset($input_utente['module']);       
+                
+//        echo "<pre>";
+//        print_r($input_utente);
+//        echo "</pre>";      
+        
+        $indice = 0;
+        $new_input_utente = array();
+        foreach ($input_utente as $key => $value) {
+            $new_input_utente[$indice] = $value;
+            $indice++;
+        }
+         
+//        echo "<pre>";
+//        print_r($new_input_utente);
+//        echo "</pre>";        
+        
+        // effettuo il calcolo della stima e capacit√† edificatoria
+        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        // capacita edificatoria
+        // metto in sessione la stima unitaria
+        $somma_quote = Stima::verificaQuote($new_input_utente);
+        
+        $ret = array('somma_quote' => $somma_quote);
+        
+//        print_r($ret);
+        
+        $json = $ret;      
+        header('Content-type: application/json');
+        echo Zend_Json::encode($json);      
+        
+    }
     
     public function validateFormStep1Action(){
         

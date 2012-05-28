@@ -36,8 +36,8 @@ class Stima {
         foreach ($quote as $key => $value) {
             $somma+=$quote[$key];
         }
-        if ($somma > 1)
-            throw new Exception("Errore: La somma delle stime è maggiore di 1.");
+//        if ($somma > 1)
+            //throw new Exception("Errore: La somma delle stime è maggiore di 1.");
                
         return $quote;
     }
@@ -46,6 +46,7 @@ class Stima {
      * Medodo per controllare se la somma è corretta(usato in ajax form)
      */
     public static function verificaQuote($quote){
+        $quote = Stima::correggiFloat($quote);
         $somma=0;
         foreach ($quote as $key => $value){
             $somma+=$quote[$key];

@@ -173,8 +173,12 @@ if ($vuoto == 0):
         <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => 'Lonatodelgarda', 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
 
     </div>
+
+    <div style="color: red; font-size: 11px;" id="errore_somma" ></div>
+
     <!-- torna al form1 -->
     <div style="clear:both"></div>
+    
     <!-- stima -->
     <table id="risultati" class="left">
         <tr class="header-tabella1">
@@ -208,13 +212,15 @@ if ($vuoto == 0):
             function doValidation(id){
 
                 var url = '/public/Ajax/validate-form-step2';
-                var url2 = '/public/Ajax/calcola-valore-stimato';                
+                var url2 = '/public/Ajax/calcola-valore-stimato'; 
+                var url3 = '/public/Ajax/verifica-quote';    
+                
                 var data = {};
                 $('input').each(function(){
                     data[$(this).attr('name')] = $(this).val();
                     //alert($(this).val());
                 });
-                //console.log(data);
+
                 $.post(url,data,function(resp){
 
                     $("#"+id).parent().find(".errors").remove();    
@@ -223,12 +229,7 @@ if ($vuoto == 0):
                 },'json');
 
                 console.log(data);
-                                    
-                //                var removeItem = data.lenght;
-                //                data.splice($.inArray(removeItem,data) ,1 );
-                //
-                //                console.log(data);
-                                    
+                                                                        
                 $.post(url2,data,function(resp){
 
                     console.log(resp);
@@ -236,6 +237,20 @@ if ($vuoto == 0):
                     $('#v_valore_area_edificabile').html(resp.valore_area_edificabile);                    
                                          
                 },'json');
+                
+                $.post(url3,data,function(resp){
+
+                    console.log(resp);
+
+                    //$("#errore_somma").remove(); 
+                    if (resp.somma_quote){
+                        $("#continua_stampa").removeAttr("disabled");
+                        $("#errore_somma").html('');
+                    }else {
+                        $("#continua_stampa").attr("disabled", "true");
+                        $("#errore_somma").html('La somma dei valori in ingresso non può essere maggiore di 1');
+                    }                   
+                },'json');                
                                                        
                                     
             }
