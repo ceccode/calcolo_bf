@@ -21,6 +21,10 @@ $this->headLink()->prependStylesheet($this->baseUrl().'/media/main.css');
 $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js');
 ?>
 <script type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }    
+    
+    
 function selSubAmbiti(idMacroAmbito){
     $.getJSON('http://localhost:10095/public/Ajax/search-subambiti', 
         { categoria: idMacroAmbito},
@@ -110,8 +114,6 @@ function selModalitaIntervento(urbanizzato){
 
               });                      
 }
-
-
 </script>
 <?=$this->headLink();?>    
 <?=$this->headScript();?>
