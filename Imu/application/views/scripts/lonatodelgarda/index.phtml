@@ -1,6 +1,5 @@
 <div id="contenitore-index">
-<h2>Calcolo web imu. Passo1:</h2>
-<small style="font-weight: bold;">compila i campi sottostanti e premi il pulsante: "continua il calcolo".</small>
+    <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; text-align: left; font-size: 120% ;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Compila i campi sottostanti e premi il pulsante: "continua il calcolo".</h4>    
 <?
     $this->headTitle("Calcolo imu lonato");
     echo $this->form;
@@ -30,31 +29,7 @@ $(function()
     else {
         // se non è visibile fai qualcos'altro
     }  
-    
-    
-//    $("#capacita_edificatoria").blur(function(){
-//        var id = $(this);
-//        if(id.val()==''){
-//           $("#submit").attr("disabled", "true");
-//        }else {
-//           $("#submit").removeAttr("disabled");
-//        }
-//        
-//        doValidation(id);
-//               
-//        });
-        
-        
-//    $("#submit").click(function(){
-//        var id = $("#capacita_edificatoria");
-//        if(id.val()==''){
-//            $("#"+id).parent().find("ul").remove();  
-//            $("#"+id).after(getErrorHtml(resp[id],id)); 
-//        }else {
-//            ;
-//        }        
-//    }); 
-      
+             
 
     function doValidation(id){
         var url = '/public/Ajax/validate-form-step1';

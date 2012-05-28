@@ -18,7 +18,8 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
 
 </div> 
 <div id="form-anagrafe">
-    <?= $this->form ?>
+    <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; margin-left: 5px; text-align: left; font-size: 120% ;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Inserisci i tuoi dati per stampare il documento</h4>
+    <?=$this->form ?>
     <a id="button-ricalcola-anagrafe" class="button doc-button" href="<?=
     $this->url(array('controller' => 'Lonatodelgarda',
         'action' => 'index'), null, TRUE);
@@ -26,6 +27,7 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
 </div>
 <!-- stima -->
 <table id="risultati-anagrafe">
+    <caption>Risultato stimato</caption>      
     <tr class="header-tabella1">
         <td>Capacità edificatoria calcolata</td>
         <td><?= $session->capacitaEdificatoria; ?></td>

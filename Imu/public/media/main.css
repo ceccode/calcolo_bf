@@ -5,29 +5,34 @@
     Description: Purpose of the stylesheet follows.
 */
 body {
-    font-family: Lucida, verdana;
+    /*font-family: Lucida, verdana;*/
     background-color: #fff;
     color: black;
     font-size: 14px;
     margin: auto;
     width: 1000px ;
+    font: small/1.5 "Tahoma", "Bitstream Vera" ;
 }
 
 #header {
-    height: 100px;
+    height: 70px;
 }
 #name {
-    height: 100px;
+    height: 70px;
     float: left;
 }
 
 
 #content{
     min-height: 200px;  
-    border-left: 8px solid #4681F7;
-    border-top:8px solid #4681F7;
-    border-bottom:8px solid #2565E5;
-    border-right:8px solid #2565E5;
+    /*
+    #93aef5
+    #4681F7
+    */
+    border-left: 8px solid #93aef5;
+    border-top:8px solid #93aef5;
+    border-bottom:8px solid #93aef5;
+    border-right:8px solid #93aef5;
     padding-bottom: 10px;
     overflow:auto;
 }
@@ -281,7 +286,7 @@ ul.errors{
 }
 
 #risultati_calcolo_stima{
-    background-color: #C5DBF9;
+    /*background-color: #C5DBF9;*/
     width: 100%;
     height: 370px;
     margin-bottom: 20px;
@@ -295,7 +300,8 @@ ul.errors{
 }
 
 .header-tabella1{
-    background-color: #4681F7;
+    /*#d8e2fa*/
+    background-color: #d8e2fa;
 }
 .corpo-tabella1{
     background-color: #D1D2D3;
@@ -315,9 +321,14 @@ ul.errors{
 }
 
 #risultati{
-    font-size: 15px; 
+/*    font-size: 15px; 
     margin-top:-40px;
-    margin-left: 10px;
+    margin-left: 10px;*/
+    font-size: 15px; 
+    margin-top: 10px;
+    margin-left: 650px;
+/*    float: right;
+    margin-right: 10px;*/
 }
 
 #indici-sambiti{
@@ -338,7 +349,7 @@ ul.errors{
 
 /* ///// inizio tabella form 2 //////*/
 .grigio{
-    background-color: #4681F7;
+    background-color: #d8e2fa;
 }
 .border_sotto{
     border-bottom: 1px solid #C5DBF9;
@@ -517,13 +528,92 @@ ul.errors{
 #form-anagrafe{
     width:500px;
     float:left;
+    margin-left:10px;
+    margin-top:10px;    
+    border: 1px dotted gray;
 }
 
 #risultati-anagrafe{
     font-size: 15px;
     float:right;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* /////// fine stile anagrafe(step3) /////// */
+
+
+/* new table */
+table,td
+{
+	border               : 1px solid #CCC;
+	border-collapse      : collapse;
+  font                 : small/1.5 "Tahoma", "Bitstream Vera Sans", Verdana, Helvetica, sans-serif;
+}
+table
+{
+	border                :none;
+	border                :1px solid #CCC;
+}
+thead th,
+tbody th
+{
+	background      : #FFF;
+  color                 : #666;  
+	padding         : 5px 10px;
+  border-left           : 1px solid #CCC;
+}
+tbody th
+{
+  background            : #fafafb;
+  border-top            : 1px solid #CCC;
+  text-align            : left;
+  font-weight           : normal;
+}
+tbody tr td
+{
+	padding               : 5px 10px;
+  color                 : #666;
+}
+tbody tr:hover
+{
+  background            : #FFF;
+}
+
+tbody tr:hover td
+{
+  color                 : #454545;
+}
+tfoot td,
+tfoot th
+{
+  border-left           : none;
+  border-top            : 1px solid #CCC;
+	padding               : 4px;
+  background            : #FFF;
+  color                 : #666;
+}
+caption
+{
+	text-align            : left;
+	font-size             : 120%;
+	padding               : 10px 0;
+	color                 : #666;
+}
+table a:link
+{
+	color                 : #666;
+}
+table a:visited
+{
+	color                 : #666;
+}
+table a:hover
+{
+	color                 : #003366;
+	text-decoration       : none;
+}
+table a:active
+{
+	color                 : #003366;
+}

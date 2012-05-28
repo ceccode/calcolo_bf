@@ -64,10 +64,11 @@ class LonatodelgardaController extends Zend_Controller_Action {
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
             $stampa = "";
             // inizio la tabella
-            $stampa.='<table id="indici-sambiti" class="right">';
+            $stampa.='<table summary="Indici riassuntivi subambiti" id="indici-sambiti" class="right">';
             // intestazione
-            $stampa.='<tr>';
-            $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Indici sub ambiti:</td></tr>";
+            $stampa .= '<caption>Indici sub ambiti</caption>';
+//            $stampa.='<tr>';
+//            $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Indici sub ambiti:</td></tr>";
             $tipo_stima = $valore_sambiti_riga->indice_calcolo_capacita_edificatoria;
             if (strtolower($tipo_stima[0]) == "v") {
                 // indice fondiario
@@ -198,20 +199,21 @@ class LonatodelgardaController extends Zend_Controller_Action {
             // inizio la tabella
             $stampa.='<table id="indici-mambiti" class="left">';
             // intestazione
-            $stampa.='<tr>';
-            $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Indici macro ambiti:</td></tr>";
+//            $stampa.='<tr>';
+//            $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Indici macro ambiti:</td></tr>";
             // valore compensativo aggiuntivo
-            $stampa.='<tr class="header-tabella1"><td>';
+            $stampa .= '<caption>Indici macro ambiti</caption>';
+            $stampa.='<tr class="header-tabella1">';
             $stampa.="<td>Valore compensativo unitario</td>";
             $valore_comprensativo_unitario = $valore_mambiti_riga->valore_comprensativo_unitario;
             $stampa.="<td>" . $valore_mambiti_riga->valore_comprensativo_unitario . "</td>";
             // contributo compensativo aggiuntivo
-            $stampa.='<tr><td>';
+            $stampa.='<tr>';
             $stampa.="<td>Contributo compensativo aggiuntivo</td>";
             $contributo_compensativo_aggiuntivo = $valore_mambiti_riga->contributo_compensativo_aggiuntivo;
             $stampa.="<td>" . $valore_mambiti_riga->contributo_compensativo_aggiuntivo . "</td>";
             // standard pubblico qualità
-            $stampa.='<tr class="header-tabella1"><td>';
+            $stampa.='<tr class="header-tabella1">';
             $stampa.="<td>Standard pubblico qualità</td>";
             $standard_pubblico_qualita = $valore_mambiti_riga->standard_pubblico_qualita;
             $stampa.="<td>" . $valore_mambiti_riga->standard_pubblico_qualita . "</td>";
@@ -251,24 +253,25 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // preparo la stampa della tabella
         $stampa = "";
         // inizio la tabella
-        $stampa.='<table id="indici-form1" class="left">';
+        $stampa.='<table summary="riepilogo dati" id="indici-form1" class="left">';
         // intestazione
-        $stampa.='<tr>';
-        $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Dati scelti in precedenza:</td></tr>";
+        $stampa .='<caption>​Dati scelti in precedenza</caption>​';
+//        $stampa.='<tr>';
+//        $stampa.="<td colspan='3' style='font-weight:bold; font-size:14px;'>Dati scelti in precedenza:</td></tr>";
         // macro ambito
-        $stampa.='<tr class="header-tabella1"><td>';
+        $stampa.='<tr class="header-tabella1">';
         $stampa.="<td>Macro ambito</td>";
         $stampa.="<td>" . $nome_macro_ambito . "</td>";
         // sub ambito
-        $stampa.='<tr><td>';
+        $stampa.='<tr>';
         $stampa.="<td>Sub ambito</td>";
         $stampa.="<td>" . $nome_sub_ambito . "</td>";
         // zona
-        $stampa.='<tr class="header-tabella1"><td>';
+        $stampa.='<tr class="header-tabella1">';
         $stampa.="<td>Nome zona</td>";
         $stampa.="<td>" . $nome_zona . "</td>";
         // valore urbanizzata
-        $stampa.='<tr><td>';
+        $stampa.='<tr>';
         $stampa.="<td>Area urbanizzata</td>";
         $stampa.="<td>";
         $area_urbanizzata = ($values["area_urbanizzata"] == 1) ? "Si" : "No";
@@ -277,7 +280,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $lotto_saturo = ($values["lotto_saturo"] == 1) ? "Si" : "No";
         if ($values["area_urbanizzata"] == 1) {
             // lotto saturo: solo se urbanizzata
-            $stampa.='<tr class="header-tabella1"><td></td>';
+            $stampa.='<tr class="header-tabella1">';
             $stampa.="<td>Lotto saturo</td>";
             $stampa.="<td>";
             $stampa.=$lotto_saturo;
@@ -286,20 +289,20 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // modalità di intervento
         $stampa.='<tr ';
         $stampa.=($values["area_urbanizzata"] == 1) ? "" : "class='header-tabella1'";
-        $stampa.='><td></td>';
+        $stampa.='>';
         $stampa.="<td>Modalità di intervento</td>";
         $stampa.="<td>" . $modalita_intervento . "</td>";
 
         // superficie
         $stampa.='<tr ';
         $stampa.=($values["area_urbanizzata"] == 1) ? "class='header-tabella1'" : "";
-        $stampa.='><td></td>';
+        $stampa.='>';
         $stampa.="<td>Superficie edificatoria</td>";
         $stampa.="<td>" . $values["superficie"] . "</td>";
         // volumetria
         $stampa.='<tr ';
         $stampa.=($values["area_urbanizzata"] == 1) ? "" : "class='header-tabella1'";
-        $stampa.='><td></td>';
+        $stampa.='>';
         $stampa.="<td>Volumetria</td>";
         $stampa.="<td>" . $values["capacita_edificatoria"] . "</td>";
         // chiudo la tabella     
@@ -395,7 +398,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
                 if ($this->_process_anagrafe($form->getValues())) {
                     $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'stampa');
                     $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
-                    $this->_helper->redirector->gotoRoute($urlOptions);
+                    //$this->_helper->redirector->gotoRoute($urlOptions);
                 } else {
                     $this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
                 }

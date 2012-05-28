@@ -48,7 +48,7 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
             $this->addElement($cepp);       
             
         }        
-
+        
         $this->addElement('submit', 'continua_stampa', array(
             'class' => 'button doc-button',
             'required' => false,

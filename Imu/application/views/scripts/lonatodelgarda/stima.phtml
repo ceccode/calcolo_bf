@@ -92,6 +92,8 @@ if ($vuoto == 0):
         <?= $session->indici_sambiti_stampa; ?>
 
     </div> 
+<div style="clear:both"></div>
+    <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; text-align: left; font-size: 120% ;margin-left: 10px;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Inserisci le quote di progetto</h4>
     <div id="div_form_2"> <!-- div con i dati form 2 -->
         <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
             <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
@@ -181,7 +183,8 @@ if ($vuoto == 0):
     
     <!-- stima -->
     <table id="risultati" class="left">
-        <tr class="header-tabella1">
+    <caption>Risultato stimato</caption>    
+    <tr class="header-tabella1">
             <td>Capacità edificatoria calcolata</td>
             <td><span id="v_capacita_edificatoria"><?= $capacita_edificatoria ?></span></td>
             <td><?= $u_capacita_edificatoria ?></td>
