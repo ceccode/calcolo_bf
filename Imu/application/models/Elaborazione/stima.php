@@ -36,31 +36,17 @@ class Stima {
         foreach ($quote as $key => $value) {
             $somma+=$quote[$key];
         }
-<<<<<<< HEAD
-//        if ($somma > 1)
-            //throw new Exception("Errore: La somma delle stime è maggiore di 1.");
-               
-=======
-      //  if ($somma > 1)
-      //      throw new Exception("Errore: La somma delle stime è maggiore di 1.");
-
->>>>>>> test
         return $quote;
     }
 
     /**
      * Medodo per controllare se la somma è corretta(usato in ajax form)
      */
-<<<<<<< HEAD
     public static function verificaQuote($quote){
         $quote = Stima::correggiFloat($quote);
         $somma=0;
         foreach ($quote as $key => $value){
-=======
-    public static function verificaQuote($quote) {
-        $somma = 0;
-        foreach ($quote as $key => $value) {
->>>>>>> test
+
             $somma+=$quote[$key];
         }
 
@@ -97,11 +83,11 @@ class Stima {
         $quote = Stima::verificaCorreggiStima($quote_input);
         $stima = 0; // stima unitaria: inizializzata a 0
         $tstima = 0; // stima temporanea usata per i calcoli 
-        // data del calcolo
-        $data_calcolo = $session->data_calcolo;
         // prendo i valori del form1 dalla sessione
         $session = new Zend_Session_Namespace('step1');
         $valoriForm1 = $session->step1;
+         // data del calcolo
+        $data_calcolo = $session->data_calcolo;
         // capacità edificatoria
         $capacita_edificatoria = $session->capacitaEdificatoria;
         //form2
@@ -169,32 +155,63 @@ class Stima {
                         throw new Exception("Errore in Stima.php: cacolo indice capacità edificatoria");
 
                     // incidenza viabilità 
-                    // DIEGO: per l'utente assume il valore statico 0.1; per l'operatore deve stare in una tabella di settaggi ed è legata a date di validità;
-                    $incidenza_viabilità = 0.1;
+                    $tmp=null;
+                    $incidenza_viabilità = $lonato_var_indici->getDato("incidv", $session->data_calcolo);
+                    foreach($incidenza_viabilità as $valore){
+                        $tmp=Stima::correggiFloat($valore->valore);
+                    }
+                    if($tmp)
+                        $incidenza_viabilità=$tmp;
+                    else
+                        throw new Exception("Errore in calcolaStimaSingolaLonato: il valore incidv non è presente nella tabella var_indici");
+       
                     // costo unitario della viabilità ceduta: espresso in euro/mq
-                    // da implementare una tabella start ove leggere questo valore
-                    // in base alla scelta dell'anno e del comune
+                    // dati dipendenti dalla tabella var_indici
+                    $tmp=null;
                     $costo_cessione_viabilità = $lonato_var_indici->getDato("ccv", $session->data_calcolo);
-                    //$costo_cessione_viabilità = 80; //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    // costo cessione degli standard. da implementare una tabella
-                    // ove leggere questo valore in base alla scelta dell'anno di imposta
-                    // e del comune
-                    //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    //$costo_cessione_standard = 80;
+                    foreach($costo_cessione_viabilità as $valore){
+                        $tmp=Stima::correggiFloat($valore->valore);
+                    }
+                    if($tmp)
+                        $costo_cessione_viabilità=$tmp;
+                    else
+                        throw new Exception("Errore in calcolaStimaSingolaLonato: il valore ccv non è presente nella tabella var_indici");
+                    // costo cessione degli standard. 
+                    // dipende da var_indici
+                    $tmp=null;
                     $costo_cessione_standard = $lonato_var_indici->getDato("ccs", $session->data_calcolo);
-
-                    // tasso di auttualizzazione. da implementare una tabella start ove4
-                    // leggere questo valore in  base alla scelta dell'anno di imposta e del comune
-                    //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    //$frate = 0.08; // MAGIC NUMBER CHIEDI DIEGO!!!
+                    foreach($costo_cessione_standard as $valore){
+                        $tmp=Stima::correggiFloat($valore->valore);
+                    }
+                    if($tmp)
+                        $costo_cessione_standard=$tmp;
+                    else
+                        throw new Exception("Errore in calcolaStimaSingolaLonato: il valore ccs non è presente nella tabella var_indici");
+       
+                    // tasso di auttualizzazione. 
+                    // dipende da var_indici
+                    $tmp=null;
                     $frate = $lonato_var_indici->getDato("frate", $session->data_calcolo);
-
-                    // orizzonte temporale calcolo attualizzazione. da implementare una tabella
-                    // start ove leggere questo valore in base alla scelta dell'anno e del comune
-                    //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    //$orizzonte_temporale = 3;
+                    foreach($frate as $valore){
+                        $tmp=Stima::correggiFloat($valore->valore);
+                    }
+                    if($tmp)
+                        $frate=$tmp;
+                    else
+                        throw new Exception("Errore in calcolaStimaSingolaLonato: il valore frate non è presente nella tabella var_indici");
+       
+                    // orizzonte temporale calcolo attualizzazione. 
+                    // dipende da var_indici
+                    $tmp=null;
                     $orizzonte_temporale = $lonato_var_indici->getDato("otemp", $session->data_calcolo);
-
+                    foreach($orizzonte_temporale as $valore){
+                        $tmp=Stima::correggiFloat($valore->valore);
+                    }
+                    if($tmp)
+                        $orizzonte_temporale=$tmp;
+                    else
+                        throw new Exception("Errore in calcolaStimaSingolaLonato: il valore otemp non è presente nella tabella var_indici");
+       
                     // incidenza viabilità sull'indice edificatorio
                     $fattore_incidenza_viabilità = (float) ($incidenza_viabilità / $indice_capacità_edificatoria);
                     //$ret[7][$chiaveForm2] = "fattore incidenza viabilità: " . $fattore_incidenza_viabilità  ."incidenza viabilita: " . $incidenza_viabilità . " indice cap edific: ".                     $fattore_incidenza_viabilità = $incidenza_viabilità / $indice_capacità_edificatoria;

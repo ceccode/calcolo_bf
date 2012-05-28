@@ -4,7 +4,13 @@ class Application_Model_DbTable_VarIndici extends Application_Model_DbTable_Tabe
 
     /**
      * Questo metodo ritorna il valore di un dato della 
-     * var_indici data la sua descizione e la data
+     * var_indici data la sua descrizione e la data
+     * la data deve essere compresa tra inizio e fine oppure non deve avere
+     * data di fine ma essere maggiore di data inizio
+     * si presuppone che l'ultima data_inizi abbia null come data fine
+     * ATTENZIONE: la data fine di un nuovo periodo deve essere uguale 
+     * alla data inizio del nuovo periodo.
+     * 
      * 
      * @param type $descrizione descrizione del valore
      * @param type $data data di validità
@@ -21,8 +27,9 @@ class Application_Model_DbTable_VarIndici extends Application_Model_DbTable_Tabe
                     ->where('record_attivo = 1')
                     ->where('nome = ?', $nome)
                     ->where('data_inizio <= ?', $data)
-                    ->where('data_fine <= ?', $data);
+                    ->where('data_fine > ? OR data_fine = 0000-00-00', $data);
 
+            //debug throw new Exception($select);
             $righe = $this->fetchAll($select);
 
             if ($righe)
