@@ -21,6 +21,10 @@ if (strtolower($etichetta) == "v3") {
 
     switch (strtolower($etichetta)) {
 
+        case "v3":
+            $u_capacita_edificatoria = 'm3';
+            $u_valore_area_calcolata = 'Euro/m3';
+            break;
         case "v1":
             $u_capacita_edificatoria = 'm3';
             $u_valore_area_calcolata = 'Euro/m3';
@@ -45,6 +49,8 @@ if (strtolower($etichetta) == "v3") {
             $u_capacita_edificatoria = 'm2spl';
             $u_valore_area_calcolata = 'Euro/m2spl';
             break;
+        default:
+            throw new Exception("Indice calcolo capacità edificatoria non valido.");
     }
 }
 
@@ -153,16 +159,16 @@ if ($vuoto == 0):
         <?php endif; ?>
         <!-- se urbanizzata non ho cessioni -->
         <?php if (!$values["area_urbanizzata"]): ?>
-        <div class="left copri_tabella2"> <!-- colonna8 -->
-            <div id="header-quota-monetaria" class="border_sotto grigio">Quota monetaria</div>
-            <div id="corpo-quota-monetaria">
-                <?php foreach ($dati_cessione as $chiave => $valore): ?>
-                    <div class="blocco_tabella2"><?= $valore['quota_monetizzabile'] ?></div>
-                <?php endforeach; ?>
+            <div class="left copri_tabella2"> <!-- colonna8 -->
+                <div id="header-quota-monetaria" class="border_sotto grigio">Quota monetaria</div>
+                <div id="corpo-quota-monetaria">
+                    <?php foreach ($dati_cessione as $chiave => $valore): ?>
+                        <div class="blocco_tabella2"><?= $valore['quota_monetizzabile'] ?></div>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
         <?php endif; ?>
-        
+
         <!-- bottone ricalcola -->
         <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => 'Lonatodelgarda', 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
 
@@ -196,9 +202,9 @@ if ($vuoto == 0):
                 //
                 var formElementId = ($(this).parent().prev().find('label').attr('for'));                
                 doValidation(formElementId);
-                                       
+                                               
             });
-                              
+                                      
             function doValidation(id){
 
                 var url = '/public/Ajax/validate-form-step2';
@@ -213,25 +219,25 @@ if ($vuoto == 0):
 
                     $("#"+id).parent().find(".errors").remove();    
                     $("#"+id).parent().append(getErrorHtml(resp[id],id));                     
-                                 
+                                         
                 },'json');
 
                 console.log(data);
-                            
+                                    
                 //                var removeItem = data.lenght;
                 //                data.splice($.inArray(removeItem,data) ,1 );
                 //
                 //                console.log(data);
-                            
+                                    
                 $.post(url2,data,function(resp){
 
                     console.log(resp);
                     $('#v_valore_area_calcolata').html(resp.valore_area_calcolata);
                     $('#v_valore_area_edificabile').html(resp.valore_area_edificabile);                    
-                                 
+                                         
                 },'json');
-                                               
-                            
+                                                       
+                                    
             }
 
             function getErrorHtml(formsError, id){
@@ -243,8 +249,8 @@ if ($vuoto == 0):
                 o += '</ul>';
                 return o;
             }
-                            
-                            
+                                    
+                                    
         });
     </script>
 <?php else: ?>
