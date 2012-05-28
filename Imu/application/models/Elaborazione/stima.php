@@ -36,28 +36,40 @@ class Stima {
         foreach ($quote as $key => $value) {
             $somma+=$quote[$key];
         }
+<<<<<<< HEAD
 //        if ($somma > 1)
             //throw new Exception("Errore: La somma delle stime è maggiore di 1.");
                
+=======
+      //  if ($somma > 1)
+      //      throw new Exception("Errore: La somma delle stime è maggiore di 1.");
+
+>>>>>>> test
         return $quote;
     }
-    
+
     /**
      * Medodo per controllare se la somma è corretta(usato in ajax form)
      */
+<<<<<<< HEAD
     public static function verificaQuote($quote){
         $quote = Stima::correggiFloat($quote);
         $somma=0;
         foreach ($quote as $key => $value){
+=======
+    public static function verificaQuote($quote) {
+        $somma = 0;
+        foreach ($quote as $key => $value) {
+>>>>>>> test
             $somma+=$quote[$key];
         }
-        
-        if($somma >1 )
+
+        if ($somma > 1)
             return false;
         else
             return true;
     }
-    
+
     /**
      * Metodo per il calcolo della stima per il comune di lonato
      * IMPORTANTE!!! si presuppone che sia stat chiamato prima
@@ -80,10 +92,13 @@ class Stima {
         $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
+        $lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
         // quote in input corrette
         $quote = Stima::verificaCorreggiStima($quote_input);
         $stima = 0; // stima unitaria: inizializzata a 0
         $tstima = 0; // stima temporanea usata per i calcoli 
+        // data del calcolo
+        $data_calcolo = $session->data_calcolo;
         // prendo i valori del form1 dalla sessione
         $session = new Zend_Session_Namespace('step1');
         $valoriForm1 = $session->step1;
@@ -154,27 +169,32 @@ class Stima {
                         throw new Exception("Errore in Stima.php: cacolo indice capacità edificatoria");
 
                     // incidenza viabilità 
-                    // DIEGO: per l'utente assume il valore statico 0.1; per l'operatore deve stare in una tabella di settaggi ed è legata a date di validit�;
+                    // DIEGO: per l'utente assume il valore statico 0.1; per l'operatore deve stare in una tabella di settaggi ed è legata a date di validità;
                     $incidenza_viabilità = 0.1;
                     // costo unitario della viabilità ceduta: espresso in euro/mq
                     // da implementare una tabella start ove leggere questo valore
                     // in base alla scelta dell'anno e del comune
-                    $costo_cessione_viabilità = 80; //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
+                    $costo_cessione_viabilità = $lonato_var_indici->getDato("ccv", $session->data_calcolo);
+                    //$costo_cessione_viabilità = 80; //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
                     // costo cessione degli standard. da implementare una tabella
                     // ove leggere questo valore in base alla scelta dell'anno di imposta
                     // e del comune
                     //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    $costo_cessione_standard = 80;
+                    //$costo_cessione_standard = 80;
+                    $costo_cessione_standard = $lonato_var_indici->getDato("ccs", $session->data_calcolo);
+
                     // tasso di auttualizzazione. da implementare una tabella start ove4
                     // leggere questo valore in  base alla scelta dell'anno di imposta e del comune
                     //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    $frate = 0.08; // MAGIC NUMBER CHIEDI DIEGO!!!
+                    //$frate = 0.08; // MAGIC NUMBER CHIEDI DIEGO!!!
+                    $frate = $lonato_var_indici->getDato("frate", $session->data_calcolo);
+
                     // orizzonte temporale calcolo attualizzazione. da implementare una tabella
                     // start ove leggere questo valore in base alla scelta dell'anno e del comune
                     //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
-                    $orizzonte_temporale = 3;
-                    // anno corrente
-                    $anno_calcolo = $session->anno_calcolo; // DIEGO: DA PARAMETRIZZARE
+                    //$orizzonte_temporale = 3;
+                    $orizzonte_temporale = $lonato_var_indici->getDato("otemp", $session->data_calcolo);
+
                     // incidenza viabilità sull'indice edificatorio
                     $fattore_incidenza_viabilità = (float) ($incidenza_viabilità / $indice_capacità_edificatoria);
                     //$ret[7][$chiaveForm2] = "fattore incidenza viabilità: " . $fattore_incidenza_viabilità  ."incidenza viabilita: " . $incidenza_viabilità . " indice cap edific: ".                     $fattore_incidenza_viabilità = $incidenza_viabilità / $indice_capacità_edificatoria;

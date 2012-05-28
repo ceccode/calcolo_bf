@@ -25,7 +25,9 @@ class Factory_dbTable {
         require_once APPLICATION_PATH . "/models/Db/UModinterv.php";
         require_once APPLICATION_PATH . "/models/Db/USambiti.php";
         require_once APPLICATION_PATH . "/models/Db/USdestinazioni.php";
-        require_once APPLICATION_PATH . "/models/Db/Log.php";        
+        require_once APPLICATION_PATH . "/models/Db/Log.php";
+        require_once APPLICATION_PATH . "/models/Db/VarIndici.php";
+        
 
         $tabella=null;
 
@@ -73,7 +75,11 @@ class Factory_dbTable {
             case 'log':
                 $tabella = new Application_Model_DbTable_Log();
                 $tabella->setName('log');
-                break;            
+                break;  
+            case 'var_indici':
+                $tabella = new Application_Model_DbTable_VarIndici();
+                $tabella->setName('var_indici');
+                break;         
             default:
                 throw new Exception("Nome tabella non valido in Factory_dbTable getClass");
         }

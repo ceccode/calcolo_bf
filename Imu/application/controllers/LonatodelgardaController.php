@@ -13,6 +13,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
     private $lonato_u_sambiti;
     private $lonato_u_sdestinazioni;
     private $lonato_log;
+    private $lonato_var_indici;
 
     public function init() {
         $this->lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
@@ -26,6 +27,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $this->lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
         $this->lonato_log = Factory_dbTable::getClass("017092", "log");
+        $this->lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
     }
 
     public function indexAction() {
@@ -54,10 +56,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // dati variabili
         $session = new Zend_Session_Namespace('step1');
         $session->step1 = $values;
-        $session->anno_calcolo = 2012; // per ora imposto a mano l'anno del calcolo
+        $session->data_calcolo = "2012-01-02"; // per ora imposto a mano la data del calcolo
         // ottengo gli indici subambiti da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
         // prendo i dati da mostrare
-        // FARE UN HELPER??????????
         $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"]);
         // creo l'output formattato html4
         // sub ambiti
@@ -181,7 +182,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
                     "dato5" => $valore_sambiti_riga->utilizzazione_incremento,
                     "testo6" => "Utilizzazione predefinita",
                     "um6" => "(slp in m2slp)",
-                    "dato6" => $valore_sambiti_riga->utilizzazione_predefinita_d); 
+                    "dato6" => $valore_sambiti_riga->utilizzazione_predefinita_d);
             } else {
                 throw new Exception("Errore in process_lonato_imu: tipo stima non valida: " . $tipo_stima);
             }
@@ -345,7 +346,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
                 if ($this->_process_lonato_imu_step2($form->getValues())) {
                     $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'anagrafe');
-                    $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';                   
+                    $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
                     $this->_helper->redirector->gotoRoute($urlOptions);
                 } else {
                     $this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
@@ -428,7 +429,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         $values = $session->step1;
         $anagrafe = $session2->anagrafe;
-        
+
         $this->view->values = $values;
         $this->view->anagrafe = $anagrafe;
         $this->view->riassunto_step1_txt = $session->riassunto_step1_txt;
