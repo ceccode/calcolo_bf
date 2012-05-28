@@ -41,20 +41,20 @@ $cf = strtoupper($anagrafe['cf']);
 /*
  * dati riassuntivi - step1
  */
-$macro_ambito = $riassunto_form_1["nome_macro_ambito"];
-$sub_ambito = $riassunto_form_1["nome_sub_ambito"];
-$zona = $riassunto_form_1["nome_zona"];
-$area_urbanizzata = $riassunto_form_1["area_urbanizzata"];
-$modalita_intervento = $riassunto_form_1["modalita_intervento"];
-$lotto_saturo = $riassunto_form_1["lotto_saturo"];
+$macro_ambito            = $riassunto_form_1["nome_macro_ambito"];
+$sub_ambito              = $riassunto_form_1["nome_sub_ambito"];
+$zona                    = $riassunto_form_1["nome_zona"];
+$area_urbanizzata        = $riassunto_form_1["area_urbanizzata"];
+$modalita_intervento     = $riassunto_form_1["modalita_intervento"];
+$lotto_saturo            = $riassunto_form_1["lotto_saturo"];
 $superficie_territoriale = $riassunto_form_1["superficie"];
-$capacita_edificatoria = $riassunto_form_1["volumetria"];
+$capacita_edificatoria   = $riassunto_form_1["volumetria"];
 
 /*
  * destinazioni ammesse
  */
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
-$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($step1['id_u_sambiti']);
+$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($step1['id_m_ambiti']);
 
 
 /*
@@ -107,6 +107,9 @@ if (strtolower($etichetta) == "v3") {
             $u_capacita_edificatoria_calcolata = 'm2spl';
             $u_valore_area_calcolata = 'Euro/m2spl';
             break;
+        default:
+            $u_capacita_edificatoria_calcolata = 'm3';
+            $u_valore_area_calcolata = 'Euro/m3';      
     }
 }
 
@@ -146,12 +149,11 @@ class MYPDF extends TCPDF {
         // Set font
         $this->SetFont('helvetica', 'I', 11);
 
-
         $tbl = <<<EOD
 <hr style="background-color: #000;" />    
 <table style="font-size: 25px;" class="left" width="100%" border="0" color="#000" cellspacing="0" cellpadding="2">
     <tr>
-        <td>&copy; 2012 | documento creato con ...</td>
+        <td>&copy; 2012 | documento creato con ... </td>
     </tr>
 </table>
 EOD;
@@ -167,10 +169,10 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 // remove default header/footer
 $pdf->setPrintHeader(false);
 //PDF_MARGIN_TOP
-$pdf->SetFooterMargin(0);
+$pdf->SetFooterMargin(40);
 //set auto page breaks
-//$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-$pdf->SetAutoPageBreak(TRUE, 0);
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+//$pdf->SetAutoPageBreak(TRUE, 0);
 // set border width
 //$pdf->SetLineWidth(0.508);
 //$pdf->setCellHeightRatio(1);
@@ -233,6 +235,7 @@ EOD;
 
 //testata
 $tbl .= <<<EOD
+<h1>$id_su</h1>
 <table class="no-marpad" color="#000" cellspacing="0">
     <tr>
         <td><span class="left">$nome $cognome</span></td>
@@ -293,12 +296,19 @@ foreach ($stmt5 as $key => $value) {
     //$label = $value->descrizione;
     //$id = $value->id_u_destammesse;
 
+    $descrizione = htmlspecialchars_decode(html_entity_decode($value->descrizione));
+    $quota_max   = htmlspecialchars_decode(html_entity_decode($value->quota_massima_ammissibile));
+    $quota_max   = htmlspecialchars_decode(html_entity_decode($value->soglia_dimensione_massima));
+    $quota_per   = htmlspecialchars_decode(html_entity_decode($value->quota_percentuale));    
+    $quota_inserita = $quote[$key];
+    
+    
     $tbl_destinazioni .= '<tr>';
-    $tbl_destinazioni .= '<td>' . $value->descrizione . '</td>';
-    $tbl_destinazioni .= '<td>' . $value->quota_massima_ammissibile . '</td>';
-    $tbl_destinazioni .= '<td>' . $value->soglia_dimensione_massima . '</td>';
-    $tbl_destinazioni .= '<td>' . $value->quota_percentuale . '</td>';
-    $tbl_destinazioni .= '<td>' . $quote[$key] . '</td>';
+    $tbl_destinazioni .= '<td>' . $descrizione . '</td>';
+    $tbl_destinazioni .= '<td>' . $quota_max   . '</td>';
+    $tbl_destinazioni .= '<td>' . $quota_max   . '</td>';
+    $tbl_destinazioni .= '<td>' . $quota_per   . '</td>';
+    $tbl_destinazioni .= '<td>' . $quota_inserita . '</td>';
     $tbl_destinazioni .= '</tr>';
 }
 $tbl_destinazioni .= '</table>';
@@ -334,21 +344,27 @@ $pdf->writeHTML($tbl_risultati, true, false, false, false, '');
 $testo1 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo1"]));
 $dato1  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato1"]));
 $um1    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um1"]));
+
 $testo2 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo2"]));
 $dato2  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato2"]));
 $um2    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um2"]));
+
 $testo3 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo3"]));
 $dato3  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato3"]));
 $um3    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um3"]));
+
 $testo4 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo4"]));
 $dato4  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato4"]));
 $um4    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um4"]));
+
 $testo5 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo5"]));
 $dato5  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato5"]));
 $um5    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um5"]));
+
 $testo6 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo6"]));
 $dato6  = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["dato6"]));
 $um6    = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["um6"]));
+
 if(count($indici_sub_ambiti) == 21) {
     // se ho lunghezza 7 prendo anche il settimo
     $testo7 = htmlspecialchars_decode(html_entity_decode($indici_sub_ambiti["testo7"]));
@@ -464,10 +480,3 @@ $pdf->writeHTML($tbl_risultati, true, false, false, false, '');
 ob_clean();
 $pdf->Output('stima_imu_' . $comune . '_' . $cf . '.pdf', 'I');
 ?>
-
-<!--<pre>
-<? print_r($values) ?>
-</pre>
-<pre>
-<? print_r($anagrafe) ?>
-</pre>-->
