@@ -15,9 +15,9 @@ class Stima {
                 $valore = str_replace(",", ".", $valore);
                 $corretto[$chiave] = floatval($valore);
             }
-        }else{ // altrimenti aggiusto solo un valore
-            $corretto=str_replace(",", ".", $numeri);
-            $corretto=floatval($corretto);
+        } else { // altrimenti aggiusto solo un valore
+            $corretto = str_replace(",", ".", $numeri);
+            $corretto = floatval($corretto);
         }
 
         return $corretto;
@@ -37,7 +37,9 @@ class Stima {
             $somma+=$quote[$key];
         }
         if ($somma > 1)
-            throw new Exception("Errore in verificaCorreggiStima: la somma delle quote è maggiore di 1. Somma: " . $sum);
+            throw new Exception("Errore in verificaCorreggiStima: la somma delle quote è maggiore di 1. Somma: " . $somma);
+        elseif ($somma != 1)
+            throw new Exception("Errore in verificaCorreggiStima: la somma delle quote è diversa da 1. Somma: " . $somma);
 
         return $quote;
     }
@@ -48,7 +50,7 @@ class Stima {
      * calcolaCapacitàEdificatoraLonato e ci siano i valori del form
      * in sessione!!!
      * 
-     * @param type $form2Input dati del form2 in input: quote percentuali per zona/area
+     * Array quote_input quote percentuali per subambito-zona
      * @return float stima
      */
     public static function calcolaStimaSingolaLonato($quote_input) {
@@ -158,21 +160,22 @@ class Stima {
                     //DIEGO: deve stare in una tabella di settaggi ed è legata a date di validità;
                     $orizzonte_temporale = 3;
                     // anno corrente
-                    $anno_calcolo = $session->anno_calcolo; // DIEGO: DA PARAMETRIZZARE!!! 
+                    $anno_calcolo = $session->anno_calcolo; // DIEGO: DA PARAMETRIZZARE
                     // incidenza viabilità sull'indice edificatorio
-                    $fattore_incidenza_viabilità = (float)($incidenza_viabilità / $indice_capacità_edificatoria);
+                    $fattore_incidenza_viabilità = (float) ($incidenza_viabilità / $indice_capacità_edificatoria);
                     //$ret[7][$chiaveForm2] = "fattore incidenza viabilità: " . $fattore_incidenza_viabilità  ."incidenza viabilita: " . $incidenza_viabilità . " indice cap edific: ".                     $fattore_incidenza_viabilità = $incidenza_viabilità / $indice_capacità_edificatoria;
                     // fattore incidenza degli standard
-                    $fattore_incidenza_standard = (float)($quota_cessione / $fattore_conversione);
+                    $fattore_incidenza_standard = (float) ($quota_cessione / $fattore_conversione);
                     //$ret[8][$chiaveForm2] = "fattore incidenza std: " . $fattore_incidenza_standard;
                     // fattore incidenza degli standard di qualità
                     // ------------
-                    $fattore_incidenza_standard_qualità = (float)($standard_pubblico_qualita / $fcspq);
+                    $fattore_incidenza_standard_qualità = (float) ($standard_pubblico_qualita / $fcspq);
                     //$ret[9][$chiaveForm2] = "fattore incidenza std qualità: " . $fattore_incidenza_standard_qualità;
                     // se il tipo di stma è v faccio questo calcolo
-                    $fattore_incidenza_calcolo_cessioni = ($fattore_incidenza_standard * $costo_cessione_standard) +
-                                                          ($fattore_incidenza_viabilità * $costo_cessione_viabilità) +
-                                                          ($fattore_incidenza_standard_qualità * $valore_comprensativo_unitario);
+                    $fattore_incidenza_calcolo_cessioni = (float) ($fattore_incidenza_standard * $costo_cessione_standard) +
+                            (float) ($fattore_incidenza_viabilità * $costo_cessione_viabilità) +
+                            (float) ($fattore_incidenza_standard_qualità * $valore_comprensativo_unitario);
+                    //  throw new Exception ($fattore_incidenza_viabilità. " ". $fattore_incidenza_standard . " ". $fattore_incidenza_standard_qualità . " " . $fattore_incidenza_calcolo_cessioni);
                     //$ret[10][$chiaveForm2] = "fattore incidenza calcolo cessioni: " . $fattore_incidenza_calcolo_cessioni;
                     // a seconda del tipo di stima
                     if ($tipo_stima[0] == "v") {
@@ -184,8 +187,7 @@ class Stima {
 
                     // calcolo la stima di una riga
                     $tstima = ($stima_unitaria * (1 / pow((1 + $frate), $orizzonte_temporale)) - $fattore_incidenza_calcolo_cessioni)
-                            * Stima::correggiFloat($form2Input[$chiaveForm2]);
-
+                            * Stima::correggiFloat($quote[$chiaveForm2]);
                     //$ret[11][$chiaveForm2] = "parte1: " . floatval($stima_unitaria);
                     //$ret[12][$chiaveForm2] = "parte2: " . pow((1 / (1 + floatval($frate))),$orizzonte_temporale);
                     //$ret[13][$chiaveForm2] = "parte3: " . $fattore_incidenza_calcolo_cessioni;

@@ -13,17 +13,7 @@ class Application_Form_Anagrafe extends Zend_Form
         $notEmpty = new Zend_Validate_NotEmpty();
         $notEmpty->setMessage('Campo obbligatorio');         
         
-        //nome
-        /*
-        $this->addElement('text', 'nome', array(
-            'filters'    => array('StringTrim'),
-            'validators' => array(
-                array('StringLength', true, array(0, 255)),
-            ),
-            'required'   => true,
-            'label'      => 'Nome: *',
-        ));
-        */
+        // nome
         $nome = $this->createElement('text','nome');
         $nome->setLabel('Nome: *');
         $nome->setRequired(true);
@@ -37,15 +27,6 @@ class Application_Form_Anagrafe extends Zend_Form
         $cognome->setRequired(true);
         $cognome->addValidator($notEmpty, true);
         $this->addElement($cognome);  
-        
-//        $this->addElement('text', 'cognome', array(
-//            'filters'    => array('StringTrim'),
-//            'validators' => array(
-//                array('StringLength', true, array(0, 255)),
-//            ),
-//            'required'   => true,
-//            'label'      => 'Cognome: *',
-//        ));
         
    
         //cf
@@ -73,8 +54,5 @@ class Application_Form_Anagrafe extends Zend_Form
         $this->addElement($submit);
         
     }
-
-
-    
 }
 

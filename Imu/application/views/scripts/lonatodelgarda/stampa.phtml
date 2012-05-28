@@ -1,152 +1,142 @@
 <?
-    setlocale(LC_MONETARY, 'it_IT');
-    $title = "Documento: Verbale di contestazione";
+setlocale(LC_MONETARY, 'it_IT');
+$title = "Documento: Verbale di contestazione";
 
-    $step1   = $this->values;
-    $riassunto_form_1 = $this->riassunto_step1_txt;
-    $anagrafe = $this->anagrafe;
-    $indici_macro_ambiti=$this->indici_mambiti_stampa;
-    $quote=$this->quote;
-    
-    require_once APPLICATION_PATH . '/../library/tcpdf/config/lang/ita.php';
-    require_once APPLICATION_PATH . '/../library/tcpdf/tcpdf.php';     
-    require_once APPLICATION_PATH . '/models/Utility.php'; 
-    $utility_handle = new Utility();
-     
-    /*
-     * inseriamo nella session il nome del comune
-     * in modo da rendere il tutto dinamico
-     */
-    $comune = 'Lonato del Garda';
-    
-    //data della creazione di questo documento
-    $timestamp = time();
-    $today = mktime(date("H", $timestamp), date("i", $timestamp), date("s", $timestamp), date("m", $timestamp), date("d", $timestamp), date("Y", $timestamp));
-    $today = date("Y-m-d H:i:s", $today);
-    $data = $utility_handle->formattaDataOra($today);
-    
-    /*
-     * dati relativi all'anagrafe
-     */
-    $nome    = $anagrafe['nome'];
-    $cognome = $anagrafe['cognome'];
-    $cf      = $anagrafe['cf'];
-    
-    /*
-     * -------------------------------------------------------------------------
-     * dati relativi al documento
-     */
-    
-    /*
-     * dati riassuntivi - step1
-     */
-    $macro_ambito            = $riassunto_form_1["nome_macro_ambito"];
-    $sub_ambito              = $riassunto_form_1["nome_sub_ambito"];
-    $zona                    = $riassunto_form_1["nome_zona"];
-    $area_urbanizzata        = $riassunto_form_1["area_urbanizzata"];
-    $modalita_intervento     = $riassunto_form_1["modalita_intervento"];
-    $lotto_saturo            = $riassunto_form_1["lotto_saturo"];
-    $superficie_territoriale = $riassunto_form_1["superficie"];
-    $capacita_edificatoria   = $riassunto_form_1["volumetria"];
-    
-    /*
-     * destinazioni ammesse
-     */
-    $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");        
-    $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($step1['id_u_sambiti']);
-    
-    
-    /*
-     * risultati del calcolo
-     */
-    $capacita_edificatoria_calcolata = $this->capacitaEdificatoria;;
-    $valore_area_calcolata           = $this->stimaUnitaria;
-    $valore_area_edificabile         = $this->valoreAreaEdificabile;    
-    
-    /*
-     * unità di misura
-     */
-    $u_capacita_edificatoria_calcolata = '';
-    $u_valore_area_calcolata           = '';  
-    
-    $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
-    $result = $lonato_u_sambiti->getVolumetria(intval($step1['id_u_sambiti']));
-    $etichetta = $result[0]->indice_calcolo_capacita_edificatoria;
+$step1 = $this->values;
+$riassunto_form_1 = $this->riassunto_step1_txt;
+$anagrafe = $this->anagrafe;
+$indici_macro_ambiti = $this->indici_mambiti_stampa;
+$indici_sub_ambiti = $this->indici_u_sambiti_stampa;
+$quote = $this->quote;
 
-    if (strtolower($etichetta) == "v3"){
+require_once APPLICATION_PATH . '/../library/tcpdf/config/lang/ita.php';
+require_once APPLICATION_PATH . '/../library/tcpdf/tcpdf.php';
+require_once APPLICATION_PATH . '/models/Utility.php';
+$utility_handle = new Utility();
 
-        $u_capacita_edificatoria_calcolata = 'm3';
-        $u_valore_area_calcolata = 'Euro/m3';
+/*
+ * inseriamo nella session il nome del comune
+ * in modo da rendere il tutto dinamico
+ */
+$comune = 'Lonato del Garda';
 
-    }else {
+//data della creazione di questo documento
+$timestamp = time();
+$today = mktime(date("H", $timestamp), date("i", $timestamp), date("s", $timestamp), date("m", $timestamp), date("d", $timestamp), date("Y", $timestamp));
+$today = date("Y-m-d H:i:s", $today);
+$data = $utility_handle->formattaDataOra($today);
 
-        switch (strtolower($etichetta)) {        
+/*
+ * dati relativi all'anagrafe
+ */
+$nome = $anagrafe['nome'];
+$cognome = $anagrafe['cognome'];
+$cf = strtoupper($anagrafe['cf']);
 
-            case "v1": 
-                $u_capacita_edificatoria_calcolata = 'm3';
-                $u_valore_area_calcolata = 'Euro/m3';
+/*
+ * -------------------------------------------------------------------------
+ * dati relativi al documento
+ */
+
+/*
+ * dati riassuntivi - step1
+ */
+$macro_ambito = $riassunto_form_1["nome_macro_ambito"];
+$sub_ambito = $riassunto_form_1["nome_sub_ambito"];
+$zona = $riassunto_form_1["nome_zona"];
+$area_urbanizzata = $riassunto_form_1["area_urbanizzata"];
+$modalita_intervento = $riassunto_form_1["modalita_intervento"];
+$lotto_saturo = $riassunto_form_1["lotto_saturo"];
+$superficie_territoriale = $riassunto_form_1["superficie"];
+$capacita_edificatoria = $riassunto_form_1["volumetria"];
+
+/*
+ * destinazioni ammesse
+ */
+$lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
+$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($step1['id_u_sambiti']);
+
+
+/*
+ * risultati del calcolo
+ */
+$capacita_edificatoria_calcolata = $this->capacitaEdificatoria;
+;
+$valore_area_calcolata = $this->stimaUnitaria;
+$valore_area_edificabile = $this->valoreAreaEdificabile;
+
+/*
+ * unità di misura
+ */
+$u_capacita_edificatoria_calcolata = '';
+$u_valore_area_calcolata = '';
+
+$lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
+$result = $lonato_u_sambiti->getVolumetria(intval($step1['id_u_sambiti']));
+$etichetta = $result[0]->indice_calcolo_capacita_edificatoria;
+
+if (strtolower($etichetta) == "v3") {
+
+    $u_capacita_edificatoria_calcolata = 'm3';
+    $u_valore_area_calcolata = 'Euro/m3';
+} else {
+
+    switch (strtolower($etichetta)) {
+
+        case "v1":
+            $u_capacita_edificatoria_calcolata = 'm3';
+            $u_valore_area_calcolata = 'Euro/m3';
             break;
-            case "v2": 
-                $u_capacita_edificatoria_calcolata = 'm3';
-                $u_valore_area_calcolata = 'Euro/m3';
+        case "v2":
+            $u_capacita_edificatoria_calcolata = 'm3';
+            $u_valore_area_calcolata = 'Euro/m3';
             break;
-            case "v4": 
-                $u_capacita_edificatoria_calcolata = 'm3';
-                $u_valore_area_calcolata = 'Euro/m3';
+        case "v4":
+            $u_capacita_edificatoria_calcolata = 'm3';
+            $u_valore_area_calcolata = 'Euro/m3';
             break;
-            case "u1": 
-                $u_capacita_edificatoria_calcolata = 'm2spl';
-                $u_valore_area_calcolata = 'Euro/m2spl';
+        case "u1":
+            $u_capacita_edificatoria_calcolata = 'm2spl';
+            $u_valore_area_calcolata = 'Euro/m2spl';
             break;
-            case "u2": 
-                $u_capacita_edificatoria_calcolata = 'm2spl';
-                $u_valore_area_calcolata = 'Euro/m2spl';
+        case "u2":
+            $u_capacita_edificatoria_calcolata = 'm2spl';
+            $u_valore_area_calcolata = 'Euro/m2spl';
             break;
-            case "u4": 
-                $u_capacita_edificatoria_calcolata = 'm2spl';
-                $u_valore_area_calcolata = 'Euro/m2spl';
+        case "u4":
+            $u_capacita_edificatoria_calcolata = 'm2spl';
+            $u_valore_area_calcolata = 'Euro/m2spl';
             break;
-        }
-    }    
-    
-        
-    //-------------------------------------
-    /*
-     * inidici macro ambiti 
-     */
-    $contributo_compensativo_aggiuntivo = $indici_macro_ambiti["contributo_compensativo_aggiuntivo"];
-    $valore_comprensativo_unitario      = $indici_macro_ambiti["valore_comprensativo_unitario"];
-    $standard_pubblico_qualita          = $indici_macro_ambiti["standard_pubblico_qualita"];
-    
-    /*
-     * indici subambiti
-     */
-    // ATTENZIONE: ti ho passato la tabella: $this->indici_sambiti_dati
-    $tab_indici = $this->indici_sambiti_dati;
-    
-    
-    $incidenza_viabilita        = 0.3;
-    $cepp                       = 0.3;
-    $indice_fondario            = 0.3;
-    $incremento_lotti_saturi    = 45;
-    $indice_fondario_aggiuntivo = 0.7;
-    $volume_predefinito         = 1500;
-    $volume_incremento          = 30;
-    $volume_preesistente        = 30;
-    $indice_territoriale        = 0.5;
- 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //
-    //NON MODIFICARE DA QUI IN POI
-    //
-    //
+    }
+}
+
+
+//-------------------------------------
+/*
+ * inidici macro ambiti 
+ */
+$contributo_compensativo_aggiuntivo = $indici_macro_ambiti["contributo_compensativo_aggiuntivo"];
+$valore_comprensativo_unitario = $indici_macro_ambiti["valore_comprensativo_unitario"];
+$standard_pubblico_qualita = $indici_macro_ambiti["standard_pubblico_qualita"];
+
+/*
+ * indici subambiti
+ * 
+ * Siccome sono dipendenti da n parameri sono nell'arrai $indici_sub_ambiti ed è gestito nella stampa
+ */
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//
+//NON MODIFICARE DA QUI IN POI
+//
+//
     //--------------------------------------------------------------------------
-    
+
 class MYPDF extends TCPDF {
 
     // Page footer
@@ -156,8 +146,8 @@ class MYPDF extends TCPDF {
         // Set font
         $this->SetFont('helvetica', 'I', 11);
 
-            
-$tbl=<<<EOD
+
+        $tbl = <<<EOD
 <hr style="background-color: #000;" />    
 <table style="font-size: 25px;" class="left" width="100%" border="0" color="#000" cellspacing="0" cellpadding="2">
     <tr>
@@ -171,26 +161,26 @@ EOD;
         //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 
-}   
-    
-    $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-    // remove default header/footer
-    $pdf->setPrintHeader(false);
-    //PDF_MARGIN_TOP
-    $pdf->SetFooterMargin(0);
-    //set auto page breaks
-    //$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-    $pdf->SetAutoPageBreak(TRUE, 0);
-    // set border width
-    //$pdf->SetLineWidth(0.508);
-    //$pdf->setCellHeightRatio(1);
-    // set color for cell border
-    $pdf->SetDrawColor(0, 128, 255);
-    //set image scale factor
-    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-    $pdf->AddPage();
-    $pdf->SetFont('helvetica', '', 8);    
-    
+}
+
+$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+// remove default header/footer
+$pdf->setPrintHeader(false);
+//PDF_MARGIN_TOP
+$pdf->SetFooterMargin(0);
+//set auto page breaks
+//$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+$pdf->SetAutoPageBreak(TRUE, 0);
+// set border width
+//$pdf->SetLineWidth(0.508);
+//$pdf->setCellHeightRatio(1);
+// set color for cell border
+$pdf->SetDrawColor(0, 128, 255);
+//set image scale factor
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+$pdf->AddPage();
+$pdf->SetFont('helvetica', '', 8);
+
 $tbl = <<<EOD
 <style>
 *{
@@ -300,18 +290,18 @@ $tbl_destinazioni = '<table style="font-size: 40px;">';
 $tbl_destinazioni .= '<tr><td>Destinazioni ammesse</td><td>Quota di progetto massima</td><td>Soglia dimensionale massima</td><td>Peso standard della destinazione</td><td>Quota di progetto inserita</td></tr>';
 
 foreach ($stmt5 as $key => $value) {
-            $label = $value->descrizione;
-            $id    = $value->id_u_destammesse;            
-    
-            $tbl_destinazioni .= '<tr>';             
-            $tbl_destinazioni .= '<td>'.$value->descrizione.'</td>';            
-            $tbl_destinazioni .= '<td>'.$value->quota_massima_ammissibile.'</td>';
-            $tbl_destinazioni .= '<td>'.$value->soglia_dimensione_massima.'</td>';
-            $tbl_destinazioni .= '<td>'.$value->quota_percentuale.'</td>';
-            $tbl_destinazioni .= '<td>'.$quote[$key].'</td>';            
-            $tbl_destinazioni .= '</tr>';
-        }
-$tbl_destinazioni .= '</table>';        
+    //$label = $value->descrizione;
+    //$id = $value->id_u_destammesse;
+
+    $tbl_destinazioni .= '<tr>';
+    $tbl_destinazioni .= '<td>' . $value->descrizione . '</td>';
+    $tbl_destinazioni .= '<td>' . $value->quota_massima_ammissibile . '</td>';
+    $tbl_destinazioni .= '<td>' . $value->soglia_dimensione_massima . '</td>';
+    $tbl_destinazioni .= '<td>' . $value->quota_percentuale . '</td>';
+    $tbl_destinazioni .= '<td>' . $quote[$key] . '</td>';
+    $tbl_destinazioni .= '</tr>';
+}
+$tbl_destinazioni .= '</table>';
 $pdf->writeHTML($tbl_destinazioni, true, false, false, false, '');
 
 
@@ -339,59 +329,113 @@ $tbl_risultati = <<<EOD
 EOD;
 $pdf->writeHTML($tbl_risultati, true, false, false, false, '');
 
-//indici sub
+//indici sub ambiti
+// prendo i primi 6 indici
+$testo1 = $indici_sub_ambiti["testo1"];
+$dato1 = $indici_sub_ambiti["dato1"];
+$um1 = $indici_sub_ambiti["um1"];
+$testo2 = $indici_sub_ambiti["testo2"];
+$dato2 = $indici_sub_ambiti["dato2"];
+$um2 = $indici_sub_ambiti["um2"];
+$testo3 = $indici_sub_ambiti["testo3"];
+$dato3 = $indici_sub_ambiti["dato3"];
+$um3 = $indici_sub_ambiti["um3"];
+$testo4 = $indici_sub_ambiti["testo4"];
+$dato4 = $indici_sub_ambiti["dato4"];
+$um4 = $indici_sub_ambiti["um4"];
+$testo5 = $indici_sub_ambiti["testo5"];
+$dato5 = $indici_sub_ambiti["dato5"];
+$um5 = $indici_sub_ambiti["um5"];
+$testo6 = $indici_sub_ambiti["testo6"];
+$dato6 = $indici_sub_ambiti["dato6"];
+$um6 = $indici_sub_ambiti["um6"];
+if(count($indici_sub_ambiti) == 21) {
+    // se ho lunghezza 7 prendo anche il settimo
+    $testo7 = $indici_sub_ambiti["testo7"];
+    $dato7 = $indici_sub_ambiti["dato7"];
+    $um7 = $indici_sub_ambiti["um7"];
+    
+// memorizzo la stringa da stampare in html4    
 $tbl_indici = <<<EOD
 <h1>Indici relativi ai subambiti</h1>
 <table style="font-size: 40px;">
         <tr class="odd">
-            <td>Incidenza viabilità</td>
-            <td>$incidenza_viabilita</td>
-            <td></td>            
+            <td>$testo1</td>
+            <td>$dato1</td>
+            <td>$um1</td>            
         </tr>
         <tr class="">
-            <td>Capacità edific. pred. o prees.</td>
-            <td>$cepp</td> 
-            <td></td>
+            <td>$testo2</td>
+            <td>$dato2</td> 
+            <td>$um2</td>
         </tr>        
         <tr class="odd">
-            <td>Indice fondario</td>
-            <td>$indice_fondario</td> 
-            <td>(volume in m3/m2)</td>
+            <td>$testo3</td>
+            <td>$dato3</td> 
+            <td>$um3</td>
         </tr>
         <tr>
-            <td>Incremento lotti saturi</td>
-            <td>$incremento_lotti_saturi</td> 
-            <td>(% di volume da indice)</td>
+            <td>$testo4</td>
+            <td>$dato4</td> 
+            <td>$um4</td>
         </tr>    
         <tr class="odd">
-            <td>Indice territoriale</td>
-            <td>$indice_territoriale</td>
-            <td>(volume in m3/m2)</td>
+            <td>$testo5</td>
+            <td>$dato5</td>
+            <td>$um5</td>
         </tr>
         <tr>
-            <td>Volume preesistente</td>
-            <td>$volume_preesistente</td> 
-            <td>(volume in m3)</td>
+            <td>$testo6</td>
+            <td>$dato6</td> 
+            <td>$um6</td>
         </tr>
         <tr class="odd">
-            <td>Volume incremento</td>
-            <td>$volume_incremento</td> 
-            <td>(volume in m3)</td>
-        </tr>
-        <tr>
-            <td>Volume predefinito</td>
-            <td>$volume_predefinito</td>
-            <td>(volume in m3)</td>
-        </tr>
-        <tr class="odd">
-            <td>Indice fondario aggiuntivo</td>
-            <td>$indice_fondario_aggiuntivo</td>
-            <td>(volume in m3/m2)</td>
+            <td>$testo7</td>
+            <td>$dato7</td> 
+            <td>$um7</td>
         </tr>    
     </table>
 EOD;
+}else {
+// memorizzo la stringa da stampare in html4    
+$tbl_indici = <<<EOD
+<h1>Indici relativi ai subambiti</h1>
+<table style="font-size: 40px;">
+        <tr class="odd">
+            <td>$testo1</td>
+            <td>$dato1</td>
+            <td>$um1</td>            
+        </tr>
+        <tr class="">
+            <td>$testo2</td>
+            <td>$dato2</td> 
+            <td>$um2</td>
+        </tr>        
+        <tr class="odd">
+            <td>$testo3</td>
+            <td>$dato3</td> 
+            <td>$um3</td>
+        </tr>
+        <tr>
+            <td>$testo4</td>
+            <td>$dato4</td> 
+            <td>$um4</td>
+        </tr>    
+        <tr class="odd">
+            <td>$testo5</td>
+            <td>$dato5</td>
+            <td>$um5</td>
+        </tr>
+        <tr>
+            <td>$testo6</td>
+            <td>$dato6</td> 
+            <td>$um6</td>
+        </tr>   
+    </table>
+EOD;
+}
 //$pdf->writeHTML($tbl_indici, true, false, false, '');
-$pdf->writeHTML($tab_indici, true, false, false, '');
+$pdf->writeHTML($tbl_indici, true, false, false, '');
 
 //risultati
 $tbl_risultati = <<<EOD
@@ -422,8 +466,8 @@ $pdf->Output('stima_imu_' . $comune . '_' . $cf . '.pdf', 'I');
 ?>
 
 <!--<pre>
-<?print_r($values)?>
+<? print_r($values) ?>
 </pre>
 <pre>
-<?print_r($anagrafe)?>
+<? print_r($anagrafe) ?>
 </pre>-->
