@@ -40,7 +40,8 @@ class IndexController extends Zend_Controller_Action {
 
         $session = new Zend_Session_Namespace('step1');
         $session->data_calcolo = $data;
-
+        $session->comune=$comune;
+        
         //throw new Exception($data);
         return $comune;
     }

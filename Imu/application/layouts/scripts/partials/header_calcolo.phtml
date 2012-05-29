@@ -1,0 +1,11 @@
+<div id="header">
+    <div id="name">
+        <?php // prendo il nome comune
+        $session = new Zend_Session_Namespace('step1');
+        $comune = $session->comune;
+        ?>
+        <h1><a style="color:#000;" href="<?= $this->url(array('controller' => $comune, 'action' => 'index'), null, TRUE); ?>">WIMU</a> <span style="font-size: 40%;">Calcolo del valore delle aree fabbricabili</span></h1>
+    </div>
+    <div id="logo">      
+    </div>
+</div>
