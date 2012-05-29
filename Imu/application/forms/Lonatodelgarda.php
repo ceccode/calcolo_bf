@@ -9,7 +9,10 @@ class Application_Form_Lonatodelgarda extends Zend_Form
        
         $this->setName("calcolo_imu_lonato");
         $this->setMethod('post');
-                        
+               
+        $notEmpty = new Zend_Validate_NotEmpty();
+        $notEmpty->setMessage('Campo obbligatorio');        
+        
         //macro ambiti
         $macro_ambito = $this->createElement('select', 'id_m_ambiti',array('onChange' => 'selSubAmbiti(this.value)'));
         $macro_ambito->setLabel('Macro ambito: *');        
@@ -33,8 +36,9 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         
         //sub ambiti
         $sub_ambito = $this->createElement('select', 'id_u_sambiti',array('onChange' => 'inputVolumetria(this.value)'));
-        $sub_ambito->setLabel('Sub ambito: *');
-                              
+        $sub_ambito->setLabel('Sub ambito: *');                             
+        $sub_ambito->addValidator($notEmpty, true);
+        
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $select2 = $lonato_u_sambiti->select()
                                    ->from($lonato_u_sambiti->getName(), array('id_u_sambiti', 'descrizione'))
@@ -119,10 +123,7 @@ class Application_Form_Lonatodelgarda extends Zend_Form
         $this->addElement($lotto_saturo);          
         
         
-        //superficie        
-        $notEmpty = new Zend_Validate_NotEmpty();
-        $notEmpty->setMessage('Campo obbligatorio');        
-        
+        //superficie                
         $superficie = $this->createElement('text', 'superficie', array());
         $superficie->setLabel('Superficie territoriale: * (mq)');
         $superficie->addValidator('Float',false, array('messages' => 'Solo cifre separate da virgola'));       

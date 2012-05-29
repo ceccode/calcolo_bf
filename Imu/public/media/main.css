@@ -309,7 +309,7 @@ ul.errors{
 
 #button-ricalcola-form2{
     margin-left: 613px;
-    margin-top: -51px;
+    margin-top: -55px;
     font-size:11px;
     min-width: 90px;
     padding-left: 40px;
@@ -318,6 +318,7 @@ ul.errors{
 #continua_stampa{
     margin-top: 40px;
     margin-left: 290px;
+    padding: 12px;
 }
 
 #risultati{
@@ -450,11 +451,12 @@ ul.errors{
     padding-top: 10px;
 }
 #header-quota-monetaria{
-    width:90px;
-    height: 45px;   
+    width: 98px;
+    height: 45px;
     padding-top: 10px;
-    padding-left: 15px;
+    padding-left: 2px;
 }
+
 #corpo-quota-monetaria{
     width:90px;
     padding-left: 15px;
@@ -511,17 +513,25 @@ ul.errors{
 
 #button-ricalcola-anagrafe{
     margin-left: 104px;
-    margin-top: -58px;
+/*    margin-top: -58px;*/
+    margin-top: -61px;
     font-size:11px;
     min-width: 90px;
     padding-left: 40px;
 }
 
 #stampa_soc{
-    margin-top:44px;
+/*    margin-top:44px;
     margin-right:10px;
     margin-left: -6px;
-    font-size: 11px;
+    font-size: 11px;*/
+
+margin-top: 44px;
+margin-right: 10px;
+margin-left: 0px;
+font-size: 11px;
+padding: 12px;
+
 }
 
 
@@ -559,7 +569,7 @@ thead th,
 tbody th
 {
 	background      : #FFF;
-  color                 : #666;  
+  color                 : /*#666;*/#000;  
 	padding         : 5px 10px;
   border-left           : 1px solid #CCC;
 }
@@ -573,7 +583,7 @@ tbody th
 tbody tr td
 {
 	padding               : 5px 10px;
-  color                 : #666;
+  color                 : /*#666;*/#000;
 }
 tbody tr:hover
 {
@@ -591,7 +601,7 @@ tfoot th
   border-top            : 1px solid #CCC;
 	padding               : 4px;
   background            : #FFF;
-  color                 : #666;
+  color                 : /*#666;*/#000;
 }
 caption
 {
