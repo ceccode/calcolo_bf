@@ -28,6 +28,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
         $this->lonato_log = Factory_dbTable::getClass("017092", "log");
         $this->lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
+        // setto la data corrente(da usare datepicker)
+        $session = new Zend_Session_Namespace('step1');
+        $session->data_calcolo = "2012-01-02"; // per ora imposto a mano la data del calcolo
     }
 
     public function indexAction() {
@@ -56,7 +59,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // dati variabili
         $session = new Zend_Session_Namespace('step1');
         $session->step1 = $values;
-        $session->data_calcolo = "2012-01-02"; // per ora imposto a mano la data del calcolo
         // ottengo gli indici subambiti da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
         // prendo i dati da mostrare
         $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"]);
@@ -241,7 +243,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $nome_sub_ambito = $valore->descrizione;
         }
         // nome zona
-        $nome_zona_rowset = $this->lonato_s_zone->getAll($values["id_s_zone"]);
+        $nome_zona_rowset = $this->lonato_s_zone->getAll($values["id_s_zone"],$session->data_calcolo);
         foreach ($nome_zona_rowset as $chiave => $valore) {
             $nome_zona = $valore->descrizione_tipo_stima;
         }
@@ -439,6 +441,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->view->indici_u_sambiti_stampa = $session->indici_u_sambiti_txt;
         $this->view->indici_mambiti_stampa = $session->indici_mambiti_stampa_txt;
         $this->view->quote = $session->quote;
+        $this->view->data_calcolo = $session->data_calcolo;
     }
 
 }

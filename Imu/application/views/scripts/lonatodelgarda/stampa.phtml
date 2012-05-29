@@ -8,6 +8,7 @@ $anagrafe = $this->anagrafe;
 $indici_macro_ambiti = $this->indici_mambiti_stampa;
 $indici_sub_ambiti = $this->indici_u_sambiti_stampa;
 $quote = $this->quote;
+$data_calcolo= $this->data_calcolo;
 
 require_once APPLICATION_PATH . '/../library/tcpdf/config/lang/ita.php';
 require_once APPLICATION_PATH . '/../library/tcpdf/tcpdf.php';
@@ -54,7 +55,7 @@ $capacita_edificatoria   = $riassunto_form_1["volumetria"];
  * destinazioni ammesse
  */
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
-$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($step1['id_m_ambiti']);
+$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($step1['id_m_ambiti'],$data_calcolo);
 
 
 /*

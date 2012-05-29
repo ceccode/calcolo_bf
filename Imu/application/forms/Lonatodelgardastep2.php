@@ -18,6 +18,10 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
         $this->setName("calcolo_imu_lonato_step2");
         $this->setMethod('post');
 
+        // data corrente
+        $session = new Zend_Session_Namespace('step1');
+        $data_calcolo = $session->data_calcolo;
+        
 //        
 //        //incidenza viabilità
 //        $this->addElement('text', 'incidenza_viabilita', array(
@@ -32,7 +36,7 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
         
         //destinazioni ammesse                       
         $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");        
-        $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($this->_id_u_mambito);
+        $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($this->_id_u_mambito,$data_calcolo);
         
         foreach ($stmt5 as $value) {
 

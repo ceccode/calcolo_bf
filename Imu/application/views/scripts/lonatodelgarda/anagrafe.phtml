@@ -5,7 +5,7 @@ $session = new Zend_Session_Namespace('step1');
 $values = $this->values;
 
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
-$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
+$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti'],$session->data_calcolo);
 ?>
 
 <div id="risultati_calcolo_stima">

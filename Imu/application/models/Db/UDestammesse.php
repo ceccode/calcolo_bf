@@ -8,11 +8,11 @@ class Application_Model_DbTable_UDestammesse extends Application_Model_DbTable_T
      * @param type $id_macro_ambiti
      * @return type 
      */
-    public function filtroDestinazioniAmmesse($id_macro_ambiti) {
+    public function filtroDestinazioniAmmesse($id_macro_ambiti, $data) {
         $righe = null;
         //prendo dbtable u_destammesse
         if ($this->getComune())
-           $tabellaJoin = Factory_dbTable::getClass($this->getComune(), "u_sdestinazioni");
+            $tabellaJoin = Factory_dbTable::getClass($this->getComune(), "u_sdestinazioni");
         else
             throw new Exception("Nome comune non settato in filtroDestinazioniAmmesse");
 
@@ -22,9 +22,11 @@ class Application_Model_DbTable_UDestammesse extends Application_Model_DbTable_T
             $select->setIntegrityCheck(false)
                     // join su id_u_sdestinazionis
                     ->join($tabellaJoin->getName(), $this->getName() . '.id_u_sdestinazioni = ' . $tabellaJoin->getName() . '.id_u_sdestinazioni')
-                    ->where($this->getName() . '.id_macro_ambito = ?', $id_macro_ambiti);
-                    //->where("record_attivo = 1");
+                    ->where($this->getName() . '.id_macro_ambito = ?', $id_macro_ambiti)
+                    ->where($this->getName() . '.data_inizio <= ?', $data)
+                    ->where($this->getName() . '.data_fine > ? OR ' . $this->getName(). '.data_fine = \'0000-00-00\'', $data);
 
+            //throw new Exception($select);
             $righe = $this->fetchAll($select);
             if ($righe)
                 return $righe;

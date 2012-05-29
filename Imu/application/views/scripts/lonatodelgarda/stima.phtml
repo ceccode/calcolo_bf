@@ -56,11 +56,11 @@ if (strtolower($etichetta) == "v3") {
 
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
 $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
-$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']);
+$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti'],$session->data_calcolo);
 
 // prelevo i valori di stmt5 e li metto in dati_cessione
 foreach ($stmt5 as $chiave => $valore) {
-    $tabella_dati_cessione = $lonato_u_cessioni->getAll($step1["id_m_ambiti"], $valore["id_u_sdestinazioni"], $step1["id_u_modinterv"]);
+    $tabella_dati_cessione = $lonato_u_cessioni->getAll($step1["id_m_ambiti"], $valore["id_u_sdestinazioni"], $step1["id_u_modinterv"],$session->data_calcolo);
     foreach ($tabella_dati_cessione as $chiave2 => $valore2) {
         // debug echo $step1["id_m_ambiti"]. " ". $valore["id_u_sdestinazioni"] . "quota monetizzabile: ". $valore2->quota_monetizzabile . "chiave: " . $chiave2 . "<br/>";
         $dati_cessione[$chiave] = array("quota_monetizzabile" => $valore2->quota_monetizzabile,

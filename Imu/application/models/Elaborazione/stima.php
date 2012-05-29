@@ -58,7 +58,7 @@ class Stima {
 
     /**
      * Metodo per il calcolo della stima per il comune di lonato
-     * IMPORTANTE!!! si presuppone che sia stat chiamato prima
+     * IMPORTANTE!!! si presuppone che sia stato chiamato prima
      * calcolaCapacitàEdificatoraLonato e ci siano i valori del form
      * in sessione!!!
      * 
@@ -70,7 +70,6 @@ class Stima {
         // inizializzo le classi per l'accesso al db
         $lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
         $lonato_s_tstima = Factory_dbTable::getClass("017092", "s_tstima");
-        $lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
         $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
         $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
         $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
@@ -91,7 +90,7 @@ class Stima {
         // capacità edificatoria
         $capacita_edificatoria = $session->capacitaEdificatoria;
         //form2
-        $form2 = $lonato_u_destammesse->filtroDestinazioniAmmesse($valoriForm1['id_m_ambiti']);
+        $form2 = $lonato_u_destammesse->filtroDestinazioniAmmesse($valoriForm1['id_m_ambiti'],$data_calcolo);
 
         if (!$capacita_edificatoria)
             throw new Exception("Errore in calcolaStimaSingolaLonato: La capacità edificatoria è nulla");
@@ -104,7 +103,7 @@ class Stima {
             // se volumetrica "v" o utilizzazione "u"
             $tipo_stima = strtolower($volumetria[0]->indice_calcolo_capacita_edificatoria); // prendo il tipo di misura
             // tipo_stima[0] perchè voglio solo l'iniziale "v" o "u"
-            $stima_unitaria_righe = $lonato_s_rifunitariedest->ritornaStimaUnitaria($valoriForm2['id_u_sdestinazioni'], $valoriForm1["id_s_zone"], $tipo_stima[0]);
+            $stima_unitaria_righe = $lonato_s_rifunitariedest->ritornaStimaUnitaria($valoriForm2['id_u_sdestinazioni'], $valoriForm1["id_s_zone"], $tipo_stima[0],$data_calcolo);
 
             foreach ($stima_unitaria_righe as $riga) {
                 $tstima = 0;
@@ -124,7 +123,7 @@ class Stima {
                     $tstima = $stima_unitaria * $quote[$chiaveForm2];
                 } else { // effettuo il calcolo più complicato se la zona non è urbanizzata
                     // prelievo i dati per la cessione
-                    $dati_cessione = $lonato_u_cessioni->getQuantitaCessione($valoriForm1["id_m_ambiti"], $valoriForm1["id_u_modinterv"], $valoriForm2["id_u_sdestinazioni"]);
+                    $dati_cessione = $lonato_u_cessioni->getQuantitaCessione($valoriForm1["id_m_ambiti"], $valoriForm1["id_u_modinterv"], $valoriForm2["id_u_sdestinazioni"],$data_calcolo);
                     foreach ($dati_cessione as $dati_cessione_riga) {
                         $id_u_cessioni = $dati_cessione_riga->id_u_cessioni;
                         $quota_cessione = $dati_cessione_riga->quantita_cessione;
@@ -146,6 +145,7 @@ class Stima {
                         //$ret[6][$chiaveForm2] = "standard pubblico qualita: " . $standard_pubblico_qualita . " vcu: " . $valore_comprensativo_unitario . "<br/>";
                     }
 
+                    
                     // calcolo indice capacità edificatoria
                     if ($tipo_stima[0] == "v")
                         $indice_capacità_edificatoria = $capacita_edificatoria / Stima::correggiFloat($valoriForm1["superficie"]); //floatval($valoriForm1["capacita_edificatoria"]) / floatval($valoriForm1["superficie"]); // CHIEDI A DIEGO CONFERMA
@@ -262,7 +262,6 @@ class Stima {
         // inizializzo db adapter
         $lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
         $lonato_s_tstima = Factory_dbTable::getClass("017092", "s_tstima");
-        $lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
         $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
         $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
         $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
