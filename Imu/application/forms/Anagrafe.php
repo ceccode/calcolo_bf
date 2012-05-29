@@ -47,7 +47,9 @@ class Application_Form_Anagrafe extends Zend_Form
         $this->addElement($privacy);       
                 
         //submit
-        $submit = $this->createElement('submit','stampa_soc', array('onClick'=>'alert(\'merda\')'));
+        
+        $url = $this->getView()->url(array('controller'=>'Lonatodelgarda','action'=>'stampa'));
+        $submit = $this->createElement('submit','stampa_soc', array('onClick'=>'window.open("'.$url.'","_blank")'));
         $submit->setLabel('Stampa il documento');
         $submit->setRequired(true);
         $submit->class = 'button doc-button';

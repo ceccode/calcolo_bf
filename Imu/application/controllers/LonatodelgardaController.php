@@ -396,9 +396,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
             if ($form->isValid($request->getPost())) {
 
                 if ($this->_process_anagrafe($form->getValues())) {
-                    $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'LonatodelGarda');
+                    $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'index');
                     $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
-                    //$this->_helper->redirector->gotoRoute($urlOptions);
+                    $this->_helper->redirector->gotoRoute($urlOptions);
                 } else {
                     $this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
                 }
