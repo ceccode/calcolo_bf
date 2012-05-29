@@ -47,7 +47,7 @@ class Application_Form_Anagrafe extends Zend_Form
         $this->addElement($privacy);       
                 
         //submit
-        $submit = $this->createElement('submit','stampa_soc');
+        $submit = $this->createElement('submit','stampa_soc', array('onClick'=>'alert(\'merda\')'));
         $submit->setLabel('Stampa il documento');
         $submit->setRequired(true);
         $submit->class = 'button doc-button';
