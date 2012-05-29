@@ -7,18 +7,14 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
 
         $this->setName("calcolo_imu_lonato");
         $this->setMethod('post');
-<<<<<<< HEAD
                
         $notEmpty = new Zend_Validate_NotEmpty();
         $notEmpty->setMessage('Campo obbligatorio');        
         
-=======
-
         // data corrente
         $session = new Zend_Session_Namespace('step1');
         $data_calcolo = $session->data_calcolo;
 
->>>>>>> ora dovrebbe andare
         //macro ambiti
         $macro_ambito = $this->createElement('select', 'id_m_ambiti', array('onChange' => 'selSubAmbiti(this.value)'));
         $macro_ambito->setLabel('Macro ambito: *');
@@ -41,16 +37,10 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         $this->addElement($macro_ambito);
 
         //sub ambiti
-<<<<<<< HEAD
         $sub_ambito = $this->createElement('select', 'id_u_sambiti',array('onChange' => 'inputVolumetria(this.value)'));
         $sub_ambito->setLabel('Sub ambito: *');                             
         $sub_ambito->addValidator($notEmpty, true);
         
-=======
-        $sub_ambito = $this->createElement('select', 'id_u_sambiti', array('onChange' => 'inputVolumetria(this.value)'));
-        $sub_ambito->setLabel('Sub ambito: *');
-
->>>>>>> ora dovrebbe andare
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $select2 = $lonato_u_sambiti->select()
                 ->from($lonato_u_sambiti->getName(), array('id_u_sambiti', 'descrizione'))
@@ -134,12 +124,8 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         $lotto_saturo->addMultiOption('0', 'No');
         $lotto_saturo->setValue("0");
         $lotto_saturo->setRequired(true);
-<<<<<<< HEAD
-        $this->addElement($lotto_saturo);          
-        
-        
+
         //superficie                
-=======
         $this->addElement($lotto_saturo);
 
 
@@ -147,7 +133,6 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         $notEmpty = new Zend_Validate_NotEmpty();
         $notEmpty->setMessage('Campo obbligatorio');
 
->>>>>>> ora dovrebbe andare
         $superficie = $this->createElement('text', 'superficie', array());
         $superficie->setLabel('Superficie territoriale: * (mq)');
         $superficie->addValidator('Float', false, array('messages' => 'Solo cifre separate da virgola'));
