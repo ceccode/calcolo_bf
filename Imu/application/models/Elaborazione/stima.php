@@ -99,7 +99,7 @@ class Stima {
         //var_dump($form2);
 
         foreach ($form2 as $chiaveForm2 => $valoriForm2) { // perogni riga del form2
-            $volumetria = $lonato_u_sambiti->getVolumetria($valoriForm1["id_u_sambiti"]);
+            $volumetria = $lonato_u_sambiti->getVolumetria($valoriForm1["id_u_sambiti"],$data_calcolo);
             // se volumetrica "v" o utilizzazione "u"
             $tipo_stima = strtolower($volumetria[0]->indice_calcolo_capacita_edificatoria); // prendo il tipo di misura
             // tipo_stima[0] perchè voglio solo l'iniziale "v" o "u"
@@ -138,7 +138,7 @@ class Stima {
                         //$ret[5][$chiaveForm2] = "fcspq: " . $fcspq . " fattore conversione: " . $fattore_conversione;
                     }
                     // prelevo i dati per il macroambito
-                    $dati_macro_ambito = $lonato_u_mambiti->getSpqVcu($valoriForm1["id_m_ambiti"]);
+                    $dati_macro_ambito = $lonato_u_mambiti->getSpqVcu($valoriForm1["id_m_ambiti"],$data_calcolo);
                     foreach ($dati_macro_ambito as $dati_macro_ambito_riga) {
                         $standard_pubblico_qualita = $dati_macro_ambito_riga->standard_pubblico_qualita;
                         $valore_comprensativo_unitario = $dati_macro_ambito_riga->valore_comprensativo_unitario;
@@ -274,13 +274,15 @@ class Stima {
         // prendo i valori del form1 dalla sessione
         $session = new Zend_Session_Namespace('step1');
         $valoriForm1 = $session->step1;
+        // data calcolo
+        $data_calcolo = $session->data_calcolo;
 
-        $volumetria = $lonato_u_sambiti->getVolumetria($valoriForm1["id_u_sambiti"]);
+        $volumetria = $lonato_u_sambiti->getVolumetria($valoriForm1["id_u_sambiti"],$data_calcolo);
         // se volumetrica "v1/2/3" o utilizzazione "u1/2/3"
         $tipo_stima = strtolower($volumetria[0]->indice_calcolo_capacita_edificatoria); // prendo il tipo di misura
         // dati u_sambiti generici utilizzati dopo
         // ATTENZIONE forse id_m_ambiti nn è necessario
-        $u_sambiti = $lonato_u_sambiti->getAll($valoriForm1["id_u_sambiti"]);
+        $u_sambiti = $lonato_u_sambiti->getAll($valoriForm1["id_u_sambiti"],$data_calcolo);
         foreach ($u_sambiti as $chiaveU_sambiti => $u_sambiti_riga) { // prendo l'indice fondiario
             $indice_fondiario = $u_sambiti_riga->indice_fondiario;
             $incremento_lotti_saturi_i = $u_sambiti_riga->incremento_lotti_saturi_i;
@@ -292,7 +294,7 @@ class Stima {
         if ($tipo_stima == "v1" || $tipo_stima == "v2" || $tipo_stima == "u1" || $tipo_stima == "u2") { // per 1-2
             $capacita_edificatoria = $valoriForm1["capacita_edificatoria"];
         } elseif ($tipo_stima == "v3" || $tipo_stima == "u3") { // se è v3 o u3: if else complessi!!!
-            $prd_o_ddp = $lonato_u_mambiti->getPdrODdp($valoriForm1["id_m_ambiti"]);
+            $prd_o_ddp = $lonato_u_mambiti->getPdrODdp($valoriForm1["id_m_ambiti"],$data_calcolo);
             foreach ($prd_o_ddp as $chiave_prd_o_ddp => $prd_o_ddp_riga) {
                 $doc = strtolower($prd_o_ddp_riga->pdr_o_ddp);
             }

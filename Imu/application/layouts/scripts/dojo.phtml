@@ -1,0 +1,33 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('imu');
+
+$notifica = $this->notifica;
+
+echo $this->doctype();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta name="robots" content="noindex" />
+        <?php echo $this->render('partials/head_dojo.phtml'); ?>
+        <?= $this->dojo(); ?>
+        <?= $this->dojo()->addStylesheetModule('dijit.themes.soria'); ?>  
+
+    </head>
+    <body class="soria">
+        <?= $this->render('partials/header.phtml'); ?>
+        <div id="content"> 
+            <div class="notifica"><?= $notifica ?></div>            
+            <?php
+            if ($this->escape($this->title))
+                echo "<h2>" . $this->escape($this->title) . "</h2>";
+            ?>
+            <?= $this->layout()->content; ?>
+        </div>
+        <?= $this->render('partials/footer.phtml'); ?>
+
+        <div id="debug" style="font-size: 10px; margin-top: 20px; color:#999;"></div>
+
+    </body>
+</html>

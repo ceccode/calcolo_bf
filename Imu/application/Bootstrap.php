@@ -18,11 +18,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ));
 
         $resourceLoader->addResourceType('validate', 'library/', 'CV_Validate_');
-
+        
         $autoLoader->pushAutoloader($resourceLoader);
-
-    }  
-    
-    
+        
+        //setup dojo library
+        $view = new Zend_View();
+        Zend_Dojo::enableView($view);
+        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+        $viewRenderer->setView($view);
+    }     
 }
 

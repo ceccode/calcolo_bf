@@ -30,6 +30,7 @@
         <formFile formName="Lonatodelgarda"/>
         <formFile formName="Lonatodelgardastep2"/>
         <formFile formName="Anagrafe"/>
+        <formFile formName="SelezioneIniziale"/>
       </formsDirectory>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory/>
@@ -97,9 +98,9 @@
       <testApplicationDirectory>
         <testApplicationBootstrapFile filesystemName="bootstrap.php"/>
         <testApplicationControllerDirectory>
-          <testApplicationControllerFile filesystemName="LonatodelgardaControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="AjaxControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="AboutControllerTest.php"/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

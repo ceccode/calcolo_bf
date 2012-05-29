@@ -10,7 +10,7 @@ $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
 $step1 = $session->step1;
 
 $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
-$result = $lonato_u_sambiti->getVolumetria(intval($step1['id_u_sambiti']));
+$result = $lonato_u_sambiti->getVolumetria(intval($step1['id_u_sambiti']),$session->data_calcolo);
 $etichetta = $result[0]->indice_calcolo_capacita_edificatoria;
 
 if (strtolower($etichetta) == "v3") {

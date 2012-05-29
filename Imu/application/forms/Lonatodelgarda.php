@@ -7,10 +7,10 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
 
         $this->setName("calcolo_imu_lonato");
         $this->setMethod('post');
-               
+
         $notEmpty = new Zend_Validate_NotEmpty();
-        $notEmpty->setMessage('Campo obbligatorio');        
-        
+        $notEmpty->setMessage('Campo obbligatorio');
+
         // data corrente
         $session = new Zend_Session_Namespace('step1');
         $data_calcolo = $session->data_calcolo;
@@ -23,6 +23,8 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         $select = $lonato_u_mambiti->select()
                 ->from($lonato_u_mambiti->getName(), array('id_u_mambiti', 'descrizione'))
                 ->where('record_attivo = 1')
+                ->where('data_inizio <= ?', $data_calcolo)
+                ->where('data_fine > ? OR data_fine = \'0000-00-00\'', $data_calcolo)
                 ->order("id_u_mambiti");
 
         $stmt = $lonato_u_mambiti->fetchAll($select);
@@ -37,14 +39,16 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         $this->addElement($macro_ambito);
 
         //sub ambiti
-        $sub_ambito = $this->createElement('select', 'id_u_sambiti',array('onChange' => 'inputVolumetria(this.value)'));
-        $sub_ambito->setLabel('Sub ambito: *');                             
+        $sub_ambito = $this->createElement('select', 'id_u_sambiti', array('onChange' => 'inputVolumetria(this.value)'));
+        $sub_ambito->setLabel('Sub ambito: *');
         $sub_ambito->addValidator($notEmpty, true);
-        
+
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $select2 = $lonato_u_sambiti->select()
                 ->from($lonato_u_sambiti->getName(), array('id_u_sambiti', 'descrizione'))
                 ->where('record_attivo = 1 AND id_u_mambiti=1')
+                ->where('data_inizio <= ?', $data_calcolo)
+                ->where('data_fine > ? OR data_fine = \'0000-00-00\'', $data_calcolo)
                 ->order("id_u_sambiti");
 
         $stmt2 = $lonato_u_sambiti->fetchAll($select2);

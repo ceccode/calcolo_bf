@@ -19,11 +19,15 @@ class AjaxController extends Zend_Controller_Action
         $this->_helper->_layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);                
         
+        // data corrente
+        $session = new Zend_Session_Namespace('step1');
+        $data_calcolo = $session->data_calcolo;
+        
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         
         $q  = stripcslashes($this->_request->getParam('categoria')); 
         if(!empty($q)) {
-            $result = $lonato_u_sambiti->getSubAmbitiByMacroAmbito($q);
+            $result = $lonato_u_sambiti->getSubAmbitiByMacroAmbito($q,$data_calcolo);
         } 
         
         $ret = array();
@@ -69,11 +73,15 @@ class AjaxController extends Zend_Controller_Action
         $this->_helper->_layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);                
         
+        // data corrente
+        $session = new Zend_Session_Namespace('step1');
+        $data_calcolo = $session->data_calcolo;
+        
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
        
         $q  = stripcslashes($this->_request->getParam('categoria')); 
         if(isset($q)) {
-            $result = $lonato_u_sambiti->getVolumetria($q);
+            $result = $lonato_u_sambiti->getVolumetria($q,$data_calcolo);
         }
                     
         

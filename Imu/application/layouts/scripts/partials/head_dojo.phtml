@@ -1,0 +1,25 @@
+<!--[if !IE 7]>
+    <style type="text/css">
+            #wrap {display:table;height:100%}
+    </style>
+<![endif]-->
+<?=$this->headMeta();?>
+<?=$this->headTitle();?>
+<!--
+    <link rel="shortcut icon" href="images/favicon.gif" type="image/gif" />
+-->
+<?php
+/*
+ * css
+ */
+$this->headLink()->prependStylesheet($this->baseUrl().'/media/main.css');
+?>
+<?php
+/*
+ * js
+ */
+$this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js');
+?>
+
+<?=$this->headLink();?>    
+<?=$this->headScript();?>

@@ -28,9 +28,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
         $this->lonato_log = Factory_dbTable::getClass("017092", "log");
         $this->lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
-        // setto la data corrente(da usare datepicker)
-        $session = new Zend_Session_Namespace('step1');
-        $session->data_calcolo = "2012-01-02"; // per ora imposto a mano la data del calcolo
     }
 
     public function indexAction() {
@@ -61,7 +58,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->step1 = $values;
         // ottengo gli indici subambiti da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
         // prendo i dati da mostrare
-        $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"]);
+        $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"],$session->data_calcolo);
         // creo l'output formattato html4
         // sub ambiti
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
@@ -196,7 +193,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         // ottengo gli indici di mambito
         // ottengo la dbtable
-        $db_row_mambiti = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"]);
+        $db_row_mambiti = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"],$session->data_calcolo);
         $stampa = "";
         foreach ($db_row_mambiti as $chiave_mambiti => $valore_mambiti_riga) {
             // inizio la tabella
@@ -233,12 +230,12 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // ottengo i dati riassuntivi form precedente
         // query al db per ottenere i dati dai mostrare
         // nome macro ambito
-        $nome_macro_ambito_rowset = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"]);
+        $nome_macro_ambito_rowset = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"],$session->data_calcolo);
         foreach ($nome_macro_ambito_rowset as $chiave => $valore) {
             $nome_macro_ambito = $valore->descrizione;
         }
         // nome sub ambito
-        $nome_sub_ambito_rowset = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"]);
+        $nome_sub_ambito_rowset = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"],$session->data_calcolo);
         foreach ($nome_sub_ambito_rowset as $chiave => $valore) {
             $nome_sub_ambito = $valore->descrizione;
         }

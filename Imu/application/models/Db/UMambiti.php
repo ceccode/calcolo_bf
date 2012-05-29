@@ -1,18 +1,19 @@
 <?php
 
-class Application_Model_DbTable_UMambiti extends Application_Model_DbTable_TabellaComuni
-{
-    
-   public function getSpqVcu($id_u_mambiti) {
-        
+class Application_Model_DbTable_UMambiti extends Application_Model_DbTable_TabellaComuni {
+
+    public function getSpqVcu($id_u_mambiti, $data) {
+
         $righe = null;
-   
+
         if ($this->getName()) {
 
             $select = $this->select()
-                           ->from($this->getName(), array('standard_pubblico_qualita', 'valore_comprensativo_unitario'))
-                           ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_u_mambiti);
-                              
+                    ->from($this->getName(), array('standard_pubblico_qualita', 'valore_comprensativo_unitario'))
+                    ->where('data_inizio <= ?', $data)
+                    ->where('data_fine > ? OR data_fine = \'0000-00-00\'', $data)
+                    ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_u_mambiti);
+
             $righe = $this->fetchAll($select);
 
             if ($righe)
@@ -23,17 +24,19 @@ class Application_Model_DbTable_UMambiti extends Application_Model_DbTable_Tabel
         else
             throw new Exception("Nome tabella non settato in filtroDestinazioniAmmesse");
     }
-    
-    public function getPdrODdp($id_u_mambiti){
-        
+
+    public function getPdrODdp($id_u_mambiti, $data) {
+
         $righe = null;
-   
+
         if ($this->getName()) {
 
             $select = $this->select()
-                           ->from($this->getName(), array('pdr_o_ddp'))
-                           ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_u_mambiti);
-                              
+                    ->from($this->getName(), array('pdr_o_ddp'))
+                    ->where('data_inizio <= ?', $data)
+                    ->where('data_fine > ? OR data_fine = \'0000-00-00\'', $data)
+                    ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_u_mambiti);
+
             $righe = $this->fetchAll($select);
 
             if ($righe)
@@ -45,15 +48,17 @@ class Application_Model_DbTable_UMambiti extends Application_Model_DbTable_Tabel
             throw new Exception("Nome tabella non settato in filtroDestinazioniAmmesse");
     }
 
-    public function getAll($id_u_mambiti){
-        
+    public function getAll($id_u_mambiti, $data) {
+
         $righe = null;
-   
+
         if ($this->getName()) {
 
             $select = $this->select()
-                           ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_u_mambiti);
-                              
+                    ->where('data_inizio <= ?', $data)
+                    ->where('data_fine > ? OR data_fine = \'0000-00-00\'', $data)
+                    ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_u_mambiti);
+
             $righe = $this->fetchAll($select);
 
             if ($righe)
@@ -64,5 +69,7 @@ class Application_Model_DbTable_UMambiti extends Application_Model_DbTable_Tabel
         else
             throw new Exception("Nome tabella non settato in filtroDestinazioniAmmesse");
     }
+
 }
+
 ?>
