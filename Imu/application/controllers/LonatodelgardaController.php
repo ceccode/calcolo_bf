@@ -330,7 +330,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         $this->view->values = $values;
 
-        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        require_once APPLICATION_PATH . "/models/Elaborazione/stima.php";
         $session->capacita_edificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
 
         $this->view->capacita_edificatoria = $session->capacita_edificatoria;

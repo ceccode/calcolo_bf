@@ -149,7 +149,7 @@ class AjaxController extends Zend_Controller_Action
 //        echo "</pre>";        
         
         // effettuo il calcolo della stima e capacit√† edificatoria
-        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        require_once APPLICATION_PATH . "/models/Elaborazione/stima.php";
         // capacita edificatoria
         // metto in sessione la stima unitaria
         $somma_quote = Stima::verificaQuote($new_input_utente);
@@ -247,7 +247,7 @@ class AjaxController extends Zend_Controller_Action
 //        echo "</pre>";        
         
         // effettuo il calcolo della stima e capacit√† edificatoria
-        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        require_once APPLICATION_PATH . "/models/Elaborazione/stima.php";
         // capacita edificatoria
         // metto in sessione la stima unitaria
         $valore_stimato = Stima::calcolaStimaSingolaLonato($new_input_utente);   
