@@ -5,57 +5,5 @@
     echo $this->form;
 ?>
 </div>
-<script type="text/javascript">
-$(function()
-{
-    
-    if( $("#capacita_edificatoria").is(':visible') ) {
-        
-        $("#submit").attr("disabled", "true");
-        
-        $("#capacita_edificatoria").blur(function(){
-                var id = $(this);
-                if(id.val()==''){
-                   $("#submit").attr("disabled", "true");
-                }else {
-                   $("#submit").removeAttr("disabled");
-                }
 
-                doValidation(id);
-
-                });        
-        // se #test è visibile fai qualcosa
-    }
-    else {
-        // se non è visibile fai qualcos'altro
-    }  
-             
-
-    function doValidation(id){
-        var url = '/public/Ajax/validate-form-step1';
-        var data = {};
-        data[id.attr('name')] = id.val();
-
-        $.post(url,data,function(resp){
-
-            var id2 = id.attr('name');
-            $("#"+id2).parent().find("ul").remove();            
-            $("#"+id2).after(getErrorHtml(resp[id2],id2));
-            
-        },'json');
-    }
-
-    function getErrorHtml(formsError, id){
-        var o = '<ul id="errors-'+id+'" class="errors">';
-        for(errorKeys in formsError)
-        {
-            o += '<li>'+formsError[errorKeys]+'</li>';
-        }
-        o += '</ul>';
-        return o;
-    }
-    
-    
-});
-</script>
 

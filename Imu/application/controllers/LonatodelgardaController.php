@@ -2,18 +2,18 @@
 
 class LonatodelgardaController extends Zend_Controller_Action {
 
-    private $lonato_s_rifunitariedest;
-    private $lonato_s_tstima;
-    private $lonato_s_zone;
-    private $lonato_u_cessioni;
-    private $lonato_u_destammesse;
-    private $lonato_u_mambiti;
-    private $lonato_u_mdestinazioni;
-    private $lonato_u_modinterv;
-    private $lonato_u_sambiti;
-    private $lonato_u_sdestinazioni;
-    private $lonato_log;
-    private $lonato_var_indici;
+    private $lonato_s_rifunitariedest = null;
+    private $lonato_s_tstima = null;
+    private $lonato_s_zone = null;
+    private $lonato_u_cessioni = null;
+    private $lonato_u_destammesse = null;
+    private $lonato_u_mambiti = null;
+    private $lonato_u_mdestinazioni = null;
+    private $lonato_u_modinterv = null;
+    private $lonato_u_sambiti = null;
+    private $lonato_u_sdestinazioni = null;
+    private $lonato_log = null;
+    private $lonato_var_indici = null;
 
     public function init() {
         $this->lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
@@ -28,9 +28,167 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
         $this->lonato_log = Factory_dbTable::getClass("017092", "log");
         $this->lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
+        // setto il comune
+        $session = new Zend_Session_Namespace('step1');
+        $session->comune = "Lonatodelgarda";
     }
 
     public function indexAction() {
+        // setto il layout
+        $this->_helper->_layout->setLayout('dojo');
+
+        // comune
+        $comune = null;
+
+        // action body
+        $form = new Application_Form_SelezionaData();
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            if ($form->isValid($request->getPost())) {
+                if ($this->_process_index($form->getValues())) {
+                    $urlOptions = array('controller' => 'lonatodelgarda', 'action' => 'selezione-ambiti');
+                    //$this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
+                    $this->_helper->redirector->gotoRoute($urlOptions);
+                } else {
+                    //$this->_helper->redirector->gotoRoute($urlOptions,'azioni');
+                    //$this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
+                }
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
+    protected function _process_index($values) {
+        $data = $values["data_calcolo"];
+
+        $session = new Zend_Session_Namespace('step1');
+        $session->data_calcolo = $data;
+
+        //throw new Exception($data);
+        return true;
+    }
+
+    public function stimaAction() {
+        // action body
+        $session = new Zend_Session_Namespace('step1');
+        $values = $session->step1;
+
+        $this->view->values = $values;
+
+        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        $session->capacita_edificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
+
+        $this->view->capacita_edificatoria = $session->capacita_edificatoria;
+
+        $form = new Application_Form_Lonatodelgardastep2(array(
+                    'id_u_mambito' => $values['id_m_ambiti'],
+                ));
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            if ($form->isValid($request->getPost())) {
+
+                if ($this->_process_lonato_imu_step2($form->getValues())) {
+                    $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'anagrafe');
+                    $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
+                    $this->_helper->redirector->gotoRoute($urlOptions);
+                } else {
+                    $this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
+                }
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
+    protected function _process_lonato_imu_step2($valori) {
+
+        $session = new Zend_Session_Namespace('step1');
+
+        // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
+        $indice = 0;
+        foreach ($valori as $chiave => $valore) {
+            if ($valore)
+                $percentualeQuote[$indice] = $valore;
+            else
+                $percentualeQuote[$indice] = 0;
+
+            $indice++;
+        }
+        $session->quote = $percentualeQuote;
+        // effettuo il calcolo della stima e capacit√† edificatoria
+        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        // capacita edificatoria
+        $session->capacitaEdificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
+        // metto in sessione la stima unitaria
+        $session->stimaUnitaria = Stima::calcolaStimaSingolaLonato($percentualeQuote);
+        // calcolo valore area edificabile: semplice moltiplicazione
+        $session->valoreAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
+        return true; // non ho incontrato errori
+    }
+
+    public function anagrafeAction() {
+        $session = new Zend_Session_Namespace('step1');
+        $values = $session->step1;
+
+        $this->view->values = $values;
+
+        $form = new Application_Form_Anagrafe();
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+
+            if ($form->isValid($request->getPost())) {
+
+                if ($this->_process_anagrafe($form->getValues())) {
+                    $urlOptions = array('controller' => 'Lonatodelgarda', 'action' => 'index');
+                    $this->view->notifica = '<style>.notifica{ background-color:green; padding:2px;}</style>Modulo salvato con successo.';
+                    $this->_helper->redirector->gotoRoute($urlOptions);
+                } else {
+                    $this->view->notifica = '<span style="padding:2px;">Ops, si è verificato un errore.</span>';
+                }
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
+    protected function _process_anagrafe($values) {
+
+        $session2 = new Zend_Session_Namespace('anagrafe');
+        $session2->anagrafe = $values;
+        $anagrafe = $session2->anagrafe;
+        $var = $values;
+
+        $ret = $this->lonato_log->inserisciLog($values['nome'], $values['cognome'], $values['cf']);
+        return $ret;
+    }
+
+    public function stampaAction() {
+        // action body
+        $this->_helper->_layout->setLayout('stampa');
+
+        $session = new Zend_Session_Namespace('step1');
+        $session2 = new Zend_Session_Namespace('anagrafe');
+
+        $values = $session->step1;
+        $anagrafe = $session2->anagrafe;
+
+        $this->view->values = $values;
+        $this->view->anagrafe = $anagrafe;
+        $this->view->riassunto_step1_txt = $session->riassunto_step1_txt;
+        $this->view->capacitaEdificatoria = $session->capacitaEdificatoria;
+        $this->view->stimaUnitaria = $session->stimaUnitaria;
+        $this->view->valoreAreaEdificabile = $session->valoreAreaEdificabile;
+        $this->view->indici_u_sambiti_stampa = $session->indici_u_sambiti_txt;
+        $this->view->indici_mambiti_stampa = $session->indici_mambiti_stampa_txt;
+        $this->view->quote = $session->quote;
+        $this->view->data_calcolo = $session->data_calcolo;
+    }
+
+    public function selezioneAmbitiAction() {
         // action body
         $form = new Application_Form_Lonatodelgarda();
 
@@ -58,7 +216,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->step1 = $values;
         // ottengo gli indici subambiti da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
         // prendo i dati da mostrare
-        $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"],$session->data_calcolo);
+        $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"], $session->data_calcolo);
         // creo l'output formattato html4
         // sub ambiti
         foreach ($db_row_sambiti as $chiave_sambiti => $valore_sambiti_riga) {
@@ -193,7 +351,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         // ottengo gli indici di mambito
         // ottengo la dbtable
-        $db_row_mambiti = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"],$session->data_calcolo);
+        $db_row_mambiti = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"], $session->data_calcolo);
         $stampa = "";
         foreach ($db_row_mambiti as $chiave_mambiti => $valore_mambiti_riga) {
             // inizio la tabella
@@ -230,17 +388,17 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // ottengo i dati riassuntivi form precedente
         // query al db per ottenere i dati dai mostrare
         // nome macro ambito
-        $nome_macro_ambito_rowset = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"],$session->data_calcolo);
+        $nome_macro_ambito_rowset = $this->lonato_u_mambiti->getAll($values["id_m_ambiti"], $session->data_calcolo);
         foreach ($nome_macro_ambito_rowset as $chiave => $valore) {
             $nome_macro_ambito = $valore->descrizione;
         }
         // nome sub ambito
-        $nome_sub_ambito_rowset = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"],$session->data_calcolo);
+        $nome_sub_ambito_rowset = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"], $session->data_calcolo);
         foreach ($nome_sub_ambito_rowset as $chiave => $valore) {
             $nome_sub_ambito = $valore->descrizione;
         }
         // nome zona
-        $nome_zona_rowset = $this->lonato_s_zone->getAll($values["id_s_zone"],$session->data_calcolo);
+        $nome_zona_rowset = $this->lonato_s_zone->getAll($values["id_s_zone"], $session->data_calcolo);
         foreach ($nome_zona_rowset as $chiave => $valore) {
             $nome_zona = $valore->descrizione_tipo_stima;
         }
@@ -323,6 +481,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         return true; // non ho incontrato errori
     }
 
+<<<<<<< HEAD
     public function stimaAction() {
         // action body
         $session = new Zend_Session_Namespace('step1');
@@ -441,5 +600,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->view->data_calcolo = $session->data_calcolo;
     }
 
+=======
+>>>>>>> aggiornato data
 }
 

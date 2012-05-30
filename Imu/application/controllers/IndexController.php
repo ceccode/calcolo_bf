@@ -36,10 +36,8 @@ class IndexController extends Zend_Controller_Action {
 
     protected function _process_index($values) {
         $comune = $values["comune"];
-        $data = $values["data_calcolo"];
 
         $session = new Zend_Session_Namespace('step1');
-        $session->data_calcolo = $data;
         $session->comune=$comune;
         
         //throw new Exception($data);

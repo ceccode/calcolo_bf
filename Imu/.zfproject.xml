@@ -17,6 +17,8 @@
           <actionMethod actionName="stima"/>
           <actionMethod actionName="stampa"/>
           <actionMethod actionName="anagrafe"/>
+          <actionMethod actionName="selezioneDataLonatodelgarda"/>
+          <actionMethod actionName="selezioneAmbiti"/>
         </controllerFile>
         <controllerFile controllerName="Ajax">
           <actionMethod actionName="index"/>
@@ -31,6 +33,7 @@
         <formFile formName="Lonatodelgardastep2"/>
         <formFile formName="Anagrafe"/>
         <formFile formName="SelezioneIniziale"/>
+        <formFile formName="SelezionaData"/>
       </formsDirectory>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory/>
@@ -63,6 +66,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="About">
             <viewScriptFile forActionName="privacy"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Lonatodelgarda">
+            <viewScriptFile forActionName="selezioneDataLonatodelgarda"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Lonatodelgarda">
+            <viewScriptFile forActionName="selezioneAmbiti"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
