@@ -8,6 +8,42 @@
 <script type="text/javascript">
 $(function()
 {
+     /*
+      * nascondo i campi 
+      */
+     var label_lotto_saturo = $('#lotto_saturo-label');                 
+     var id_lotto_saturo    = $('#lotto_saturo-element');
+
+     var label_cepp = $('#capacita_edificatoria-label');                 
+     var id_cepp    = $('#capacita_edificatoria-element');                 
+
+     var label_superficie = $('#superficie-label');
+     
+     label_lotto_saturo.hide();
+     id_lotto_saturo.hide(); 
+
+     inputVolumetria(1);
+
+
+     /*
+      * on area urbanizzata change
+      */
+     var radioSel = $("#calcolo_imu_lonato input[name=area_urbanizzata]"); 
+     radioSel.change(function onSelectChange(){
+        var selected = $("#calcolo_imu_lonato input[name=area_urbanizzata]:checked").val();  
+        if(selected == 1){
+            selModalitaIntervento(1);                        
+            label_lotto_saturo.show();
+            id_lotto_saturo.show();
+            label_superficie.text('Superficie fondiaria: * (mq)');
+        }else if(selected == 0){
+            selModalitaIntervento(0); 
+            label_lotto_saturo.hide();                        
+            id_lotto_saturo.hide();
+            label_superficie.text('Superficie territoriale: * (mq)');            
+        }
+     });    
+    
     
     if( $("#capacita_edificatoria").is(':visible') ) {
         

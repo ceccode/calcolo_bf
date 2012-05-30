@@ -18,7 +18,7 @@ echo $this->doctype();
     <body class="soria">
         <?= $this->render('partials/header.phtml'); ?>
         <div id="content"> 
-            <div class="notifica"><?= $notifica ?></div>            
+            <div class="notifica" style="display:none;"><?= $notifica ?></div>            
             <?php
             if ($this->escape($this->title))
                 echo "<h2>" . $this->escape($this->title) . "</h2>";

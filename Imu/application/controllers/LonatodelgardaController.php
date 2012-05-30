@@ -369,7 +369,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stampa.="<td>" . $nome_sub_ambito . "</td>";
         // zona
         $stampa.='<tr class="header-tabella1">';
-        $stampa.="<td>Nome zona</td>";
+        $stampa.="<td>Localizzazione</td>";
         $stampa.="<td>" . $nome_zona . "</td>";
         // valore urbanizzata
         $stampa.='<tr>';
@@ -487,9 +487,15 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         $session = new Zend_Session_Namespace('step1');
 
+        
+        
         // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
         $indice = 0;
         foreach ($valori as $chiave => $valore) {
+            
+//            $valore = str_ireplace('.', ',', $valore);
+//            $valore = floatval($valore);
+            
             if ($valore)
                 $percentualeQuote[$indice] = $valore;
             else

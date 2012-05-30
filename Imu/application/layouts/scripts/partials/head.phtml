@@ -56,27 +56,27 @@ function inputVolumetria(idSubAmbito){
     $.getJSON('http://localhost:10095/public/Ajax/search-volumetria', 
         { categoria: idSubAmbito},
               function(dataNorme){
-                console.log(dataNorme);                
-                if (dataNorme.descrizione == "V3"){
+                dataNorme.descrizione = dataNorme.descrizione.toLowerCase();
+                if (dataNorme.descrizione == "v3"){
                     $("#capacita_edificatoria-label").hide();
                     $("#capacita_edificatoria-element").hide(); 
                     $("#submit").removeAttr("disabled", "false");
                      
                 }else {
                     
-                    var label = 'imputare volumetria: * (m3)';
+                    var label = 'Inputare volumetria: * (m3)';
                     switch (dataNorme.descrizione) {
-                        case "V1": label = 'inputare volumetria preesistente * (m3)';
+                        case "v1": label = 'Inputare volumetria preesistente * (m3)';
                         break;
-                        case "V2": label = 'imputare volumetria predefinita: * (m3)';
+                        case "v2": label = 'Inputare volumetria predefinita: * (m3)';
                         break;
-                        case "V4": label = 'inputare volumetria preesistente: * (m3)';
+                        case "v4": label = 'Inputare volumetria preesistente: * (m3)';
                         break;
-                        case "U1": label = 'inputare voumetria slp preesistente: * (m2spl)';
+                        case "u1": label = 'Inputare voumetria slp preesistente: * (m2spl)';
                         break;
-                        case "U2": label = 'imputare slp predefinita: * (m2spl)';
+                        case "u2": label = 'Inputare slp predefinita: * (m2spl)';
                         break;
-                        case "U4": label = 'inputare voumetria slp preesistente: * (m2spl)';
+                        case "u4": label = 'Inputare voumetria slp preesistente: * (m2spl)';
                         break;
                     }
 

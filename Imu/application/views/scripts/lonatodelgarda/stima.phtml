@@ -162,7 +162,7 @@ if ($vuoto == 0):
         <!-- se urbanizzata non ho cessioni -->
         <?php if (!$values["area_urbanizzata"]): ?>
             <div class="left copri_tabella2"> <!-- colonna8 -->
-                <div id="header-quota-monetaria" class="border_sotto grigio">Quota monetaria</div>
+                <div id="header-quota-monetaria" class="border_sotto grigio">Quota monetizzazione</div>
                 <div id="corpo-quota-monetaria">
                     <?php foreach ($dati_cessione as $chiave => $valore): ?>
                         <div class="blocco_tabella2"><?= $valore['quota_monetizzabile'] ?></div>
@@ -205,6 +205,10 @@ if ($vuoto == 0):
     <script type="text/javascript">
         $(function()
         {
+            
+//        width: 30px;
+            $("input[type=text]").css('width','30px');
+            
             $("input").blur(function(){
                 //
                 var formElementId = ($(this).parent().prev().find('label').attr('for'));                

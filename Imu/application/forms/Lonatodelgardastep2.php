@@ -47,7 +47,13 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
             //cepp
             $cepp = $this->createElement('text', $id, array());
             $cepp->setLabel($label);
-            $cepp->addValidator('Float',false, array('messages' => 'Solo cifre separate da virgola'));
+            
+//            $ValidateFloat = new Zend_Validate_Float();
+//            $ValidateFloat->setLocale(new Zend_Locale('it_IT'));
+//            
+//            $cepp->addValidator($ValidateFloat);
+            
+            $cepp->addValidator('Float', false, array('messages' => 'Solo cifre separate da virgola'));
             $cepp->addValidator('Between', false, array('min' => 0, 'max' => $quota, 'messages' => "Questo valore non può essere maggiore di $quota" ));
             $this->addElement($cepp);       
             
