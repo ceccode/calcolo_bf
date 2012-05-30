@@ -308,16 +308,25 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $stampa.="<td>Valore compensativo unitario</td>";
             $valore_comprensativo_unitario = $valore_mambiti_riga->valore_comprensativo_unitario;
             $stampa.="<td>" . $valore_mambiti_riga->valore_comprensativo_unitario . "</td>";
+            $stampa.="<td>Euro/m2</td>";
             // contributo compensativo aggiuntivo
             $stampa.='<tr>';
             $stampa.="<td>Contributo compensativo aggiuntivo</td>";
             $contributo_compensativo_aggiuntivo = $valore_mambiti_riga->contributo_compensativo_aggiuntivo;
-            $stampa.="<td>" . $valore_mambiti_riga->contributo_compensativo_aggiuntivo . "</td>";
+            if ($contributo_compensativo_aggiuntivo==0){
+                $contributo_compensativo_aggiuntivo = 'No';
+            }else {
+                $contributo_compensativo_aggiuntivo = 'Si';
+            }
+            $stampa.="<td>" . $contributo_compensativo_aggiuntivo . "</td>";
+            $stampa.="<td></td>";
             // standard pubblico qualità
             $stampa.='<tr class="header-tabella1">';
             $stampa.="<td>Standard pubblico qualità</td>";
             $standard_pubblico_qualita = $valore_mambiti_riga->standard_pubblico_qualita;
-            $stampa.="<td>" . $valore_mambiti_riga->standard_pubblico_qualita . "</td>";
+            $valore_ambiti_riga = (($valore_mambiti_riga->standard_pubblico_qualita) * 100);
+            $stampa.="<td>" . $valore_ambiti_riga . " %" ."</td>";
+            $stampa.="<td>mqSlp</td>";            
             // chiudo la tabella     
             $stampa.='</table>';
         }
