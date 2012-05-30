@@ -61,7 +61,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
     }
 
     protected function _process_index($values) {
-        $data = $values["data_calcolo"];
+        $data = $values["anno_calcolo"];
 
         $session = new Zend_Session_Namespace('step1');
         $session->data_calcolo = $data;
@@ -396,16 +396,42 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stampa.='<tr ';
         $stampa.=($values["area_urbanizzata"] == 1) ? "class='header-tabella1'" : "";
         $stampa.='>';
-        $stampa.="<td>Superficie edificatoria</td>";
+        $stampa.=($values["area_urbanizzata"] == 1) ? "<td>Superficie Fondiaria  (m2)</td>" : "<td>Superficie Territoriale (m2)</td>";
         $stampa.="<td>" . $values["superficie"] . "</td>";
+
         // volumetria
-        $stampa.='<tr ';
-        $stampa.=($values["area_urbanizzata"] == 1) ? "" : "class='header-tabella1'";
-        $stampa.='>';
-        $stampa.="<td>Volumetria</td>";
-        $stampa.="<td>" . $values["capacita_edificatoria"] . "</td>";
-        // chiudo la tabella     
-        $stampa.='</table>';
+        if (strtolower($tipo_stima) != 'v3' && strtolower($tipo_stima) != 'u3') {
+            switch (strtolower($tipo_stima)) {
+                case "v1":
+                    $volumetria = 'inputare volumetria preesistente * (m3)';
+                    break;
+                case "v2":
+                    $volumetria = 'inputare volumetria predefinita: * (m3)';
+                    break;
+                case "v4":
+                    $volumetria = 'inputare volumetria preesistente: * (m3)';
+                    break;
+                case "u1":
+                    $volumetria = 'inputare voumetria slp preesistente: * (m2spl)';
+                    break;
+                case "u2":
+                    $volumetria = 'inputare slp predefinita: * (m2spl)';
+                    break;
+                case "u4":
+                    $volumetria = 'inputare voumetria slp preesistente: * (m2spl)';
+                    break;
+                default:
+                    $volumetria = 'inputare volumetria: * (m3)';
+                    break;
+            }
+            $stampa.='<tr ';
+            $stampa.=($values["area_urbanizzata"] == 1) ? "" : "class='header-tabella1'";
+            $stampa.='>';
+            $stampa.="<td>" . $volumetria . "</td>";
+            $stampa.="<td>" . $values["capacita_edificatoria"] . "</td>";
+            // chiudo la tabella     
+            $stampa.='</table>';
+        }
         // salvo in sessione per stampa
         $session->riassunto_step1_txt = array("nome_macro_ambito" => $nome_macro_ambito,
             "nome_sub_ambito" => $nome_sub_ambito,
@@ -421,7 +447,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         return true; // non ho incontrato errori
     }
-
 
     public function stimaAction() {
         // action body
