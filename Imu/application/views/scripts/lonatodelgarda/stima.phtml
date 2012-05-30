@@ -94,7 +94,7 @@ if ($vuoto == 0):
     </div> 
 <div style="clear:both"></div>
     <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; text-align: left; font-size: 120% ;margin-left: 10px;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Inserisci le quote di progetto</h4>
-    <div id="div_form_2"> <!-- div con i dati form 2 -->
+    <div id="div_form_2""> <!-- div con i dati form 2 -->
         <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
             <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
             <div id="corpo_destinazione_uso">
@@ -170,19 +170,15 @@ if ($vuoto == 0):
                 </div>
             </div>
         <?php endif; ?>
-
-        <!-- bottone ricalcola -->
-        <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
-
-    </div>
-
-    <div style="color: red; font-size: 11px;" id="errore_somma" ></div>
+        <!-- div errore sommma maggiore di 1 -->
+        <div style="color: red; font-size: 11px;margin-left:10px; width: 350px;" id="errore_somma" ></div>
+    </div> <!-- end tabella2 -->
 
     <!-- torna al form1 -->
     <div style="clear:both"></div>
     
     <!-- stima -->
-    <table id="risultati" class="left">
+    <table id="risultati" class="left">        
     <caption>Risultato stimato</caption>    
     <tr class="header-tabella1">
             <td>Capacità edificatoria calcolata</td>
@@ -200,7 +196,10 @@ if ($vuoto == 0):
             <td>Euro</td>        
         </tr>    
     </table>
-
+    <!-- end stima -->
+    <!-- bottone ricalcola -->
+    <a id="button-ricalcola-form2" class="button doc-button" href="<?//= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
+   
 
     <script type="text/javascript">
         $(function()

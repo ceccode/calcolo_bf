@@ -110,7 +110,6 @@ a {
 }
 
 .doc-button{
-    margin: 5px;
     display: inline-block;    
 }
 
@@ -191,7 +190,7 @@ form dd {
     padding: 5px;    
 }
 form #submitbutton {
-    margin-left: 100px;
+/*    margin-left: 100px;*/
 }
 
 form label {
@@ -288,7 +287,7 @@ ul.errors{
 #risultati_calcolo_stima{
     /*background-color: #C5DBF9;*/
     width: 100%;
-    height: 370px;
+    height: 510px;
     margin-bottom: 20px;
 }
 
@@ -308,28 +307,36 @@ ul.errors{
 }
 
 #button-ricalcola-form2{
-    margin-left: 613px;
-    margin-top: -55px;
+    position:relative;
+/*    margin-left: 613px;*/
+/*    margin-top: -54px;*/
     font-size:11px;
+    margin-top: 55px;
+    margin-left: 20px;
+    float: left;
     min-width: 90px;
     padding-left: 40px;
 }
 
 #continua_stampa{
-    margin-top: 40px;
-    margin-left: 290px;
+    font-size:11px;
     padding: 12px;
-}
+    font-family:"Tahoma", "Bitstream Vera";
+    margin-top: 40px;
+    margin-left: 100px;
 
+}
+/* margin-legt 100px dal form submitbutton */
 #risultati{
 /*    font-size: 15px; 
     margin-top:-40px;
     margin-left: 10px;*/
     font-size: 15px; 
     margin-top: 10px;
-    margin-left: 650px;
-/*    float: right;
-    margin-right: 10px;*/
+    margin-left: 10px;
+    
+    float: left;
+/*    margin-right: 10px;*/
 }
 
 #indici-sambiti{
