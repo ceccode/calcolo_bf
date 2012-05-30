@@ -14,6 +14,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
     private $lonato_u_sdestinazioni = null;
     private $lonato_log = null;
     private $lonato_var_indici = null;
+    private $lonato_anni = null;
 
     public function init() {
         $this->lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
@@ -28,6 +29,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
         $this->lonato_log = Factory_dbTable::getClass("017092", "log");
         $this->lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
+        $this->lonato_anni= Factory_dbTable::getClass("017092", "anni");
         // setto il comune
         $session = new Zend_Session_Namespace('step1');
         $session->comune = "Lonatodelgarda";

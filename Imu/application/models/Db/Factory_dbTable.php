@@ -27,9 +27,10 @@ class Factory_dbTable {
         require_once APPLICATION_PATH . "/models/Db/USdestinazioni.php";
         require_once APPLICATION_PATH . "/models/Db/Log.php";
         require_once APPLICATION_PATH . "/models/Db/VarIndici.php";
-        
+        require_once APPLICATION_PATH . "/models/Db/Anni.php";
 
-        $tabella=null;
+
+        $tabella = null;
 
         switch ($nomeTabella) {
             case 's_rifunitariedest':
@@ -75,20 +76,24 @@ class Factory_dbTable {
             case 'log':
                 $tabella = new Application_Model_DbTable_Log();
                 $tabella->setName('log');
-                break;  
+                break;
             case 'var_indici':
                 $tabella = new Application_Model_DbTable_VarIndici();
                 $tabella->setName('var_indici');
-                break;         
+                break;
+            case 'anni':
+                $tabella = new Application_Model_DbTable_Anni();
+                $tabella->setName('anni');
+                break;
             default:
                 throw new Exception("Nome tabella non valido in Factory_dbTable getClass");
         }
 
         // imposta il nome della tabella a seconda del comune
-        if ($comune){
+        if ($comune) {
             $tabella->setComune($comune);
             //echo $tabella->getName() ." " . $tabella->getComune();
-            $name=$tabella->getComune() . "_" . $tabella->getName();
+            $name = $tabella->getComune() . "_" . $tabella->getName();
             $tabella->setName($name);
         }
         else
