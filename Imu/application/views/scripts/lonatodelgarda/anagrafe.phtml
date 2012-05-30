@@ -68,14 +68,37 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
                 $.post(url,data,function(resp){
                       console.log(data);
                       console.log(resp);
-                      if (resp==true){
-                      window.open("/public/Lonatodelgarda/stampa","_blank");
-                    } 
+                      if (resp.valid==true){
+                        window.open("/public/Lonatodelgarda/stampa","_blank");
+                        }else {
+                            $('input').each(function(){
+                                console.log(this);
+                                var formElementId = ($(this).parent().prev().find('label').attr('for'));                
+                                $("#"+formElementId).parent().find(".errors").remove();    
+                                $("#"+formElementId).parent().append(getErrorHtml(resp[formElementId],formElementId));                                
+                                //data[$(this).attr('name')] = $(this).val();                    
+                            });                           
+                            
+ 
+                            
+                        }
+                        
+                        
                     
                 },'json');
-                
- 
-            }                                   
+                 
+            }
+            
+            function getErrorHtml(formsError, id){
+                var o = '<ul id="errors-'+id+'" class="errors">';
+                for(errorKeys in formsError)
+                {
+                    o += '<li>'+formsError[errorKeys]+'</li>';
+                }
+                o += '</ul>';
+                return o;
+            }            
+            
                                     
         });
     </script>

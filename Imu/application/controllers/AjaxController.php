@@ -192,7 +192,14 @@ class AjaxController extends Zend_Controller_Action
         unset($input['module']);        
         
         $ret = $f->isValid($input);
-        $json = $ret;
+        
+        $json = $f->getMessages();
+       if ($ret){
+            $json['valid'] = true;
+        }else {
+            $json['valid'] = false;
+        }        
+        
         header('Content-type: application/json');
         echo Zend_Json::encode($json);
     }     
