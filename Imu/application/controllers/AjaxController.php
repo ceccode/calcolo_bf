@@ -177,6 +177,27 @@ class AjaxController extends Zend_Controller_Action
     } 
     
     
+    public function validateAnagrafeAction(){
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('Layout')->disableLayout();
+        
+        $f = new Application_Form_Anagrafe();
+        
+        $input = $this->_getAllParams();
+        
+        unset($input['stampa_soc']);
+        unset($input['controller']);
+        unset($input['action']);
+        unset($input['module']);        
+        
+        $ret = $f->isValid($input);
+        $json = $ret;
+        header('Content-type: application/json');
+        echo Zend_Json::encode($json);
+    }     
+    
+    
     public function validateFormStep2Action(){
         
         $this->_helper->viewRenderer->setNoRender();

@@ -23,95 +23,96 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
 <script type="text/javascript">
 
     
-function selSubAmbiti(idMacroAmbito){
-    $.getJSON('http://localhost:10095/public/Ajax/search-subambiti', 
-        { categoria: idMacroAmbito},
-              function(dataNorme){
-                //console.log(dataNorme);
-                $("select[id='id_u_sambiti']").empty();
-                
-                var arraySubAmbiti = dataNorme;
-                
-                if (arraySubAmbiti.length==1){
-                    var options = '';
-                    $.each(arraySubAmbiti, function(key, value){
-                        options += '<option selected value="' + value.id + '">' + value.descrizione + '</option>';    
-                        inputVolumetria(value.id);
-                    });                     
-                }else{
-                    var options = '<option value="">-- seleziona --</option>';
-                    $.each(arraySubAmbiti, function(key, value){
-                        options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
-                    });                                       
-                }
-                $("select[id='id_u_sambiti']").html(options);
+    function selSubAmbiti(idMacroAmbito){
+        $.getJSON('http://localhost:10095/public/Ajax/search-subambiti', 
+            { categoria: idMacroAmbito},
+                  function(dataNorme){
+                    //console.log(dataNorme);
+                    $("select[id='id_u_sambiti']").empty();
 
-              });
+                    var arraySubAmbiti = dataNorme;
 
-}
+                    if (arraySubAmbiti.length==1){
+                        var options = '';
+                        $.each(arraySubAmbiti, function(key, value){
+                            options += '<option selected value="' + value.id + '">' + value.descrizione + '</option>';    
+                            inputVolumetria(value.id);
+                        });                     
+                    }else{
+                        var options = '<option value="">-- seleziona --</option>';
+                        $.each(arraySubAmbiti, function(key, value){
+                            options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
+                        });                                       
+                    }
+                    $("select[id='id_u_sambiti']").html(options);
 
-function inputVolumetria(idSubAmbito){
-    $.getJSON('http://localhost:10095/public/Ajax/search-volumetria', 
-        { categoria: idSubAmbito},
-              function(dataNorme){
-                dataNorme.descrizione = dataNorme.descrizione.toLowerCase();
-                if (dataNorme.descrizione == "v3"){
-                    $("#capacita_edificatoria-label").hide();
-                    $("#capacita_edificatoria-element").hide(); 
-                    $("#submit").removeAttr("disabled", "false");
-                     
-                }else {
-                    
-                    var label = 'Inputare volumetria: * (m3)';
-                    switch (dataNorme.descrizione) {
-                        case "v1": label = 'Inputare volumetria preesistente * (m3)';
-                        break;
-                        case "v2": label = 'Inputare volumetria predefinita: * (m3)';
-                        break;
-                        case "v4": label = 'Inputare volumetria preesistente: * (m3)';
-                        break;
-                        case "u1": label = 'Inputare voumetria slp preesistente: * (m2spl)';
-                        break;
-                        case "u2": label = 'Inputare slp predefinita: * (m2spl)';
-                        break;
-                        case "u4": label = 'Inputare voumetria slp preesistente: * (m2spl)';
-                        break;
+                  });
+
+    }
+
+    function inputVolumetria(idSubAmbito){
+        $.getJSON('http://localhost:10095/public/Ajax/search-volumetria', 
+            { categoria: idSubAmbito},
+                  function(dataNorme){
+                    dataNorme.descrizione = dataNorme.descrizione.toLowerCase();
+                    if (dataNorme.descrizione == "v3"){
+                        $("#capacita_edificatoria-label").hide();
+                        $("#capacita_edificatoria-element").hide(); 
+                        $("#submit").removeAttr("disabled", "false");
+
+                    }else {
+
+                        var label = 'Inputare volumetria: * (m3)';
+                        switch (dataNorme.descrizione) {
+                            case "v1": label = 'Inputare volumetria preesistente * (m3)';
+                            break;
+                            case "v2": label = 'Inputare volumetria predefinita: * (m3)';
+                            break;
+                            case "v4": label = 'Inputare volumetria preesistente: * (m3)';
+                            break;
+                            case "u1": label = 'Inputare voumetria slp preesistente: * (m2spl)';
+                            break;
+                            case "u2": label = 'Inputare slp predefinita: * (m2spl)';
+                            break;
+                            case "u4": label = 'Inputare voumetria slp preesistente: * (m2spl)';
+                            break;
+                        }
+
+                        $("#capacita_edificatoria-label").text(label);
+                        $("#capacita_edificatoria-label").show();
+                        $("#capacita_edificatoria-element").show();
+                        $("#submit").attr("disabled", "true");
                     }
 
-                    $("#capacita_edificatoria-label").text(label);
-                    $("#capacita_edificatoria-label").show();
-                    $("#capacita_edificatoria-element").show();
-                    $("#submit").attr("disabled", "true");
-                }
+                  });
 
-              });
-
-}
+    }
 
 
-function selModalitaIntervento(urbanizzato){
-    $.getJSON('http://localhost:10095/public/Ajax/search-modalitaintervento', 
-        { categoria: urbanizzato},
-              function(dataNorme){
-                //console.log(dataNorme);
-                $("select[id='id_u_modinterv']").empty();
-                
-                if (dataNorme.length==1){
-                    var options = '';
-                }else{
-                    var options = '<option value="">-- seleziona --</option>';
-                }                
-                
-                var arrayModalitaintervento = dataNorme;
+    function selModalitaIntervento(urbanizzato){
+        $.getJSON('http://localhost:10095/public/Ajax/search-modalitaintervento', 
+            { categoria: urbanizzato},
+                  function(dataNorme){
+                    //console.log(dataNorme);
+                    $("select[id='id_u_modinterv']").empty();
 
-               $.each(arrayModalitaintervento, function(key, value){
-                   //console.log(value);
-                   options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
-               });           
-                $("select[id='id_u_modinterv']").html(options);
+                    if (dataNorme.length==1){
+                        var options = '';
+                    }else{
+                        var options = '<option value="">-- seleziona --</option>';
+                    }                
 
-              });                      
-}
+                    var arrayModalitaintervento = dataNorme;
+
+                   $.each(arrayModalitaintervento, function(key, value){
+                       //console.log(value);
+                       options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
+                   });           
+                    $("select[id='id_u_modinterv']").html(options);
+
+                  });                      
+    }
+
 </script>
 <?=$this->headLink();?>    
 <?=$this->headScript();?>

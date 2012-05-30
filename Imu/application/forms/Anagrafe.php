@@ -34,8 +34,8 @@ class Application_Form_Anagrafe extends Zend_Form
         $cf->setLabel('Codice Fiscale: *');
         $cf->setRequired(true);
         $cf->addValidator($notEmpty, true);
-        $cf->addPrefixPath('CV_Validate', 'CV/Validate/', 'validate');
-        $cf->addValidator('isValidCF');
+        //$cf->addPrefixPath('CV_Validate', 'CV/Validate/', 'validate');
+        //$cf->addValidator('isValidCF');
         $this->addElement($cf);
         
         
@@ -46,10 +46,9 @@ class Application_Form_Anagrafe extends Zend_Form
         //$privacy->addDecorator('Label', array('class' => 'privacy'));
         $this->addElement($privacy);       
                 
-        //submit
-        
-        $url = $this->getView()->url(array('controller'=>'Lonatodelgarda','action'=>'stampa'));
-        $submit = $this->createElement('submit','stampa_soc', array('onClick'=>'window.open("'.$url.'","_blank")'));
+        //submit        
+        //$url = $this->getView()->url(array('controller'=>'Lonatodelgarda','action'=>'stampa'));
+        $submit = $this->createElement('submit','stampa_soc' /*, array('onClick'=>'doValidation2()')*/);
         $submit->setLabel('Stampa il documento');
         $submit->setRequired(true);
         $submit->class = 'button doc-button';

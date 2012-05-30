@@ -25,6 +25,8 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
     $this->url(array('controller' => $session->comune,
         'action' => 'index'), null, TRUE);
     ?>">Ricalcola</a>
+    <a id="stampa" class="button doc-button" href="#">Stampa</a>    
+    
 </div>
 <!-- stima -->
 <table id="risultati-anagrafe">
@@ -46,6 +48,37 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
     </tr>    
 </table>
 <div style="clear:both"></div>
+    <script type="text/javascript">
+        $(function()
+        {
+                        
+            $("#stampa").click(function(){
+                doValidation();                
+            });                   
+                       
+            function doValidation(){
+
+                var url = '/public/Ajax/validate-anagrafe';
+                
+                var data = {};
+                $('input').each(function(){
+                    data[$(this).attr('name')] = $(this).val();                    
+                });
+                
+                $.post(url,data,function(resp){
+                      console.log(data);
+                      console.log(resp);
+                      if (resp==true){
+                      window.open("/public/Lonatodelgarda/stampa","_blank");
+                    } 
+                    
+                },'json');
+                
+ 
+            }                                   
+                                    
+        });
+    </script>
 
 
 
