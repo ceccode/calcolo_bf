@@ -13,15 +13,6 @@ echo $this->doctype();
         <?php echo $this->render('partials/head_dojo.phtml'); ?>
         <?= $this->dojo(); ?>
         <?= $this->dojo()->addStylesheetModule('dijit.themes.soria'); ?>  
-
-        <script type="text/javascript">
-            $(document).ready(function(){
-
-                // non va indietro
-                window.history.forward(1);
-                                  
-            });
-        </script>  
     </head>
     <body class="soria">
         <?= $this->render('partials/header.phtml'); ?>

@@ -10,7 +10,7 @@ $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
 $step1 = $session->step1;
 
 $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
-$result = $lonato_u_sambiti->getVolumetria(intval($step1['id_u_sambiti']),$session->data_calcolo);
+$result = $lonato_u_sambiti->getVolumetria(intval($step1['id_u_sambiti']), $session->data_calcolo);
 $etichetta = $result[0]->indice_calcolo_capacita_edificatoria;
 
 if (strtolower($etichetta) == "v3") {
@@ -56,11 +56,11 @@ if (strtolower($etichetta) == "v3") {
 
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
 $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
-$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti'],$session->data_calcolo);
+$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti'], $session->data_calcolo);
 
 // prelevo i valori di stmt5 e li metto in dati_cessione
 foreach ($stmt5 as $chiave => $valore) {
-    $tabella_dati_cessione = $lonato_u_cessioni->getAll($step1["id_m_ambiti"], $valore["id_u_sdestinazioni"], $step1["id_u_modinterv"],$session->data_calcolo);
+    $tabella_dati_cessione = $lonato_u_cessioni->getAll($step1["id_m_ambiti"], $valore["id_u_sdestinazioni"], $step1["id_u_modinterv"], $session->data_calcolo);
     foreach ($tabella_dati_cessione as $chiave2 => $valore2) {
         // debug echo $step1["id_m_ambiti"]. " ". $valore["id_u_sdestinazioni"] . "quota monetizzabile: ". $valore2->quota_monetizzabile . "chiave: " . $chiave2 . "<br/>";
         $dati_cessione[$chiave] = array("quota_monetizzabile" => $valore2->quota_monetizzabile,
@@ -92,10 +92,10 @@ if ($vuoto == 0):
         <?= $session->indici_sambiti_stampa; ?>
 
     </div> 
-<div style="clear:both"></div>
+    <div style="clear:both"></div>
     <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; text-align: left; font-size: 120% ;margin-left: 10px;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Inserisci le quote di progetto</h4>
     <div id="div_form_2""> <!-- div con i dati form 2 -->
-        <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
+         <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
             <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
             <div id="corpo_destinazione_uso">
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
@@ -176,11 +176,11 @@ if ($vuoto == 0):
 
     <!-- torna al form1 -->
     <div style="clear:both"></div>
-    
+
     <!-- stima -->
     <table id="risultati" class="left">        
-    <caption>Risultato stimato</caption>    
-    <tr class="header-tabella1">
+        <caption>Risultato stimato</caption>    
+        <tr class="header-tabella1">
             <td>Capacità edificatoria calcolata</td>
             <td><span id="v_capacita_edificatoria"><?= $capacita_edificatoria ?></span></td>
             <td><?= $u_capacita_edificatoria ?></td>
@@ -198,29 +198,29 @@ if ($vuoto == 0):
     </table>
     <!-- end stima -->
     <!-- bottone ricalcola -->
-    <a id="button-ricalcola-form2" class="button doc-button" href="<?//= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
-   
+    <a id="button-ricalcola-form2" class="button doc-button" href="<? //= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE);  ?>">Ricalcola</a>    
+
 
     <script type="text/javascript">
         $(function()
         {
-            
-//        width: 30px;
+                
+            //        width: 30px;
             $("input[type=text]").css('width','30px');
-            
+                
             $("input").blur(function(){
                 //
                 var formElementId = ($(this).parent().prev().find('label').attr('for'));                
                 doValidation(formElementId);
-                                               
+                                                   
             });
-                                      
+                                          
             function doValidation(id){
 
                 var url = '/public/Ajax/validate-form-step2';
                 var url2 = '/public/Ajax/calcola-valore-stimato'; 
                 var url3 = '/public/Ajax/verifica-quote';    
-                
+                    
                 var data = {};
                 $('input').each(function(){
                     data[$(this).attr('name')] = $(this).val();
@@ -229,21 +229,20 @@ if ($vuoto == 0):
 
                 $.post(url,data,function(resp){
 
-                    $("#"+id).parent().find(".errors").remove();    
-                    $("#"+id).parent().append(getErrorHtml(resp[id],id));                     
-                                         
+                    $("#"+id).parent().find(".errors").remove();   
+                    $("#"+id).parent().append(getErrorHtml(resp[id],id));                         
                 },'json');
 
                 console.log(data);
-                                                                        
+                                                                            
                 $.post(url2,data,function(resp){
 
                     console.log(resp);
                     $('#v_valore_area_calcolata').html(resp.valore_area_calcolata);
                     $('#v_valore_area_edificabile').html(resp.valore_area_edificabile);                    
-                                         
+                                             
                 },'json');
-                
+                    
                 $.post(url3,data,function(resp){
 
                     console.log(resp);
@@ -252,17 +251,19 @@ if ($vuoto == 0):
                     if (resp.somma_quote){
                         $("#continua_stampa").removeAttr("disabled");
                         $("#errore_somma").html('');
+                        $('.form2-allinea').css('background','none');
                     }else {
                         $("#continua_stampa").attr("disabled", "true");
                         $("#errore_somma").html('La somma dei valori in ingresso non può essere maggiore di 1');
-                    }                   
+                    }
+                        
                 },'json');                
-                                                       
-                                    
+                                                           
+                                        
             }
 
             function getErrorHtml(formsError, id){
-                var o = '<ul id="errors-'+id+'" class="errors">';
+                var o = '<ul id="errors-'+id+'" class="form2-allinea errors">';
                 for(errorKeys in formsError)
                 {
                     o += '<li>'+formsError[errorKeys]+'</li>';
@@ -270,8 +271,8 @@ if ($vuoto == 0):
                 o += '</ul>';
                 return o;
             }
-                                    
-                                    
+                                        
+                                        
         });
     </script>
 <?php else: ?>

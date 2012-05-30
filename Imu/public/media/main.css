@@ -35,6 +35,7 @@ body {
     border-right:8px solid #93aef5;
     padding-bottom: 10px;
     overflow:auto;
+    position:relative;
 }
 
 #footer {
@@ -183,6 +184,7 @@ form.informa dt {
     clear: left;
     padding: 5px;   
 }
+/* per zend form */
 form dd {
     margin-left: 0;
     /*float: left;*/
@@ -287,8 +289,8 @@ ul.errors{
 #risultati_calcolo_stima{
     /*background-color: #C5DBF9;*/
     width: 100%;
-    height: 510px;
-    margin-bottom: 20px;
+    height: 542px;
+    position:relative;
 }
 
 #tabella2-left{}
@@ -319,6 +321,7 @@ ul.errors{
 }
 
 #continua_stampa{
+    position:relative;
     font-size:11px;
     padding: 12px;
     font-family:"Tahoma", "Bitstream Vera";
@@ -375,8 +378,9 @@ ul.errors{
     min-height: 200px;
 }
 #div_form_2{
+    z-index:1;
     width: 970px;
-    overflow:auto;
+/*    overflow:auto;*/
     font-size: 12px;
     margin-left:10px;
 }
@@ -434,6 +438,7 @@ ul.errors{
 #corpo_quota_progetto{
     width: 55px;
     padding-left: 5px;
+    padding-top:0px;
 }
 #header-um-cessione{
     width:95px;
@@ -444,7 +449,7 @@ ul.errors{
 #corpo-um-cessione{
     width:95px;
     padding-left: 5px;
-    padding-top: 10px;
+    padding-top: 14px;
 }
 #header-cessione{
     width:90px;
@@ -455,7 +460,7 @@ ul.errors{
 #corpo-cessione{
     width:90px;
     padding-left: 15px;
-    padding-top: 10px;
+    padding-top: 14px;
 }
 #header-quota-monetaria{
     width: 98px;
@@ -467,14 +472,14 @@ ul.errors{
 #corpo-quota-monetaria{
     width:90px;
     padding-left: 15px;
-    padding-top: 10px;
+    padding-top: 14px;
 }   
 
 .blocco_tabella2{
-    height: 33px;
-    margin-top: auto;
-    margin-bottom:auto;
+    height: 45px;
+    margin:0;
     width:100%;
+    overflow:auto;
 }
 #calcolo_imu_lonato_step2 .zend_form{
     margin-top: 0px;
@@ -485,11 +490,24 @@ ul.errors{
     margin:0;
 }
 #calcolo_imu_lonato_step2 dd{
-    margin-top: 8px;
-    margin-bottom:8px;
+    height:23px;
+    margin-top: 0px;
+    margin-left:5px;
+    margin-bottom:0px;
     padding: 0;   
-    padding-top:2px;
+    padding-top: 12px;
+    padding-bottom:10px;  
+}
 
+.form2-allinea{
+    position:relative;
+    z-index:2;
+    margin-left: 39px !important; /* supportato da tutti i browser ie5+ */
+    padding-left: 5px !important;
+    margin-top: -22px !important;
+    width:160px;
+    overflow:auto;
+    background-color: #cccccc;
 }
 
 /* ////// fine tabella form 2 ////// */
@@ -519,9 +537,11 @@ ul.errors{
 /* /////// inizio stile anagrafe(step3) /////// */
 
 #button-ricalcola-anagrafe{
-    margin-left: 104px;
+    position:relative;
+    float:right;
+    margin-right: 10px;
 /*    margin-top: -58px;*/
-    margin-top: -61px;
+    margin-top: 65px;
     font-size:11px;
     min-width: 90px;
     padding-left: 40px;
@@ -551,6 +571,8 @@ padding: 12px;
 }
 
 #risultati-anagrafe{
+    position:relative;
+    margin-left:110px;
     font-size: 15px;
     float:right;
     margin-top: 10px;

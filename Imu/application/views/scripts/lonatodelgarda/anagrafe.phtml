@@ -5,7 +5,7 @@ $session = new Zend_Session_Namespace('step1');
 $values = $this->values;
 
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
-$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti'],$session->data_calcolo);
+$stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti'], $session->data_calcolo);
 ?>
 
 <div id="risultati_calcolo_stima">
@@ -20,6 +20,7 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
 <div style="clear:both;"></div>
 <div id="form-anagrafe">
     <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; margin-left: 5px; text-align: left; font-size: 120% ;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Inserisci i tuoi dati per stampare il documento</h4>
+<<<<<<< HEAD
     <?=$this->form ?>
     <a id="button-ricalcola-anagrafe" class="button doc-button" href="<?=
     $this->url(array('controller' => $session->comune,
@@ -27,7 +28,11 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
     ?>">Ricalcola</a>
     <a id="stampa" class="button doc-button" href="#">Stampa</a>    
     
+=======
+    <?= $this->form ?>
+>>>>>>> fixato grafica un pooooco
 </div>
+
 <!-- stima -->
 <table id="risultati-anagrafe">
     <caption>Risultato stimato</caption>      
@@ -47,6 +52,11 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
         <td>(Euro/m3)</td>        
     </tr>    
 </table>
+<!-- ricalcola -->
+<a id="button-ricalcola-anagrafe" class="button doc-button" href="<?=
+    $this->url(array('controller' => $session->comune,
+        'action' => 'index'), null, TRUE);
+    ?>">Ricalcola</a>
 <div style="clear:both"></div>
     <script type="text/javascript">
         $(function()
