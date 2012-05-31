@@ -4,6 +4,7 @@
     $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
     $step1 = $session->step1;    
     $id_s_ambito = $step1['id_u_sambiti'];
+    $area_urbanizzata = $step1['area_urbanizzata'];
     //var_dump($id_s_ambito);    
     $this->headTitle("Calcolo imu lonato");
     echo $this->form;
@@ -24,8 +25,12 @@ $(function()
 
      var label_superficie = $('#superficie-label');
      
-     label_lotto_saturo.hide();
-     id_lotto_saturo.hide(); 
+     <? if (isset($area_urbanizzata)){
+         ;        
+     }else{ echo 'label_lotto_saturo.hide();id_lotto_saturo.hide(); '; }?>       
+     
+//     label_lotto_saturo.hide();
+//     id_lotto_saturo.hide(); 
 
      <? if (isset($id_s_ambito)){
          echo "inputVolumetria(". $id_s_ambito. ")";        
