@@ -43,7 +43,9 @@ if (isset($area_urbanizzata)) {
 
 <?
 if (isset($id_m_ambito)) {
-    echo '$("option").val(' . $id_m_ambito . ').attr("selected",true)';
+    //echo '$("#id_m_ambiti option:eq(' . $id_m_ambito . ')").attr("selected", "selected");';
+    //echo '$("#id_m_ambiti option").prop("selectedIndex", ' . $id_m_ambito . ')';
+    echo '$("#selectBox :nth-child(' . $id_m_ambito . ')").attr("selected", "selected")';
 }
 ?>
 
