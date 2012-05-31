@@ -37,7 +37,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
     public function indexAction() {
         // setto il layout
-        $this->_helper->_layout->setLayout('dojo');
+        //$this->_helper->_layout->setLayout('dojo');
 
         // comune
         $comune = null;

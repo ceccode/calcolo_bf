@@ -1,10 +1,22 @@
 <div id="header">
-    <div id="name">
+    <div id="name" style="width:1000px;">
         <?php // prendo il nome comune
         $session = new Zend_Session_Namespace('step1');
         $comune = $session->comune;
+        $data_calcolo = $session->data_calcolo;
+        // prendo solo l'anno
+        $data_calcolo = explode("-", $data_calcolo);
+        $data_calcolo = $data_calcolo[0];
         ?>
-        <h1><a style="color:#000;" href="<?= $this->url(array('controller' => $comune, 'action' => 'index'), null, TRUE); ?>">LOGO</a> <span style="font-size: 40%;">Calcolo del valore delle aree fabbricabili</span></h1>
+        <h1 style="float:left"><a style="color:#000;" href="<?= $this->url(array('controller' => $comune, 'action' => 'index'), null, TRUE); ?>">LOGO</a> <span style="font-size: 40%;">Calcolo del valore delle aree fabbricabili</span></h1>
+        <?php if($comune): ?>
+        <h3 style="float:right; font-size:0.9em; margin-top:41px; margin-bottom:5px; margin-right:2px;">Comune: <span style="font-weight: 100; margin-right:5px;"><?= $comune ?></span>
+        <?php endif; ?>
+        <?php if($data_calcolo): ?>
+        Anno calcolo: <span style="font-weight: 100"><?= $data_calcolo ?></span>
+        <?php endif; ?>
+        </h3>
+        
     </div>
     <div id="logo">      
     </div>
