@@ -132,7 +132,7 @@ if ($vuoto == 0):
         </div>
 
         <div class="left copri_tabella2"> <!-- colonna5 -->
-            <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto</div>
+            <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto*</div>
             <div id="corpo_quota_progetto">
                 <?= $this->form; ?>
             </div>
@@ -171,6 +171,7 @@ if ($vuoto == 0):
             </div>
         <?php endif; ?>
         <!-- div errore sommma maggiore di 1 -->
+        <div style="margin-left:10px; width: 350px;"><small>* La somma delle quote di progetto deve essere pari a 100.</small></div>        
         <div style="color: red; font-size: 11px;margin-left:10px; width: 350px;" id="errore_somma" ></div>
     </div> <!-- end tabella2 -->
 
