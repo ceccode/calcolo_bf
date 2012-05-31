@@ -670,3 +670,28 @@ table a:active
 #privacy {
     margin: 20px;
 }
+
+/* per la pagina di errore */
+#errore-sotto{
+    width: 980px;
+    heigh: 400px;
+    padding-left: 10px;
+}
+
+#content-errore{
+    width: 980px;
+    height:300px;
+    margin-bottom:100px;
+    padding-left:10px;
+}
+
+#button-ricalcola-errore{
+    position:relative;
+/*    margin-left: 613px;*/
+/*    margin-top: -54px;*/
+    font-size:11px;
+    margin-top: 55px;
+    margin-left: 100px;
+    min-width: 90px;
+    padding-left: 40px;
+}
