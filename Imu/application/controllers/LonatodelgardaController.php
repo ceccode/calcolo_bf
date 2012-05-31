@@ -29,16 +29,28 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
         $this->lonato_log = Factory_dbTable::getClass("017092", "log");
         $this->lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
-        $this->lonato_anni= Factory_dbTable::getClass("017092", "anni");
+        $this->lonato_anni = Factory_dbTable::getClass("017092", "anni");
         // setto il comune
         $session = new Zend_Session_Namespace('step1');
         $session->comune = "Lonatodelgarda";
     }
 
     public function indexAction() {
+        // resetto tutto eccetto il comune
+        $session = new Zend_Session_Namespace('step1');
+        $session->data_calcolo = null;
+        $session->step1 = null;
+        $session->capacitaEdificatoria = null;
+        $session->indici_mambiti_stampa = null;
+        $session->indici_sambiti_stampa = null;
+        $session->stimaUnitaria = null;
+        $session->valoreAreaEdificabile = null;
+        $session->riassunto_step1_txt = null;
+        $session->quote = null;
+        $session->indici_u_sambiti_txt = null;
+
         // setto il layout
         //$this->_helper->_layout->setLayout('dojo');
-
         // comune
         $comune = null;
 
@@ -132,6 +144,19 @@ class LonatodelgardaController extends Zend_Controller_Action {
     }
 
     public function selezioneAmbitiAction() {
+        // resetto tutto eccetto il comune
+        // eccetto la data
+//        $session = new Zend_Session_Namespace('step1');
+//        $session->step1 = null;
+//        $session->capacitaEdificatoria = null;
+//        $session->indici_mambiti_stampa = null;
+//        $session->indici_sambiti_stampa = null;
+//        $session->stimaUnitaria = null;
+//        $session->valoreAreaEdificabile = null;
+//        $session->riassunto_step1_txt = null;
+//        $session->quote = null;
+//        $session->indici_u_sambiti_txt = null;
+
         // action body
         $form = new Application_Form_Lonatodelgarda();
 
@@ -313,9 +338,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $stampa.='<tr>';
             $stampa.="<td>Contributo compensativo aggiuntivo</td>";
             $contributo_compensativo_aggiuntivo = $valore_mambiti_riga->contributo_compensativo_aggiuntivo;
-            if ($contributo_compensativo_aggiuntivo==0){
+            if ($contributo_compensativo_aggiuntivo == 0) {
                 $contributo_compensativo_aggiuntivo = 'No';
-            }else {
+            } else {
                 $contributo_compensativo_aggiuntivo = 'Si';
             }
             $stampa.="<td>" . $contributo_compensativo_aggiuntivo . "</td>";
@@ -325,8 +350,8 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $stampa.="<td>Standard pubblico qualità</td>";
             $standard_pubblico_qualita = $valore_mambiti_riga->standard_pubblico_qualita;
             $valore_ambiti_riga = (($valore_mambiti_riga->standard_pubblico_qualita) * 100);
-            $stampa.="<td>" . $valore_ambiti_riga . " %" ."</td>";
-            $stampa.="<td>mqSlp</td>";            
+            $stampa.="<td>" . $valore_ambiti_riga . " %" . "</td>";
+            $stampa.="<td>mqSlp</td>";
             // chiudo la tabella     
             $stampa.='</table>';
         }
@@ -496,15 +521,15 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         $session = new Zend_Session_Namespace('step1');
 
-        
-        
+
+
         // preparo i dati di far per la step2: devono essere tutti in indice da 0 a n
         $indice = 0;
         foreach ($valori as $chiave => $valore) {
-            
+
 //            $valore = str_ireplace('.', ',', $valore);
 //            $valore = floatval($valore);
-            
+
             if ($valore)
                 $percentualeQuote[$indice] = $valore;
             else

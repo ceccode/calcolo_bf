@@ -7,6 +7,9 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
+        // resetto la sessione
+        Zend_Session::namespaceUnset('step1');
+        
         // setto il layout
         $this->_helper->_layout->setLayout('dojo');
 
