@@ -2,9 +2,9 @@
     <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; text-align: left; font-size: 120% ;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Compila i campi sottostanti e premi il pulsante: "continua il calcolo".</h4>    
 <?
     $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
-    $step1 = $session->step1;
-    $id_s_ambito = $session->id_s_ambito;
-
+    $step1 = $session->step1;    
+    $id_s_ambito = $step1['id_u_sambiti'];
+    //var_dump($id_s_ambito);    
     $this->headTitle("Calcolo imu lonato");
     echo $this->form;
 ?>
@@ -29,8 +29,7 @@ $(function()
 
      <? if (isset($id_s_ambito)){
          echo "inputVolumetria(". $id_s_ambito. ")";        
-     }else{ echo 'inputVolumetria(1)'; }?>
-     
+     }else{ echo 'inputVolumetria(1)'; }?>     
      //inputVolumetria(1);
 
 
