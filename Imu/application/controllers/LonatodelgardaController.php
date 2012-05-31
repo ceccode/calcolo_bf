@@ -432,7 +432,8 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stampa.='<tr ';
         $stampa.=($values["area_urbanizzata"] == 1) ? "class='header-tabella1'" : "";
         $stampa.='>';
-        $stampa.=($values["area_urbanizzata"] == 1) ? "<td>Superficie Fondiaria  (m2)</td>" : "<td>Superficie Territoriale (m2)</td>";
+        $tmptxtsup=($values["area_urbanizzata"] == 1) ? "Superficie Fondiaria  (m2)" : "Superficie Territoriale (m2)";
+        $stampa.="<td>" .$tmptxtsup . "</td>";
         $stampa.="<td>" . $values["superficie"] . "</td>";
 
         // volumetria
@@ -475,7 +476,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
             "area_urbanizzata" => $area_urbanizzata,
             "lotto_saturo" => $lotto_saturo,
             "modalita_intervento" => $modalita_intervento,
+            "superficie_etichetta" => $tmptxtsup,
             "superficie" => $values["superficie"],
+            "volumetria_etichetta" => $volumetria,
             "volumetria" => $values["capacita_edificatoria"]);
         // salvo in sessione
         $session->riassunto_step1 = $stampa;

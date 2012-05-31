@@ -50,8 +50,10 @@ $zona                    = $riassunto_form_1["nome_zona"];
 $area_urbanizzata        = $riassunto_form_1["area_urbanizzata"];
 $modalita_intervento     = $riassunto_form_1["modalita_intervento"];
 $lotto_saturo            = $riassunto_form_1["lotto_saturo"];
+$superficie_etichetta    = $riassunto_form_1["superficie_etichetta"];
 $superficie_territoriale = $riassunto_form_1["superficie"];
-$capacita_edificatoria   = $riassunto_form_1["volumetria"];
+$volumetria_etichetta = $riassunto_form_1["volumetria_etichetta"];
+$volumetria   = $riassunto_form_1["volumetria"];
 
 /*
  * destinazioni ammesse
@@ -279,12 +281,12 @@ $tbl_riassunto = <<<EOD
         <td style="width:70%;">$lotto_saturo</td>        
     </tr>  
     <tr>
-        <td style="width:30%;">Superficie territoriale</td>
+        <td style="width:30%;">$superficie_etichetta</td>
         <td style="width:70%;">$superficie_territoriale</td>        
     </tr>  
     <tr>
-        <td style="width:30%;">Capacita edificatoria</td>
-        <td style="width:70%;">$capacita_edificatoria</td>        
+        <td style="width:30%;">$volumetria_etichetta</td>
+        <td style="width:70%;">$volumetria</td>        
     </tr>      
 </table>
 EOD;
