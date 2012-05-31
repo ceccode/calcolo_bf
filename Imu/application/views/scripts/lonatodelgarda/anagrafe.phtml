@@ -23,7 +23,11 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
     <?= $this->form ?>
         <a id="stampa" class="button doc-button" href="#">Stampa</a>    
 </div>
-
+<!-- ricalcola -->
+<a id="button-ricalcola-anagrafe" class="button doc-button" href="<?=
+    $this->url(array('controller' => $session->comune,
+        'action' => 'index'), null, TRUE);
+    ?>">Ricalcola</a>
 <!-- stima -->
 <table id="risultati-anagrafe">
     <caption>Risultato stimato</caption>      
@@ -43,11 +47,6 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
         <td>(Euro/m3)</td>        
     </tr>    
 </table>
-<!-- ricalcola -->
-<a id="button-ricalcola-anagrafe" class="button doc-button" href="<?=
-    $this->url(array('controller' => $session->comune,
-        'action' => 'index'), null, TRUE);
-    ?>">Ricalcola</a>
 <div style="clear:both"></div>
     <script type="text/javascript">
         $(function()

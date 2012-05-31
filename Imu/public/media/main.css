@@ -541,7 +541,7 @@ ul.errors{
     float:right;
     margin-right: 10px;
 /*    margin-top: -58px;*/
-    margin-top: 65px;
+    margin-top: 45px;
     font-size:11px;
     min-width: 90px;
     padding-left: 40px;
@@ -563,7 +563,7 @@ padding: 12px;
 
 
 #form-anagrafe{
-    width:500px;
+    width:450px;
     float:left;
     margin-left:10px;
     margin-top:10px;    
@@ -572,10 +572,10 @@ padding: 12px;
 
 #risultati-anagrafe{
     position:relative;
-    margin-left:110px;
+    margin-left:0px;
     font-size: 15px;
     float:right;
-    margin-top: 10px;
+/*    margin-top: 10px;*/
     margin-right: 10px;
 }
 
