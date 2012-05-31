@@ -40,7 +40,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session = new Zend_Session_Namespace('step1');
         $session->data_calcolo = null;
         $session->step1 = null;
-        $session->capacitaEdificatoria = null;
+        $session->capacita_edificatoria = null;
         $session->indici_mambiti_stampa = null;
         $session->indici_sambiti_stampa = null;
         $session->stimaUnitaria = null;
@@ -134,7 +134,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->view->values = $values;
         $this->view->anagrafe = $anagrafe;
         $this->view->riassunto_step1_txt = $session->riassunto_step1_txt;
-        $this->view->capacitaEdificatoria = $session->capacitaEdificatoria;
+        $this->view->capacita_edificatoria = $session->capacita_edificatoria;
         $this->view->stimaUnitaria = $session->stimaUnitaria;
         $this->view->valoreAreaEdificabile = $session->valoreAreaEdificabile;
         $this->view->indici_u_sambiti_stampa = $session->indici_u_sambiti_txt;
@@ -544,11 +544,11 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // effettuo il calcolo della stima e capacit√† edificatoria
         require_once APPLICATION_PATH . "/models/Elaborazione/stima.php";
         // capacita edificatoria
-        $session->capacitaEdificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
+        $session->capacita_edificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
         // metto in sessione la stima unitaria
         $session->stimaUnitaria = Stima::calcolaStimaSingolaLonato($percentualeQuote);
         // calcolo valore area edificabile: semplice moltiplicazione
-        $session->valoreAreaEdificabile = $session->stimaUnitaria * $session->capacitaEdificatoria;
+        $session->valoreAreaEdificabile = $session->stimaUnitaria * $session->capacita_edificatoria;
         return true; // non ho incontrato errori
     }
 

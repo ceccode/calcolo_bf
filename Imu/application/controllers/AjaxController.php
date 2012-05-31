@@ -258,7 +258,7 @@ class AjaxController extends Zend_Controller_Action
         // capacita edificatoria
         // metto in sessione la stima unitaria
         $valore_stimato = Stima::calcolaStimaSingolaLonato($new_input_utente);   
-        $valore_stimato2 = $valore_stimato * $session->capacitaEdificatoria;    
+        $valore_stimato2 = $valore_stimato * $session->capacita_edificatoria;    
         
         $ret = array('valore_area_calcolata' => $valore_stimato, 'valore_area_edificabile' => $valore_stimato2);
         

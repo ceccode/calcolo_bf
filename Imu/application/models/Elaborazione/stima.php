@@ -35,6 +35,7 @@ class Stima {
         foreach($numeri as $chiave => $valore){
             $corretto[$chiave]= (float)($valore/100);
         }
+        //$corretto= Stima::correggiFloat($corretto);
         return $corretto;
     }
 
@@ -85,7 +86,7 @@ class Stima {
          // data del calcolo
         $data_calcolo = $session->data_calcolo;
         // capacità edificatoria
-        $capacita_edificatoria = $session->capacitaEdificatoria;
+        $capacita_edificatoria = $session->capacita_edificatoria;
         //form2
         $form2 = $lonato_u_destammesse->filtroDestinazioniAmmesse($valoriForm1['id_m_ambiti'],$data_calcolo);
 
