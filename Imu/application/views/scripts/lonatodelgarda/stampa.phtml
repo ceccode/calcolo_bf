@@ -13,6 +13,8 @@ $data_calcolo= $this->data_calcolo;
 require_once APPLICATION_PATH . '/../library/tcpdf/config/lang/ita.php';
 require_once APPLICATION_PATH . '/../library/tcpdf/tcpdf.php';
 require_once APPLICATION_PATH . '/models/Utility.php';
+require_once APPLICATION_PATH . '/models/Elaborazione/stima.php';
+
 $utility_handle = new Utility();
 
 /*
@@ -290,14 +292,14 @@ $pdf->writeHTML($tbl_riassunto, true, false, false, false, '');
 
 //destinazioni
 $tbl_destinazioni = '<table style="font-size: 40px;">';
-$tbl_destinazioni .= '<tr><td>Destinazioni ammesse</td><td>Quota di progetto massima</td><td>Soglia dimensionale massima</td><td>Peso standard della destinazione</td><td>Quota di progetto inserita</td></tr>';
+$tbl_destinazioni .= '<tr><td>Destinazioni ammesse</td><td>Quota di progetto massima %</td><td>Soglia dimensionale massima</td><td>Peso standard della destinazione</td><td>Quota di progetto inserita %</td></tr>';
 
 foreach ($stmt5 as $key => $value) {
     //$label = $value->descrizione;
     //$id = $value->id_u_destammesse;
 
     $descrizione = htmlspecialchars_decode(html_entity_decode($value->descrizione));
-    $quota_max   = htmlspecialchars_decode(html_entity_decode($value->quota_massima_ammissibile));
+    $quota_max_ammissibile   = htmlspecialchars_decode(html_entity_decode(round(100*Stima::correggiFloat($value->quota_massima_ammissibile)))); // messo in percentuale
     $quota_max   = htmlspecialchars_decode(html_entity_decode($value->soglia_dimensione_massima));
     $quota_per   = htmlspecialchars_decode(html_entity_decode($value->quota_percentuale));    
     $quota_inserita = $quote[$key];
@@ -305,7 +307,7 @@ foreach ($stmt5 as $key => $value) {
     
     $tbl_destinazioni .= '<tr>';
     $tbl_destinazioni .= '<td>' . $descrizione . '</td>';
-    $tbl_destinazioni .= '<td>' . $quota_max   . '</td>';
+    $tbl_destinazioni .= '<td>' . $quota_max_ammissibile   . '</td>';
     $tbl_destinazioni .= '<td>' . $quota_max   . '</td>';
     $tbl_destinazioni .= '<td>' . $quota_per   . '</td>';
     $tbl_destinazioni .= '<td>' . $quota_inserita . '</td>';

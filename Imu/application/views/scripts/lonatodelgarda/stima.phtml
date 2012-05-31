@@ -108,7 +108,8 @@ if ($vuoto == 0):
             <div id="header_quota_massima_ammissibile" class="border_sotto  grigio">Quota massima ammissibile %</div>
             <div id="corpo_quota_massima_ammissibile" >
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
-                    <div id="quota-<?= $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?= $valore['quota_massima_ammissibile'] ?></div>
+                    <!-- quota corretta in percentuale -->
+                    <div id="quota-<?= $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?= round(100*Stima::correggiFloat($valore['quota_massima_ammissibile'])); ?></div>
                 <?php endforeach; ?>
             </div>
         </div>
