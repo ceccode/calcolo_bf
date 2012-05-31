@@ -170,19 +170,21 @@ if ($vuoto == 0):
                 </div>
             </div>
         <?php endif; ?>
-        <!-- div errore sommma maggiore di 1 -->
-        <div style="margin-left:10px; width: 350px;"><small>* La somma delle quote di progetto deve essere pari a 100.</small></div>        
-        <div style="color: red; font-size: 11px;margin-left:10px; width: 350px;" id="errore_somma" ></div>
-  
+   
             <!-- div totale somma -->
      <!--   <div id="totale-somma">
             totale: 100%
         </div> -->
     </div> <!-- end tabella2 -->
-
+  
     <!-- torna al form1 -->
     <div style="clear:both"></div>
-
+   <div id="totale-somma"><span>Totale</span><span id="somma"></span></div>
+    <!-- div errore sommma maggiore di 1 -->
+        <div style="margin-left:10px; width: 350px;"><small>* La somma delle quote di progetto deve essere pari a 100.</small></div>        
+        <div style="color: red; font-size: 11px;margin-left:10px; width: 350px;" id="errore_somma" ></div>
+    <div style="clear:both"></div>
+ 
     <!-- stima -->
     <table id="risultati" class="left">        
         <caption>Risultato stimato</caption>    
@@ -205,7 +207,6 @@ if ($vuoto == 0):
     <!-- end stima -->
     <!-- bottone ricalcola -->
     <a id="button-ricalcola-form2" class="button doc-button" href="<?=$this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE);  ?>">Ricalcola</a>    
-
 
     <script type="text/javascript">
         $(function()

@@ -24,36 +24,33 @@ class Stima {
     }
 
     /**
-     * corregge i valore float con le virgole in quote e 
-     * verifica che la somma delle quote sia <1 
-     * in caso negativo lancia un exception
+     * Questo metodo corregge le quote in input percentuali nella
+     * percentuale effettiva decimale i
      * 
-     * @param type $quote quote percentuali in input
+     * @param type $numeri
+     * @return type 
      */
-    public static function verificaCorreggiStima($quote) {
-        $quote = Stima::correggiFloat($quote);
-        $somma = 0;
-        foreach ($quote as $key => $value) {
-            $somma+=$quote[$key];
+    public static function convertiPercentualeStima($numeri){
+        $corretto= array();
+        foreach($numeri as $chiave => $valore){
+            $corretto[$chiave]= (float)($valore/100);
         }
-        return $quote;
+        return $corretto;
     }
 
     /**
-     * Medodo per controllare se la somma è corretta(usato in ajax form)
+     * Questo metodo ritorna la somma delle quote percentuali
+     * arrotonda i valori in input(i valori dovrebbero essere interi) 
+     * ATTENZIONE: non controlle se è un array
      */
     public static function verificaQuote($quote){
-        $quote = Stima::correggiFloat($quote);
         $somma=0;
         foreach ($quote as $key => $value){
-
-            $somma+=$quote[$key];
+            
+            $somma+=round($value);
         }
 
-        if ($somma > 1)
-            return false;
-        else
-            return true;
+        return $somma;
     }
 
     /**
@@ -79,7 +76,7 @@ class Stima {
         $lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
         $lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
         // quote in input corrette
-        $quote = Stima::verificaCorreggiStima($quote_input);
+        $quote = Stima::convertiPercentualeStima($quote_input);
         $stima = 0; // stima unitaria: inizializzata a 0
         $tstima = 0; // stima temporanea usata per i calcoli 
         // prendo i valori del form1 dalla sessione
