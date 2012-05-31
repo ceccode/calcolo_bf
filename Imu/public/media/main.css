@@ -294,6 +294,7 @@ ul.errors{
     font-family:"Tahoma", "Bitstream Vera";
     margin-top: 40px;
     margin-left: 100px;
+}
 
 #risultati_calcolo_stima{
     /*background-color: #C5DBF9;*/
@@ -329,7 +330,7 @@ ul.errors{
     padding-left: 40px;
 }
 
-}
+
 /* margin-legt 100px dal form submitbutton */
 #risultati{
 /*    font-size: 15px; 
@@ -427,7 +428,7 @@ ul.errors{
 #corpo_peso_standard{
     width: 56px;
     padding-top: 14px;
-    padding-left: 5px;
+/*    padding-left: 5px;*/
 }
 #header_quota_progetto{
     width: 55px;
@@ -479,6 +480,7 @@ ul.errors{
     height: 45px;
     margin:0;
     width:100%;
+    padding-left:5px;
     overflow:auto;
 }
 #calcolo_imu_lonato_step2 .zend_form{
@@ -511,12 +513,13 @@ ul.errors{
 }
 
 #totale-somma{
-    border: 1px solid black;
+    font-size:14px;
+    font-weight: bold;
     width: 82px;
     height: 23px;
-    margin-left: 403px;
+    margin-left: 6px;
     position:relative;
-    margin-top:-42px;
+    margin-top:-44px;
 }
 /* ////// fine tabella form 2 ////// */
 
