@@ -6,20 +6,20 @@
 </head>
 <body>
     <div id="content-errore">
-  <h1>Ops, è successo un errore</h1>
-  <h2><?php echo $this->message ?></h2>
+  <h1>Ops, c'è stato un errore.</h1>
+  <p style="margin-bottom: 0px;">Premi su ricalcola per rieseguire la stima.</p>
 
+  <!-- bottone ricalcola -->
+  <?php $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione ?>
+  <a id="button-ricalcola-errore" class="button doc-button left" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE);  ?>">Ricalcola</a>
+  <div style="clear:both"></div>
+  
+  <h2 style="margin-top: 30px;"><?php echo $this->message ?></h2>
   <?php if (isset($this->exception)): ?>
-
   <h3>Informazioni sull'errore:</h3>
   <p>
       <b>Messaggio:</b> <?php echo $this->exception->getMessage() ?>
-  </p>
-  
-  <!-- bottone ricalcola -->
-  <?php $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione ?>
-  <a id="button-ricalcola-errore" class="button doc-button left" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE);  ?>">Ricalcola</a>    
-
+  </p>     
     </div>
   <div id="errore-sotto">
   <h3>Stack trace:</h3>
