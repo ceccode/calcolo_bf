@@ -38,11 +38,17 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
         $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");        
         $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($this->_id_u_mambito,$data_calcolo);
         
+        require_once APPLICATION_PATH . "/models/Elaborazione/stima.php";
+        
         foreach ($stmt5 as $value) {
 
             $label = $value->descrizione;
             $id    = $value->id_u_destammesse;
             $quota = $value->quota_massima_ammissibile;   
+            
+            
+            $quota = Stima::correggiFloat($quota);
+            $quota = $quota * 100;
             
             //cepp
             $cepp = $this->createElement('text', $id, array());
@@ -53,7 +59,7 @@ class Application_Form_Lonatodelgardastep2 extends Zend_Form
 //            
 //            $cepp->addValidator($ValidateFloat);
             
-            $cepp->addValidator('Float', false, array('messages' => 'Solo cifre separate da virgola'));
+            $cepp->addValidator('Digits', false, array('messages' => 'Solo cifre'));
             $cepp->addValidator('Between', false, array('min' => 0, 'max' => $quota, 'messages' => "Questo valore non può essere maggiore di $quota" ));
             $this->addElement($cepp);       
             
