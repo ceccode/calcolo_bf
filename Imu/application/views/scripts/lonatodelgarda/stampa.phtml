@@ -317,25 +317,23 @@ $tbl_destinazioni .= '</table>';
 $pdf->writeHTML($tbl_destinazioni, true, false, false, false, '');
 
 
-
-//indici macro
 $tbl_risultati = <<<EOD
 <h1>Indici relativi ai macro ambiti</h1>
-<table style="font-size: 40px;">
+<table style="font-size: 40px; width:70%;">
         <tr class="odd">
-            <td>Contributo compensativo aggiuntivo</td>
-            <td>$contributo_compensativo_aggiuntivo</td> 
+            <td style="width:60%;">Contributo compensativo aggiuntivo</td>
+            <td style="width:20%;">$contributo_compensativo_aggiuntivo</td> 
             <td></td>
         </tr>
         <tr>
-            <td>Valore comprensativo unitario</td>
-            <td>$valore_comprensativo_unitario</td> 
-            <td></td>
+            <td style="width:60%;">Valore comprensativo unitario</td>
+            <td style="width:20%;">$valore_comprensativo_unitario</td> 
+            <td>Euro/m2</td>
         </tr>
         <tr class="odd">
-            <td>Standard pubblico qualit&agrave;</td>
-            <td>$standard_pubblico_qualita</td>
-            <td></td>
+            <td style="width:60%;">Standard pubblico qualit&agrave;</td>
+            <td style="width:20%;">$standard_pubblico_qualita</td>
+            <td>mqSlp</td>
         </tr>
 </table>
 EOD;

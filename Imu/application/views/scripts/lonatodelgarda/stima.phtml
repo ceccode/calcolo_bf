@@ -236,7 +236,8 @@ if ($vuoto == 0):
                 $.post(url,data,function(resp){
 
                     $("#"+id).parent().find(".errors").remove();   
-                    $("#"+id).parent().append(getErrorHtml(resp[id],id));                         
+                    $("#"+id).parent().append(getErrorHtml(resp[id],id)); 
+
                 },'json');
                                                                                     
                 $.post(url2,data,function(resp){
