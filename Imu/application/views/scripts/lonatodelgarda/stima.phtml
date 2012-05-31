@@ -94,8 +94,8 @@ if ($vuoto == 0):
     </div> 
     <div style="clear:both"></div>
     <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; text-align: left; font-size: 120% ;margin-left: 10px;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Inserisci le quote di progetto</h4>
-    <div id="div_form_2""> <!-- div con i dati form 2 -->
-         <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
+    <div id="div_form_2" class="border_sotto"> <!-- div con i dati form 2 -->
+        <div class="left copri_tabella2 border_destra"> <!-- colonna1 -->
             <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
             <div id="corpo_destinazione_uso">
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
@@ -106,10 +106,10 @@ if ($vuoto == 0):
 
         <div class="left copri_tabella2 border_destra"> <!-- colonna2 -->
             <div id="header_quota_massima_ammissibile" class="border_sotto  grigio">Quota massima ammissibile %</div>
-            <div id="corpo_quota_massima_ammissibile" >
+            <div id="corpo_quota_massima_ammissibile">
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
                     <!-- quota corretta in percentuale -->
-                    <div id="quota-<?= $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?= round(100*Stima::correggiFloat($valore['quota_massima_ammissibile'])); ?></div>
+                    <div id="quota-<?= $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?= round(100 * Stima::correggiFloat($valore['quota_massima_ammissibile'])); ?></div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -129,6 +129,8 @@ if ($vuoto == 0):
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
                     <div class="blocco_tabella2"><?= $valore['quota_percentuale'] ?></div>
                 <?php endforeach; ?>
+                <div class="blocco_tabella2" >Totale: </div>
+
             </div>
         </div>
 
@@ -166,70 +168,66 @@ if ($vuoto == 0):
                 <div id="header-quota-monetaria" class="border_sotto grigio">Quota monetizzazione</div>
                 <div id="corpo-quota-monetaria">
                     <?php foreach ($dati_cessione as $chiave => $valore): ?>
-                        <div class="blocco_tabella2"><?=$valore['quota_monetizzabile'] ?></div>
+                        <div class="blocco_tabella2"><?= $valore['quota_monetizzabile'] ?></div>
                     <?php endforeach; ?>
                 </div>
             </div>
         <?php endif; ?>
-   
-            <!-- div totale somma -->
-     <!--   <div id="totale-somma">
-            totale: 100%
-        </div> -->
+
     </div> <!-- end tabella2 -->
-  
+
     <!-- torna al form1 -->
     <div style="clear:both"></div>
-   <div id="totale-somma"><span>Totale</span><span id="somma"></span></div>
+    <div id="totale-somma"><span id="somma"></span></div>
     <!-- div errore sommma maggiore di 1 -->
-        <div style="margin-left:10px; width: 350px;"><small>* La somma delle quote di progetto deve essere pari a 100.</small></div>        
-        <div style="color: red; font-size: 11px;margin-left:10px; width: 350px;" id="errore_somma" ></div>
+    <div style="margin-left:10px; width: 350px;"><small>* La somma delle quote di progetto deve essere pari a 100.</small></div>        
+    <div style="color: red; font-size: 11px;margin-left:10px; width: 350px;" id="errore_somma" ></div>
     <div style="clear:both"></div>
- 
+
     <!-- stima -->
     <table id="risultati" class="left">        
         <caption>Risultato stimato</caption>    
         <tr class="header-tabella1">
             <td>Capacità edificatoria calcolata</td>
-            <td><span id="v_capacita_edificatoria"><?=$capacita_edificatoria ?></span></td>
+            <td><span id="v_capacita_edificatoria"><?= $capacita_edificatoria ?></span></td>
             <td><?= $u_capacita_edificatoria ?></td>
         </tr>
         <tr class="">
             <td>Valore area calcolata</td>
-            <td><span id="v_valore_area_calcolata"><?=$valore_area_calcolata ?></span></td> 
+            <td><span id="v_valore_area_calcolata"><?= $valore_area_calcolata ?></span></td> 
             <td><?= $u_valore_area_calcolata ?></td>        
         </tr>
         <tr class="header-tabella1">
             <td>Valore area edificabile</td>
-            <td><span id="v_valore_area_edificabile"><?=$valore_area_edificabile ?></span></td> 
+            <td><span id="v_valore_area_edificabile"><?= $valore_area_edificabile ?></span></td> 
             <td>Euro</td>        
         </tr>    
     </table>
     <!-- end stima -->
     <!-- bottone ricalcola -->
-    <a id="button-ricalcola-form2" class="button doc-button" href="<?=$this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE);  ?>">Ricalcola</a>    
+    <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
 
     <script type="text/javascript">
         $(function()
         {
-              
+                  
             $("#continua_stampa").attr("disabled", "true");  
             //        width: 30px;
             $("input[type=text]").css('width','30px');
-                
+                    
             $("input").blur(function(){
                 //
                 var formElementId = ($(this).parent().prev().find('label').attr('for'));                
                 doValidation(formElementId);
-                                                   
+                                                       
             });
-                                          
+                                              
             function doValidation(id){
 
                 var url = '/public/Ajax/validate-form-step2';
                 var url2 = '/public/Ajax/calcola-valore-stimato'; 
                 var url3 = '/public/Ajax/verifica-quote';    
-                    
+                        
                 var data = {};
                 $('input').each(function(){
                     data[$(this).attr('name')] = $(this).val();
@@ -240,14 +238,14 @@ if ($vuoto == 0):
                     $("#"+id).parent().find(".errors").remove();   
                     $("#"+id).parent().append(getErrorHtml(resp[id],id));                         
                 },'json');
-                                                                            
+                                                                                
                 $.post(url2,data,function(resp){
 
                     $('#v_valore_area_calcolata').html(resp.valore_area_calcolata);
                     $('#v_valore_area_edificabile').html(resp.valore_area_edificabile);                    
-                                             
+                                                 
                 },'json');
-                    
+                        
                 $.post(url3,data,function(resp){
 
                     if (resp.somma_quote==100){
@@ -266,10 +264,10 @@ if ($vuoto == 0):
                         $("#continua_stampa").attr("disabled", "true");
                         $("#errore_somma").html('La somma dei valori in ingresso non può essere diversa da 100');
                     }
-                        
+                            
                 },'json');                
-                                                           
-                                        
+                                                               
+                                            
             }
 
             function getErrorHtml(formsError, id){
@@ -281,17 +279,17 @@ if ($vuoto == 0):
                 o += '</ul>';
                 return o;
             }
-                                        
-                                        
+                                            
+                                            
         });
     </script>
 <?php else: ?>
     <h2 style="text-align: center;">Attenzione: non si hanno sufficenti dati per effettuare il calcolo in questo sumambito.</h2>
 
-       <!-- bottone ricalcola -->
-    <a id="button-ricalcola-form2" class="button doc-button" style="float:right; margin-right: 90px;" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE);  ?>">Ricalcola</a>    
+    <!-- bottone ricalcola -->
+    <a id="button-ricalcola-form2" class="button doc-button" style="float:right; margin-right: 90px;" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
 
-    <?php endif; ?>
+<?php endif; ?>
 
 
 

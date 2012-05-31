@@ -286,6 +286,15 @@ ul.errors{
     min-width: 150px;
 }
 
+#continua_stampa{
+    position:relative;
+    z-index:2;
+    font-size:11px;
+    padding: 12px;
+    font-family:"Tahoma", "Bitstream Vera";
+    margin-top: 40px;
+    margin-left: 100px;
+
 #risultati_calcolo_stima{
     /*background-color: #C5DBF9;*/
     width: 100%;
@@ -319,14 +328,6 @@ ul.errors{
     min-width: 90px;
     padding-left: 40px;
 }
-
-#continua_stampa{
-    position:relative;
-    font-size:11px;
-    padding: 12px;
-    font-family:"Tahoma", "Bitstream Vera";
-    margin-top: 40px;
-    margin-left: 100px;
 
 }
 /* margin-legt 100px dal form submitbutton */
@@ -380,7 +381,6 @@ ul.errors{
 #div_form_2{
     z-index:1;
     width: 970px;
-/*    overflow:auto;*/
     font-size: 12px;
     margin-left:10px;
 }
