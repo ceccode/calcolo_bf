@@ -64,6 +64,11 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
                 $('input').each(function(){
                     data[$(this).attr('name')] = $(this).val();                    
                 });
+                 if ($('input[name=privacy]').is(':checked')){
+                     data['privacy'] = 1;
+                 }else {
+                     data['privacy'] = 0;
+                 }
                 
                 $.post(url,data,function(resp){
                       console.log(data);
@@ -78,9 +83,7 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
                                 $("#"+formElementId).parent().append(getErrorHtml(resp[formElementId],formElementId));                                
                                 //data[$(this).attr('name')] = $(this).val();                    
                             });                           
-                            
- 
-                            
+                                                        
                         }
                         
                         

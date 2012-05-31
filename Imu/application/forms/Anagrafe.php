@@ -42,9 +42,11 @@ class Application_Form_Anagrafe extends Zend_Form
         //privacy
         $privacy = $this->createElement('checkbox','privacy');
         $privacy->setLabel('Accetto le condizioni d\' uso e l\'informativa sulla privacy *');
-        $privacy->addValidator('GreaterThan', false, array(0,'messages' => "Per continuare devi accetare le condizioni d'utilizzo."));
+//        $privacy->setCheckedValue(1);
+//        $privacy->setUnCheckedValue(0);
+        $privacy->addValidator('GreaterThan', false, array(0,'messages' => "Per continuare devi accetare le condizioni d'uso."));
         //$privacy->addDecorator('Label', array('class' => 'privacy'));
-        $this->addElement($privacy);   
+        $this->addElement($privacy);
                 
 //        //submit        
 //        //$url = $this->getView()->url(array('controller'=>'Lonatodelgarda','action'=>'stampa'));
