@@ -1,118 +1,137 @@
 <div id="contenitore-index">
     <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; text-align: left; font-size: 120% ;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Compila i campi sottostanti e premi il pulsante: "continua il calcolo".</h4>    
-<?
+    <?
     $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
-    $step1 = $session->step1;    
-    $id_s_ambito      = $step1['id_u_sambiti'];
-    $id_m_ambito      = $step1['id_m_ambiti'];
+    $step1 = $session->step1;
+    $id_s_ambito = $step1['id_u_sambiti'];
+    $id_m_ambito = $step1['id_m_ambiti'];
     $area_urbanizzata = $step1['area_urbanizzata'];
     //var_dump($id_s_ambito);    
     $this->headTitle("Calcolo imu lonato");
     echo $this->form;
-?>
-<small>* campi obbligatori</small>
+    ?>
+    <small>* campi obbligatori</small>
 </div>
+<!-- bottone ricalcola -->
+<a id="button-ricalcola-form2" class="button doc-button" style="float:right; margin-bottom: 20px; margin-top:0px; margin-right:30px;" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
+
 <script type="text/javascript">
-$(function()
-{
-     /*
-      * nascondo i campi 
-      */
-     var label_lotto_saturo = $('#lotto_saturo-label');                 
-     var id_lotto_saturo    = $('#lotto_saturo-element');
+    $(function()
+    {
+        /*
+         * nascondo i campi 
+         */
+        var label_lotto_saturo = $('#lotto_saturo-label');                 
+        var id_lotto_saturo    = $('#lotto_saturo-element');
 
-     var label_cepp = $('#capacita_edificatoria-label');                 
-     var id_cepp    = $('#capacita_edificatoria-element');                 
+        var label_cepp = $('#capacita_edificatoria-label');                 
+        var id_cepp    = $('#capacita_edificatoria-element');                 
 
-     var label_superficie = $('#superficie-label');
+        var label_superficie = $('#superficie-label');
      
-     <? if (isset($area_urbanizzata)){
-         if ($area_urbanizzata==0) 
-            {
-             echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
-            }
-     }else{ echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();'; }?>            
-//     label_lotto_saturo.hide();
-//     id_lotto_saturo.hide(); 
+<?
+if (isset($area_urbanizzata)) {
+    if ($area_urbanizzata == 0) {
+        echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
+    }
+} else {
+    echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
+}
+?>            
+             //     label_lotto_saturo.hide();
+             //     id_lotto_saturo.hide(); 
 
-     <? if (isset($id_m_ambito)){
-         echo '$("option").val('. $id_m_ambito. ').attr("selected",true)';        
-     }?>
+<?
+if (isset($id_m_ambito)) {
+    echo '$("option").val(' . $id_m_ambito . ').attr("selected",true)';
+}
+?>
 
 
+<<<<<<< HEAD
      <? if (isset($id_s_ambito)){
          echo "inputVolumetria(". $id_s_ambito. ")";        
      }else{ echo 'inputVolumetria(1)'; }?>   
      //inputVolumetria(1);
+=======
+<?
+if (isset($id_s_ambito)) {
+    echo "inputVolumetria(" . $id_s_ambito . ")";
+} else {
+    echo 'inputVolumetria(1)';
+}
+?>     
+             //inputVolumetria(1);
+>>>>>>> ritorna messo
 
 
-     /*
-      * on area urbanizzata change
-      */
-     var radioSel = $("#calcolo_imu_lonato input[name=area_urbanizzata]"); 
-     radioSel.change(function onSelectChange(){
-        var selected = $("#calcolo_imu_lonato input[name=area_urbanizzata]:checked").val();  
-        if(selected == 1){
-            selModalitaIntervento(1);                        
-            label_lotto_saturo.show();
-            id_lotto_saturo.show();
-            label_superficie.text('Superficie fondiaria: * (mq)');
-        }else if(selected == 0){
-            selModalitaIntervento(0); 
-            label_lotto_saturo.hide();                        
-            id_lotto_saturo.hide();
-            label_superficie.text('Superficie territoriale: * (mq)');            
-        }
-     });    
+             /*
+              * on area urbanizzata change
+              */
+             var radioSel = $("#calcolo_imu_lonato input[name=area_urbanizzata]"); 
+             radioSel.change(function onSelectChange(){
+                 var selected = $("#calcolo_imu_lonato input[name=area_urbanizzata]:checked").val();  
+                 if(selected == 1){
+                     selModalitaIntervento(1);                        
+                     label_lotto_saturo.show();
+                     id_lotto_saturo.show();
+                     label_superficie.text('Superficie fondiaria: * (mq)');
+                 }else if(selected == 0){
+                     selModalitaIntervento(0); 
+                     label_lotto_saturo.hide();                        
+                     id_lotto_saturo.hide();
+                     label_superficie.text('Superficie territoriale: * (mq)');            
+                 }
+             });    
     
     
-    if( $("#capacita_edificatoria").is(':visible') ) {
+             if( $("#capacita_edificatoria").is(':visible') ) {
         
-        $("#submit").attr("disabled", "true");
+                 $("#submit").attr("disabled", "true");
         
-        $("#capacita_edificatoria").blur(function(){
-                var id = $(this);
-                if(id.val()==''){
-                   $("#submit").attr("disabled", "true");
-                }else {
-                   $("#submit").removeAttr("disabled");
-                }
+                 $("#capacita_edificatoria").blur(function(){
+                     var id = $(this);
+                     if(id.val()==''){
+                         $("#submit").attr("disabled", "true");
+                     }else {
+                         $("#submit").removeAttr("disabled");
+                     }
 
-                doValidation(id);
+                     doValidation(id);
 
-                });        
-        // se #test è visibile fai qualcosa
-    }
-    else {
-        // se non è visibile fai qualcos'altro
-    }  
+                 });        
+                 // se #test è visibile fai qualcosa
+             }
+             else {
+                 // se non è visibile fai qualcos'altro
+             }  
              
 
-    function doValidation(id){
-        var url = '/public/Ajax/validate-form-step1';
-        var data = {};
-        data[id.attr('name')] = id.val();
+             function doValidation(id){
+                 var url = '/public/Ajax/validate-form-step1';
+                 var data = {};
+                 data[id.attr('name')] = id.val();
 
-        $.post(url,data,function(resp){
+                 $.post(url,data,function(resp){
 
-            var id2 = id.attr('name');
-            $("#"+id2).parent().find("ul").remove();            
-            $("#"+id2).after(getErrorHtml(resp[id2],id2));
+                     var id2 = id.attr('name');
+                     $("#"+id2).parent().find("ul").remove();            
+                     $("#"+id2).after(getErrorHtml(resp[id2],id2));
             
-        },'json');
-    }
+                 },'json');
+             }
 
-    function getErrorHtml(formsError, id){
-        var o = '<ul id="errors-'+id+'" class="errors">';
-        for(errorKeys in formsError)
-        {
-            o += '<li>'+formsError[errorKeys]+'</li>';
-        }
-        o += '</ul>';
-        return o;
-    }
+             function getErrorHtml(formsError, id){
+                 var o = '<ul id="errors-'+id+'" class="errors">';
+                 for(errorKeys in formsError)
+                 {
+                     o += '<li>'+formsError[errorKeys]+'</li>';
+                 }
+                 o += '</ul>';
+                 return o;
+             }
     
     
-});
+         });
 </script>
 
