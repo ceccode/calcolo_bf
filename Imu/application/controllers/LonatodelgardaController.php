@@ -146,16 +146,16 @@ class LonatodelgardaController extends Zend_Controller_Action {
     public function selezioneAmbitiAction() {
         // resetto tutto eccetto il comune
         // eccetto la data
-//        $session = new Zend_Session_Namespace('step1');
-//        $session->step1 = null;
-//        $session->capacitaEdificatoria = null;
-//        $session->indici_mambiti_stampa = null;
-//        $session->indici_sambiti_stampa = null;
-//        $session->stimaUnitaria = null;
-//        $session->valoreAreaEdificabile = null;
-//        $session->riassunto_step1_txt = null;
-//        $session->quote = null;
-//        $session->indici_u_sambiti_txt = null;
+        $session = new Zend_Session_Namespace('step1');
+        $session->step1 = null;
+        $session->capacita_edificatoria = null;
+        $session->indici_mambiti_stampa = null;
+        $session->indici_sambiti_stampa = null;
+        $session->stimaUnitaria = null;
+        $session->valoreAreaEdificabile = null;
+        $session->riassunto_step1_txt = null;
+        $session->quote = null;
+        $session->indici_u_sambiti_txt = null;
 
         // action body
         $form = new Application_Form_Lonatodelgarda();
