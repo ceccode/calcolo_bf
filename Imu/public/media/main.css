@@ -510,6 +510,14 @@ ul.errors{
     background-color: #cccccc;
 }
 
+#totale-somma{
+    border: 1px solid black;
+    width: 82px;
+    height: 23px;
+    margin-left: 403px;
+    position:relative;
+    margin-top:-42px;
+}
 /* ////// fine tabella form 2 ////// */
 
 /* ///////// fine stile form2 ////// */
