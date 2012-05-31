@@ -48,6 +48,10 @@ if (isset($id_m_ambito)) {
     //echo '$("#id_m_ambiti option:eq(' . $id_m_ambito . ')").attr("selected", "selected");';
     //echo '$("#id_m_ambiti option").prop("selectedIndex", ' . $id_m_ambito . ')';
     echo '$("#selectBox :nth-child(' . $id_m_ambito . ')").attr("selected", "selected")';
+}else {    
+    echo '$("#selectBox :nth-child(1)").attr("selected", "selected");';
+    //echo '$("#superficie").val(" ");';
+    //echo '$("#capacita_edificatoria").val(" ");';    
 }
 ?>
 
