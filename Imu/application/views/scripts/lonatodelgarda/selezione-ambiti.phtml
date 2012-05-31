@@ -26,8 +26,11 @@ $(function()
      var label_superficie = $('#superficie-label');
      
      <? if (isset($area_urbanizzata)){
-         ;        
-     }else{ echo 'label_lotto_saturo.hide();id_lotto_saturo.hide(); '; }?>       
+         if ($area_urbanizzata==0) 
+            {
+             echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
+            }
+     }else{ echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();'; }?>       
      
 //     label_lotto_saturo.hide();
 //     id_lotto_saturo.hide(); 
