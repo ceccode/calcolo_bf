@@ -224,7 +224,6 @@ if ($vuoto == 0):
                 var data = {};
                 $('input').each(function(){
                     data[$(this).attr('name')] = $(this).val();
-                    //alert($(this).val());
                 });
 
                 $.post(url,data,function(resp){
@@ -232,12 +231,9 @@ if ($vuoto == 0):
                     $("#"+id).parent().find(".errors").remove();   
                     $("#"+id).parent().append(getErrorHtml(resp[id],id));                         
                 },'json');
-
-                console.log(data);
                                                                             
                 $.post(url2,data,function(resp){
 
-                    console.log(resp);
                     $('#v_valore_area_calcolata').html(resp.valore_area_calcolata);
                     $('#v_valore_area_edificabile').html(resp.valore_area_edificabile);                    
                                              
@@ -245,14 +241,15 @@ if ($vuoto == 0):
                     
                 $.post(url3,data,function(resp){
 
-                    console.log(resp);
-
-                    //$("#errore_somma").remove(); 
                     if (resp.somma_quote){
+                        $("#v_valore_area_calcolata").show();
+                        $("#v_valore_area_edificabile").show();                      
                         $("#continua_stampa").removeAttr("disabled");
                         $("#errore_somma").html('');
                         $('.form2-allinea').css('background','none');
                     }else {
+                        $("#v_valore_area_calcolata").hide();
+                        $("#v_valore_area_edificabile").hide();                        
                         $("#continua_stampa").attr("disabled", "true");
                         $("#errore_somma").html('La somma dei valori in ingresso non può essere maggiore di 1');
                     }
