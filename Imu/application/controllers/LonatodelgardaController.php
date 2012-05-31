@@ -514,7 +514,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         }
         $session->quote = $percentualeQuote;
         // effettuo il calcolo della stima e capacit√† edificatoria
-        require_once APPLICATION_PATH . "/models/Elaborazione/Stima.php";
+        require_once APPLICATION_PATH . "/models/Elaborazione/stima.php";
         // capacita edificatoria
         $session->capacitaEdificatoria = Stima::calcolaCapacitaEdificatoriaLonato();
         // metto in sessione la stima unitaria

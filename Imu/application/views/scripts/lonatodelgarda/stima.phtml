@@ -256,7 +256,11 @@ if ($vuoto == 0):
                         $("#continua_stampa").removeAttr("disabled");
                         $("#errore_somma").html('');
                         $('.form2-allinea').css('background','none');
+                        $('#somma').html(resp.somma_quote);
+                        $('#somma').css('background','green');                                                
                     }else {
+                        $('#somma').html(resp.somma_quote);
+                        $('#somma').css('background','red');                        
                         $("#v_valore_area_calcolata").hide();
                         $("#v_valore_area_edificabile").hide();                        
                         $("#continua_stampa").attr("disabled", "true");
