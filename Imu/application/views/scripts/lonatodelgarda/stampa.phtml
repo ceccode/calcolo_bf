@@ -277,7 +277,7 @@ $tbl_riassunto = <<<EOD
         <td style="width:70%;">$modalita_intervento</td>        
     </tr>  
     <tr>
-        <td style="width:30%;">Lotto_saturo</td>
+        <td style="width:30%;">Lotto saturo</td>
         <td style="width:70%;">$lotto_saturo</td>        
     </tr>  
     <tr>
@@ -294,16 +294,16 @@ $pdf->writeHTML($tbl_riassunto, true, false, false, false, '');
 
 //destinazioni
 $tbl_destinazioni = '<table style="font-size: 40px;">';
-$tbl_destinazioni .= '<tr><td>Destinazioni ammesse</td><td>Quota di progetto massima %</td><td>Soglia dimensionale massima</td><td>Peso standard della destinazione</td><td>Quota di progetto inserita %</td></tr>';
+$tbl_destinazioni .= '<tr><td>Destinazioni ammesse</td><td>Quota di progetto massima %</td><td>Soglia dimensionale massima</td><td>Peso standard della destinazione %</td><td>Quota di progetto inserita %</td></tr>';
 
 foreach ($stmt5 as $key => $value) {
     //$label = $value->descrizione;
     //$id = $value->id_u_destammesse;
 
     $descrizione = htmlspecialchars_decode(html_entity_decode($value->descrizione));
-    $quota_max_ammissibile   = htmlspecialchars_decode(html_entity_decode(round(100*Stima::correggiFloat($value->quota_massima_ammissibile)))); // messo in percentuale
+    $quota_max_ammissibile   = htmlspecialchars_decode(html_entity_decode((100*Stima::correggiFloat($value->quota_massima_ammissibile)))); // messo in percentuale
     $quota_max   = htmlspecialchars_decode(html_entity_decode($value->soglia_dimensione_massima));
-    $quota_per   = htmlspecialchars_decode(html_entity_decode($value->quota_percentuale));    
+    $quota_per   = htmlspecialchars_decode(html_entity_decode(100*Stima::correggiFloat($value->quota_percentuale)));    
     $quota_inserita = $quote[$key];
     
     
