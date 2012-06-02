@@ -3,12 +3,13 @@
 class Application_Model_DbTable_STsima extends Application_Model_DbTable_TabellaComuni
 {
     /**
-     * Ritorna id dati per il calcolo stima
+     * Ritorna il fattore conversione standard qualità per il calcolo stima
+     * dato il riferimento
      * 
      * @param type $riferimento
      * @return type 
      */
-     public function getFcFcspq($riferimento) {
+     public function getFcspq($riferimento) {
         
         $righe = null;
    
@@ -27,6 +28,32 @@ class Application_Model_DbTable_STsima extends Application_Model_DbTable_Tabella
         else
             throw new Exception("Nome tabella non settato in filtroDestinazioniAmmesse");
     }
+ 
     
+    /**
+     * Ritorna id fattore conversione per il calcolo stima
+     * dato l'id s_tstima
+     * @param type $riferimento
+     * @return type 
+     */
+     public function getFc($id_s_tstima) {
+        
+        $righe = null;
+   
+        if ($this->getName()) {
+
+            $select = $this->select()
+                           ->where('record_attivo = 1 AND id_s_tstima = ?', $id_s_tstima);
+                              
+            $righe = $this->fetchAll($select);
+
+            if ($righe)
+                return $righe;
+            else
+                throw new Exception("Errore nella query getFc");
+        }
+        else
+            throw new Exception("Nome tabella non settato in filtroDestinazioniAmmesse");
+    }
 }
 ?>

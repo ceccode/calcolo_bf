@@ -552,7 +552,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // metto in sessione la stima unitaria
         $session->stimaUnitaria = Stima::calcolaStimaSingolaLonato($percentualeQuote);
         // calcolo valore area edificabile: semplice moltiplicazione
-        $session->valoreAreaEdificabile = $session->stimaUnitaria * $session->capacita_edificatoria;
+        $session->valoreAreaEdificabile = 0;//$session->stimaUnitaria * $session->capacita_edificatoria;
         return true; // non ho incontrato errori
     }
 

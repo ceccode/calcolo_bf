@@ -22,7 +22,7 @@ class Application_Model_DbTable_SRifunitariedest extends Application_Model_DbTab
                 throw new Exception("Errore in ritornaStimaUnitaria: tipo di stima riferimento unitaria: non è ne v ne u");
 
             $select = $this->select()
-                    ->from($this->getName(), array($testoSelect))
+                    ->from($this->getName(), array($testoSelect, "id_s_rifunitariedest"))
                     ->where('id_u_sdestinazioni = ?', $id_subdestinazione)
                     ->where('id_s_zone = ?', $id_zona)
                     ->where("record_attivo = 1")

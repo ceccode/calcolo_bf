@@ -18,7 +18,7 @@ class Application_Model_DbTable_UCessioni extends Application_Model_DbTable_Tabe
         if ($this->getName()) {
             // u destammesse
             $select = $this->select();
-            $select->from($this->getName(), array("id_u_cessioni", "quantita_cessione"))
+            $select->from($this->getName(), array("id_u_cessioni", "quantita_cessione","id_s_tstima"))
                     ->where("id_u_mambiti = ?", $id_u_mambiti)
                     ->where("id_u_modinterv = ?", $id_u_modinterv)
                     ->where("id_u_sdestinazioni = ?", $id_u_sdestinazioni)
