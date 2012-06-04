@@ -3,3 +3,21 @@
 Imu/nbproject/private/private.properties
 
 Imu/nbproject/private/private.xml
+
+Imu/.project
+
+Imu/.buildpath
+
+Imu/.settings/.jsdtscope
+
+Imu/.settings/org.eclipse.core.resources.prefs
+
+Imu/.settings/org.eclipse.php.core.prefs
+
+Imu/.settings/org.eclipse.php.debug.core.Debug_Process_Preferences.prefs
+
+Imu/.settings/org.eclipse.php.server.core.phpServersPrefs.prefs
+
+Imu/lib/jquery.js
+
+Imu/sample/sample.html
