@@ -54,7 +54,7 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
             { categoria: idSubAmbito},
                   function(dataNorme){
                     dataNorme.descrizione = dataNorme.descrizione.toLowerCase();
-                    if (dataNorme.descrizione == "v3"){
+                    if (dataNorme.descrizione == "v3" || dataNorme.descrizione == "u3"){
                         $("#capacita_edificatoria-label").hide();
                         $("#capacita_edificatoria-element").hide(); 
                         $("#submit").removeAttr("disabled", "false");
@@ -69,11 +69,11 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
                             break;
                             case "v4": label = 'Inputare volumetria preesistente: * (m3)';
                             break;
-                            case "u1": label = 'Inputare voumetria slp preesistente: * (m2spl)';
+                            case "u1": label = 'Inputare slp preesistente: * (m2slp)';
                             break;
-                            case "u2": label = 'Inputare slp predefinita: * (m2spl)';
+                            case "u2": label = 'Inputare slp predefinita: * (m2slp)';
                             break;
-                            case "u4": label = 'Inputare voumetria slp preesistente: * (m2spl)';
+                            case "u4": label = 'Inputare slp preesistente: * (m2slp)';
                             break;
                         }
 
