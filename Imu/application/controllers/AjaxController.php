@@ -161,8 +161,7 @@ class AjaxController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->getHelper('Layout')->disableLayout();
         
-        $f = new Application_Form_Anagrafe();
-        
+        $f = new Application_Form_Anagrafe();        
         $input = $this->_getAllParams();
         
         unset($input['stampa_soc']);
@@ -171,6 +170,10 @@ class AjaxController extends Zend_Controller_Action
         unset($input['module']);        
         
         $ret = $f->isValid($input);        
+
+        $session = new Zend_Session_Namespace('anagrafe');
+        $session->anagrafe = $input;
+        $anagrafe = $session->anagrafe;       
         
         $json = $f->getMessages();
         if ($ret){

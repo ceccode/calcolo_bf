@@ -13,11 +13,13 @@
  * css
  */
 $this->headLink()->prependStylesheet($this->baseUrl().'/media/main.css');
+$this->headLink()->prependStylesheet($this->baseUrl().'/media/css/growl.css');
 ?>
 <?php
 /*
  * js
  */
+$this->headScript()->prependFile($this->baseUrl().'/media/js/growl.js');
 $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js');
 ?>
 <script type="text/javascript">
@@ -30,7 +32,7 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
                     $("select[id='id_u_sambiti']").empty();
 
                     var arraySubAmbiti = dataNorme;
-
+					console.log(arraySubAmbiti);
                     if (arraySubAmbiti.length==1){
                         var options = '';
                         $.each(arraySubAmbiti, function(key, value){
@@ -41,7 +43,12 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
                         var options = '<option value="">-- seleziona --</option>';
                         $.each(arraySubAmbiti, function(key, value){
                             options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
-                        });                                       
+                        });  
+
+                        $("#capacita_edificatoria-label").hide();
+                        $("#capacita_edificatoria-element").hide(); 
+                        $("#submit").removeAttr("disabled", "false");
+                                                             
                     }
                     $("select[id='id_u_sambiti']").html(options);
 
@@ -54,7 +61,7 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
             { categoria: idSubAmbito},
                   function(dataNorme){
                     dataNorme.descrizione = dataNorme.descrizione.toLowerCase();
-                    if (dataNorme.descrizione == "v3" || dataNorme.descrizione == "u3"){
+                    if (dataNorme.descrizione == "v3"){
                         $("#capacita_edificatoria-label").hide();
                         $("#capacita_edificatoria-element").hide(); 
                         $("#submit").removeAttr("disabled", "false");
@@ -63,24 +70,35 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
 
                         var label = 'Inputare volumetria: * (m3)';
                         switch (dataNorme.descrizione) {
-                            case "v1": label = 'Inputare volumetria preesistente * (m3)';
+                            case "v1": label = 'Inputare volumetria preesistente * (m3) ';
+                            		   help_volumetria = 'Nei casi in cui la capacità edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
-                            case "v2": label = 'Inputare volumetria predefinita: * (m3)';
+                            case "v2": label = 'Inputare volumetria predefinita: * (m3) ';
+                            		   help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria sia predefinita dalla norma, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
-                            case "v4": label = 'Inputare volumetria preesistente: * (m3)';
+                            case "v4": label = 'Inputare volumetria preesistente: * (m3) ';
+			                  		   help_volumetria = 'Nei casi in cui la capacità edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
-                            case "u1": label = 'Inputare slp preesistente: * (m2slp)';
+                            case "u1": label = 'Inputare voumetria slp preesistente: * ';
+			                           help_volumetria = 'Nei casi in cui la capacità edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
-                            case "u2": label = 'Inputare slp predefinita: * (m2slp)';
+                            case "u2": label = 'Inputare slp predefinita: * (m2spl) ';
+			                           help_volumetria = 'Nei casi in cui la capacità edificatoria sia predefinita dalla norma, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
-                            case "u4": label = 'Inputare slp preesistente: * (m2slp)';
+                            case "u4": label = 'Inputare voumetria slp preesistente: * (m2spl) ';
+	                           		   help_volumetria = 'Nei casi in cui la capacità edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';                            
                             break;
                         }
-
-                        $("#capacita_edificatoria-label").text(label);
+                                              
+                        $("#capacita_edificatoria-label").html(function() {
+                      	  var img = '<img name="help" class="help-img" id="help_cepp" src="/public/media/css/images/help.png"/>';
+                    	  return label + img;
+                    	});
                         $("#capacita_edificatoria-label").show();
                         $("#capacita_edificatoria-element").show();
                         $("#submit").attr("disabled", "true");
+
+                        //return help_volumetria;
                     }
 
                   });

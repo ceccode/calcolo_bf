@@ -17,7 +17,8 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
 
         //macro ambiti
         $macro_ambito = $this->createElement('select', 'id_m_ambiti', array('onChange' => 'selSubAmbiti(this.value)'));
-        $macro_ambito->setLabel('Macro ambito: *');
+        $macro_ambito->getDecorator('label')->setOption('escape', false);
+        $macro_ambito->setLabel('Macro ambito: * <img name="help" class="help-img" id="help_m_ambiti" src="/public/media/css/images/help.png"/>');
 
         $lonato_u_mambiti = Factory_dbTable::getClass("017092", "u_mambiti");
         $select = $lonato_u_mambiti->select()
@@ -36,11 +37,17 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         }
         $macro_ambito->setValue(1);
         $macro_ambito->setRequired(true);
+        
+
+//         $macro_ambito->getDecorator('Description')->setEscape(false);
+//         $macro_ambito->getDecorator('Description')->setTag(false);
+//         $macro_ambito->setDescription('<img name="help" class="help-img" id="help_m_ambiti" src="/public/media/css/images/help.png"/>');
         $this->addElement($macro_ambito);
 
         //sub ambiti
         $sub_ambito = $this->createElement('select', 'id_u_sambiti', array('onChange' => 'inputVolumetria(this.value)'));
-        $sub_ambito->setLabel('Sub ambito: *');
+        $sub_ambito->getDecorator('label')->setOption('escape', false);
+        $sub_ambito->setLabel('Sub ambito: * <img name="help" class="help-img" id="help_s_ambiti" src="/public/media/css/images/help.png"/>');
         $sub_ambito->addValidator($notEmpty, true);
 
         $lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
@@ -60,14 +67,19 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         }
         $sub_ambito->setRequired(true)
                 ->setRegisterInArrayValidator(false);
-        $macro_ambito->setValue(1);
+        //$macro_ambito->setValue(1);//original
+        $sub_ambito->setValue(1);//?
+//         $sub_ambito->getDecorator('Description')->setEscape(false);
+//         $sub_ambito->getDecorator('Description')->setTag(false);
+//         $sub_ambito->setDescription('<img name="help" class="help-img" id="help_s_ambiti" src="/public/media/css/images/help.png"/>');
         $this->addElement($sub_ambito);
 
 
         //localizzazione
         $s_zona = $this->createElement('select', 'id_s_zone', array());
-        $s_zona->setLabel('Zona: *');
-
+        $s_zona->getDecorator('label')->setOption('escape', false);
+        $s_zona->setLabel('Zona: * <img name="help" class="help-img" id="help_s_zona" src="/public/media/css/images/help.png"/>');
+        
         $lonato_s_zone = Factory_dbTable::getClass("017092", "s_zone");
         $select3 = $lonato_s_zone->select()
                 ->from($lonato_s_zone->getName(), array('id_s_zone', 'descrizione_tipo_stima'))
@@ -86,22 +98,33 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         $s_zona->setRequired(true)
                 ->setRegisterInArrayValidator(false);
 
-        $macro_ambito->setValue('Barcuzzi - Lido');
+        $s_zona->setValue('Barcuzzi - Lido');
+//         $s_zona->getDecorator('Description')->setEscape(false);
+//         $s_zona->getDecorator('Description')->setTag(false);
+//         $s_zona->setDescription('<img name="help" class="help-img" id="help_s_zona" src="/public/media/css/images/help.png"/>');        
+        
         $this->addElement($s_zona);
 
 
         //area urbanizzata
         $urbanizzata = $this->createElement('radio', 'area_urbanizzata');
-        $urbanizzata->setLabel('Area urbanizzata: ');
+        $urbanizzata->getDecorator('label')->setOption('escape', false);
+        $urbanizzata->setLabel('Area urbanizzata: <img name="help" class="help-img" id="help_urbanizzata" src="/public/media/css/images/help.png"/>');
         $urbanizzata->addMultiOption('1', 'Si');
         $urbanizzata->addMultiOption('0', 'No');
         $urbanizzata->setValue("0");
         $urbanizzata->setRequired(true);
+
+//         $urbanizzata->getDecorator('Description')->setEscape(false);
+//         $urbanizzata->getDecorator('Description')->setTag(false);
+//         $urbanizzata->setDescription('<img name="help" class="help-img" id="help_urbanizzata" src="/public/media/css/images/help.png"/>');        
+        
         $this->addElement($urbanizzata);
 
         //modalità intervento
         $intervento = $this->createElement('select', 'id_u_modinterv');
-        $intervento->setLabel('Modalità intervento: *');
+        $intervento->getDecorator('label')->setOption('escape', false);
+        $intervento->setLabel('Modalità intervento: * <img name="help" class="help-img" id="help_intervento" src="/public/media/css/images/help.png"/>');
 
         $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
         $select4 = $lonato_u_modinterv->select()
@@ -118,15 +141,27 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         }
         $intervento->setRequired(true)
                 ->setRegisterInArrayValidator(false);
+        $intervento->addValidator($notEmpty, true);
+        
+//         $intervento->getDecorator('Description')->setEscape(false);
+//         $intervento->getDecorator('Description')->setTag(false);
+//         $intervento->setDescription('<img name="help" class="help-img" id="help_intervento" src="/public/media/css/images/help.png"/>');        
+        
         $this->addElement($intervento);
 
 
         //lotto saturo
         $lotto_saturo = $this->createElement('radio', 'lotto_saturo');
-        $lotto_saturo->setLabel('Lotto saturo: ');
+        $lotto_saturo->getDecorator('label')->setOption('escape', false);
+        $lotto_saturo->setLabel('Lotto saturo: <img name="help" class="help-img" id="help_lotto_saturo" src="/public/media/css/images/help.png"/>');
         $lotto_saturo->addMultiOption('1', 'Si');
         $lotto_saturo->addMultiOption('0', 'No');
         $lotto_saturo->setValue("0");
+        
+//         $lotto_saturo->getDecorator('Description')->setEscape(false);
+//         $lotto_saturo->getDecorator('Description')->setTag(false);
+//         $lotto_saturo->setDescription('<img name="help" class="help-img" id="help_lotto_saturo" src="/public/media/css/images/help.png"/>');        
+        
         $lotto_saturo->setRequired(true);
 
         //superficie                
@@ -138,17 +173,30 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         $notEmpty->setMessage('Campo obbligatorio');
 
         $superficie = $this->createElement('text', 'superficie', array());
-        $superficie->setLabel('Superficie territoriale: * (mq)');
+        $superficie->getDecorator('label')->setOption('escape', false);
+        $superficie->setLabel('Superficie territoriale: * (mq) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');
         $superficie->addValidator('Float', false, array('messages' => 'Solo cifre separate da virgola'));
         $superficie->setRequired(true);
         $superficie->addValidator($notEmpty, true);
+        
+//         $superficie->getDecorator('Description')->setEscape(false);
+//         $superficie->getDecorator('Description')->setTag(false);
+//         $superficie->setDescription('<img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');        
+        
         $this->addElement($superficie);
 
         //capacita_edificatoria
         //dipende dal subambito
         $cepp = $this->createElement('text', 'capacita_edificatoria', array());
-        $cepp->setLabel('Inputare volumetria: * (m3)');
+
+        $cepp->getDecorator('label')->setOption('escape', false);        
+        $cepp->setLabel('Inputare volumetria: * (m3) <img name="help" class="help-img" id="help_cepp" src="/public/media/css/images/help.png"/>');
         $cepp->addValidator('Float', false, array('messages' => 'Solo cifre separate da virgola'));
+
+//         $cepp->getDecorator('Description')->setEscape(false);
+//         $cepp->getDecorator('Description')->setTag(false);
+//         $cepp->setDescription('<img name="help" class="help-img" id="help_cepp" src="/public/media/css/images/help.png"/>');        
+        
         $this->addElement($cepp);
 
         // pulsante invia

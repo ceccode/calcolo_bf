@@ -124,7 +124,7 @@ if ($vuoto == 0):
         </div>
 
         <div class="left copri_tabella2 border_destra border-sinistra"> <!-- colonna4 -->
-            <div id="header_peso_standard" class="border_sotto  grigio">Peso % standard</div>
+            <div id="header_peso_standard" class="border_sotto  grigio">Quota % standard</div>
             <div id="corpo_peso_standard">
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
                     <div class="blocco_tabella2"><?=(100 * Stima::correggiFloat($valore['quota_percentuale'])) ?></div>
@@ -135,7 +135,7 @@ if ($vuoto == 0):
         </div>
 
         <div class="left copri_tabella2"> <!-- colonna5 -->
-            <div id="header_quota_progetto" class="border_sotto grigio">Quota di progetto*</div>
+            <div id="header_quota_progetto" class="border_sotto grigio">Quota % di progetto* <img name="help" class="help-img" id="help_quota" src="/public/media/css/images/help.png"/></div>
             <div id="corpo_quota_progetto">
                 <?= $this->form; ?>
                 <div id="totale-somma"><span id="somma"></span></div>
@@ -203,14 +203,15 @@ if ($vuoto == 0):
             <td>Euro</td>        
         </tr>    
     </table>
-    <!-- end stima -->
-    <!-- bottone ricalcola -->
-    <a id="button-ricalcola-form2" class="button doc-button" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
-
+    
+<a id="button-ricalcola-form2" class="button doc-button"
+	style="float: right; margin-top: -38px; margin-right: 20px;"
+	href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
+    
     <script type="text/javascript">
         $(function()
         {
-                      
+                   
             $("#continua_stampa").attr("disabled", "true");  
             //        width: 30px;
             $("input[type=text]").css('width','30px');
@@ -256,7 +257,7 @@ if ($vuoto == 0):
                         $("#errore_somma").html('');
                         $('.form2-allinea').css('background','none');
                         $('#somma').html(resp.somma_quote);
-                        $('#somma').css('background','green');                                                
+                        $('#somma').css('background','#00FF66');                                                
                     }else {
                         $('#somma').html(resp.somma_quote);
                         $('#somma').css('background','red');                        
@@ -280,6 +281,13 @@ if ($vuoto == 0):
                 o += '</ul>';
                 return o;
             }
+
+			/*
+			 * help
+			 */
+        	$("#help_quota").bind("click",function(){
+                $.Growl.show("Inserire la quota percentuale per ogni destinazione d'uso ammessa che si intende prevedere nell'ambito. Nella colonna \"Quota % Standard\" &egrave; indicata la combinazione considerata come prevalente dalle Norme tecniche di Attuazione.");
+              });
                                                 
                                                 
         });

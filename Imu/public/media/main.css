@@ -4,244 +4,257 @@
     Author     : francesco
     Description: Purpose of the stylesheet follows.
 */
-body {
-    /*font-family: Lucida, verdana;*/
-    background-color: #fff;
-    color: black;
-    font-size: 14px;
-    margin: auto;
-    width: 1000px ;
-    font: small/1.5 "Tahoma", "Bitstream Vera" ;
+body { /*font-family: Lucida, verdana;*/
+	background-color: #fff;
+	color: black;
+	font-size: 14px;
+	margin: auto;
+	width: 1000px;
+	font: small/1.5 "Tahoma", "Bitstream Vera";
 }
 
 #header {
-    height: 70px;
+	height: 70px;
 }
+
 #name {
-    height: 70px;
-    float: left;
+	height: 70px;
+	float: left;
 }
 
-
-#content{
-    min-height: 200px;  
-    /*
+#content {
+	min-height: 200px;
+	/*
     #93aef5
     #4681F7
     */
-    border-left: 8px solid #93aef5;
-    border-top:8px solid #93aef5;
-    border-bottom:8px solid #93aef5;
-    border-right:8px solid #93aef5;
-    padding-bottom: 10px;
-    overflow:auto;
-    position:relative;
+	border-left: 8px solid #93aef5;
+	border-top: 8px solid #93aef5;
+	border-bottom: 8px solid #93aef5;
+	border-right: 8px solid #93aef5;
+	padding-bottom: 10px;
+	overflow: auto;
+	position: relative;
 }
 
 #footer {
-    height: 50px;
+	height: 50px;
 }
 
-.login{
-    float: right;
+.login {
+	float: right;
 }
-
 
 /* /////////// tipography //////// */
-.left{
-    float: left;
+.left {
+	float: left;
 }
 
-.pad-lr{
-    padding-left: 10px;
-    padding-right: 10px;    
+.pad-lr {
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
-.right{
-    float: right;
+.right {
+	float: right;
 }
 
 h1 {
-    color: navy;    
+	color: navy;
 }
 
-#name a{
-    text-decoration: none;
+#name a {
+	text-decoration: none;
 }
 
-#name h1{
-    color: #333;
-    font-size: 2.3em;
-    margin-bottom: 5px;    
+#name h1 {
+	color: #333;
+	font-size: 2.3em;
+	margin-bottom: 5px;
 }
 
 h2 {
-    font-size: 1.2em;
-    /*    color: #008000; */
-    color: navy;
+	font-size: 1.2em;
+	/*    color: #008000; */
+	color: navy;
 }
 
-a {
-    /*    color: #008000; */
-    color: navy;
+a { /*    color: #008000; */
+	color: navy;
 }
 
 #creazione p {
-    padding-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 .no-pad-top {
-    padding-top: 0px;
+	padding-top: 0px;
 }
+
 .no-mar-top {
-    margin-top: 0px;
+	margin-top: 0px;
 }
+
 .no-mar-bot {
-    margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 
-.button{
-    cursor: pointer;
-    background-color: #DCDCDC;
-    border-radius: 5px 5px 5px 5px;
-    color: black;
-    padding: 10px;
-    text-decoration: none;
-    border: 1px solid #FFF;
+.button {
+	cursor: pointer;
+	background-color: #DCDCDC;
+	border-radius: 5px 5px 5px 5px;
+	color: black;
+	padding: 10px;
+	text-decoration: none;
+	border: 1px solid #FFF;
 }
 
-.doc-button{
-    display: inline-block;    
+.doc-button {
+	display: inline-block;
 }
 
-.button:hover{
-    border: 1px solid #D6b6b6;
+.button:hover {
+	border: 1px solid #D6b6b6;
 }
 
 /* ////////// Table  /////////// */
-table{
-    border: 0px solid gray;
-    border-collapse: collapse;
-    font-size: 11px;
-}
-tr.odd{
-    background-color: #cccccf;
+table {
+	border: 0px solid gray;
+	border-collapse: collapse;
+	font-size: 11px;
 }
 
-td{
-    padding: 3px 3px;    
+tr.odd {
+	background-color: #cccccf;
 }
 
-td.odd{
+td {
+	padding: 3px 3px;
+}
 
+td.odd {
+	
 }
 
 .table {
-
-    border-color: Gray;
-    border-style: groove;
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-width: 1px;
-
-    /*border-collapse: collapse;*/
-    font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
-    font-size: 14px;
-    margin: 0px;
-    text-align: left; 
+	border-color: Gray;
+	border-style: groove;
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-width: 1px;
+	/*border-collapse: collapse;*/
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 14px;
+	margin: 0px;
+	text-align: left;
 }
 
 .th {
-    border-bottom: 2px solid #6678B1;
-    color: #003399;
-    font-size: 12px;
-    font-weight: normal;
-    padding-top: 5px;
-    padding-right: 10px;
+	border-bottom: 2px solid #6678B1;
+	color: #003399;
+	font-size: 12px;
+	font-weight: normal;
+	padding-top: 5px;
+	padding-right: 10px;
 }
-.td {   
-    border-bottom: 1px solid #CCCCCC;
-    color: #666699;
-    padding: 5px 5px;    
+
+.td {
+	border-bottom: 1px solid #CCCCCC;
+	color: #666699;
+	padding: 5px 5px;
 }
 
 .tr:hover td {
-    color: #000099;
+	color: #000099;
 }
 
 /* /////////// style form ////////// */
 form dt {
-    width: 280px;
-    display: block;
-    float: left;
-    clear: left;
-    padding: 5px;
+	width: 280px;
+	display: block;
+	float: left;
+	clear: left;
+	padding: 5px;
 }
 
 form.informa dt {
-    width: 348px;
-    display: block;
-    float: left;
-    clear: left;
-    padding: 5px;   
+	width: 348px;
+	display: block;
+	float: left;
+	clear: left;
+	padding: 5px;
 }
 /* per zend form */
 form dd {
-    margin-left: 0;
-    /*float: left;*/
-    float: none;
-    padding: 5px;    
+	margin-left: 0;
+	float: none;
+	padding: 5px;
+	/* 	min-height: 30px; */
 }
-form #submitbutton {
-/*    margin-left: 100px;*/
+
+form #submitbutton { /*    margin-left: 100px;*/
+	
 }
 
 form label {
-    width: 150px;
+	width: 150px;
 }
 
-.messaggio{
-    /*padding: 5px;*/
-    color: red;
+.messaggio { /*padding: 5px;*/
+	color: red;
+}
+
+#area_urbanizzata-element {
+	height: 45px;
+}
+
+#lotto_saturo-element {
+	height: 45px;
 }
 
 /* ////// Erorr //////// */
-ul.errors{
-    list-style: none;
-    color: red;
-    margin: 0px;
-    padding: 0px    
+ul.errors {
+	list-style: none;
+	color: red;
+	margin: 8px;
+	padding: 2px;
+}
+
+#calcolo_imu_lonato_step2 ul.errors {
+	list-style: none;
+	color: red;
+	padding: 0px;
 }
 
 /* ///////// Admin Bar ////////// */
-.admin-bar{
-    width: 100%;
-    height: 40px;
-    padding: 20px 0px 0px 5px;
-    background-color: #316ac5;
-    /*background-color: #2B65EC;*/
+.admin-bar {
+	width: 100%;
+	height: 40px;
+	padding: 20px 0px 0px 5px;
+	background-color: #316ac5;
+	/*background-color: #2B65EC;*/
 }
 
-.admin-bar ul{
-    margin: 0; 
-    padding: 0;
-    /*    float: left;*/
+.admin-bar ul {
+	margin: 0;
+	padding: 0;
+	/*    float: left;*/
 }
 
-.admin-bar ul li{
-    display: inline;
-    margin-right: 5px;    
+.admin-bar ul li {
+	display: inline;
+	margin-right: 5px;
 }
 
-.admin-bar ul li a{
-    text-decoration: none;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    background-color: #dcdcdc;
-    color: navy;
-    /*    opacity: 0.4;   */
-    padding: 10px;
-    /*
+.admin-bar ul li a {
+	text-decoration: none;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #dcdcdc;
+	color: navy;
+	/*    opacity: 0.4;   */
+	padding: 10px;
+	/*
     float: left;
     text-decoration: none;
     color: white;
@@ -250,459 +263,530 @@ ul.errors{
     */
 }
 
-.admin-bar ul li a:visited{
-    color: navy;
+.admin-bar ul li a:visited {
+	color: navy;
 }
 
-.admin-bar ul li a:hover, .menu_cliente ul li .current{
-    text-decoration: none;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    background-color: white;
-    color: navy;
-    opacity: 1;    
+.admin-bar ul li a:hover,.menu_cliente ul li .current {
+	text-decoration: none;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: white;
+	color: navy;
+	opacity: 1;
 }
 
 /* /////// notifica ///////  */
-.notifica{
-    width: 99%; 
-    background-color: red;
-    color: white;
-    /*    padding: 5px;*/
-
+.notifica {
+	width: 99%;
+	background-color: red;
+	color: white;
+	/*    padding: 5px;*/
 }
 
 /* ////////// footer /////////// */
-#footer a{
-    color: #333;
+#footer a {
+	color: #333;
 }
-#footer a:hover{
-    color: #F52D0F
+
+#footer a:hover {
+	color: #F52D0F
 }
 
 /* ////// inizio stile form2 /////////// */
-.min-larghezza{
-    min-width: 150px;
+.min-larghezza {
+	min-width: 150px;
 }
 
-#continua_stampa{
-    position:relative;
-    z-index:2;
-    font-size:11px;
-    padding: 12px;
-    font-family:"Tahoma", "Bitstream Vera";
-    margin-top: 40px;
-    margin-left: 100px;
+#continua_stampa {
+/* 	position: relative; */
+/* 	z-index: 2; */
+/* 	font-size: 11px; */
+/* 	padding: 12px; */
+/* 	font-family: "Tahoma", "Bitstream Vera"; */
+/* 	margin-top: 40px; */
+/* 	margin-left: 100px; */
+position: relative;
+z-index: 2;
+font-size: 16px;
+padding: 11px;
+font-family: "Tahoma", "Bitstream Vera";
+margin-top: 12px;
+margin-left: 262px;
 }
 
-#risultati_calcolo_stima{
-    /*background-color: #C5DBF9;*/
-    width: 100%;
-    height: 542px;
-    position:relative;
+#risultati_calcolo_stima { /*background-color: #C5DBF9;*/
+	width: 100%;
+	/* 	height: 542px; */
+	height: 500px;
+	position: relative;
 }
 
-#tabella2-left{}
-
-#tabella2-right{
-    width:198px;
-    min-height:200px;
+#tabella2-left {
+	
 }
 
-.header-tabella1{
-    /*#d8e2fa*/
-    background-color: #d8e2fa;
-}
-.corpo-tabella1{
-    background-color: #D1D2D3;
+#tabella2-right {
+	width: 198px;
+	min-height: 200px;
 }
 
-#button-ricalcola-form2{
-    position:relative;
-/*    margin-left: 613px;*/
-/*    margin-top: -54px;*/
-    font-size:11px;
-    margin-top: 55px;
-    margin-left: 20px;
-    float: left;
-    min-width: 90px;
-    padding-left: 40px;
+.header-tabella1 { /*#d8e2fa*/
+	background-color: #d8e2fa;
 }
 
+.corpo-tabella1 {
+	background-color: #D1D2D3;
+}
+
+#button-ricalcola-form2 {
+	position: relative;
+	/*    margin-left: 613px;*/
+	/*    margin-top: -54px;*/
+	font-size: 11px;
+	margin-top: 55px;
+	margin-left: 20px;
+	float: left;
+	min-width: 90px;
+	padding-left: 40px;
+}
+
+#calcolo_imu_lonato dl dd {
+	min-height: 25px;
+}
 
 /* margin-legt 100px dal form submitbutton */
-#risultati{
-/*    font-size: 15px; 
-    margin-top:-40px;
-    margin-left: 10px;*/
-    font-size: 15px; 
-    margin-top: 10px;
-    margin-left: 10px;
-    
-    float: left;
-/*    margin-right: 10px;*/
+#risultati {
+ /* 	font-size: 15px; */
+	/* 	margin-top: 50px; */
+	/* 	margin-left: 10px; */
+	/* 	float: none; */
+	font-size: 15px;
+margin-top: 20px;
+margin-left: 10px;
+float: none;
+margin-bottom: 10px;
 }
 
-#indici-sambiti{
-    margin-right:10px;
-    margin-top:10px;
+#indici-sambiti {
+	margin-right: 10px;
+	margin-top: 10px;
 }
 
-#indici-mambiti{
-    margin-left:10px;
-    margin-top:10px;
+#indici-mambiti {
+	margin-left: 10px;
+	margin-top: 10px;
 }
 
-#indici-form1{
-    width:965px;
-    margin-left:10px;
-    margin-top:10px;
+#indici-form1 {
+	width: 965px;
+	margin-left: 10px;
+	margin-top: 10px;
 }
 
 /* ///// inizio tabella form 2 //////*/
-.grigio{
-    background-color: #d8e2fa;
-}
-.border_sotto{
-    border-bottom: 1px solid #C5DBF9;
-}
-.border_destra{
-    border-right: 1px solid #C5DBF9;    
-}
-.border_sopra{
-    border-top: 1px solid #C5DBF9;
-}
-.border-sinistra{
-    border-left: 1px solid #C5DBF9;
-}
-.copri_tabella2{
-    min-height: 200px;
-}
-#div_form_2{
-    z-index:1;
-    width: 970px;
-    font-size: 12px;
-    margin-left:10px;
-}
-#header_destinazione_uso{
-    width: 209px;
-    height: 45px;
-    padding:0;
-    padding-left: 5px;
-    padding-top: 10px;
-}
-#corpo_destinazione_uso{
-    width: 209px;
-    padding-top:14px;
-    padding-left: 5px;
-}
-#header_quota_massima_ammissibile{
-    width: 100px;
-    height: 45px;
-    padding-left :5px;
-    padding-top: 10px;
-}
-#corpo_quota_massima_ammissibile{
-    width: 100px;
-    padding-top: 14px;
-    padding-left: 5px;
-}
-#header_soglia_dimensione_massima{
-    width: 110px;
-    height: 45px;
-    padding-left: 5px;
-    padding-top: 10px;
-}
-#corpo_soglia_dimensione_massima{
-    width: 110px;
-    padding-top: 14px;
-    padding-left: 5px;
-}
-#header_peso_standard{
-    width: 56px;
-    height: 45px;
-    padding-left: 5px;
-    padding-top: 10px;
-}
-#corpo_peso_standard{
-    width: 56px;
-    padding-top: 14px;
-/*    padding-left: 5px;*/
-}
-#header_quota_progetto{
-    width: 55px;
-    height: 45px;
-    padding-left: 5px;
-    padding-top: 10px;
-}
-#corpo_quota_progetto{
-    width: 55px;
-    padding-left: 5px;
-    padding-top:0px;
-}
-#header-um-cessione{
-    width:95px;
-    height: 45px;
-    padding-top: 10px;
-    padding-left: 5px;
-}
-#corpo-um-cessione{
-    width:95px;
-    padding-left: 5px;
-    padding-top: 14px;
-}
-#header-cessione{
-    width:90px;
-    height: 45px;
-    padding-top: 10px;
-    padding-left:15px;
-}
-#corpo-cessione{
-    width:90px;
-    padding-left: 15px;
-    padding-top: 14px;
-}
-#header-quota-monetaria{
-    width: 98px;
-    height: 45px;
-    padding-top: 10px;
-    padding-left: 2px;
+.grigio {
+	background-color: #d8e2fa;
 }
 
-#corpo-quota-monetaria{
-    width:90px;
-    padding-left: 15px;
-    padding-top: 14px;
-}   
-
-.blocco_tabella2{
-    height: 45px;
-    margin:0;
-    width:100%;
-    padding-left:5px;
-    overflow:auto;
-}
-#calcolo_imu_lonato_step2 .zend_form{
-    margin-top: 0px;
-}
-#calcolo_imu_lonato_step2 dt{
-    display:none;
-    padding:0; 
-    margin:0;
-}
-#calcolo_imu_lonato_step2 dd{
-    height:23px;
-    margin-top: 0px;
-    margin-left:5px;
-    margin-bottom:0px;
-    padding: 0;   
-    padding-top: 12px;
-    padding-bottom:10px;  
+.border_sotto {
+	border-bottom: 1px solid #C5DBF9;
 }
 
-.form2-allinea{
-    position:relative;
-    z-index:2;
-    margin-left: 39px !important; /* supportato da tutti i browser ie5+ */
-    padding-left: 5px !important;
-    margin-top: -22px !important;
-    width:160px;
-    overflow:auto;
-    background-color: #cccccc;
+.border_destra {
+	border-right: 1px solid #C5DBF9;
 }
 
-#totale-somma{
-    font-size:14px;
-    font-weight: bold;
-    width: 82px;
-    height: 23px;
-    margin-left: 6px;
-    position:relative;
-    margin-top:-44px;
+.border_sopra {
+	border-top: 1px solid #C5DBF9;
+}
+
+.border-sinistra {
+	border-left: 1px solid #C5DBF9;
+}
+
+.copri_tabella2 {
+	min-height: 200px;
+}
+
+#div_form_2 {
+	z-index: 1;
+	width: 970px;
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+#header_destinazione_uso {
+	width: 209px;
+	height: 45px;
+	padding: 0;
+	padding-left: 5px;
+	padding-top: 10px;
+}
+
+#corpo_destinazione_uso {
+	width: 209px;
+	padding-top: 14px;
+	padding-left: 5px;
+}
+
+#header_quota_massima_ammissibile {
+	width: 100px;
+	height: 45px;
+	padding-left: 5px;
+	padding-top: 10px;
+}
+
+#corpo_quota_massima_ammissibile {
+	width: 100px;
+	padding-top: 14px;
+	padding-left: 5px;
+}
+
+#header_soglia_dimensione_massima {
+	width: 110px;
+	height: 45px;
+	padding-left: 5px;
+	padding-top: 10px;
+}
+
+#corpo_soglia_dimensione_massima {
+	width: 110px;
+	padding-top: 14px;
+	padding-left: 5px;
+}
+
+#header_peso_standard {
+	width: 56px;
+	height: 45px;
+	padding-left: 5px;
+	padding-top: 10px;
+}
+
+#corpo_peso_standard {
+	width: 56px;
+	padding-top: 14px;
+	/*    padding-left: 5px;*/
+}
+
+#header_quota_progetto { /* 	width: 55px; */
+	width: 95px;
+	height: 45px;
+	padding-left: 5px;
+	padding-top: 10px;
+}
+
+#corpo_quota_progetto {
+	width: 55px;
+	padding-left: 5px;
+	padding-top: 0px;
+}
+
+#header-um-cessione {
+	width: 95px;
+	height: 45px;
+	padding-top: 10px;
+	padding-left: 5px;
+}
+
+#corpo-um-cessione {
+	width: 95px;
+	padding-left: 5px;
+	padding-top: 14px;
+}
+
+#header-cessione {
+	width: 90px;
+	height: 45px;
+	padding-top: 10px;
+	padding-left: 15px;
+}
+
+#corpo-cessione {
+	width: 90px;
+	padding-left: 15px;
+	padding-top: 14px;
+}
+
+#header-quota-monetaria {
+	width: 98px;
+	height: 45px;
+	padding-top: 10px;
+	padding-left: 2px;
+}
+
+#corpo-quota-monetaria {
+	width: 90px;
+	padding-left: 15px;
+	padding-top: 14px;
+}
+
+#contenitore-index {
+	padding: 10px;
+}
+
+.blocco_tabella2 {
+	height: 45px;
+	margin: 0;
+	width: 100%;
+	padding-left: 5px;
+	overflow: auto;
+}
+
+#calcolo_imu_lonato_step2 .zend_form {
+	margin-top: 0px;
+}
+
+#calcolo_imu_lonato_step2 dt {
+	display: none;
+	padding: 0;
+	margin: 0;
+}
+
+#calcolo_imu_lonato_step2 dd {
+	height: 23px;
+	margin-top: 0px;
+	margin-left: 5px;
+	margin-bottom: 0px;
+	padding: 0;
+	padding-top: 12px;
+	padding-bottom: 10px;
+}
+
+.form2-allinea {
+	position: relative;
+	z-index: 2;
+	margin-left: 39px !important; /* supportato da tutti i browser ie5+ */
+	padding-left: 5px !important;
+	margin-top: -22px !important;
+	width: 160px;
+	overflow: auto;
+	background-color: #cccccc;
+}
+
+#totale-somma {
+	font-size: 16px;
+	font-weight: bold;
+	width: 82px;
+	height: 23px;
+	margin-left: 6px;
+	position: relative;
+	margin-top: -44px;
 }
 /* ////// fine tabella form 2 ////// */
 
 /* ///////// fine stile form2 ////// */
-
-
-
 .privacy {
-    width: 150px;
-    font-size: 12px;
-    font-style: italic;
+	width: 150px;
+	font-size: 12px;
+	font-style: italic;
 }
 
 /* ///////// inizio stile form1 ////////// */
-
-#id_m_ambiti{
-    width: 600px;
-}
-
-#contenitore-index{
-    padding: 10px;
+#id_m_ambiti {
+	width: 600px;
 }
 
 /* ////////  fine stile form1 /////////// */
 
 /* /////// inizio stile anagrafe(step3) /////// */
-
-#button-ricalcola-anagrafe{
-    position:relative;
-    float:right;
-    margin-right: 10px;
-/*    margin-top: -58px;*/
-    margin-top: 45px;
-    font-size:11px;
-    min-width: 90px;
-    padding-left: 40px;
+#button-ricalcola-anagrafe {
+	position: relative;
+	float: right;
+	margin-right: 10px;
+	/*    margin-top: -58px;*/
+	margin-top: 45px;
+	font-size: 11px;
+	min-width: 90px;
+	padding-left: 40px;
 }
 
-#stampa_soc{
-/*    margin-top:44px;
+#stampa_soc { /*    margin-top:44px;
     margin-right:10px;
     margin-left: -6px;
     font-size: 11px;*/
-
-margin-top: 44px;
-margin-right: 10px;
-margin-left: 0px;
-font-size: 11px;
-padding: 12px;
-
+	margin-top: 44px;
+	margin-right: 10px;
+	margin-left: 0px;
+	font-size: 11px;
+	padding: 12px;
 }
 /* bottone stampa in anagrafe */
-#stampa{
-    float:right;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    font-size: 11px;
-    min-width: 50px;
-    padding-left: 20px;
+#stampa { /* 	float: right; */
+	/* 	margin-right: 20px; */
+	/* 	margin-bottom: 20px; */
+	/* 	font-size: 11px; */
+	/* 	min-width: 50px; */
+	/* 	padding-left: 20px; */
+	float: right;
+	margin-right: 100px;
+	margin-bottom: 2px;
+	font-size: 15px;
+	min-width: 89px;
+	padding-left: 50px;
 }
 
-#form-anagrafe{
-    width:450px;
-    float:left;
-    margin-left:10px;
-    margin-top:10px;    
-    border: 1px dotted gray;
+#form-anagrafe { /* 	width: 450px; */
+	width: 600px; float : left;
+	margin-left: 10px;
+	margin-top: 10px;
+	border: 1px dotted gray;
+	float: left;
 }
 
-#risultati-anagrafe{
-    position:relative;
-    margin-left:0px;
-    font-size: 15px;
-    float:right;
-/*    margin-top: 10px;*/
-    margin-right: 10px;
+#inserisci_persona dl dt {
+	width: 340px;
+}
+
+#inserisci_persona dl dd {
+	padding: 1px;
+}
+
+#risultati-anagrafe {
+	position: relative;
+	margin-left: 10px;
+	font-size: 15px;
+	float: left;
+	margin-right: 10px;
+	margin-top: 10px;
 }
 
 /* /////// fine stile anagrafe(step3) /////// */
 
-
 /* new table */
-table,td
-{
-	border               : 1px solid #CCC;
-	border-collapse      : collapse;
-  font                 : small/1.5 "Tahoma", "Bitstream Vera Sans", Verdana, Helvetica, sans-serif;
-}
-table
-{
-	border                :none;
-	border                :1px solid #CCC;
-}
-thead th,
-tbody th
-{
-	background      : #FFF;
-  color                 : /*#666;*/#000;  
-	padding         : 5px 10px;
-  border-left           : 1px solid #CCC;
-}
-tbody th
-{
-  background            : #fafafb;
-  border-top            : 1px solid #CCC;
-  text-align            : left;
-  font-weight           : normal;
-}
-tbody tr td
-{
-	padding               : 5px 10px;
-  color                 : /*#666;*/#000;
-}
-tbody tr:hover
-{
-  background            : #FFF;
+table,td {
+	border: 1px solid #CCC;
+	border-collapse: collapse;
+	font: small/1.5 "Tahoma", "Bitstream Vera Sans", Verdana, Helvetica,
+		sans-serif;
 }
 
-tbody tr:hover td
-{
-  color                 : #454545;
-}
-tfoot td,
-tfoot th
-{
-  border-left           : none;
-  border-top            : 1px solid #CCC;
-	padding               : 4px;
-  background            : #FFF;
-  color                 : /*#666;*/#000;
-}
-caption
-{
-	text-align            : left;
-	font-size             : 120%;
-	padding               : 10px 0;
-	color                 : #666;
-}
-table a:link
-{
-	color                 : #666;
-}
-table a:visited
-{
-	color                 : #666;
-}
-table a:hover
-{
-	color                 : #003366;
-	text-decoration       : none;
-}
-table a:active
-{
-	color                 : #003366;
+table {
+	border: none;
+	border: 1px solid #CCC;
 }
 
+thead th,tbody th {
+	background: #FFF;
+	color: /*#666;*/ #000 ;
+	padding: 5px 10px;
+	border-left: 1px solid #CCC;
+}
+
+tbody th {
+	background: #fafafb;
+	border-top: 1px solid #CCC;
+	text-align: left;
+	font-weight: normal;
+}
+
+tbody tr td {
+	padding: 5px 10px;
+	color: /*#666;*/ #000 ;
+}
+
+tbody tr:hover {
+	background: #FFF;
+}
+
+tbody tr:hover td {
+	color: #454545;
+}
+
+tfoot td,tfoot th {
+	border-left: none;
+	border-top: 1px solid #CCC;
+	padding: 4px;
+	background: #FFF;
+	color: /*#666;*/ #000 ;
+}
+
+caption {
+	text-align: left;
+	font-size: 120%;
+	padding: 10px 0;
+	color: #666;
+}
+
+table a:link {
+	color: #666;
+}
+
+table a:visited {
+	color: #666;
+}
+
+table a:hover {
+	color: #003366;
+	text-decoration: none;
+}
+
+table a:active {
+	color: #003366;
+}
 
 /* ---- */
+#avvertenze {
+	width: 430px;
+	padding: 10px;
+	float: right;
+	margin-right: 10px;
+	color: rgb(102, 102, 102);
+}
+
+#contenitore-index-data {
+	width: 500px;
+	padding: 10px;
+	float: left;
+}
+
+#avvertenze a {
+	color: rgb(102, 102, 102);
+}
+
+#avvertenze a:hover {
+	color: #F52D0F
+}
+
 #privacy {
-    margin: 20px;
+	margin: 20px;
+	color: rgb(102, 102, 102);
 }
 
 /* per la pagina di errore */
-#errore-sotto{
-    width: 980px;
-    heigh: 400px;
-    padding-left: 10px;
+#errore-sotto {
+	width: 980px;
+	heigh: 400px;
+	padding-left: 10px;
 }
 
-#content-errore{
-    width: 980px;
-    height:300px;
-    margin-bottom:100px;
-    padding-left:10px;
+#content-errore {
+	width: 980px;
+	height: 300px;
+	margin-bottom: 100px;
+	padding-left: 10px;
 }
 
-#button-ricalcola-errore{
-    position:relative;
-/*    margin-left: 613px;*/
-/*    margin-top: -54px;*/
-    font-size:11px;
-    margin-top: 55px;
-    margin-left: 100px;
-    min-width: 90px;
-    padding-left: 40px;
+#button-ricalcola-errore {
+	position: relative;
+	/*    margin-left: 613px;*/
+	/*    margin-top: -54px;*/
+	font-size: 11px;
+	margin-top: 55px;
+	margin-left: 100px;
+	min-width: 90px;
+	padding-left: 40px;
+}
+
+.help-img {
+	height: 20px;
+	width: 20px;
+	margin-left: 10px;
+	margin-top: 1px;
+	float: right;
+}
+
+#header_quota_progetto img.help-img {
+	margin-right: 2px;
 }

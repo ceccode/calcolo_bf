@@ -1,54 +1,60 @@
 <?php
 $session = new Zend_Session_Namespace('step1');
-
-
 $values = $this->values;
-
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
 $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti'], $session->data_calcolo);
 ?>
+<style type="text/css">
+input{	
+width: 150px;
+}
+</style>
 
 <div id="risultati_calcolo_stima">
     <!-- riassunto step1 -->
-    <?= $session->riassunto_step1; ?> 
+    <?=$session->riassunto_step1; ?> 
     <!-- indici mambiti tabella -->   
-    <?= $session->indici_mambiti_stampa; ?>
+    <?=$session->indici_mambiti_stampa; ?>
     <!-- indici sambiti tabella -->
-    <?= $session->indici_sambiti_stampa; ?>
-
-</div> 
-<div style="clear:both;"></div>
-<div id="form-anagrafe">
-    <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; margin-left: 5px; text-align: left; font-size: 120% ;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Inserisci i tuoi dati per stampare il documento</h4>
-    <?= $this->form ?>
-        <a id="stampa" class="button doc-button" href="#stampa">Stampa</a>
-<small style="margin-left:5px;">* campi obbligatori</small>        
-</div>
-<!-- ricalcola -->
-<a id="button-ricalcola-anagrafe" class="button doc-button" href="<?=
-    $this->url(array('controller' => $session->comune,
-        'action' => 'index'), null, TRUE);
-    ?>">Ricalcola</a>
+    <?=$session->indici_sambiti_stampa; ?>
+    
 <!-- stima -->
 <table id="risultati-anagrafe">
     <caption>Risultato stimato</caption>      
     <tr class="header-tabella1">
         <td>Capacità edificatoria calcolata</td>
-        <td><?= $session->capacita_edificatoria; ?></td>
+        <td><?=$session->capacita_edificatoria; ?></td>
         <td>(m3)</td>
     </tr>
     <tr class="">
         <td>Valore area calcolata</td>
-        <td><?= $session->stimaUnitaria ?></td> 
+        <td><?=$session->stimaUnitaria ?></td> 
         <td>(Euro/m3)</td>        
     </tr>
     <tr class="header-tabella1">
         <td>Valore area edificabile</td>
-        <td><?= $session->valoreAreaEdificabile; ?></td> 
+        <td><?=$session->valoreAreaEdificabile; ?></td> 
         <td>(Euro/m3)</td>        
     </tr>    
-</table>
+</table>    
+</div> 
+<div style="clear:both;"></div>
+<div id="form-anagrafe">
+    <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; margin-left: 5px; text-align: left; font-size: 120% ;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Inserisci i tuoi dati per stampare il documento</h4>
+    <?=$this->form ?>
+    <a id="stampa" class="button doc-button" href="#stampa">Stampa</a>
+<small style="margin-left:5px;">* campi obbligatori</small>        
+</div>
+
+<!-- llllll -->
+
 <div style="clear:both"></div>
+
+<a id="button-ricalcola-form2" class="button doc-button"
+	style="float: right; margin-top: -38px; margin-right: 20px;"
+	href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
+
+
     <script type="text/javascript">
         $(function()
         {
@@ -106,8 +112,3 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
                                     
         });
     </script>
-
-
-
-
-<!-- <pre><?php //print_r($session->stimaUnitaria); ?></pre> -->

@@ -1,28 +1,33 @@
 <div id="contenitore-index">
-    <h4 style ='font: small/1.5 "Tahoma", "Bitstream Vera" ; text-align: left; font-size: 120% ;padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Compila i campi sottostanti e premi il pulsante: "continua il calcolo".</h4>    
+	<h4 style='font: small/1.5 "Tahoma", "Bitstream Vera"; text-align: left; font-size: 120%; padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Compila
+		i campi sottostanti e premi il pulsante: "continua il calcolo".</h4>    
     <?
-    $session = new Zend_Session_Namespace('step1'); // prendo i dati dalla sessione
-    $step1 = $session->step1;
-    $id_s_ambito = $step1['id_u_sambiti'];
-    $id_m_ambito = $step1['id_m_ambiti'];
-    $area_urbanizzata = $step1['area_urbanizzata'];
-    //var_dump($id_s_ambito);    
-    $this->headTitle("Calcolo imu lonato");
-    echo $this->form;
-    ?>
+				$session = new Zend_Session_Namespace ( 'step1' ); // prendo i dati  // dalla sessione
+				$step1 = $session->step1;
+				
+				//Zend_Debug::dump($step1);
+				
+				$id_s_ambito = $step1 ['id_u_sambiti'];
+				$id_m_ambito = $step1 ['id_m_ambiti'];
+				$area_urbanizzata = $step1 ['area_urbanizzata'];
+				
+				$this->headTitle ( "Calcolo imu lonato" );
+				echo $this->form;
+				?>
     <small>* campi obbligatori</small>
 </div>
 <!-- bottone ricalcola -->
-<a id="button-ricalcola-form2" class="button doc-button" style="float:right; margin-bottom: 20px; margin-top:0px; margin-right:30px;" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
-
+<a id="button-ricalcola-form2" class="button doc-button"
+	style="float: right; margin-top: -10px; margin-right: 30px;"
+	href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
 <script type="text/javascript">
     $(function()
     {
+
         /*
          *
          * nascondo i campi 
-         */
-        
+         */        
         var label_lotto_saturo = $('#lotto_saturo-label');                 
         var id_lotto_saturo    = $('#lotto_saturo-element');
 
@@ -32,60 +37,80 @@
         var label_superficie = $('#superficie-label');
      
 <?
-if (isset($area_urbanizzata)) {
-    if ($area_urbanizzata == 0) {
-        echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
-    }
-} else {
-    echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
+if (isset ( $area_urbanizzata )) {
+	if ($area_urbanizzata == 0) {
+		echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';		
+	}
+} else {	
+	echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
 }
 ?>            
         //     label_lotto_saturo.hide();
         //     id_lotto_saturo.hide(); 
 
 <?
-if (isset($id_m_ambito)) {
-    //echo '$("#id_m_ambiti option:eq(' . $id_m_ambito . ')").attr("selected", "selected");';
-    //echo '$("#id_m_ambiti option").prop("selectedIndex", ' . $id_m_ambito . ')';
-    echo '$("#selectBox :nth-child(' . $id_m_ambito . ')").attr("selected", "selected")';
-}else {    
-    echo '$("#selectBox :nth-child(1)").attr("selected", "selected");';
-    //echo '$("#superficie").val(" ");';
-    //echo '$("#capacita_edificatoria").val(" ");';    
+if (isset ( $id_m_ambito )) {
+	// echo '$("#id_m_ambiti option:eq(' . $id_m_ambito . ')").attr("selected","selected");';
+	// echo '$("#id_m_ambiti option").prop("selectedIndex", ' . $id_m_ambito .
+	// ')';
+	echo 'console.log("macro ok");';
+	echo '$("#selectBox :nth-child(' . $id_m_ambito . ')").attr("selected", "selected");';
+	echo 'selSubAmbiti(' . $id_m_ambito . ');';
+} else {
+	echo '$("#selectBox :nth-child(1)").attr("selected", "selected");';
+	echo 'inputVolumetria(1);';
+	echo 'console.log("aa");';
+	// echo '$("#superficie").val(" ");';
+	// echo '$("#capacita_edificatoria").val(" ");';
 }
 ?>
 
-
 <?
-if (isset($id_s_ambito)) {
-    echo "inputVolumetria(" . $id_s_ambito . ")";
+if (isset ( $id_s_ambito )) {
+	
+	echo 'console.log("sub ambito settato");';
+	echo 'console.log("'.$id_s_ambito.'");';
+	if ($id_s_ambito==""){
+		;
+		echo 'console.log("no id");';
+	}else {
+		echo "inputVolumetria(" . $id_s_ambito . ");";
+	}
 } else {
-    echo 'inputVolumetria(1)';
+	echo 'console.log("sub ambito non settato");';
 }
 ?>   
-             //inputVolumetria(1);
-
 
              /*
               * on area urbanizzata change
               */
+			 help_superficie = "E' la superficie complessiva del comparto prescelto assoggettato a Piano Attuativo di cui si vuole calcolare il valore";
+              
              var radioSel = $("#calcolo_imu_lonato input[name=area_urbanizzata]"); 
              radioSel.change(function onSelectChange(){
+
                  var selected = $("#calcolo_imu_lonato input[name=area_urbanizzata]:checked").val();  
                  if(selected == 1){
+                	 //fondaria                   
                      selModalitaIntervento(1);                        
                      label_lotto_saturo.show();
-                     id_lotto_saturo.show();
-                     label_superficie.text('Superficie fondiaria: * (mq)');
+                     id_lotto_saturo.show();                   
+                     help_superficie = "E' la superficie dell'area urbanizzata di cui si vuole calcolare il valore";                     
+                     label_superficie.html('Superficie fondiaria: * (mq) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');                   
+                     
                  }else if(selected == 0){
+                     //territoriale  
                      selModalitaIntervento(0); 
                      label_lotto_saturo.hide();                        
                      id_lotto_saturo.hide();
-                     label_superficie.text('Superficie territoriale: * (mq)');            
+                     help_superficie = "E' la superficie complessiva del comparto prescelto assoggettato a Piano Attuativo di cui si vuole calcolare il valore";                     
+                     label_superficie.html('Superficie territoriale: * (mq) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');
                  }
-             });    
+            
+             });
     
-    
+             console.log("c "+help_superficie);
+             
              if( $("#capacita_edificatoria").is(':visible') ) {
         
                  $("#submit").attr("disabled", "true");
@@ -130,9 +155,44 @@ if (isset($id_s_ambito)) {
                  }
                  o += '</ul>';
                  return o;
-             }
-    
-    
+             }    
+
+             /*
+          	  * help in-linea
+              *
+          	  */
+              $("#help_m_ambiti").bind("click",function(){
+                  $.Growl.show("E' l'Ambito definito dalle norme tecniche del Documento di Piano o del Piano delle Regole del PGT nel quale sono comprese aree caratterizzate dalle stesse destinazioni d'uso ammesse e dalle stesse cessioni");
+                });
+
+              $("#help_s_ambiti").bind("click",function(){
+                  $.Growl.show("E' l'insieme delle aree facenti parte dell'Ambito per le quali le norme tecniche del Documento di Piano o del Piano delle Regole del PGT definiscono una stessa potenzialit&agrave; edificatoria");
+                });
+
+              $("#help_s_zona").bind("click",function(){
+                  $.Growl.show("E' la localizzazione geografica dell'area per la quale sono omogeneamente definiti valori estimativi di riferimento");
+                }); 
+                     
+              $("#help_urbanizzata").bind("click",function(){
+                  $.Growl.show("Selezionare \"Sì\" quando la norma consente l'ottenimento diretto del provvedimento abilitativo a costruire \(Permesso di Costruire, DIA, ecc., quando l'area &egrave; già dotata delle urbanizzazioni\) Selezionare \"No\" quando la norma subordina l'ottenimento del provvedimento abilitativo a costruire ad un preventivo convenzionamento per l'esecuzione di urbanizzazioni, cessioni e contributi compensativi \(Permesso di Costruire Convenzionato, Piano Attuativo, quando l'area non è -o è parzialmente- dotata delle urbanizzazioni\)");
+                }); 
+
+              $("#help_intervento").bind("click",function(){
+                  $.Growl.show("Selezionare il caso appropriato secondo le indicazioni delle Norme Tecniche di Attuazione per l'ambito prescelto");
+                }); 
+              
+              $("#help_lotto_saturo").bind("click",function(){
+                  $.Growl.show("Selezionare \"Sì\" quando l'area considerata ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;; Selezionare \"No\" quando l'area considerata non ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;;");
+                });         
+      		
+              $("#help_superficie").live("click",function(){
+                  $.Growl.show(help_superficie);
+                });  
+
+              $("#help_cepp").live("click",function(){
+            	  $.Growl.show(help_volumetria);
+                }); 
+             
          });
          
 </script>
