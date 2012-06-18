@@ -17,7 +17,7 @@
         "message": message,
         "cls": "",
         "speed": 500,
-        "timeout": 3000
+        "timeout": 8000
       },options);
       
       $("#"+settings.id).remove();
