@@ -3,31 +3,15 @@
 <?
     $this->headTitle("Calcolo imu lonato");
     echo $this->form;
+    
+    $help = $this->help;
+
 ?>
 <small>* campi obbligatori</small>
 </div>
 <div id="avvertenze">
 <p><b>Avvertenze generali</b></p>
-<p>L'applicazione web &egrave; soggetta ai <a href="<?=$this->url(array('controller' => 'About','action' => 'privacy'), null, TRUE);?>">termini e condizioni d'uso</a>.<br />
-Restituisce, per il Comune e per l'anno di imposta selezionati, 
-il valore indicativo di aree edificabili da utilizzare come base imponibile ai fini dell'Imposta Municipale Unica.
-L'algoritmo di calcolo utilizza i valori di riferimento generali approvati dal Comune con proprio atto.
-</p>
-I valori di riferimento, riferiti alle singole destinazioni d'uso, consentono di determinare il valore in due diversi stati:
-<ul>
-<li>lo stato urbanizzato, corrispondente alla condizione di ottenimento di provvedimento abilitativo diretto a costruire;</li>
-<li>lo stato non urbanizzato, corrispondente alla condizione di ottenimento di provvedimento abilitativo a costruire subordinato a convenzionamento per l'esecuzione di opere di urbanizzazione, di cessione di aree o di corresponsione di contributi compensativi.</li>
-</ul>
-La scelta dell'ambito di riferimento in cui  posta l'area richiama i parametri urbanistici definiti dalle norme locali ad esso collegati.
-<p> 
-Nel caso di valore allo stato non urbanizzato, la quota di cessione per la viabilit&agrave; e i parametri per l'attualizzazione del valore futuro sono quelli indicati dall'atto di approvazione dei valori di riferimento per l'annualit&agrave; selezionata.
-L'applicazione restituisce un valore unitario (rispetto alla capacit&agrave; edificatoria definita per l'ambito) e un valore
-complessivo. Il valore complessivo dipende dalla misura della superficie dell'area inputata dall'utente.
-</p>
-<p>
-Per l'utilizzo dell'applicazione, soprattutto nel caso di area non urbanizzata, si consiglia l'assistenza di un tecnico abilitato o degli Uffici Comunali allo scopo di garantire la congruit&agrave; dei dati inseriti e l'attendibilit&agrave; dei corrispondenti risultati.
-Nel caso di compropriet&agrave; o di possesso per un periodo minore dell'annualit&agrave;, i valori restituiti devono essere corrispondentemente ridotti.
-</p>
+<?=$help->descrizione;?>
 </div>
 <div style="clear: both"></div>
 

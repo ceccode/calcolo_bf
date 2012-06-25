@@ -15,6 +15,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
     private $lonato_log = null;
     private $lonato_var_indici = null;
     private $lonato_anni = null;
+    private $lonato_help = null;    
 
     public function init() {
         $this->lonato_s_rifunitariedest = Factory_dbTable::getClass("017092", "s_rifunitariedest");
@@ -28,11 +29,20 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->lonato_u_sambiti = Factory_dbTable::getClass("017092", "u_sambiti");
         $this->lonato_u_sdestinazioni = Factory_dbTable::getClass("017092", "u_sdestinazioni");
         $this->lonato_log = Factory_dbTable::getClass("017092", "log");
+        $this->lonato_help = Factory_dbTable::getClass("017092", "help");       
         $this->lonato_var_indici = Factory_dbTable::getClass("017092", "var_indici");
         $this->lonato_anni = Factory_dbTable::getClass("017092", "anni");
         // setto il comune
         $session = new Zend_Session_Namespace('step1');
         $session->comune = "Lonatodelgarda";
+        
+        //invio all'head i valori della volumetria
+        $help_volumetria_predefinita = $this->lonato_help->getHelp('volumetria_predefinita');
+        $this->view->help_volumetria_predefinita = $help_volumetria_predefinita;
+        
+        $help_volumetria_preesistente = $this->lonato_help->getHelp('volumetria_preesistente');
+        $this->view->help_volumetria_preesistente = $help_volumetria_preesistente;      
+                        
     }
 
     public function indexAction() {
@@ -49,6 +59,13 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->quote = null;
         $session->indici_u_sambiti_txt = null;
 
+        
+        $help = $this->lonato_help->getHelp('avvertenze');
+        if (!$help){
+        	$help = "";
+        }
+        $this->view->help = $help;
+        
         // setto il layout
         //$this->_helper->_layout->setLayout('dojo');
         // comune
@@ -159,7 +176,43 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->riassunto_step1_txt = null;
         $session->quote = null;
         $session->indici_u_sambiti_txt = null;
+        
 
+        /*
+         *  prelevo gli help che mi servono e li
+         *  invio alla view 
+         */
+        $help_m_ambiti = $this->lonato_help->getHelp('m_ambiti');
+        $this->view->help_m_ambiti = $help_m_ambiti;
+        
+        $help_s_ambiti = $this->lonato_help->getHelp('s_ambiti');
+        $this->view->help_s_ambiti = $help_s_ambiti;
+        
+        $help_s_zona = $this->lonato_help->getHelp('s_zona');
+        $this->view->help_s_zona = $help_s_zona;
+                
+        $help_urbanizzata = $this->lonato_help->getHelp('urbanizzata');
+        $this->view->help_urbanizzata = $help_urbanizzata;        
+        
+        $help_intervento = $this->lonato_help->getHelp('intervento');
+        $this->view->help_intervento = $help_intervento;        
+
+        $help_lotto_saturo = $this->lonato_help->getHelp('lotto_saturo');
+        $this->view->help_lotto_saturo = $help_lotto_saturo;        
+
+        $help_superficie_fondiaria = $this->lonato_help->getHelp('superficie_fondiaria');
+        $this->view->help_superficie_fondiaria = $help_superficie_fondiaria;
+
+        $help_superficie_territoriale = $this->lonato_help->getHelp('superficie_territoriale');
+        $this->view->help_superficie_territoriale = $help_superficie_territoriale; 
+
+//         $help_volumetria_predefinita = $this->lonato_help->getHelp('volumetria_predefinita');
+//         $this->view->help_volumetria_predefinita = $help_volumetria_predefinita;
+
+//         $help_volumetria_preesistente = $this->lonato_help->getHelp('volumetria_preesistente');
+//         $this->view->help_volumetria_preesistente = $help_volumetria_preesistente;
+        //-----
+        
         // action body
         $form = new Application_Form_Lonatodelgarda();        
        
@@ -504,6 +557,13 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session = new Zend_Session_Namespace('step1');
         $values = $session->step1;
 
+        $help_quota_progetto = $this->lonato_help->getHelp('quota_progetto');
+        //var_dump($help_quota_progetto);
+        if (!$help_quota_progetto){
+        	$help_quota_progetto = "";
+        }
+        $this->view->help_quota_progetto = $help_quota_progetto; 
+        
         $this->view->values = $values;
 
         require_once APPLICATION_PATH . "/models/Elaborazione/stima.php";

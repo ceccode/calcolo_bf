@@ -1,11 +1,24 @@
 <div id="contenitore-index">
-	<h4 style='font: small/1.5 "Tahoma", "Bitstream Vera"; text-align: left; font-size: 120%; padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Compila
+	<h4
+		style='font: small/1.5 "Tahoma", "Bitstream Vera"; text-align: left; font-size: 120%; padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Compila
 		i campi sottostanti e premi il pulsante: "continua il calcolo".</h4>    
     <?
-				$session = new Zend_Session_Namespace ( 'step1' ); // prendo i dati  // dalla sessione
+
+			    $help_m_ambiti = $this->help_m_ambiti;
+			    $help_s_ambiti = $this->help_s_ambiti;
+			    $help_s_zona = $this->help_s_zona;
+			    $help_urbanizzata = $this->help_urbanizzata;
+			    $help_intervento = $this->help_intervento;
+			    $help_lotto_saturo = $this->help_lotto_saturo;			    
+			    $help_superficie_fondiaria = $this->help_superficie_fondiaria;
+			    $help_superficie_territoriale = $this->help_superficie_territoriale;			    		    
+
+			    
+				$session = new Zend_Session_Namespace ( 'step1' ); // prendo i dati
+				                                                   // // dalla sessione
 				$step1 = $session->step1;
 				
-				//Zend_Debug::dump($step1);
+				// Zend_Debug::dump($step1);
 				
 				$id_s_ambito = $step1 ['id_u_sambiti'];
 				$id_m_ambito = $step1 ['id_m_ambiti'];
@@ -24,6 +37,8 @@
     $(function()
     {
 
+        help_superficie_fondiaria = "<?=$help_superficie_fondiaria->descrizione;?>";    	
+        help_superficie_territoriale = "<?=$help_superficie_territoriale->descrizione;?>";    	        
         /*
          *
          * nascondo i campi 
@@ -39,45 +54,28 @@
 <?
 if (isset ( $area_urbanizzata )) {
 	if ($area_urbanizzata == 0) {
-		echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';		
+		echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
 	}
-} else {	
+} else {
 	echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
 }
-?>            
-        //     label_lotto_saturo.hide();
-        //     id_lotto_saturo.hide(); 
 
-<?
 if (isset ( $id_m_ambito )) {
-	// echo '$("#id_m_ambiti option:eq(' . $id_m_ambito . ')").attr("selected","selected");';
-	// echo '$("#id_m_ambiti option").prop("selectedIndex", ' . $id_m_ambito .
-	// ')';
-	echo 'console.log("macro ok");';
 	echo '$("#selectBox :nth-child(' . $id_m_ambito . ')").attr("selected", "selected");';
 	echo 'selSubAmbiti(' . $id_m_ambito . ');';
 } else {
 	echo '$("#selectBox :nth-child(1)").attr("selected", "selected");';
 	echo 'inputVolumetria(1);';
-	echo 'console.log("aa");';
-	// echo '$("#superficie").val(" ");';
-	// echo '$("#capacita_edificatoria").val(" ");';
 }
-?>
 
-<?
 if (isset ( $id_s_ambito )) {
-	
-	echo 'console.log("sub ambito settato");';
-	echo 'console.log("'.$id_s_ambito.'");';
-	if ($id_s_ambito==""){
+	if ($id_s_ambito == "") {
 		;
-		echo 'console.log("no id");';
-	}else {
+	} else {
 		echo "inputVolumetria(" . $id_s_ambito . ");";
 	}
 } else {
-	echo 'console.log("sub ambito non settato");';
+	;
 }
 ?>   
 
@@ -94,8 +92,9 @@ if (isset ( $id_s_ambito )) {
                 	 //fondaria                   
                      selModalitaIntervento(1);                        
                      label_lotto_saturo.show();
-                     id_lotto_saturo.show();                   
-                     help_superficie = "E' la superficie dell'area urbanizzata di cui si vuole calcolare il valore";                     
+                     id_lotto_saturo.show(); 
+                     help_superficie = help_superficie_fondiaria; 
+                     //help_superficie = "E' la superficie dell'area urbanizzata di cui si vuole calcolare il valore";                     
                      label_superficie.html('Superficie fondiaria: * (mq) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');                   
                      
                  }else if(selected == 0){
@@ -103,14 +102,14 @@ if (isset ( $id_s_ambito )) {
                      selModalitaIntervento(0); 
                      label_lotto_saturo.hide();                        
                      id_lotto_saturo.hide();
-                     help_superficie = "E' la superficie complessiva del comparto prescelto assoggettato a Piano Attuativo di cui si vuole calcolare il valore";                     
+                     
+                     help_superficie = help_superficie_territoriale;
+                     //help_superficie = "E' la superficie complessiva del comparto prescelto assoggettato a Piano Attuativo di cui si vuole calcolare il valore";                     
                      label_superficie.html('Superficie territoriale: * (mq) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');
                  }
             
              });
-    
-             console.log("c "+help_superficie);
-             
+                
              if( $("#capacita_edificatoria").is(':visible') ) {
         
                  $("#submit").attr("disabled", "true");
@@ -160,36 +159,51 @@ if (isset ( $id_s_ambito )) {
              /*
           	  * help in-linea
               *
-          	  */
-              $("#help_m_ambiti").bind("click",function(){
-                  $.Growl.show("E' l'Ambito definito dalle norme tecniche del Documento di Piano o del Piano delle Regole del PGT nel quale sono comprese aree caratterizzate dalle stesse destinazioni d'uso ammesse e dalle stesse cessioni");
+          	  */      		  
+        	  $("#help_m_ambiti").bind("click",function(){                 
+        		  var help_m_ambiti = "<?=$help_m_ambiti->descrizione;?>";
+        		  $.Growl.show(help_m_ambiti);
+                  //$.Growl.show("E' l'Ambito definito dalle norme tecniche del Documento di Piano o del Piano delle Regole del PGT nel quale sono comprese aree caratterizzate dalle stesse destinazioni d'uso ammesse e dalle stesse cessioni");
                 });
 
               $("#help_s_ambiti").bind("click",function(){
-                  $.Growl.show("E' l'insieme delle aree facenti parte dell'Ambito per le quali le norme tecniche del Documento di Piano o del Piano delle Regole del PGT definiscono una stessa potenzialit&agrave; edificatoria");
+        		  var help_s_ambiti = "<?=$help_s_ambiti->descrizione;?>";
+            	  $.Growl.show(help_s_ambiti);
+                  //$.Growl.show("E' l'insieme delle aree facenti parte dell'Ambito per le quali le norme tecniche del Documento di Piano o del Piano delle Regole del PGT definiscono una stessa potenzialit&agrave; edificatoria");
                 });
 
               $("#help_s_zona").bind("click",function(){
-                  $.Growl.show("E' la localizzazione geografica dell'area per la quale sono omogeneamente definiti valori estimativi di riferimento");
+        		  var help_s_zona = "<?=$help_s_zona->descrizione;?>";
+            	  $.Growl.show(help_s_zona);
+                  //$.Growl.show("E' la localizzazione geografica dell'area per la quale sono omogeneamente definiti valori estimativi di riferimento");
                 }); 
                      
               $("#help_urbanizzata").bind("click",function(){
-                  $.Growl.show("Selezionare \"Sì\" quando la norma consente l'ottenimento diretto del provvedimento abilitativo a costruire \(Permesso di Costruire, DIA, ecc., quando l'area &egrave; già dotata delle urbanizzazioni\) Selezionare \"No\" quando la norma subordina l'ottenimento del provvedimento abilitativo a costruire ad un preventivo convenzionamento per l'esecuzione di urbanizzazioni, cessioni e contributi compensativi \(Permesso di Costruire Convenzionato, Piano Attuativo, quando l'area non è -o è parzialmente- dotata delle urbanizzazioni\)");
+        		  var help_urbanizzata = "<?=$help_urbanizzata->descrizione;?>";
+            	  $.Growl.show(help_urbanizzata);
+                  //$.Growl.show("Selezionare \"Sì\" quando la norma consente l'ottenimento diretto del provvedimento abilitativo a costruire \(Permesso di Costruire, DIA, ecc., quando l'area &egrave; già dotata delle urbanizzazioni\) Selezionare \"No\" quando la norma subordina l'ottenimento del provvedimento abilitativo a costruire ad un preventivo convenzionamento per l'esecuzione di urbanizzazioni, cessioni e contributi compensativi \(Permesso di Costruire Convenzionato, Piano Attuativo, quando l'area non è -o è parzialmente- dotata delle urbanizzazioni\)");
                 }); 
 
               $("#help_intervento").bind("click",function(){
-                  $.Growl.show("Selezionare il caso appropriato secondo le indicazioni delle Norme Tecniche di Attuazione per l'ambito prescelto");
+        		  var help_intervento = "<?=$help_intervento->descrizione;?>";
+            	  $.Growl.show(help_intervento);
+                  //$.Growl.show("Selezionare il caso appropriato secondo le indicazioni delle Norme Tecniche di Attuazione per l'ambito prescelto");
                 }); 
               
               $("#help_lotto_saturo").bind("click",function(){
-                  $.Growl.show("Selezionare \"Sì\" quando l'area considerata ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;; Selezionare \"No\" quando l'area considerata non ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;;");
+        		  var help_lotto_saturo = "<?=$help_lotto_saturo->descrizione;?>";
+            	  $.Growl.show(help_lotto_saturo);
+                  //$.Growl.show("Selezionare \"Sì\" quando l'area considerata ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;; Selezionare \"No\" quando l'area considerata non ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;;");
                 });         
       		
               $("#help_superficie").live("click",function(){
-                  $.Growl.show(help_superficie);
+        		  $.Growl.show(help_superficie);
+                  //$.Growl.show(help_superficie);
                 });  
 
               $("#help_cepp").live("click",function(){
+        		  //var help_cepp = "<?//=$help_cepp->descrizione;?>";
+            	  //$.Growl.show(help_cepp);
             	  $.Growl.show(help_volumetria);
                 }); 
              

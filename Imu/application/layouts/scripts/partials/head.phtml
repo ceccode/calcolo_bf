@@ -21,6 +21,9 @@ $this->headLink()->prependStylesheet($this->baseUrl().'/media/css/growl.css');
  */
 $this->headScript()->prependFile($this->baseUrl().'/media/js/growl.js');
 $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js');
+
+$help_volumetria_preesistente = $this->help_volumetria_preesistente;
+$help_volumetria_predefinita = $this->help_volumetria_predefinita;
 ?>
 <script type="text/javascript">
     
@@ -55,11 +58,17 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
                   });
 
     }
-
+//	help_volumetria_predefinita = "<?//=$help_volumetria_predefinita;?>";
+//	help_volumetria_preesistente = "<?//=$help_volumetria_preesistente;?>";                    	
+	
     function inputVolumetria(idSubAmbito){
         $.getJSON('http://localhost:10095/public/Ajax/search-volumetria', 
             { categoria: idSubAmbito},
                   function(dataNorme){
+                
+            	help_volumetria_predefinita = "<?=$help_volumetria_predefinita->descrizione;?>";
+            	help_volumetria_preesistente = "<?=$help_volumetria_preesistente->descrizione;?>"; 
+                
                     dataNorme.descrizione = dataNorme.descrizione.toLowerCase();
                     if (dataNorme.descrizione == "v3"){
                         $("#capacita_edificatoria-label").hide();
@@ -68,25 +77,32 @@ $this->headScript()->prependFile($this->baseUrl().'/media/js/jquery-1.5.2.min.js
 
                     }else {
 
+                    	
                         var label = 'Inputare volumetria: * (m3)';
                         switch (dataNorme.descrizione) {
                             case "v1": label = 'Inputare volumetria preesistente * (m3) ';
-                            		   help_volumetria = 'Nei casi in cui la capacità edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
+                            		   help_volumetria = help_volumetria_preesistente; 
+                  		   			   //help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
                             case "v2": label = 'Inputare volumetria predefinita: * (m3) ';
-                            		   help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria sia predefinita dalla norma, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
+                            			help_volumetria = help_volumetria_predefinita; 
+                  		   				//help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria sia predefinita dalla norma, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
                             case "v4": label = 'Inputare volumetria preesistente: * (m3) ';
-			                  		   help_volumetria = 'Nei casi in cui la capacità edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
+                  		   				help_volumetria = help_volumetria_preesistente; 
+	                  		   			//help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
                             case "u1": label = 'Inputare voumetria slp preesistente: * ';
-			                           help_volumetria = 'Nei casi in cui la capacità edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
+			                  		    help_volumetria = help_volumetria_preesistente; 
+	        	                   	    //help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
                             case "u2": label = 'Inputare slp predefinita: * (m2spl) ';
-			                           help_volumetria = 'Nei casi in cui la capacità edificatoria sia predefinita dalla norma, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
+                  		   			    help_volumetria = help_volumetria_predefinita; 
+	                           			//help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria sia predefinita dalla norma, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
                             case "u4": label = 'Inputare voumetria slp preesistente: * (m2spl) ';
-	                           		   help_volumetria = 'Nei casi in cui la capacità edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';                            
+			                   		    help_volumetria = help_volumetria_preesistente;
+                 		   				//help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';                            
                             break;
                         }
                                               

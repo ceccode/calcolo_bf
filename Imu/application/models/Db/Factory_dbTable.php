@@ -26,6 +26,7 @@ class Factory_dbTable {
         require_once APPLICATION_PATH . "/models/Db/USambiti.php";
         require_once APPLICATION_PATH . "/models/Db/USdestinazioni.php";
         require_once APPLICATION_PATH . "/models/Db/Log.php";
+        require_once APPLICATION_PATH . "/models/Db/Help.php";        
         require_once APPLICATION_PATH . "/models/Db/VarIndici.php";
         require_once APPLICATION_PATH . "/models/Db/Anni.php";
 
@@ -85,6 +86,10 @@ class Factory_dbTable {
                 $tabella = new Application_Model_DbTable_Anni();
                 $tabella->setName('anni');
                 break;
+                case 'help':
+                	$tabella = new Application_Model_DbTable_Help();
+                	$tabella->setName('help');
+                	break;                
             default:
                 throw new Exception("Nome tabella non valido in Factory_dbTable getClass");
         }
