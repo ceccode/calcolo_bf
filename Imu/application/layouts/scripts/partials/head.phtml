@@ -28,7 +28,7 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
 <script type="text/javascript">
     
     function selSubAmbiti(idMacroAmbito){
-        $.getJSON('http://localhost:10095/public/Ajax/search-subambiti', 
+        $.getJSON('http://<?=$_SERVER['SERVER_NAME']?>:10095/public/Ajax/search-subambiti', 
             { categoria: idMacroAmbito},
                   function(dataNorme){
                     //console.log(dataNorme);
@@ -62,7 +62,7 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
 //	help_volumetria_preesistente = "<?//=$help_volumetria_preesistente;?>";                    	
 	
     function inputVolumetria(idSubAmbito){
-        $.getJSON('http://localhost:10095/public/Ajax/search-volumetria', 
+        $.getJSON('http://<?=$_SERVER['SERVER_NAME']?>:10095/public/Ajax/search-volumetria', 
             { categoria: idSubAmbito},
                   function(dataNorme){
                 
@@ -123,7 +123,7 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
 
 
     function selModalitaIntervento(urbanizzato){
-        $.getJSON('http://localhost:10095/public/Ajax/search-modalitaintervento', 
+        $.getJSON('http://<?=$_SERVER['SERVER_NAME']?>:10095/public/Ajax/search-modalitaintervento', 
             { categoria: urbanizzato},
                   function(dataNorme){
                     //console.log(dataNorme);

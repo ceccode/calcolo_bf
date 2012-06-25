@@ -158,18 +158,19 @@ class AjaxController extends Zend_Controller_Action
     
     public function validateAnagrafeAction(){
         
-        $this->_helper->viewRenderer->setNoRender();
-        $this->_helper->getHelper('Layout')->disableLayout();
+         $this->_helper->viewRenderer->setNoRender();
+         $this->_helper->getHelper('Layout')->disableLayout();
         
-        $f = new Application_Form_Anagrafe();        
-        $input = $this->_getAllParams();
+         $f = new Application_Form_Anagrafe();
+         $f2 = new Application_Form_Anagrafe();
+         $input = $this->_getAllParams();
         
-        unset($input['stampa_soc']);
-        unset($input['controller']);
-        unset($input['action']);
-        unset($input['module']);        
+         unset($input['stampa_soc']);
+         unset($input['controller']);
+         unset($input['action']);
+         unset($input['module']);        
         
-        $ret = $f->isValid($input);        
+         $ret = $f->isValid($input);
 
         $session = new Zend_Session_Namespace('anagrafe');
         $session->anagrafe = $input;

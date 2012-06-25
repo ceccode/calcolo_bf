@@ -134,8 +134,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $anagrafe = $session2->anagrafe;
         $var = $values;
         
-        Zend_Debug::dump($anagrafe);
-
         $ret = $this->lonato_log->inserisciLog($values['nome'], $values['cognome'], $values['cf']);
         return $ret;
     }
@@ -149,7 +147,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
 
         $values = $session->step1;
         $anagrafe = $session2->anagrafe;
-        
+
+        $anagrafe = $session2->anagrafe;
+        $ret = $this->lonato_log->inserisciLog($anagrafe['nome'], $anagrafe['cognome'],$anagrafe['cf']);             
 
         $this->view->values = $values;
         $this->view->anagrafe = $anagrafe;
@@ -161,6 +161,8 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $this->view->indici_mambiti_stampa = $session->indici_mambiti_stampa_txt;
         $this->view->quote = $session->quote;
         $this->view->data_calcolo = $session->data_calcolo;
+        
+        return $ret;
     }
 
     public function selezioneAmbitiAction() {
