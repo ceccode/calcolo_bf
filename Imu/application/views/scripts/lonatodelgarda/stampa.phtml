@@ -68,8 +68,10 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse ( $step1 ['id_m_ambiti
  */
 $capacita_edificatoria_calcolata = Utility::formattaNumeroPerStampa($this->capacita_edificatoria);
 $valore_area_calcolata = Utility::formattaNumeroPerStampa($this->stimaUnitaria);
-$valore_area_edificabile = number_format ($this->valoreAreaEdificabile, 0, ",", "." );;
 
+$valore_area_edificabile = Utility::formattaNumeroPerStampa($this->valoreAreaEdificabile);
+//$valore_area_edificabile = number_format ($this->valoreAreaEdificabile, 0, ",", "." );
+$valore_area_edificabile = $valore_area_edificabile;
 /*
  * unità di misura
  */
@@ -292,7 +294,7 @@ $tbl_riassunto = <<<EOD
     </tr>  
     <tr>
         <td style="width:30%;">$volumetria_etichetta</td>
-        <td style="width:70%;">$volumetria</td>        
+        <td style="width:70%;">$volumetria</td>      
     </tr>      
 </table>
 EOD;
