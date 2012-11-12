@@ -1,4 +1,7 @@
 <?php
+// includo l'utility
+require_once APPLICATION_PATH . "/models/Utility.php";
+
 $session = new Zend_Session_Namespace('step1');
 $values = $this->values;
 $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
@@ -23,17 +26,17 @@ width: 150px;
     <caption>Risultato stimato</caption>      
     <tr class="header-tabella1">
         <td>Capacità edificatoria calcolata</td>
-        <td><?=$session->capacita_edificatoria; ?></td>
+        <td><?=Utility::formattaNumeroPerStampa($session->capacita_edificatoria); ?></td>
         <td>(m3)</td>
     </tr>
     <tr class="">
         <td>Valore area calcolata</td>
-        <td><?=$session->stimaUnitaria ?></td> 
+        <td><?=Utility::formattaNumeroPerStampa($session->stimaUnitaria) ?></td> 
         <td>(Euro/m3)</td>        
     </tr>
     <tr class="header-tabella1">
         <td>Valore area edificabile</td>
-        <td><?=$session->valoreAreaEdificabile; ?></td> 
+        <td><?=Utility::formattaNumeroPerStampa($session->valoreAreaEdificabile); ?></td> 
         <td>(Euro/m3)</td>        
     </tr>    
 </table>    

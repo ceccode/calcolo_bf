@@ -259,12 +259,14 @@ class AjaxController extends Zend_Controller_Action
         
         // effettuo il calcolo della stima e capacit√† edificatoria
         require_once APPLICATION_PATH . "/models/Elaborazione/stima.php";
+        require_once APPLICATION_PATH . "/models/Utility.php";
+        
         // capacita edificatoria
         // metto in sessione la stima unitaria
         $valore_stimato = Stima::calcolaStimaSingolaLonato($new_input_utente);   
         $valore_stimato2 = $valore_stimato * $session->capacita_edificatoria;    
         
-        $ret = array('valore_area_calcolata' => $valore_stimato, 'valore_area_edificabile' => $valore_stimato2);
+        $ret = array('valore_area_calcolata' => Utility::formattaNumeroPerStampa($valore_stimato,true), 'valore_area_edificabile' => Utility::formattaNumeroPerStampa($valore_stimato2,true));
         
 //        print_r($ret);
         

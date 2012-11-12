@@ -53,9 +53,9 @@ $area_urbanizzata = $riassunto_form_1 ["area_urbanizzata"];
 $modalita_intervento = $riassunto_form_1 ["modalita_intervento"];
 $lotto_saturo = $riassunto_form_1 ["lotto_saturo"];
 $superficie_etichetta = $riassunto_form_1 ["superficie_etichetta"];
-$superficie_territoriale = $riassunto_form_1 ["superficie"];
+$superficie_territoriale = Utility::formattaNumeroPerStampa($riassunto_form_1 ["superficie"]);
 $volumetria_etichetta = $riassunto_form_1 ["volumetria_etichetta"];
-$volumetria = $riassunto_form_1 ["volumetria"];
+$volumetria = Utility::formattaNumeroPerStampa($riassunto_form_1 ["volumetria"]);
 
 /*
  * destinazioni ammesse
@@ -66,10 +66,9 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse ( $step1 ['id_m_ambiti
 /*
  * risultati del calcolo
  */
-$capacita_edificatoria_calcolata = $this->capacita_edificatoria;
-;
-$valore_area_calcolata = $this->stimaUnitaria;
-$valore_area_edificabile = $this->valoreAreaEdificabile;
+$capacita_edificatoria_calcolata = Utility::formattaNumeroPerStampa($this->capacita_edificatoria);
+$valore_area_calcolata = Utility::formattaNumeroPerStampa($this->stimaUnitaria);
+$valore_area_edificabile = number_format ($this->valoreAreaEdificabile, 0, ",", "." );;
 
 /*
  * unità di misura
@@ -123,9 +122,9 @@ if (strtolower ( $etichetta ) == "v3") {
 /*
  * inidici macro ambiti
  */
-$contributo_compensativo_aggiuntivo = $indici_macro_ambiti ["contributo_compensativo_aggiuntivo"];
-$valore_comprensativo_unitario = $indici_macro_ambiti ["valore_comprensativo_unitario"];
-$standard_pubblico_qualita = $indici_macro_ambiti ["standard_pubblico_qualita"];
+$contributo_compensativo_aggiuntivo = Utility::formattaNumeroPerStampa($indici_macro_ambiti ["contributo_compensativo_aggiuntivo"]);
+$valore_comprensativo_unitario = Utility::formattaNumeroPerStampa($indici_macro_ambiti ["valore_comprensativo_unitario"]);
+$standard_pubblico_qualita = Utility::formattaNumeroPerStampa($indici_macro_ambiti ["standard_pubblico_qualita"]);
 
 /*
  * indici subambiti Siccome sono dipendenti da n parameri sono nell'arrai
@@ -360,33 +359,33 @@ $pdf->writeHTML ( $tbl_risultati, true, false, false, false, '' );
 // indici sub ambiti
 // prendo i primi 6 indici
 $testo1 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["testo1"] ) );
-$dato1 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato1"] ) );
+$dato1 = Utility::formattaNumeroPerStampa(htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato1"] ) ));
 $um1 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["um1"] ) );
 
 $testo2 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["testo2"] ) );
-$dato2 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato2"] ) );
+$dato2 = Utility::formattaNumeroPerStampa(htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato2"] ) ));
 $um2 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["um2"] ) );
 
 $testo3 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["testo3"] ) );
-$dato3 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato3"] ) );
+$dato3 = Utility::formattaNumeroPerStampa(htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato3"] ) ));
 $um3 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["um3"] ) );
 
 $testo4 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["testo4"] ) );
-$dato4 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato4"] ) );
+$dato4 = Utility::formattaNumeroPerStampa(htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato4"] ) ));
 $um4 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["um4"] ) );
 
 $testo5 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["testo5"] ) );
-$dato5 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato5"] ) );
+$dato5 = Utility::formattaNumeroPerStampa(htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato5"] ) ));
 $um5 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["um5"] ) );
 
 $testo6 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["testo6"] ) );
-$dato6 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato6"] ) );
+$dato6 = Utility::formattaNumeroPerStampa(htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato6"] ) ));
 $um6 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["um6"] ) );
 
 if (count ( $indici_sub_ambiti ) == 21) {
 	// se ho lunghezza 7 prendo anche il settimo
 	$testo7 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["testo7"] ) );
-	$dato7 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato7"] ) );
+	$dato7 = Utility::formattaNumeroPerStampa(htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["dato7"] ) ));
 	$um7 = htmlspecialchars_decode ( html_entity_decode ( $indici_sub_ambiti ["um7"] ) );
 	
 	// memorizzo la stringa da stampare in html4

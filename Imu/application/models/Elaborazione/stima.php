@@ -340,8 +340,10 @@ class Stima {
             throw new Exception("Errore in calcolaCapcitaEdificatoria: il tipo di stima non è valido!" . $tipo_stima);
 
 
+        require_once APPLICATION_PATH . "/models/Utility.php";
+        
         if ($capacita_edificatoria)
-            return $capacita_edificatoria;
+            return Utility::formattaNumeroPerSalvataggioDb($capacita_edificatoria);
         else
             throw new Exception("Errore in calcolaCapacitaEdificatoriaLonato: capacità vuota o nulla. Tipo stima: " . $tipo_stima . " Capacita: " . $capacita_edificatoria);
     }

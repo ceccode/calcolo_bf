@@ -1,7 +1,9 @@
 <?php
 // prelevo i dati 
 $values = $this->values;
-$capacita_edificatoria = $this->capacita_edificatoria;
+// prendo il model utility
+require_once APPLICATION_PATH . "/models/Utility.php";
+$capacita_edificatoria = Utility::formattaNumeroPerStampa($this->capacita_edificatoria,true);
 
 $valore_area_calcolata = '';
 $valore_area_edificabile = '';

@@ -178,7 +178,6 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->riassunto_step1_txt = null;
         $session->quote = null;
         $session->indici_u_sambiti_txt = null;
-        
 
         /*
          *  prelevo gli help che mi servono e li
@@ -244,7 +243,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // dati variabili
         $session = new Zend_Session_Namespace('step1');
         $session->step1 = $values;
-                
+
+        require_once APPLICATION_PATH . "/models/Utility.php";
+        
         // ottengo gli indici subambiti da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
         // prendo i dati da mostrare
         $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"], $session->data_calcolo);
@@ -395,7 +396,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $stampa.='<tr class="header-tabella1">';
             $stampa.="<td>Valore compensativo unitario</td>";
             $valore_comprensativo_unitario = $valore_mambiti_riga->valore_comprensativo_unitario;
-            $stampa.="<td>" . $valore_mambiti_riga->valore_comprensativo_unitario . "</td>";
+            $stampa.="<td>" . Utility::formattaNumeroPerStampa($valore_mambiti_riga->valore_comprensativo_unitario) . "</td>";
             $stampa.="<td>Euro/m2</td>";
             // contributo compensativo aggiuntivo
             $stampa.='<tr>';
@@ -497,8 +498,9 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stampa.='>';
         $tmptxtsup=($values["area_urbanizzata"] == 1) ? "Superficie Fondiaria  (m2)" : "Superficie Territoriale (m2)";
         $stampa.="<td>" .$tmptxtsup . "</td>";
-        $stampa.="<td>" . $values["superficie"] . "</td>";
-
+        $stampa.="<td>" . Utility::formattaNumeroPerStampa($values["superficie"]) . "</td>";
+		
+        
         // volumetria
         if (strtolower($tipo_stima) != 'v3' && strtolower($tipo_stima) != 'u3') {
             switch (strtolower($tipo_stima)) {
@@ -529,7 +531,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $stampa.='>';
             $volumetria_valore = $values["capacita_edificatoria"];
             $stampa.="<td>" . $volumetria . "</td>";
-            $stampa.="<td>" . $volumetria_valore . "</td>";
+            $stampa.="<td>" . Utility::formattaNumeroPerStampa($volumetria_valore) . "</td>";
             // chiudo la tabella     
             $stampa.='</table>';
         }else{
