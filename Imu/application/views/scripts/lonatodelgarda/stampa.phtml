@@ -56,6 +56,9 @@ $superficie_etichetta = $riassunto_form_1 ["superficie_etichetta"];
 $superficie_territoriale = Utility::formattaNumeroPerStampa($riassunto_form_1 ["superficie"]);
 $volumetria_etichetta = $riassunto_form_1 ["volumetria_etichetta"];
 $volumetria = Utility::formattaNumeroPerStampa($riassunto_form_1 ["volumetria"]);
+if ($volumetria_etichetta == ""){
+	$volumetria = "";
+}
 
 /*
  * destinazioni ammesse
@@ -69,8 +72,8 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse ( $step1 ['id_m_ambiti
 $capacita_edificatoria_calcolata = Utility::formattaNumeroPerStampa($this->capacita_edificatoria);
 $valore_area_calcolata = Utility::formattaNumeroPerStampa($this->stimaUnitaria);
 
-//$valore_area_edificabile = Utility::formattaNumeroPerStampa($this->valoreAreaEdificabile);
-$valore_area_edificabile = number_format ($this->valoreAreaEdificabile, 0, ",", "." );
+$valore_area_edificabile = Utility::formattaNumeroPerStampa($this->valoreAreaEdificabile);
+//$valore_area_edificabile = number_format ($this->valoreAreaEdificabile, 0, ",", "." );
 
 /*
  * unità di misura
@@ -479,21 +482,21 @@ $tbl_risultati = <<<EOD
 <table style="background-color: #DDEEFF; font-size: 30px; border: 1px solid #ccc;">
         <tr class="odd">
             <td style="width:42%;">Capacità edificatoria calcolata</td>
-            <td style="width:10%;"><b>$capacita_edificatoria_calcolata</b></td> 
-            <td style="width:10%;">$u_capacita_edificatoria_calcolata</td>
-            <td style="width:38%;"></td>
+            <td style="width:16%;"><b>$capacita_edificatoria_calcolata</b></td> 
+            <td style="width:14%;">$u_capacita_edificatoria_calcolata</td>
+            <td style="width:28%;"></td>
         </tr>
         <tr>
             <td style="width:42%;">Valore area calcolata</td>
-            <td style="width:10%;"><b>$valore_area_calcolata</b></td> 
-            <td style="width:10%;">$u_valore_area_calcolata</td>
-            <td style="width:38%;"></td>
+            <td style="width:16%;"><b>$valore_area_calcolata</b></td> 
+            <td style="width:14%;">$u_valore_area_calcolata</td>
+            <td style="width:28%;"></td>
         </tr>
         <tr class="odd">
             <td style="width:42%;">Valore area edificabile</td>
-            <td style="width:10%;"><b>$valore_area_edificabile</b></td>
-            <td style="width:10%;">Euro</td>
-            <td style="width:38%;"></td>
+            <td style="width:16%;"><b>$valore_area_edificabile</b></td>
+            <td style="width:14%;">Euro</td>
+            <td style="width:28%;"></td>
         </tr>
 </table>
 EOD;
