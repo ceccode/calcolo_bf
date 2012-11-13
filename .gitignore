@@ -2,6 +2,9 @@
 /Imu/nbproject/private/
 Imu/nbproject/private/private.properties
 
+.gitignore
+Imu/application/configs/application.ini
+
 Imu/nbproject/private/private.xml
 
 Imu/.project
