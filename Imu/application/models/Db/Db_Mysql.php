@@ -11,7 +11,7 @@ class Db_Mysql {
             "port" => "3306",
             "username" => "root",
             "password" => "",
-            "dbname" => "imu");
+            "dbname" => "imu_new");
 
         $db = new Zend_Db_Adapter_Pdo_Mysql($connParams);
 
