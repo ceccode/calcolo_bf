@@ -70,7 +70,7 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
             	help_volumetria_preesistente = "<?=$help_volumetria_preesistente->descrizione;?>"; 
                 
                     dataNorme.descrizione = dataNorme.descrizione.toLowerCase();
-                    if (dataNorme.descrizione == "v3"){
+                    if (dataNorme.descrizione == "v3" || dataNorme.descrizione == "u3"){
                         $("#capacita_edificatoria-label").hide();
                         $("#capacita_edificatoria-element").hide(); 
                         $("#submit").removeAttr("disabled", "false");
