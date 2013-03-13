@@ -3,8 +3,8 @@
             #wrap {display:table;height:100%}
     </style>
 <![endif]-->
-<?=$this->headMeta();?>
-<?=$this->headTitle();?>
+<?php echo  $this->headMeta();?>
+<?php echo  $this->headTitle();?>
 <!--
     <link rel="shortcut icon" href="images/favicon.gif" type="image/gif" />
 -->
@@ -28,7 +28,7 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
 <script type="text/javascript">
     
     function selSubAmbiti(idMacroAmbito){
-        $.getJSON('http://<?=$_SERVER['SERVER_NAME']?>:10095/public/Ajax/search-subambiti', 
+        $.getJSON('http://<?php echo  $_SERVER['SERVER_NAME']?>/public/Ajax/search-subambiti', 
             { categoria: idMacroAmbito},
                   function(dataNorme){
                     //console.log(dataNorme);
@@ -62,15 +62,15 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
 //	help_volumetria_preesistente = "<?//=$help_volumetria_preesistente;?>";                    	
 	
     function inputVolumetria(idSubAmbito){
-        $.getJSON('http://<?=$_SERVER['SERVER_NAME']?>:10095/public/Ajax/search-volumetria', 
+        $.getJSON('http://<?php echo  $_SERVER['SERVER_NAME']?>/public/Ajax/search-volumetria', 
             { categoria: idSubAmbito},
                   function(dataNorme){
                 
-            	help_volumetria_predefinita = "<?=$help_volumetria_predefinita->descrizione;?>";
-            	help_volumetria_preesistente = "<?=$help_volumetria_preesistente->descrizione;?>"; 
+            	help_volumetria_predefinita = "<?php echo  $help_volumetria_predefinita->descrizione;?>";
+            	help_volumetria_preesistente = "<?php echo  $help_volumetria_preesistente->descrizione;?>"; 
                 
                     dataNorme.descrizione = dataNorme.descrizione.toLowerCase();
-                    if (dataNorme.descrizione == "v3" || dataNorme.descrizione == "u3"){
+                    if (dataNorme.descrizione == "v3"){
                         $("#capacita_edificatoria-label").hide();
                         $("#capacita_edificatoria-element").hide(); 
                         $("#submit").removeAttr("disabled", "false");
@@ -89,18 +89,18 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
                   		   				//help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria sia predefinita dalla norma, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
                             case "v4": label = 'Inputare volumetria preesistente: * (m3) ';
-                  		   				help_volumetria = help_volumetria_preesistente; 
+                  		   				help_volumetria = help_volumetria_preesistente;
 	                  		   			//help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
-                            case "u1": label = 'Inputare voumetria slp preesistente: * ';
+                            case "u1": label = 'Inputare Slp preesistente: * ';
 			                  		    help_volumetria = help_volumetria_preesistente; 
 	        	                   	    //help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
-                            case "u2": label = 'Inputare slp predefinita: * (m2spl) ';
+                            case "u2": label = 'Inputare Slp predefinita: * (m2Slp) ';
                   		   			    help_volumetria = help_volumetria_predefinita; 
 	                           			//help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria sia predefinita dalla norma, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';
                             break;
-                            case "u4": label = 'Inputare voumetria slp preesistente: * (m2spl) ';
+                            case "u4": label = 'Inputare Slp preesistente: * (m2Slp) ';
 			                   		    help_volumetria = help_volumetria_preesistente;
                  		   				//help_volumetria = 'Nei casi in cui la capacit&agrave; edificatoria ammessa sia pari a quella preesistente, inserire il valore corrispondente alla superficie fondiaria o territoriale appena inserita;';                            
                             break;
@@ -123,7 +123,7 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
 
 
     function selModalitaIntervento(urbanizzato){
-        $.getJSON('http://<?=$_SERVER['SERVER_NAME']?>:10095/public/Ajax/search-modalitaintervento', 
+        $.getJSON('http://<?php echo  $_SERVER['SERVER_NAME']?>/public/Ajax/search-modalitaintervento', 
             { categoria: urbanizzato},
                   function(dataNorme){
                     //console.log(dataNorme);
@@ -147,5 +147,5 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
     }
 
 </script>
-<?=$this->headLink();?>    
-<?=$this->headScript();?>
+<?php echo  $this->headLink();?>    
+<?php echo  $this->headScript();?>

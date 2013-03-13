@@ -43,19 +43,19 @@ if (strtolower($etichetta) == "v3") {
             $u_valore_area_calcolata = 'Euro/m3';
             break;
         case "u1":
-            $u_capacita_edificatoria = 'm2spl';
-            $u_valore_area_calcolata = 'Euro/m2spl';
+            $u_capacita_edificatoria = 'm2Slp';
+            $u_valore_area_calcolata = 'Euro/m2Slp';
             break;
         case "u2":
-            $u_capacita_edificatoria = 'm2spl';
-            $u_valore_area_calcolata = 'Euro/m2spl';
+            $u_capacita_edificatoria = 'm2Slp';
+            $u_valore_area_calcolata = 'Euro/m2Slp';
             break;
         case "u4":
-            $u_capacita_edificatoria = 'm2spl';
-            $u_valore_area_calcolata = 'Euro/m2spl';
+            $u_capacita_edificatoria = 'm2Slp';
+            $u_valore_area_calcolata = 'Euro/m2Slp';
             break;
         default:
-            throw new Exception("Indice calcolo capacit√† edificatoria non valido.");
+            throw new Exception("Indice calcolo capacità edificatoria non valido.");
     }
 }
 
@@ -90,11 +90,11 @@ if ($vuoto == 0):
 
     <div id="risultati_calcolo_stima">
         <!-- riassunto step1 -->
-        <?= $session->riassunto_step1; ?> 
+        <?php echo   $session->riassunto_step1; ?> 
         <!-- indici mambiti tabella -->   
-        <?= $session->indici_mambiti_stampa; ?>
+        <?php echo   $session->indici_mambiti_stampa; ?>
         <!-- indici sambiti tabella -->
-        <?= $session->indici_sambiti_stampa; ?>
+        <?php echo   $session->indici_sambiti_stampa; ?>
 
     </div> 
     <div style="clear:both"></div>
@@ -104,7 +104,7 @@ if ($vuoto == 0):
             <div id="header_destinazione_uso" class="border_sotto grigio">Destinazione d'uso ammessa</div>
             <div id="corpo_destinazione_uso">
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
-                    <div class="blocco_tabella2"><?= $valore['descrizione'] ?></div>
+                    <div class="blocco_tabella2"><?php echo   $valore['descrizione'] ?></div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -114,7 +114,7 @@ if ($vuoto == 0):
             <div id="corpo_quota_massima_ammissibile">
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
                     <!-- quota corretta in percentuale -->
-                    <div id="quota-<?= $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?=(100 * Stima::correggiFloat($valore['quota_massima_ammissibile'])); ?></div>
+                    <div id="quota-<?php echo   $valore["id_u_destammesse"] ?>" class="blocco_tabella2"><?php echo  (100 * Stima::correggiFloat($valore['quota_massima_ammissibile'])); ?></div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -123,7 +123,7 @@ if ($vuoto == 0):
             <div id="header_soglia_dimensione_massima" class="border_sotto  grigio">Soglia dimensione massima</div>
             <div id="corpo_soglia_dimensione_massima">
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
-                    <div class="blocco_tabella2"><?= $valore['soglia_dimensione_massima'] ?></div>
+                    <div class="blocco_tabella2"><?php echo   $valore['soglia_dimensione_massima'] ?></div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -132,7 +132,7 @@ if ($vuoto == 0):
             <div id="header_peso_standard" class="border_sotto  grigio">Quota % standard</div>
             <div id="corpo_peso_standard">
                 <?php foreach ($stmt5 as $chiave => $valore): ?>
-                    <div class="blocco_tabella2"><?=(100 * Stima::correggiFloat($valore['quota_percentuale'])) ?></div>
+                    <div class="blocco_tabella2"><?php echo  (100 * Stima::correggiFloat($valore['quota_percentuale'])) ?></div>
                 <?php endforeach; ?>
                 <div class="blocco_tabella2 grigio" style="height:20px;">Totale: </div>
 
@@ -142,7 +142,7 @@ if ($vuoto == 0):
         <div class="left copri_tabella2"> <!-- colonna5 -->
             <div id="header_quota_progetto" class="border_sotto grigio">Quota % di progetto* <img name="help" class="help-img" id="help_quota" src="/public/media/css/images/help.png"/></div>
             <div id="corpo_quota_progetto">
-                <?= $this->form; ?>
+                <?php echo   $this->form; ?>
                 <div id="totale-somma"><span id="somma"></span></div>
             </div>
         </div>
@@ -152,7 +152,7 @@ if ($vuoto == 0):
                 <div id="header-um-cessione" class="border_sotto grigio">U.m. Cessione</div>
                 <div id="corpo-um-cessione">
                     <?php foreach ($dati_cessione as $chiave => $valore): ?>
-                        <div class="blocco_tabella2"><?= $valore['unita_misura_cessione'] ?></div>
+                        <div class="blocco_tabella2"><?php echo   $valore['unita_misura_cessione'] ?></div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -160,10 +160,10 @@ if ($vuoto == 0):
         <!-- se urbanizzata non ho cessioni -->
         <?php if (!$values["area_urbanizzata"]): ?>
             <div class="left copri_tabella2 border_destra"> <!-- colonna7 -->
-                <div id="header-cessione" class="border_sotto grigio">Quantit√† cessione</div>
+                <div id="header-cessione" class="border_sotto grigio">Quantità cessione</div>
                 <div id="corpo-cessione">
                     <?php foreach ($dati_cessione as $chiave => $valore): ?>
-                        <div class="blocco_tabella2"><?= $valore['quantita_cessione'] ?></div>
+                        <div class="blocco_tabella2"><?php echo   $valore['quantita_cessione'] ?></div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -174,7 +174,7 @@ if ($vuoto == 0):
                 <div id="header-quota-monetaria" class="border_sotto grigio">Quota monetizzazione</div>
                 <div id="corpo-quota-monetaria">
                     <?php foreach ($dati_cessione as $chiave => $valore): ?>
-                        <div class="blocco_tabella2"><?= $valore['quota_monetizzabile'] ?></div>
+                        <div class="blocco_tabella2"><?php echo   $valore['quota_monetizzabile'] ?></div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -193,25 +193,25 @@ if ($vuoto == 0):
     <table id="risultati" class="left">        
         <caption>Risultato stimato</caption>    
         <tr class="header-tabella1">
-            <td>Capacit√† edificatoria calcolata</td>
-            <td><span id="v_capacita_edificatoria"><?= $capacita_edificatoria ?></span></td>
-            <td><?= $u_capacita_edificatoria ?></td>
+            <td>Capacità edificatoria calcolata</td>
+            <td><span id="v_capacita_edificatoria"><?php echo   $capacita_edificatoria ?></span></td>
+            <td><?php echo   $u_capacita_edificatoria ?></td>
         </tr>
         <tr class="">
             <td>Valore area calcolata</td>
-            <td><span id="v_valore_area_calcolata"><?= $valore_area_calcolata ?></span></td> 
-            <td><?= $u_valore_area_calcolata ?></td>        
+            <td><span id="v_valore_area_calcolata"><?php echo   $valore_area_calcolata ?></span></td> 
+            <td><?php echo   $u_valore_area_calcolata ?></td>        
         </tr>
         <tr class="header-tabella1">
             <td>Valore area edificabile</td>
-            <td><span id="v_valore_area_edificabile"><?= $valore_area_edificabile ?></span></td> 
+            <td><span id="v_valore_area_edificabile"><?php echo   $valore_area_edificabile ?></span></td> 
             <td>Euro</td>        
         </tr>    
     </table>
     
 <a id="button-ricalcola-form2" class="button doc-button"
 	style="float: right; margin-top: -38px; margin-right: 20px;"
-	href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
+	href="<?php echo   $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
     
     <script type="text/javascript">
         $(function()
@@ -269,7 +269,7 @@ if ($vuoto == 0):
                         $("#v_valore_area_calcolata").hide();
                         $("#v_valore_area_edificabile").hide();                        
                         $("#continua_stampa").attr("disabled", "true");
-                        $("#errore_somma").html('La somma dei valori in ingresso non pu√≤ essere diversa da 100');
+                        $("#errore_somma").html('La somma dei valori in ingresso non può essere diversa da 100');
                     }
                                 
                 },'json');                
@@ -291,7 +291,7 @@ if ($vuoto == 0):
 			 * help
 			 */
         	$("#help_quota").bind("click",function(){
-    			var help_quota_progetto = "<?=$help_quota_progetto->descrizione;?>";
+    			var help_quota_progetto = "<?php echo  $help_quota_progetto->descrizione;?>";
             	$.Growl.show(help_quota_progetto);
                 //$.Growl.show("Inserire la quota percentuale per ogni destinazione d'uso ammessa che si intende prevedere nell'ambito. Nella colonna \"Quota % Standard\" &egrave; indicata la combinazione considerata come prevalente dalle Norme tecniche di Attuazione.");
               });
@@ -300,10 +300,10 @@ if ($vuoto == 0):
         });
     </script>
 <?php else: ?>
-    <h2 style="text-align: center;">Attenzione: non si hanno sufficenti dati per effettuare il calcolo in questo sumambito.</h2>
+    <h2 style="text-align: center;">Attenzione: non si hanno sufficienti dati per effettuare il calcolo in questo subambito.</h2>
 
     <!-- bottone ricalcola -->
-    <a id="button-ricalcola-form2" class="button doc-button" style="float:right; margin-right: 90px;" href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
+    <a id="button-ricalcola-form2" class="button doc-button" style="float:right; margin-right: 90px;" href="<?php echo   $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>    
 
 <?php endif; ?>
 

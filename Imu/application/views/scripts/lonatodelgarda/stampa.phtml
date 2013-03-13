@@ -1,4 +1,4 @@
-<?
+<?php
 setlocale ( LC_MONETARY, 'it_IT' );
 $title = "Documento: Verbale di contestazione";
 
@@ -76,7 +76,7 @@ $valore_area_edificabile = Utility::formattaNumeroPerStampa($this->valoreAreaEdi
 //$valore_area_edificabile = number_format ($this->valoreAreaEdificabile, 0, ",", "." );
 
 /*
- * unit√† di misura
+ * unità di misura
  */
 $u_capacita_edificatoria_calcolata = '';
 $u_valore_area_calcolata = '';
@@ -106,16 +106,16 @@ if (strtolower ( $etichetta ) == "v3") {
 			$u_valore_area_calcolata = 'Euro/m3';
 			break;
 		case "u1" :
-			$u_capacita_edificatoria_calcolata = 'm2spl';
-			$u_valore_area_calcolata = 'Euro/m2spl';
+			$u_capacita_edificatoria_calcolata = 'm2Slp';
+			$u_valore_area_calcolata = 'Euro/m2Slp';
 			break;
 		case "u2" :
-			$u_capacita_edificatoria_calcolata = 'm2spl';
-			$u_valore_area_calcolata = 'Euro/m2spl';
+			$u_capacita_edificatoria_calcolata = 'm2Slp';
+			$u_valore_area_calcolata = 'Euro/m2Slp';
 			break;
 		case "u4" :
-			$u_capacita_edificatoria_calcolata = 'm2spl';
-			$u_valore_area_calcolata = 'Euro/m2spl';
+			$u_capacita_edificatoria_calcolata = 'm2Slp';
+			$u_valore_area_calcolata = 'Euro/m2Slp';
 			break;
 		default :
 			$u_capacita_edificatoria_calcolata = 'm3';
@@ -133,7 +133,7 @@ $standard_pubblico_qualita = Utility::formattaNumeroPerStampa($indici_macro_ambi
 
 /*
  * indici subambiti Siccome sono dipendenti da n parameri sono nell'arrai
- * $indici_sub_ambiti ed √® gestito nella stampa
+ * $indici_sub_ambiti ed è gestito nella stampa
  */
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -286,7 +286,7 @@ $tbl_riassunto = <<<EOD
     <tr>
         <td style="width:30%;">Modalita intervento</td>
         <td style="width:70%;">$modalita_intervento</td>        
-    </tr>  
+    </tr>
     <tr>
         <td style="width:30%;">Lotto saturo</td>
         <td style="width:70%;">$lotto_saturo</td>        
@@ -314,7 +314,7 @@ border-right:  1px solid #ccc;
 }
 </style>';
 $tbl_destinazioni .= '<table  style="font-size: 30px;width:100%;">';
-$tbl_destinazioni .= '<tr style="border-bottom: 1px solid #ccc;"><td style=" border-bottom: 1px solid #ccc;width:5%;">ID</td><td style="border-bottom: 1px solid #ccc; width:37%;">Destinazioni ammesse</td><td style="border-bottom: 1px solid #ccc; width:58%;">Quota di progetto inserita %</td></tr>';
+$tbl_destinazioni .= '<tr style="border-bottom: 1px solid #ccc;"><td style=" border-bottom: 1px solid #ccc;width:5%;">ID</td><td style="border-bottom: 1px solid #ccc; width:27%;">Destinazioni ammesse</td><td style="border-bottom: 1px solid #ccc; width:20%;"><DIV align="right">Quota di progetto (%)</DIV></td><td style="border-bottom: 1px solid #ccc; width:48%;"></td></tr>';
 
 foreach ( $stmt5 as $key => $value ) {
 	// $label = $value->descrizione;
@@ -332,30 +332,31 @@ foreach ( $stmt5 as $key => $value ) {
 	
 	$tbl_destinazioni .= '<tr>';
 	$tbl_destinazioni .= '<td style="width:5%;">' . $id_dest_iden . '</td>';
-	$tbl_destinazioni .= '<td style="width:37%;">' . $descrizione . '</td>';
-	$tbl_destinazioni .= '<td style="width:58%;">' . $quota_inserita . '</td>';
+	$tbl_destinazioni .= '<td style="width:27%;">' . $descrizione . '</td>';
+	$tbl_destinazioni .= '<td style="width:20%;"><DIV align="right">' . $quota_inserita . '</DIV></td>';
+	$tbl_destinazioni .= '<td style="width:48%;"></td>';
 	$tbl_destinazioni .= '</tr>';
 }
 $tbl_destinazioni .= '</table>';
 $pdf->writeHTML ( $tbl_destinazioni, true, false, false, false, '' );
 
 $tbl_risultati = <<<EOD
-<h3>Indici relativi ai macro ambiti</h3>
+<h3>Parametri relativi al macro ambito</h3>
 <table style="font-size: 30px; width:70%;">
         <tr class="odd">
             <td style="width:60%;">Contributo compensativo aggiuntivo</td>
-            <td style="width:15%;">$contributo_compensativo_aggiuntivo</td> 
+            <td style="width:15%;"><DIV align="right">$contributo_compensativo_aggiuntivo</DIV></td>
             <td></td>
         </tr>
         <tr>
             <td style="width:60%;">Valore comprensativo unitario</td>
-            <td style="width:15%;">$valore_comprensativo_unitario</td> 
+            <td style="width:15%;"><DIV align="right">$valore_comprensativo_unitario</DIV></td>
             <td>Euro/m2</td>
         </tr>
         <tr class="odd">
             <td style="width:60%;">Standard pubblico qualit&agrave;</td>
-            <td style="width:15%;">$standard_pubblico_qualita</td>
-            <td>mqSlp</td>
+            <td style="width:15%;"><DIV align="right">$standard_pubblico_qualita</DIV></td>
+            <td>m2Slp</td>
         </tr>
 </table>
 EOD;
@@ -395,41 +396,41 @@ if (count ( $indici_sub_ambiti ) == 21) {
 	
 	// memorizzo la stringa da stampare in html4
 	$tbl_indici = <<<EOD
-<h3>Indici relativi ai subambiti</h3>
+<h3>Parametri relativi al sub ambito</h3>
 <table style="font-size: 30px; width:70%;">
         <tr class="odd">
             <td style="width:60%;">$testo1</td>
-            <td style="width:15%;">$dato1</td>
+            <td style="width:15%;"><DIV align="right">$dato1</DIV></td>
             <td>$um1</td>            
         </tr>
         <tr class="">
             <td style="width:60%;">$testo2</td>
-            <td style="width:15%;">$dato2</td> 
+            <td style="width:15%;"><DIV align="right">$dato2</DIV></td>
             <td>$um2</td>
         </tr>        
         <tr class="odd">
             <td style="width:60%;">$testo3</td>
-            <td style="width:15%;">$dato3</td> 
+            <td style="width:15%;"><DIV align="right">$dato3</DIV></td>
             <td>$um3</td>
         </tr>
         <tr>
             <td style="width:60%;">$testo4</td>
-            <td style="width:15%;">$dato4</td> 
+            <td style="width:15%;"><DIV align="right">$dato4</DIV></td>
             <td>$um4</td>
         </tr>    
         <tr class="odd">
             <td style="width:60%;">$testo5</td>
-            <td style="width:15%;">$dato5</td>
+            <td style="width:15%;"<DIV align="right">$dato5</DIV></td>
             <td>$um5</td>
         </tr>
         <tr>
             <td style="width:60%;">$testo6</td>
-            <td style="width:15%;">$dato6</td> 
+            <td style="width:15%;"><DIV align="right">$dato6</DIV></td>
             <td>$um6</td>
         </tr>
         <tr class="odd">
             <td style="width:60%;">$testo7</td>
-            <td style="width:15%;">$dato7</td> 
+            <td style="width:15%;"><DIV align="right">$dato7</DIV></td>
             <td>$um7</td>
         </tr>    
     </table>
@@ -437,36 +438,36 @@ EOD;
 } else {
 	// memorizzo la stringa da stampare in html4
 	$tbl_indici = <<<EOD
-<h3>Indici relativi ai subambiti</h3>
+<h3>Parametri relativi al sub ambito</h3>
 <table style="font-size: 30px; width:70%;">
         <tr class="odd">
             <td style="width:60%;">$testo1</td>
-            <td style="width:15%;">$dato1</td>
-            <td >$um1</td>            
+            <td style="width:15%;"><DIV align="right">$dato1</DIV></td>
+            <td >$um1</td>
         </tr>
         <tr class="">
             <td style="width:60%;">$testo2</td>
-            <td style="width:15%;">$dato2</td> 
+            <td style="width:15%;"><DIV align="right">$dato2</DIV></td>
             <td>$um2</td>
         </tr>        
         <tr class="odd">
             <td style="width:60%;">$testo3</td>
-            <td style="width:15%;">$dato3</td> 
+            <td style="width:15%;"><DIV align="right">$dato3</DIV></td>
             <td>$um3</td>
         </tr>
         <tr>
             <td style="width:60%;">$testo4</td>
-            <td style="width:15%;">$dato4</td> 
+            <td style="width:15%;"><DIV align="right">$dato4</DIV></td>
             <td>$um4</td>
         </tr>    
         <tr class="odd">
             <td style="width:60%;">$testo5</td>
-            <td style="width:15%;">$dato5</td>
+            <td style="width:15%;"><DIV align="right">$dato5</DIV></td>
             <td>$um5</td>
         </tr>
         <tr>
             <td style="width:60%;">$testo6</td>
-            <td style="width:15%;">$dato6</td> 
+            <td style="width:15%;"><DIV align="right">$dato6</DIV></td>
             <td>$um6</td>
         </tr>   
     </table>
@@ -481,22 +482,22 @@ $tbl_risultati = <<<EOD
 <h3>Valori stimati</h3>
 <table style="background-color: #DDEEFF; font-size: 30px; border: 1px solid #ccc;">
         <tr class="odd">
-            <td style="width:42%;">Capacit√† edificatoria calcolata</td>
-            <td style="width:16%;"><b>$capacita_edificatoria_calcolata</b></td> 
+            <td style="width:42%;">Capacità edificatoria</td>
+            <td style="width:11%;"><DIV align="right"><b>$capacita_edificatoria_calcolata</b></DIV></td>
             <td style="width:14%;">$u_capacita_edificatoria_calcolata</td>
-            <td style="width:28%;"></td>
+            <td style="width:33%;"></td>
         </tr>
         <tr>
-            <td style="width:42%;">Valore area calcolata</td>
-            <td style="width:16%;"><b>$valore_area_calcolata</b></td> 
+            <td style="width:42%;">Stima unitaria</td>
+            <td style="width:11%;"><DIV align="right"><b>$valore_area_calcolata</b></DIV></td>
             <td style="width:14%;">$u_valore_area_calcolata</td>
-            <td style="width:28%;"></td>
+            <td style="width:33%;"></td>
         </tr>
         <tr class="odd">
             <td style="width:42%;">Valore area edificabile</td>
-            <td style="width:16%;"><b>$valore_area_edificabile</b></td>
+            <td style="width:11%;"><DIV align="right"><b>$valore_area_edificabile</b></DIV></td>
             <td style="width:14%;">Euro</td>
-            <td style="width:28%;"></td>
+            <td style="width:33%;"></td>
         </tr>
 </table>
 EOD;

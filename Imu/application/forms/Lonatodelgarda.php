@@ -121,10 +121,10 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
         
         $this->addElement($urbanizzata);
 
-        //modalit√† intervento
+        //modalità intervento
         $intervento = $this->createElement('select', 'id_u_modinterv');
         $intervento->getDecorator('label')->setOption('escape', false);
-        $intervento->setLabel('Modalit√† intervento: * <img name="help" class="help-img" id="help_intervento" src="/public/media/css/images/help.png"/>');
+        $intervento->setLabel('Modalità intervento: * <img name="help" class="help-img" id="help_intervento" src="/public/media/css/images/help.png"/>');
 
         $lonato_u_modinterv = Factory_dbTable::getClass("017092", "u_modinterv");
         $select4 = $lonato_u_modinterv->select()
@@ -174,7 +174,7 @@ class Application_Form_Lonatodelgarda extends Zend_Form {
 
         $superficie = $this->createElement('text', 'superficie', array());
         $superficie->getDecorator('label')->setOption('escape', false);
-        $superficie->setLabel('Superficie territoriale: * (mq) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');
+        $superficie->setLabel('Superficie territoriale: * (m2) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');
         $superficie->addValidator('Float', false, array('messages' => 'Solo cifre separate da virgola'));
         $superficie->setRequired(true);
         $superficie->addValidator($notEmpty, true);

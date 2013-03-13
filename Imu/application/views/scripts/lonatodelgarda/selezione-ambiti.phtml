@@ -2,7 +2,7 @@
 	<h4
 		style='font: small/1.5 "Tahoma", "Bitstream Vera"; text-align: left; font-size: 120%; padding: 0px 0px 0px 0px; color: rgb(102, 102, 102);'>Compila
 		i campi sottostanti e premi il pulsante: "continua il calcolo".</h4>    
-    <?
+    <?php
 
 			    $help_m_ambiti = $this->help_m_ambiti;
 			    $help_s_ambiti = $this->help_s_ambiti;
@@ -32,13 +32,13 @@
 <!-- bottone ricalcola -->
 <a id="button-ricalcola-form2" class="button doc-button"
 	style="float: right; margin-top: -10px; margin-right: 30px;"
-	href="<?= $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
+	href="<?php echo   $this->url(array('controller' => $session->comune, 'action' => 'index'), null, TRUE); ?>">Ricalcola</a>
 <script type="text/javascript">
     $(function()
     {
 
-        help_superficie_fondiaria = "<?=$help_superficie_fondiaria->descrizione;?>";    	
-        help_superficie_territoriale = "<?=$help_superficie_territoriale->descrizione;?>";    	        
+        help_superficie_fondiaria = "<?php echo  $help_superficie_fondiaria->descrizione;?>";    	
+        help_superficie_territoriale = "<?php echo  $help_superficie_territoriale->descrizione;?>";    	        
         /*
          *
          * nascondo i campi 
@@ -50,8 +50,8 @@
         var id_cepp    = $('#capacita_edificatoria-element');                 
 
         var label_superficie = $('#superficie-label');
-     
-<?
+
+<?php
 if (isset ( $area_urbanizzata )) {
 	if ($area_urbanizzata == 0) {
 		echo 'label_lotto_saturo.hide();id_lotto_saturo.hide();';
@@ -95,7 +95,7 @@ if (isset ( $id_s_ambito )) {
                      id_lotto_saturo.show(); 
                      help_superficie = help_superficie_fondiaria; 
                      //help_superficie = "E' la superficie dell'area urbanizzata di cui si vuole calcolare il valore";                     
-                     label_superficie.html('Superficie fondiaria: * (mq) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');                   
+                     label_superficie.html('Superficie fondiaria: * (m2) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');
                      
                  }else if(selected == 0){
                      //territoriale  
@@ -105,7 +105,7 @@ if (isset ( $id_s_ambito )) {
                      
                      help_superficie = help_superficie_territoriale;
                      //help_superficie = "E' la superficie complessiva del comparto prescelto assoggettato a Piano Attuativo di cui si vuole calcolare il valore";                     
-                     label_superficie.html('Superficie territoriale: * (mq) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');
+                     label_superficie.html('Superficie territoriale: * (m2) <img name="help" class="help-img" id="help_superficie" src="/public/media/css/images/help.png"/>');
                  }
             
              });
@@ -125,10 +125,10 @@ if (isset ( $id_s_ambito )) {
                      doValidation(id);
 
                  });        
-                 // se #test √® visibile fai qualcosa
+                 // se #test è visibile fai qualcosa
              }
              else {
-                 // se non √® visibile fai qualcos'altro
+                 // se non è visibile fai qualcos'altro
              }  
              
 
@@ -161,39 +161,39 @@ if (isset ( $id_s_ambito )) {
               *
           	  */      		  
         	  $("#help_m_ambiti").bind("click",function(){                 
-        		  var help_m_ambiti = "<?=$help_m_ambiti->descrizione;?>";
+        		  var help_m_ambiti = "<?php echo  $help_m_ambiti->descrizione;?>";
         		  $.Growl.show(help_m_ambiti);
                   //$.Growl.show("E' l'Ambito definito dalle norme tecniche del Documento di Piano o del Piano delle Regole del PGT nel quale sono comprese aree caratterizzate dalle stesse destinazioni d'uso ammesse e dalle stesse cessioni");
                 });
 
               $("#help_s_ambiti").bind("click",function(){
-        		  var help_s_ambiti = "<?=$help_s_ambiti->descrizione;?>";
+        		  var help_s_ambiti = "<?php echo  $help_s_ambiti->descrizione;?>";
             	  $.Growl.show(help_s_ambiti);
                   //$.Growl.show("E' l'insieme delle aree facenti parte dell'Ambito per le quali le norme tecniche del Documento di Piano o del Piano delle Regole del PGT definiscono una stessa potenzialit&agrave; edificatoria");
                 });
 
               $("#help_s_zona").bind("click",function(){
-        		  var help_s_zona = "<?=$help_s_zona->descrizione;?>";
+        		  var help_s_zona = "<?php echo  $help_s_zona->descrizione;?>";
             	  $.Growl.show(help_s_zona);
                   //$.Growl.show("E' la localizzazione geografica dell'area per la quale sono omogeneamente definiti valori estimativi di riferimento");
                 }); 
                      
               $("#help_urbanizzata").bind("click",function(){
-        		  var help_urbanizzata = "<?=$help_urbanizzata->descrizione;?>";
+        		  var help_urbanizzata = "<?php echo  $help_urbanizzata->descrizione;?>";
             	  $.Growl.show(help_urbanizzata);
-                  //$.Growl.show("Selezionare \"S√¨\" quando la norma consente l'ottenimento diretto del provvedimento abilitativo a costruire \(Permesso di Costruire, DIA, ecc., quando l'area &egrave; gi√† dotata delle urbanizzazioni\) Selezionare \"No\" quando la norma subordina l'ottenimento del provvedimento abilitativo a costruire ad un preventivo convenzionamento per l'esecuzione di urbanizzazioni, cessioni e contributi compensativi \(Permesso di Costruire Convenzionato, Piano Attuativo, quando l'area non √® -o √® parzialmente- dotata delle urbanizzazioni\)");
+                  //$.Growl.show("Selezionare \"Sì\" quando la norma consente l'ottenimento diretto del provvedimento abilitativo a costruire \(Permesso di Costruire, DIA, ecc., quando l'area &egrave; già dotata delle urbanizzazioni\) Selezionare \"No\" quando la norma subordina l'ottenimento del provvedimento abilitativo a costruire ad un preventivo convenzionamento per l'esecuzione di urbanizzazioni, cessioni e contributi compensativi \(Permesso di Costruire Convenzionato, Piano Attuativo, quando l'area non è -o è parzialmente- dotata delle urbanizzazioni\)");
                 }); 
 
               $("#help_intervento").bind("click",function(){
-        		  var help_intervento = "<?=$help_intervento->descrizione;?>";
+        		  var help_intervento = "<?php echo  $help_intervento->descrizione;?>";
             	  $.Growl.show(help_intervento);
                   //$.Growl.show("Selezionare il caso appropriato secondo le indicazioni delle Norme Tecniche di Attuazione per l'ambito prescelto");
                 }); 
               
               $("#help_lotto_saturo").bind("click",function(){
-        		  var help_lotto_saturo = "<?=$help_lotto_saturo->descrizione;?>";
+        		  var help_lotto_saturo = "<?php echo  $help_lotto_saturo->descrizione;?>";
             	  $.Growl.show(help_lotto_saturo);
-                  //$.Growl.show("Selezionare \"S√¨\" quando l'area considerata ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;; Selezionare \"No\" quando l'area considerata non ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;;");
+                  //$.Growl.show("Selezionare \"Sì\" quando l'area considerata ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;; Selezionare \"No\" quando l'area considerata non ha saturato con l'edificazione preesistente l'edificazione ammessa dall'indice di edificabilit&agrave;;");
                 });         
       		
               $("#help_superficie").live("click",function(){
@@ -210,4 +210,3 @@ if (isset ( $id_s_ambito )) {
          });
          
 </script>
-

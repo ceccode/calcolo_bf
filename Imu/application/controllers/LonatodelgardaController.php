@@ -178,6 +178,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $session->riassunto_step1_txt = null;
         $session->quote = null;
         $session->indici_u_sambiti_txt = null;
+        
 
         /*
          *  prelevo gli help che mi servono e li
@@ -243,9 +244,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
         // dati variabili
         $session = new Zend_Session_Namespace('step1');
         $session->step1 = $values;
-
-        require_once APPLICATION_PATH . "/models/Utility.php";
-        
+                
         // ottengo gli indici subambiti da mostrare e li metto in sessione (possibile metodo a parte da sviluppare volendo)
         // prendo i dati da mostrare
         $db_row_sambiti = $this->lonato_u_sambiti->getAll($values["id_u_sambiti"], $session->data_calcolo);
@@ -325,52 +324,52 @@ class LonatodelgardaController extends Zend_Controller_Action {
                 $stampa.='<tr>';
                 $stampa.="<td>Indice utilizzazione fondiaria</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_fondiaria . "</td>";
-                $stampa.="<td>(slp in m2slp/m2)</td></tr>";
+                $stampa.="<td>(Slp in m2Slp/m2)</td></tr>";
                 // incremento lotti saturi
                 $stampa.='<tr class="header-tabella1">';
                 $stampa.="<td>Incremento lotti saturi</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->incremento_lotti_saturi_u . "</td>";
-                $stampa.="<td>(% slp da indice)</td></tr>";
+                $stampa.="<td>(% Slp da indice)</td></tr>";
                 // utilizzazione  territoriale
                 $stampa.='<tr>';
                 $stampa.="<td>Indice utilizzazione territoriale</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_territoriale . "</td>";
-                $stampa.="<td>(slp in m2slp/m2)</td></tr>";
+                $stampa.="<td>(Slp in m2Slp/m2)</td></tr>";
                 // utilizzazione  preesistente               
                 $stampa.='<tr  class="header-tabella1">';
                 $stampa.="<td>Utilizzazione preesistente</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_preesistente . "</td>";
-                $stampa.="<td>(slp in m2slp)</td></tr>";
+                $stampa.="<td>(Slp in m2Slp)</td></tr>";
                 // utilizzazione incremento   
                 $stampa.='<tr>';
                 $stampa.="<td>Utilizzazione  incremento</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_incremento . "</td>";
-                $stampa.="<td>(slp in m2slp)</td></tr>";
+                $stampa.="<td>(Slp in m2Slp)</td></tr>";
                 // utilizzazione predefinita
                 $stampa.='<tr class="header-tabella1">';
                 $stampa.="<td>Utilizzazione predefinita</td>";
                 $stampa.="<td>" . $valore_sambiti_riga->utilizzazione_predefinita_d . "</td>";
-                $stampa.="<td>(slp in m2slp)</td></tr>";
+                $stampa.="<td>(Slp in m2Slp)</td></tr>";
                 // chiudo la tabella     
                 $stampa.='</table>';
                 // salvo in sessioni
                 $session->indici_u_sambiti_txt = array("testo1" => "Indice utilizzazione fondiaria",
                     "dato1" => $valore_sambiti_riga->utilizzazione_fondiaria,
-                    "um1" => "(slp in m2slp/m2)",
+                    "um1" => "(Slp in m2Slp/m2)",
                     "testo2" => "Incremento lotti saturi",
                     "dato2" => $valore_sambiti_riga->incremento_lotti_saturi_u,
-                    "um2" => "(% slp da indice)",
+                    "um2" => "(% Slp da indice)",
                     "testo3" => "Indice utilizzazione territoriale",
                     "dato3" => $valore_sambiti_riga->utilizzazione_territoriale,
-                    "um3" => "(slp in m2slp/m2)",
+                    "um3" => "(Slp in m2Slp/m2)",
                     "testo4" => "Utilizzazione preesistente",
                     "dato4" => $valore_sambiti_riga->utilizzazione_preesistente,
-                    "um4" => "(slp in m2slp)",
+                    "um4" => "(Slp in m2Slp)",
                     "testo5" => "Utilizzazione  incremento",
-                    "um5" => "(slp in m2slp)",
+                    "um5" => "(Slp in m2Slp)",
                     "dato5" => $valore_sambiti_riga->utilizzazione_incremento,
                     "testo6" => "Utilizzazione predefinita",
-                    "um6" => "(slp in m2slp)",
+                    "um6" => "(Slp in m2Slp)",
                     "dato6" => $valore_sambiti_riga->utilizzazione_predefinita_d);
             } else {
                 throw new Exception("Errore in process_lonato_imu: tipo stima non valida: " . $tipo_stima);
@@ -396,7 +395,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $stampa.='<tr class="header-tabella1">';
             $stampa.="<td>Valore compensativo unitario</td>";
             $valore_comprensativo_unitario = $valore_mambiti_riga->valore_comprensativo_unitario;
-            $stampa.="<td>" . Utility::formattaNumeroPerStampa($valore_mambiti_riga->valore_comprensativo_unitario) . "</td>";
+            $stampa.="<td>" . $valore_mambiti_riga->valore_comprensativo_unitario . "</td>";
             $stampa.="<td>Euro/m2</td>";
             // contributo compensativo aggiuntivo
             $stampa.='<tr>';
@@ -415,7 +414,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $standard_pubblico_qualita = $valore_mambiti_riga->standard_pubblico_qualita;
             $valore_ambiti_riga = (($valore_mambiti_riga->standard_pubblico_qualita) * 100);
             $stampa.="<td>" . $valore_ambiti_riga . " %" . "</td>";
-            $stampa.="<td>mqSlp</td>";
+            $stampa.="<td>m2Slp</td>";
             // chiudo la tabella     
             $stampa.='</table>';
         }
@@ -498,9 +497,8 @@ class LonatodelgardaController extends Zend_Controller_Action {
         $stampa.='>';
         $tmptxtsup=($values["area_urbanizzata"] == 1) ? "Superficie Fondiaria  (m2)" : "Superficie Territoriale (m2)";
         $stampa.="<td>" .$tmptxtsup . "</td>";
-        $stampa.="<td>" . Utility::formattaNumeroPerStampa($values["superficie"]) . "</td>";
-		
-        
+        $stampa.="<td>" . $values["superficie"] . "</td>";
+
         // volumetria
         if (strtolower($tipo_stima) != 'v3' && strtolower($tipo_stima) != 'u3') {
             switch (strtolower($tipo_stima)) {
@@ -514,13 +512,13 @@ class LonatodelgardaController extends Zend_Controller_Action {
                     $volumetria = 'inputare volumetria preesistente: * (m3)';
                     break;
                 case "u1":
-                    $volumetria = 'inputare voumetria slp preesistente: * (m2spl)';
+                    $volumetria = 'inputare Slp preesistente: * (m2Slp)';
                     break;
                 case "u2":
-                    $volumetria = 'inputare slp predefinita: * (m2spl)';
+                    $volumetria = 'inputare Slp predefinita: * (m2Slp)';
                     break;
                 case "u4":
-                    $volumetria = 'inputare voumetria slp preesistente: * (m2spl)';
+                    $volumetria = 'inputare Slp preesistente: * (m2Slp)';
                     break;
                 default:
                     $volumetria = 'inputare volumetria: * (m3)';
@@ -531,7 +529,7 @@ class LonatodelgardaController extends Zend_Controller_Action {
             $stampa.='>';
             $volumetria_valore = $values["capacita_edificatoria"];
             $stampa.="<td>" . $volumetria . "</td>";
-            $stampa.="<td>" . Utility::formattaNumeroPerStampa($volumetria_valore) . "</td>";
+            $stampa.="<td>" . $volumetria_valore . "</td>";
             // chiudo la tabella     
             $stampa.='</table>';
         }else{
