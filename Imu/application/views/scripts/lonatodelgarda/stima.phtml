@@ -63,11 +63,19 @@ $lonato_u_destammesse = Factory_dbTable::getClass("017092", "u_destammesse");
 $lonato_u_cessioni = Factory_dbTable::getClass("017092", "u_cessioni");
 $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti'], $session->data_calcolo);
 
+//debug
+// echo "<pre>";
+// print_r($stmt5);
+// echo "</pre>";
+
 // prelevo i valori di stmt5 e li metto in dati_cessione
+$i=0;
 foreach ($stmt5 as $chiave => $valore) {
-    $tabella_dati_cessione = $lonato_u_cessioni->getAll($step1["id_m_ambiti"], $valore["id_u_sdestinazioni"], $step1["id_u_modinterv"], $session->data_calcolo);
+	echo $i;$i++;echo ": ".$valore["id_u_sdestinazioni"]."<br />";	
+    $tabella_dati_cessione = $lonato_u_cessioni->getAll($step1["id_m_ambiti"], $valore["id_u_sdestinazioni"], $step1["id_u_modinterv"], $session->data_calcolo);	
     foreach ($tabella_dati_cessione as $chiave2 => $valore2) {
-        // debug echo $step1["id_m_ambiti"]. " ". $valore["id_u_sdestinazioni"] . "quota monetizzabile: ". $valore2->quota_monetizzabile . "chiave: " . $chiave2 . "<br/>";
+        //debug
+        echo $step1["id_m_ambiti"]. " ". $valore["id_u_sdestinazioni"] . "quota monetizzabile: ". $valore2->quota_monetizzabile . "chiave: " . $chiave2 . "<br/>";
         $dati_cessione[$chiave] = array("quota_monetizzabile" => $valore2->quota_monetizzabile,
             "quantita_cessione" => $valore2->quantita_cessione,
             "unita_misura_cessione" => $valore2->unita_misura_cessione);
@@ -160,7 +168,7 @@ if ($vuoto == 0):
         <!-- se urbanizzata non ho cessioni -->
         <?php if (!$values["area_urbanizzata"]): ?>
             <div class="left copri_tabella2 border_destra"> <!-- colonna7 -->
-                <div id="header-cessione" class="border_sotto grigio">Quantitˆ cessione</div>
+                <div id="header-cessione" class="border_sotto grigio">Quantit&agrave; cessione</div>
                 <div id="corpo-cessione">
                     <?php foreach ($dati_cessione as $chiave => $valore): ?>
                         <div class="blocco_tabella2"><?php echo   $valore['quantita_cessione'] ?></div>
@@ -193,7 +201,7 @@ if ($vuoto == 0):
     <table id="risultati" class="left">        
         <caption>Risultato stimato</caption>    
         <tr class="header-tabella1">
-            <td>Capacitˆ edificatoria calcolata</td>
+            <td>Capacit&agrave; edificatoria calcolata</td>
             <td><span id="v_capacita_edificatoria"><?php echo   $capacita_edificatoria ?></span></td>
             <td><?php echo   $u_capacita_edificatoria ?></td>
         </tr>
