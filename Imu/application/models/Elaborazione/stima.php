@@ -141,6 +141,7 @@ class Stima {
                     }
                     // prelevo il fattore conversione fc
                     $dati_u_tstima = $lonato_s_tstima->getFc($id_s_tstima);
+                    
                     foreach ($dati_u_tstima as $dati_u_tstima_riga) {
                         $fattore_conversione = $dati_u_tstima_riga->fattore_conversione;
                         $ret[2][$chiaveForm2]="fattore conversione: ". $fattore_conversione;
@@ -240,16 +241,20 @@ class Stima {
                     $fattore_incidenza_standard_qualità = (float) ($standard_pubblico_qualita / $fcspq);
                     $ret[12][$chiaveForm2] = "fattore incidenza std qualità: " . $fattore_incidenza_standard_qualità;
                     // se il tipo di stma è v faccio questo calcolo
+                    $ret['var'] = array($fattore_incidenza_standard,$costo_cessione_standard,$fattore_incidenza_viabilità, $costo_cessione_viabilità, $fattore_incidenza_standard_qualità, $valore_comprensativo_unitario);
                     $fattore_incidenza_calcolo_cessioni = (float) ($fattore_incidenza_standard * $costo_cessione_standard) +
                             (float) ($fattore_incidenza_viabilità * $costo_cessione_viabilità) +
                             (float) ($fattore_incidenza_standard_qualità * $valore_comprensativo_unitario);
                     //  throw new Exception ($fattore_incidenza_viabilità. " ". $fattore_incidenza_standard . " ". $fattore_incidenza_standard_qualità . " " . $fattore_incidenza_calcolo_cessioni);
                     $ret[13][$chiaveForm2] = "fattore incidenza calcolo cessioni: " . $fattore_incidenza_calcolo_cessioni;
                     // a seconda del tipo di stima
+                    $ret['tipo_stima'] = $tipo_stima;
                     if ($tipo_stima[0] == "v") {
                         // ho già i dati
                     } elseif ($tipo_stima[0] == "u") {
-                        $fattore_incidenza_calcolo_cessioni = $fattore_incidenza_calcolo_cessioni * $fattore_conversione;
+                    	$ret['fattore_incidenza_calcolo_cessioni_0'] = $fattore_incidenza_calcolo_cessioni;
+                    	$fattore_incidenza_calcolo_cessioni = $fattore_incidenza_calcolo_cessioni * $fattore_conversione;
+                        $ret['fattore_incidenza_calcolo_cessioni'] = $fattore_incidenza_calcolo_cessioni;
                     } else
                         throw new Exception('Errore in Stima.php: nel tipo di stima "v" o "u"');
 
@@ -260,12 +265,16 @@ class Stima {
                     $ret[15][$chiaveForm2] = "parte2 calcolo (1/pow((1+ frate),orizzonte_temporale)): " . (1 / pow((1 + $frate), $orizzonte_temporale));
                     $ret[16][$chiaveForm2] = "parte3 calclolo fattore incidenza calcolo cessioni: " . $fattore_incidenza_calcolo_cessioni;
                     $ret[17][$chiaveForm2] = "parte4 calclolo quota: " . Stima::correggiFloat($quote[$chiaveForm2]);
+                    
                 }
             }
             $stima+=$tstima;
             $ret[18][$chiaveForm2] = "stima per la quota singola: " . $tstima;
         }
         $ret[19] = "stima totale: ". round($stima);
+        
+		var_dump($ret);
+        
         return round($stima);
     }
 
