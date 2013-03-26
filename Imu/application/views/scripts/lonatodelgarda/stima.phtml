@@ -71,11 +71,11 @@ $stmt5 = $lonato_u_destammesse->filtroDestinazioniAmmesse($values['id_m_ambiti']
 // prelevo i valori di stmt5 e li metto in dati_cessione
 $i=0;
 foreach ($stmt5 as $chiave => $valore) {
-	echo $i;$i++;echo ": ".$valore["id_u_sdestinazioni"]."<br />";	
+	//echo $i;$i++;echo ": ".$valore["id_u_sdestinazioni"]."<br />";	
     $tabella_dati_cessione = $lonato_u_cessioni->getAll($step1["id_m_ambiti"], $valore["id_u_sdestinazioni"], $step1["id_u_modinterv"], $session->data_calcolo);	
     foreach ($tabella_dati_cessione as $chiave2 => $valore2) {
         //debug
-        echo $step1["id_m_ambiti"]. " ". $valore["id_u_sdestinazioni"] . "quota monetizzabile: ". $valore2->quota_monetizzabile . "chiave: " . $chiave2 . "<br/>";
+        //echo $step1["id_m_ambiti"]. " ". $valore["id_u_sdestinazioni"] . "quota monetizzabile: ". $valore2->quota_monetizzabile . "chiave: " . $chiave2 . "<br/>";
         $dati_cessione[$chiave] = array("quota_monetizzabile" => $valore2->quota_monetizzabile,
             "quantita_cessione" => $valore2->quantita_cessione,
             "unita_misura_cessione" => $valore2->unita_misura_cessione);

@@ -13,7 +13,7 @@ class Application_Model_DbTable_USambiti extends Application_Model_DbTable_Tabel
                     ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_macro_ambito)
                     ->where('data_inizio <= ?', $data)
                     ->where('data_fine > ? OR data_fine = \'0000-00-00\'', $data)
-                    ->order("id_u_sambiti");
+                    ->order("numero_subambito");
 
             $righe = $this->fetchAll($select);
             if ($righe)
