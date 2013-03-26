@@ -31,11 +31,9 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
         $.getJSON('http://<?php echo  $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT']?>/public/Ajax/search-subambiti', 
             { categoria: idMacroAmbito},
                   function(dataNorme){
-                    //console.log(dataNorme);
                     $("select[id='id_u_sambiti']").empty();
 
                     var arraySubAmbiti = dataNorme;
-					console.log(arraySubAmbiti);
                     if (arraySubAmbiti.length==1){
                         var options = '';
                         $.each(arraySubAmbiti, function(key, value){
@@ -126,7 +124,6 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
         $.getJSON('http://<?php echo  $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT']?>/public/Ajax/search-modalitaintervento', 
             { categoria: urbanizzato},
                   function(dataNorme){
-                    //console.log(dataNorme);
                     $("select[id='id_u_modinterv']").empty();
 
                     if (dataNorme.length==1){
@@ -138,7 +135,6 @@ $help_volumetria_predefinita = $this->help_volumetria_predefinita;
                     var arrayModalitaintervento = dataNorme;
 
                    $.each(arrayModalitaintervento, function(key, value){
-                       //console.log(value);
                        options += '<option value="' + value.id + '">' + value.descrizione + '</option>';                       
                    });           
                     $("select[id='id_u_modinterv']").html(options);

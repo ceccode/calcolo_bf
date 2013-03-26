@@ -81,15 +81,10 @@ width: 150px;
                  }
                  
                 $.post(url,data,function(resp){
-                	  console.log("good");
-                      console.log(data);
-                      console.log(resp);
                       if (resp.valid==true){
                         window.open("/public/Lonatodelgarda/stampa","_blank");
                         }else {
-                            console.log("bad");
                             $('input').each(function(){
-                                console.log(this);
                                 var formElementId = ($(this).parent().prev().find('label').attr('for'));                
                                 $("#"+formElementId).parent().find(".errors").remove();    
                                 $("#"+formElementId).parent().append(getErrorHtml(resp[formElementId],formElementId));                                
