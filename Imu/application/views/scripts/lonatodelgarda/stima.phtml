@@ -22,6 +22,7 @@ if (strtolower($etichetta) == "v3") {
 
     $u_capacita_edificatoria = 'm3';
     $u_valore_area_calcolata = 'Euro/m3';
+    
 } else {
 
     switch (strtolower($etichetta)) {
@@ -50,6 +51,12 @@ if (strtolower($etichetta) == "v3") {
             $u_capacita_edificatoria = 'm2Slp';
             $u_valore_area_calcolata = 'Euro/m2Slp';
             break;
+        //francesco
+        case "u3":
+          	$u_capacita_edificatoria = 'm2Slp';
+           	$u_valore_area_calcolata = 'Euro/m2Slp';
+           	break;            
+
         case "u4":
             $u_capacita_edificatoria = 'm2Slp';
             $u_valore_area_calcolata = 'Euro/m2Slp';
