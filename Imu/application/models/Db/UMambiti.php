@@ -57,7 +57,8 @@ class Application_Model_DbTable_UMambiti extends Application_Model_DbTable_Tabel
             $select = $this->select()
                     ->where('data_inizio <= ?', $data)
                     ->where('data_fine > ? OR data_fine = \'0000-00-00\'', $data)
-                    ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_u_mambiti);
+                    ->where('record_attivo = 1 AND id_u_mambiti = ?', $id_u_mambiti)
+                    ->order("numero_ambito");
 
             $righe = $this->fetchAll($select);
 
